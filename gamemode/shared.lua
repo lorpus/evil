@@ -10,6 +10,14 @@ dbg.print = function(...) if Evil.Debug then print(unpack(...)) end end
 local function include_cl(x) if SERVER then AddCSLuaFile(x) else include(x) end end
 local function include_sh(x) if SERVER then AddCSLuaFile(x) end include(x) end
 local function include_sv(x) if SERVER then include(x) end end
+local function include_md(x)
+    include_sh(x .. "/shared.lua")
+    include_cl(x .. "/cl_init.lua")
+    include_sv(x .. "/init.lua")
+end
+
+include_md "network"
+include_md "roundsystem"
 
 // http://lua-users.org/wiki/SimpleLuaClasses
 function class(base, init)
