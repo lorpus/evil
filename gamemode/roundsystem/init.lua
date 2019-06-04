@@ -6,6 +6,10 @@ function Round:SetEndTime(endtime)
     SetGlobalFloat("RoundEndTime", endtime)
 end
 
+function Round:AddTime(time)
+    SetGlobalFloat("RoundEndTime", GetGlobalFloat("RoundEndTime") + time)
+end
+
 function Round:CanStart()
     if #player.GetAll() >= 2 then
         return true
