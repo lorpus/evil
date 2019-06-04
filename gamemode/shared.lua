@@ -16,6 +16,7 @@ local function include_md(x)
     include_sv(x .. "/init.lua")
 end
 
+include_sh "utils.lua"
 include_md "network"
 include_md "roundsystem"
 
