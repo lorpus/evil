@@ -3,12 +3,12 @@ eutil = eutil or {}
 function eutil.GetLivingPlayers(enTeam)
     assert(nTeam != nil)
 
-    local nCount = 0
+    local oRet = {}
     for k, v in pairs(player.GetAll()) do
         if v:Alive() and v:Team() == enTeam then
-            nCount = nCount + 1
+            table.insert(oRet, v)
         end
     end
 
-    return nCount
+    return oRet
 end
