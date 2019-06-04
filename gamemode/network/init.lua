@@ -2,6 +2,7 @@ util.AddNetworkString(Network.Id)
 
 local function StartNotify(str)
     net.Start(Network.Id)
+    net.WriteInt(N_NOTIFY, 4)
     net.WriteString(str)
 end
 
