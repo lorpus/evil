@@ -1,8 +1,10 @@
 AddCSLuaFile()
 
-Evil = Evil or {}
+Evil = Evil or {
+    Cfg = {}
+}
 include("config.lua")
-ApplyConfiguration(Evil)
+ApplyConfiguration(Evil.Cfg)
 
 dbg = {}
 dbg.print = function(...) if Evil.Debug then print(unpack({...})) end end
