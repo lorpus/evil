@@ -26,7 +26,7 @@ function SWEP:PrimaryAttack()
 
     local ent = tr.Entity
     if not IsValid(ent) or not ent:IsPlayer() then return end
-    if not ent:Team() == TEAM_HUMAN or not ent:Alive() then reurn end
+    if not ent:Team() == TEAM_HUMAN or not ent:Alive() then return end
 
     local info = DamageInfo()
     info:SetAttacker(self.Owner) // :Kill() doesnt carry the attacker
@@ -35,4 +35,4 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:Reyload() end
-function SWEP:SecondaryAttack()
+function SWEP:SecondaryAttack() end
