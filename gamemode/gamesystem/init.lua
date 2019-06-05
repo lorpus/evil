@@ -2,8 +2,21 @@ function Game:SetBoss(pEnt)
     SetGlobalEntity("EvilBoss", pEnt)
 end
 
+function Game:SetGametype(strGametype)
+    SetGlobalString("EvilGametype", strGametype)
+end
+
 function Game:SetProfile(strProfile)
     SetGlobalString("EvilProfile", strProfile)
+end
+
+function Game:ResetPlayers()
+    for _, ply in pairs(player.GetAll()) do
+        ply:SetTeam(TEAM_SPEC)
+        ply:StripWeapons()
+        ply:SetWalkSpeed(Evil.Cfg.PlayerWalkspeed)
+        ply:SetRunSpeed(Evil.Cfg.PlayerRunspeed)
+    end
 end
 
 function Game:SetupBoss(pEnt)
@@ -45,12 +58,19 @@ function Game:SetupHuman(pEnt)
     end)
 end
 
-function Game:StartGameType(type)
+function Game:StartGametype(strGametype)
+    local info = Game.Gametypes[strGametype]
 
+    if info.start then
+        info.start()
+    end
 end
 
 function Game:PickAndStartGameType()
+    local key = table.Random(table.GetKeys(Game.Gametypes))
 
+    Game:SetGametype(key)
+    Game:StartGametype(key)
 end
 
 hook.Add("KeyPress", "bossattack", function(ply, key)

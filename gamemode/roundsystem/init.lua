@@ -36,21 +36,28 @@ function Round:Startup()
 end
 
 function Round:StartGame()
-    Round:SetRound(ROUND_PLAYING)
     Round:SetEndTime(CurTime() + 300)
     game.CleanUpMap()
+
+    Game:ResetPlayers()
 
     Game:PickAndSetupBoss()
     Game:PickAndStartGameType()
 
     for k, v in pairs(player.GetAll()) do
-        if v:Team() == TEAM_BOSS then continue end
+        if Game:GetBoss() == v then continue end
 
         Game:SetupHuman(v)
     end
+
+    Round:SetRound(ROUND_PLAYING)
 end
 
 function Round:End(strReason)
+    if Round:GetRound() != ROUND_PLAYING then
+        return false
+    end
+
     Round:SetRound(ROUND_POST)
     dbg.print("Round:End()", strReason)
     
@@ -63,11 +70,17 @@ function Round:End(strReason)
         for _, ply in pairs(eutil.GetLivingPlayers(TEAM_HUMAN)) do
             ply:Kill()
         end
+    elseif strReason == "admin" then
+        Network:NotifyAll("An admin has forcefully ended the game")
+    else
+        Network:NotifyAll("The game has been ended for an unknown reason (likely manually)")
     end
 
     timer.Simple(5, function()
         Round:StartGame()
     end)
+
+    return true
 end
 
 hook.Add("Think", "RoundThink", function()
