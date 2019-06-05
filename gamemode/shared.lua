@@ -21,6 +21,8 @@ end
 include_sh "utils.lua"
 include_sh "sh_player_ext.lua"
 include_cl "textchat/cl_init.lua"
+
+include_md "admin"
 include_md "network"
 include_md "gamesystem"
 include_md "roundsystem"
