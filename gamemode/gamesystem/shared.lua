@@ -18,5 +18,9 @@ function Game:GetBoss()
 end
 
 function Game:GetProfile()
+    return GetGlobalString("EvilProfile")
+end
+
+function Game:GetProfileInfo()
     return Evil.Bosses[GetGlobalString("EvilProfile")]
 end
