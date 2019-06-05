@@ -23,6 +23,7 @@ function Round:WaitForPlayers()
     timer.Create("RoundWaitPlayers", 30, 0, function()
         if Round:CanStart() then
             Round:StartGame()
+            print("nigga")
             timer.Remove("RoundWaitPlayers")
         else
             Network:NotifyAll("Waiting for players...")
@@ -32,6 +33,41 @@ end
 
 function Round:Startup()
     Round:WaitForPlayers()
+end
+
+function Round:StartGame()
+    Round:SetRound(ROUND_PLAYING)
+    Round:SetEndTime(CurTime() + 300)
+    game.CleanUpMap()
+
+    Game:PickAndSetupBoss()
+    Game:PickAndStartGameType()
+
+    for k, v in pairs(player.GetAll()) do
+        if v:Team() == TEAM_BOSS then continue end
+
+        Game:SetupHuman(v)
+    end
+end
+
+function Round:End(strReason)
+    Round:SetRound(ROUND_POST)
+    dbg.print("Round:End()", strReason)
+    
+    if strReason == "bosswin" then
+        Network:NotifyAll("The boss has won!")
+    elseif strReason == "bossdead" then
+        Network:NotifyAll("The boss has mysteriously died!")
+    elseif strReason == "timeup" then
+        Network:NotifyAll("The boss has won!")
+        for _, ply in pairs(eutil.GetLivingPlayers(TEAM_HUMAN)) do
+            ply:Kill()
+        end
+    end
+
+    timer.Simple(5, function()
+        Round:StartGame()
+    end)
 end
 
 hook.Add("Think", "RoundThink", function()
@@ -44,7 +80,11 @@ hook.Add("Think", "RoundThink", function()
             return Round:End("timeup")
         end
 
-        
+        if #eutil.GetLivingPlayers(TEAM_HUMAN) == 0 then
+            Round:End("bosswin")
+        elseif #eutil.GetLivingPlayers(TEAM_BOSS) == 0 then
+            Round:End("bossdead")
+        end
     end
 end)
 
@@ -58,14 +98,15 @@ hook.Add("PlayerDeath", "RoundPlayerDeath", function(ply)
             return
         end
 
-        ply:StartSpectating()
+        // ply:StartSpectating()
     end)
 end)
 
 hook.Add("PlayerSpawn", "InitialSpawnButNotQuite", function(ply)
-    if not ply:GetNWBool("HasSpawned")
+    if not ply:GetNWBool("HasSpawned") then
         ply:SetTeam(TEAM_SPEC)
         ply:KillSilent()
         ply:SetNWBool("HasSpawned", true)
+        // ply:StartSpectating()
     end
 end)

@@ -1,7 +1,7 @@
 eutil = eutil or {}
 
 function eutil.GetLivingPlayers(enTeam)
-    assert(nTeam != nil)
+    assert(enTeam != nil)
 
     local oRet = {}
     for k, v in pairs(player.GetAll()) do

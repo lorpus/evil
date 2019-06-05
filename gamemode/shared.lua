@@ -5,7 +5,7 @@ include("config.lua")
 ApplyConfiguration(Evil)
 
 dbg = {}
-dbg.print = function(...) if Evil.Debug then print(unpack(...)) end end
+dbg.print = function(...) if Evil.Debug then print(unpack({...})) end end
 
 local function include_cl(x) if SERVER then AddCSLuaFile(x) else include(x) end end
 local function include_sh(x) if SERVER then AddCSLuaFile(x) end include(x) end
@@ -17,8 +17,17 @@ local function include_md(x)
 end
 
 include_sh "utils.lua"
+include_sh "sh_player_ext.lua"
+include_cl "textchat/cl_init.lua"
 include_md "network"
+include_md "gamesystem"
 include_md "roundsystem"
+
+function GM:Initialize()
+    if SERVER then
+        Round:Initialize()
+    end
+end
 
 // http://lua-users.org/wiki/SimpleLuaClasses
 function class(base, init)

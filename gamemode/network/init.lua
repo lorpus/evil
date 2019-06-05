@@ -15,3 +15,10 @@ function Network:NotifyAll(str)
     StartNotify(str)
     net.Broadcast()
 end
+
+function Network:SharedHook(name)
+    net.Start(Network.Id)
+        net.WriteInt(N_HOOK, 4)
+        net.WriteString(name)
+    net.Broadcast()
+end

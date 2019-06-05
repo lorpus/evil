@@ -1,0 +1,25 @@
+local PLAYER = FindMetaTable("Player")
+
+local DefaultModels = {
+	"models/player/Group01/Male_01.mdl",
+	"models/player/Group01/Male_02.mdl",
+	"models/player/Group01/Male_03.mdl",
+	"models/player/Group01/Male_04.mdl",
+	"models/player/Group01/Male_05.mdl",
+	"models/player/Group01/Male_06.mdl",
+	"models/player/Group01/Male_07.mdl",
+	"models/player/Group01/Male_08.mdl",
+	"models/player/Group01/Male_09.mdl",
+	"models/player/Group01/Female_01.mdl",
+	"models/player/Group01/Female_02.mdl",
+	"models/player/Group01/Female_03.mdl",
+	"models/player/Group01/Female_04.mdl",
+	"models/player/Group01/Female_06.mdl"
+}
+for _, x in pairs(DefaultModels) do util.PrecacheModel(x) end
+
+if SERVER then
+    function PLAYER:SetDefaultModel()
+        self:SetModel(DefaultModels[math.random(#DefaultModels)])
+    end
+end
