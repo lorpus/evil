@@ -30,7 +30,7 @@ function Game:SetupBoss(pEnt)
 end
 
 function Game:PickAndSetupBoss()
-    local ply = table.Random(player.GetHumans())
+    local ply = table.Random(player.GetAll())
     Game:SetupBoss(ply)
 end
 
