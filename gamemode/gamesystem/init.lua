@@ -1,3 +1,6 @@
+AddCSLuaFile("sh_bosses.lua")
+AddCSLuaFile("sh_games.lua")
+
 function Game:SetBoss(pEnt)
     SetGlobalEntity("EvilBoss", pEnt)
 end
