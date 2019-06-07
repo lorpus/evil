@@ -18,6 +18,8 @@ local function include_md(x)
     include_sv(x .. "/init.lua")
 end
 
+include_sh("maps/" .. game.GetMap() .. ".lua")
+
 include_sh "utils.lua"
 include_sh "sh_player_ext.lua"
 include_cl "textchat/cl_init.lua"
