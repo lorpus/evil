@@ -1,4 +1,5 @@
 Network = Network or {
     Id = "EvilNetwork"
 }
-N_NOTIFY = 0
+N_NOTIFY    = 0
+N_HOOK      = 1
