@@ -19,3 +19,21 @@ function Admin:AdminMessage(target, msg)
         Network:Notify(target, msg)
     end
 end
+
+function Admin:FindTarget(str)
+    str = str:lower()
+
+    local targets = {}
+
+    for _, ply in pairs(player.GetAll()) do
+        if ply:Nick():lower() == str then
+            return {ply}
+        end
+
+        if ply:Nick():lower():find(str) then
+            table.insert(targets, ply)
+        end
+    end
+
+    return targets
+end
