@@ -26,6 +26,7 @@ include_cl "textchat/cl_init.lua"
 
 include_md "admin"
 include_md "network"
+include_md "stamina"
 include_md "gamesystem"
 include_md "roundsystem"
 

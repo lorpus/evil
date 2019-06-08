@@ -24,3 +24,9 @@ end
 function Game:GetProfileInfo()
     return Evil.Bosses[GetGlobalString("EvilProfile")]
 end
+
+hook.Add("ShouldCheckStamina", "nobossstamina", function(ply)
+    if ply:Team() == TEAM_BOSS then
+        return false
+    end
+end)
