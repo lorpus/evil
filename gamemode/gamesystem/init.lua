@@ -46,7 +46,14 @@ function Game:SetupBoss(pEnt)
 end
 
 function Game:PickAndSetupBoss()
-    local ply = table.Random(player.GetAll())
+    local ply
+    if IsValid(Evil._NEXTBOSS) then
+        ply = Evil._NEXTBOSS
+        Evil._NEXTBOSS = nil
+    else
+        ply = table.Random(player.GetAll())
+    end
+
     Game:SetupBoss(ply)
 end
 
