@@ -1,10 +1,4 @@
-Stamina = Stamina or {
-    maxstamina  = 100,
-    loserate    = 1 / 2,
-    gainrate    = 1 / 3,
-    runspeed    = Evil.Cfg.PlayerRunspeed,
-    walkspeed   = Evil.Cfg.PlayerWalkspeed
-}
+Stamina = Stamina or Evil.Cfg.Stamina
 
 local function moving(ply, cmd)
     return  cmd:KeyDown(IN_FORWARD) or

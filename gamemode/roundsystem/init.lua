@@ -23,7 +23,6 @@ function Round:WaitForPlayers()
     timer.Create("RoundWaitPlayers", 30, 0, function()
         if Round:CanStart() then
             Round:StartGame()
-            print("nigga")
             timer.Remove("RoundWaitPlayers")
         else
             Network:NotifyAll("Waiting for players...")
