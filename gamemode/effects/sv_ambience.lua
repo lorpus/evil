@@ -6,6 +6,8 @@ Ambience = Ambience or {
 hook.Add("InitPostEntity", "Ambience", function()
     if not Ambience.Enabled then return end
     
+    game.ConsoleCommand("sv_skyname painted\n")
+
     local skypaint = ents.FindByClass("env_skypaint")[1]
     if not IsValid(skypaint) then
         skypaint = ents.Create("env_skypaint")
