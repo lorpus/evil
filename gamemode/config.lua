@@ -6,8 +6,8 @@ local configuration = {
 
     Stamina = {
         maxstamina  = 100, // you shouldnt really need to change this
-        loserate    = 1 / 2, // how fast to drain stamina while sprinting
-        gainrate    = 1 / 3, // how fast to regain stamina when not sprinting
+        loserate    = 1 / 5, // how fast to drain stamina while sprinting
+        gainrate    = 1 / 4, // how fast to regain stamina when not sprinting
         runspeed    = 320,
         walkspeed   = 200
     },
