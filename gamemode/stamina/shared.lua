@@ -22,6 +22,10 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         return
     end
 
+    if cmd:KeyDown(IN_JUMP) and not ply:KeyDownLast(IN_JUMP) and ply:OnGround() and flStamina > 0 then
+        flStamina = flStamina - Stamina.jumplosestamina
+    end
+
     if cmd:KeyDown(IN_SPEED) and moving(ply, cmd) then
         if flStamina > 0 then
             flStamina = flStamina - Stamina.loserate
@@ -37,8 +41,10 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
 
     if flStamina <= 0 then
         ply:SetRunSpeed(Stamina.walkspeed)
+        ply:SetJumpPower(Stamina.staminajump)
     else
         ply:SetRunSpeed(Stamina.runspeed)
+        ply:SetJumpPower(Stamina.normaljump)
     end
 
     if flStamina != flOldStamina and SERVER then

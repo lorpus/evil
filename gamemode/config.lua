@@ -8,8 +8,11 @@ local configuration = {
         maxstamina  = 100, // you shouldnt really need to change this
         loserate    = 1 / 5, // how fast to drain stamina while sprinting
         gainrate    = 1 / 4, // how fast to regain stamina when not sprinting
-        runspeed    = 320,
-        walkspeed   = 200
+        runspeed    = 320, // the speed the player should have when sprinting if they have stamina
+        walkspeed   = 200, // the speed the player should have when sprinting if they don't have stamina
+        normaljump  = 160, // the jump power the player should have when they have stamina
+        staminajump = 80, // the jump power the player should have when they don't have stamina
+        jumplosestamina = 5 // how much stamina the player should lose on jump
     },
 
     PlayerWalkspeed = 200,
