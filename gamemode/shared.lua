@@ -23,6 +23,7 @@ include_sh("maps/" .. game.GetMap() .. ".lua")
 include_sh "utils.lua"
 include_sh "sh_player_ext.lua"
 include_cl "textchat/cl_init.lua"
+include_sv "effects/sv_ambience.lua"
 
 include_md "admin"
 include_md "network"
