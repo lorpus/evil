@@ -34,5 +34,5 @@ function SWEP:PrimaryAttack()
     ent:TakeDamageInfo(info)
 end
 
-function SWEP:Reyload() end
+function SWEP:Reload() end
 function SWEP:SecondaryAttack() end
