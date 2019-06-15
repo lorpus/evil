@@ -109,42 +109,49 @@ function guitest()
     overlay:SetSize(sw, sh)
     overlay:SetVisible(false)
     overlay.ClosingFinished = false
-    local alpha = 0
+    overlay.alpha = 0
+
     function overlay:Paint(w, h)
+        draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, self.alpha))
+    end
+
+    timer.Create("13/50", 0, 0, function()
+        if not overlay:IsVisible() then return end
+        local w, h = overlay:GetWide(), overlay:GetTall()
+        local alpha = overlay.alpha
+
         if help.Clicked and not help.Done then
-            if alpha == 255 and not self.ClosingFinished then self.ClosingFinished = true end
-            if alpha == 0 and self.ClosingFinished then 
+            if alpha == 255 and not overlay.ClosingFinished then overlay.ClosingFinished = true end
+            if alpha == 0 and overlay.ClosingFinished then 
                 exit:SetPos(CenterX, CenterY + (sh - sh / 1.5)) 
                 help.Done = true 
-                self.ClosingFinished = false
+                overlay.ClosingFinished = false
                 exit:SetVisible(true)
-                self:SetVisible(false) 
+                overlay:SetVisible(false) 
             end
 
-            if self.ClosingFinished then
-                alpha = math.Approach(alpha, 0, 0.5)
-                draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, alpha))
+            if overlay.ClosingFinished then
+                overlay.alpha = math.Approach(alpha, 0, 2)
                 return
             end
 
-            alpha = math.Approach(alpha, 255, 0.5)
-            draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, alpha))
+            overlay.alpha = math.Approach(alpha, 255, 2)
             return
         end
 
         if not frame.Closing then return end
 
-        if alpha == 255 and not self.ClosingFinished then self.ClosingFinished = true help.Clicked = false end
-        if alpha == 0 and self.ClosingFinished then frame:Remove() end
+        if alpha == 255 and not overlay.ClosingFinished then overlay.ClosingFinished = true if help.Clicked then help.Clicked = false end end
+        if alpha == 0 and overlay.ClosingFinished then timer.Destroy("13/50") frame:Remove() end
 
-        if self.ClosingFinished then
-            alpha = math.Approach(alpha, 0, 0.5)
-            draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, alpha))
+        if overlay.ClosingFinished then
+            overlay.alpha = math.Approach(alpha, 0, 2)
             return
         end
-        alpha = math.Approach(alpha, 255, 0.5)
-        draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, alpha))
-    end
+        overlay.alpha = math.Approach(alpha, 255, 2)
+    end)
+
+
 end
 
 hook.Add("HUDPaint", "OnloadGUIInit", function()
