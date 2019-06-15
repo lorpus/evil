@@ -12,3 +12,7 @@ function eutil.GetLivingPlayers(enTeam)
 
     return oRet
 end
+
+function eutil.Percent(p)
+    return math.random() <= p
+end

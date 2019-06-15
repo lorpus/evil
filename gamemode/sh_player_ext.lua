@@ -23,3 +23,11 @@ if SERVER then
         self:SetModel(DefaultModels[math.random(#DefaultModels)])
     end
 end
+
+function PLAYER:IsHuman()
+	return self:Team() == TEAM_HUMAN
+end
+
+function PLAYER:IsBoss()
+	return self:Team() == TEAM_BOSS
+end
