@@ -22,6 +22,8 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         return
     end
 
+    if not ply:Alive() then return end
+
     if cmd:KeyDown(IN_JUMP) and not ply:KeyDownLast(IN_JUMP) and ply:OnGround() and flStamina > 0 then
         flStamina = flStamina - Stamina.jumplosestamina
     end
