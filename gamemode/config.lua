@@ -21,7 +21,9 @@ local configuration = {
     },
 
     Flashlight = {
-        UseProjectedTexture = true // uses the ProjectedTexture flashlight instead of the DynamicLight flashlight
+        UseProjectedTexture = true, // uses the ProjectedTexture flashlight instead of the DynamicLight flashlight
+        FlashlightDistance = 1024, // ProjectedTexture only: where the ProjectedTexture ends
+        FizzleChance = 0.0001 // probability of a players flashlight flickering out
     },
 
     PlayerWalkspeed = 200,

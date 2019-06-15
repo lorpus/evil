@@ -12,7 +12,7 @@ end)
 hook.Add("Think", "EvilFlashlightFizzle", function()
     for _, ply in pairs(player.GetAll()) do
         if ply:GetNWBool("flashlight") then
-            if eutil.Percent(0.0003) then
+            if eutil.Percent(Evil.Cfg.Flashlight.FizzleChance) then
                 ply:SetNWBool("flashlight", false)
                 ply:EmitSound("weapons/physcannon/superphys_small_zap1.wav", 125)
             end
