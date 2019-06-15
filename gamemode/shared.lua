@@ -1,5 +1,7 @@
 AddCSLuaFile()
 
+GM.Name = "Evil"
+
 Evil = Evil or {
     Cfg = {}
 }
