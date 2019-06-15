@@ -12,7 +12,7 @@ surface.CreateFont("ebilfontsmaller", {
 
 local sTitle = Evil.Cfg.MainMenu.TitleText
 local sHelp = Evil.Cfg.MainMenu.HelpText
-
+local nFadeSpeed = 5
 
 function guitest()
     
@@ -131,11 +131,11 @@ function guitest()
             end
 
             if overlay.ClosingFinished then
-                overlay.alpha = math.Approach(alpha, 0, 2)
+                overlay.alpha = math.Approach(alpha, 0, nFadeSpeed)
                 return
             end
 
-            overlay.alpha = math.Approach(alpha, 255, 2)
+            overlay.alpha = math.Approach(alpha, 255, nFadeSpeed)
             return
         end
 
@@ -145,10 +145,10 @@ function guitest()
         if alpha == 0 and overlay.ClosingFinished then timer.Destroy("13/50") frame:Remove() end
 
         if overlay.ClosingFinished then
-            overlay.alpha = math.Approach(alpha, 0, 2)
+            overlay.alpha = math.Approach(alpha, 0, nFadeSpeed)
             return
         end
-        overlay.alpha = math.Approach(alpha, 255, 2)
+        overlay.alpha = math.Approach(alpha, 255, nFadeSpeed)
     end)
 
 
