@@ -20,6 +20,10 @@ local configuration = {
         jumplosestamina = 5 // how much stamina the player should lose on jump
     },
 
+    Flashlight = {
+        UseProjectedTexture = true // uses the ProjectedTexture flashlight instead of the DynamicLight flashlight
+    },
+
     PlayerWalkspeed = 200,
     PlayerRunspeed  = 320
 }

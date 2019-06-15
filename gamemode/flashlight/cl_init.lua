@@ -1,5 +1,5 @@
 local function RenderUserFlashlight(ply)
-    if PROJECTEDTEXTURE then
+    if Evil.Cfg.Flashlight.UseProjectedTexture then
         if not ply.EvilFlashlight or not ply.EvilFlashlight:IsValid() then
             local light = ProjectedTexture()
             light:SetTexture("effects/flashlight/soft")
