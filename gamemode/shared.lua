@@ -26,6 +26,7 @@ include_cl "textchat/cl_init.lua"
 include_sv "effects/sv_ambience.lua"
 include_cl "cl_gui.lua"
 
+include_md "flashlight"
 include_md "admin"
 include_md "network"
 include_md "stamina"
