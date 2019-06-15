@@ -4,6 +4,11 @@ AddCSLuaFile()
 local configuration = {
     Debug = true,    // set to true to enable debugging and lots of verbosity
 
+    MainMenu = {
+        TitleText = "Evil",
+        HelpText = "Placeholder\nPlaceholder\nPlaceholder"        
+    },
+
     Stamina = {
         maxstamina  = 100, // you shouldnt really need to change this
         loserate    = 1 / 5, // how fast to drain stamina while sprinting

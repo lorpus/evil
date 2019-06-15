@@ -10,17 +10,17 @@ surface.CreateFont("ebilfontsmaller", {
     outline = true
 })
 
-local sHelp = [[
-Placeholder
-]]
+local sTitle = Evil.Cfg.MainMenu.TitleText
+local sHelp = Evil.Cfg.MainMenu.HelpText
 
-local sTitle = "Evil"
 
 function guitest()
     
     local sw, sh = ScrW(), ScrH()
     frame = vgui.Create("DFrame")
-    local Overlay = vgui.Create("DPanel", frame)
+    local overlay = vgui.Create("DPanel", frame)
+    local help = vgui.Create("DButton", frame)
+    local exit = vgui.Create("DButton", frame)
 
     frame:SetSize(sw, sh)
     frame:SetDraggable(false)
@@ -30,7 +30,17 @@ function guitest()
     frame.Closing = false
 
     function frame:Paint(w, h)
-        if Overlay.ClosingFinished then return end
+
+        if overlay.ClosingFinished or help.Done then 
+            if help.Clicked then
+                draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0))
+                surface.SetFont("ebilfontsmaller")
+                local TxtW, TxtH = surface.GetTextSize(sHelp)
+                draw.DrawText("NIGGER NGIGER EIGANSDDIGGNASD", "ebilfontsmaller", w / 2, h / 2 - TxtH / 2, color_white, TEXT_ALIGN_CENTER)
+            end
+            return 
+        end
+
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0))
 
         // shittitle
@@ -45,10 +55,10 @@ function guitest()
         draw.DrawText(sHelp, "ebilfontsmaller", w / 2, h / 2 - TxtH / 2, color_white, TEXT_ALIGN_CENTER)
     end
 
-    local help = vgui.Create("DButton", frame)
+    
     help:SetSize(ScreenScale(50), ScreenScale(25))
-    local CenterX, CenterY = ((sw / 2) - (help:GetWide() / 2)), ((sh / 2) - (help:GetTall() / 2))
-    help:SetPos(CenterX - help:GetWide(), CenterY + (sh - sh / 1.5))
+    local centerX, centerY = ((sw / 2) - (help:GetWide() / 2)), ((sh / 2) - (help:GetTall() / 2))
+    help:SetPos(centerX - help:GetWide(), centerY + (sh - sh / 1.5))
     help:SetText("")
 
     function help:Paint(w, h)
@@ -62,14 +72,14 @@ function guitest()
         draw.DrawText("Help", "ebilfontsmaller", w / 2 - TxtW / 2, h / 2 - TxtH / 2, Color(255,255,255,255))
     end
 
-    local exit = vgui.Create("DButton", frame)
     exit:SetSize(ScreenScale(50), ScreenScale(25))
     local CenterX, CenterY = ((sw / 2) - (exit:GetWide() / 2)), ((sh / 2) - (exit:GetTall() / 2))
     exit:SetPos(CenterX + exit:GetWide(), CenterY + (sh - sh / 1.5))
     exit:SetText("")
     
     function exit:Paint(w, h)
-        if frame.Closing then self:Remove() end
+        if help.Clicked and not help.Done then self:SetVisible(false) end
+
         local color = ((self:IsHovered() and Color(50, 50, 50)) or Color(0, 0, 0))
         draw.RoundedBox(0, 0, 0, w, h, color)
         surface.SetDrawColor(255, 255, 255)
@@ -79,20 +89,52 @@ function guitest()
         draw.DrawText("Exit", "ebilfontsmaller", w / 2 - TxtW / 2, h / 2 - TxtH / 2, Color(255,255,255,255))
     end
 
-    function exit:DoClick()
-        frame.Closing = true
-        Overlay:SetVisible(true)
-        frame:SetMouseInputEnabled(false)
-        frame:SetKeyboardInputEnabled(false)    
+    // das do click functions (better to have them together to understand whats happening)
+
+    function help:DoClick()
+        self.Clicked = true
+        self.Done = false
+        overlay:SetVisible(true)
+        self:SetVisible(false)
     end
 
-    Overlay:SetSize(sw, sh)
-    Overlay:SetVisible(false)
-    Overlay.ClosingFinished = false
+    function exit:DoClick()
+        frame.Closing = true
+        overlay:SetVisible(true)
+        frame:SetMouseInputEnabled(false)
+        frame:SetKeyboardInputEnabled(false)    
+        self:Remove()
+    end
+
+    overlay:SetSize(sw, sh)
+    overlay:SetVisible(false)
+    overlay.ClosingFinished = false
     local alpha = 0
-    function Overlay:Paint(w, h)
-        if !frame.Closing then return end
-        if alpha == 255 and !self.ClosingFinished then self.ClosingFinished = true end
+    function overlay:Paint(w, h)
+        if help.Clicked and not help.Done then
+            if alpha == 255 and not self.ClosingFinished then self.ClosingFinished = true end
+            if alpha == 0 and self.ClosingFinished then 
+                exit:SetPos(CenterX, CenterY + (sh - sh / 1.5)) 
+                help.Done = true 
+                self.ClosingFinished = false
+                exit:SetVisible(true)
+                self:SetVisible(false) 
+            end
+
+            if self.ClosingFinished then
+                alpha = math.Approach(alpha, 0, 0.5)
+                draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, alpha))
+                return
+            end
+
+            alpha = math.Approach(alpha, 255, 0.5)
+            draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, alpha))
+            return
+        end
+
+        if not frame.Closing then return end
+
+        if alpha == 255 and not self.ClosingFinished then self.ClosingFinished = true help.Clicked = false end
         if alpha == 0 and self.ClosingFinished then frame:Remove() end
 
         if self.ClosingFinished then
