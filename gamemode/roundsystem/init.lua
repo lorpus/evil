@@ -53,7 +53,7 @@ function Round:StartGame()
 end
 
 function Round:End(strReason)
-    if Round:GetRound() != ROUND_PLAYING then
+    if not Round:IsPlaying() then
         return false
     end
 
@@ -83,11 +83,11 @@ function Round:End(strReason)
 end
 
 hook.Add("Think", "RoundThink", function()
-    if not Round:CanStart() and Round:GetRound() != ROUND_WAITING then
+    if not Round:CanStart() and not Round:IsWaiting() then
         return Round:WaitForPlayers()
     end
 
-    if Round:GetRound() == ROUND_PLAYING then
+    if Round:IsPlaying() then
         if CurTime() > Round:GetEndTime() then
             return Round:End("timeup")
         end

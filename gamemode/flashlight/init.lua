@@ -1,6 +1,6 @@
 hook.Add("StartCommand", "EvilFlashlight", function(ply, cmd)
     if cmd:GetImpulse() != 100 then return end
-    if Round:GetRound() != ROUND_PLAYING or not ply:Alive() then return end
+    if not Round:IsPlaying() or not ply:Alive() then return end
     if not ply:Team() == TEAM_HUMAN then return end
     if not ply:GetNWBool("CanUseEvilFlashlight") then return end
 

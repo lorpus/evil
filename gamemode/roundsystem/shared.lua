@@ -22,6 +22,18 @@ function Round:GetRoundString()
     return self:ToStr(self:GetRound())
 end
 
+function Round:IsWaiting()
+    return Round:GetRound() == ROUND_WAITING
+end
+
+function Round:IsPlaying()
+    return Round:GetRound() == ROUND_PLAYING
+end
+
+function Round:IsPost()
+    return Round:GetRound() == ROUND_POST
+end
+
 function Round:Initialize()
     if SERVER then
         Round:WaitForPlayers()
