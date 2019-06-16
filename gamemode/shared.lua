@@ -27,6 +27,7 @@ include_sh "utils.lua"
 include_sh "sh_player_ext.lua"
 include_cl "textchat/cl_init.lua"
 include_sv "effects/sv_ambience.lua"
+include_sh "effects/sh_runanimation.lua"
 include_cl "cl_gui.lua"
 
 include_md "flashlight"
