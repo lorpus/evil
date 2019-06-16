@@ -8,3 +8,10 @@ hook.Add("CalcView", "cameraview", function(ply, vOrigin, qAngles, flFov, flZnea
         }
     end
 end)
+
+hook.Add("EvilPlayerKilled", "OnPlayerKilled", function(victim)
+    local info = Game:GetProfileInfo()
+    if info.killhook then
+        info.killhook(victim)
+    end
+end)

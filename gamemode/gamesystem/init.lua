@@ -83,6 +83,25 @@ function Game:PickAndStartGameType()
     Game:StartGametype(key)
 end
 
+hook.Add("DoPlayerDeath", "EvilPlayerKilledHook", function(victim, inflictor, attacker)
+    dbg.print(victim, attacker)
+    if type(attacker) == "CTakeDamageInfo" then
+        if IsValid(attacker:GetAttacker()) and not attacker:GetAttacker():IsBoss() then
+            return
+        elseif not IsValid(attacker:GetAttacker()) then
+            return
+        end
+    else
+        return
+    end
+
+    Network:SendHook("EvilPlayerKilled", victim)
+    local info = Game:GetProfileInfo()
+    if info.killhook then
+        info.killhook(victim)
+    end
+end)
+
 hook.Add("KeyPress", "bossattack", function(ply, key)
     if ply:Team() == TEAM_BOSS then
         if key == IN_ATTACK2 then
