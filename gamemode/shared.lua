@@ -3,7 +3,8 @@ AddCSLuaFile()
 GM.Name = "Evil"
 
 Evil = Evil or {
-    Cfg = {}
+    Cfg = {},
+    Debug = true
 }
 include("config.lua")
 ApplyConfiguration(Evil.Cfg)
