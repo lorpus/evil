@@ -22,26 +22,28 @@ function Game:ResetPlayers()
     end
 end
 
-function Game:SetupBoss(pEnt)
+function Game:SetupBoss(ply)
     local key = table.Random(table.GetKeys(Evil.Bosses))
     local info = Evil.Bosses[key]
     
     Game:SetProfile(key)
-    Game:SetBoss(pEnt)
+    Game:SetBoss(ply)
     
-    pEnt:SetTeam(TEAM_BOSS)
-    pEnt:SetModel(info.model)
-    pEnt:SetRunSpeed(info.runspeed)
-    pEnt:SetWalkSpeed(info.walkspeed)
-    pEnt:Spawn()
+    ply:SetTeam(TEAM_BOSS)
+    ply:SetModel(info.model)
+    ply:SetRunSpeed(info.runspeed)
+    ply:SetWalkSpeed(info.walkspeed)
+    ply:Spawn()
 
     for _, v in pairs(info.weapons) do
-        pEnt:Give(v)
+        ply:Give(v)
     end
 
-    pEnt:Lock()
+    ply:Lock()
     timer.Simple(5, function()
-        pEnt:UnLock()
+        if IsValid(ply) then
+            ply:UnLock()
+        end
     end)
 end
 
@@ -57,14 +59,16 @@ function Game:PickAndSetupBoss()
     Game:SetupBoss(ply)
 end
 
-function Game:SetupHuman(pEnt)
-    pEnt:SetTeam(TEAM_HUMAN)
-    pEnt:SetDefaultModel()
-    pEnt:Spawn()
+function Game:SetupHuman(ply)
+    ply:SetTeam(TEAM_HUMAN)
+    ply:SetDefaultModel()
+    ply:Spawn()
 
-    pEnt:Lock()
+    ply:Lock()
     timer.Simple(5, function()
-        pEnt:UnLock()
+        if IsValid(ply) then
+            ply:UnLock()
+        end
     end)
 end
 
@@ -77,7 +81,20 @@ function Game:StartGametype(strGametype)
 end
 
 function Game:PickAndStartGameType()
-    local key = table.Random(table.GetKeys(Game.Gametypes))
+    local keys = {}
+    for k, v in RandomPairs(Game.Gametypes) do
+        if v.playable then
+            if v.playable() then
+                table.insert(keys, k)
+            end
+        else
+            table.insert(keys, k)
+        end
+    end
+    if #keys == 0 then
+        return Evil:Lock("playable gametype configuration is broke")
+    end
+    local key = table.Random(keys)
 
     Game:SetGametype(key)
     Game:StartGametype(key)
