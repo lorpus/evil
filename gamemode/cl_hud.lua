@@ -62,7 +62,7 @@ hook.Add("HUDPaint", "Screen_Attributes", function()
 end)
 
 local hide = {
-	["CHudHealth"] = true,
+    ["CHudHealth"] = true,
     ["CHudBattery"] = true,
     ["CHudAmmo"] = true
 }
