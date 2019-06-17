@@ -77,7 +77,20 @@ function Game:StartGametype(strGametype)
 end
 
 function Game:PickAndStartGameType()
-    local key = table.Random(table.GetKeys(Game.Gametypes))
+    local keys = {}
+    for k, v in RandomPairs(Game.Gametypes) do
+        if v.playable then
+            if v.playable() then
+                table.insert(keys, k)
+            end
+        else
+            table.insert(keys, k)
+        end
+    end
+    if #keys == 0 then
+        return Evil:Lock("playable gametype configuration is broke")
+    end
+    local key = table.Random(keys)
 
     Game:SetGametype(key)
     Game:StartGametype(key)

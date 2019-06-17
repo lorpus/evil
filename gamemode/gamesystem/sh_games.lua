@@ -8,6 +8,10 @@ Game.Gametypes = {
 
         finish = function()
             dbg.print("pages.finish()")
+        end,
+
+        playable = function()
+            return true
         end
     }
 }
