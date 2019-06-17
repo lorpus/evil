@@ -19,12 +19,9 @@ hook.Add("HUDPaint", "Screen_Attributes", function()
 
     local ColorA = Color(25, 25, 25)
     local StamColorA = Color(0, 0, 255)
-    local StamColorB = {50, 50, 255, math.abs(math.sin(CurTime() * 0.7)) * (50 - 25) + 25}
-    local HealthColorA = {255, 50, 50, math.abs(math.sin(CurTime() * 5)) * (50 - 25) + 25}
-    local BarOutlineColor = {75, 0, 0}
-
-    HealthColorA = Color(unpack(HealthColorA))
-    StamColorB = Color(unpack(StamColorB))
+    local StamColorB = Color(50, 50, 255, math.abs(math.sin(CurTime() * 0.7)) * (50 - 25) + 25)
+    local HealthColorA = Color(255, 50, 50, math.abs(math.sin(CurTime() * 5)) * (50 - 25) + 25)
+    local BarOutlineColor = Color(75, 0, 0)
 
     // Main Elements
     draw.RoundedBox(nRoundness, -nRoundness, (nScrH - nTall) + nRoundness + PadY, nWide, (nTall - PadY), ColorA)
@@ -40,7 +37,7 @@ hook.Add("HUDPaint", "Screen_Attributes", function()
     local NewHealthBarW = (Health / MaxHealth) * HealthBarW
     
     draw.RoundedBox(0, PadX, (nScrH - HealthBarT) - PadX, HealthBarW, HealthBarT, HealthColorA)
-    surface.SetDrawColor(Color(unpack(BarOutlineColor)))
+    surface.SetDrawColor(BarOutlineColor)
     surface.SetMaterial(HealthMaterial)
     surface.DrawTexturedRectUV(PadX, (nScrH - HealthBarT) - PadX, NewHealthBarW, HealthBarT, 0, 0, NewHealthBarW / ScreenScale(32), HealthBarT / ScreenScale(32))
     surface.DrawOutlinedRect(PadX, (nScrH - HealthBarT) - PadX, HealthBarW, HealthBarT, 0, 0, NewHealthBarW / ScreenScale(32), HealthBarT / ScreenScale(32)) 
@@ -58,7 +55,6 @@ hook.Add("HUDPaint", "Screen_Attributes", function()
     draw.RoundedBox(0, PadX, ((nScrH - StamBarT) - nTall / 2), StamBarW, StamBarT, StamColorB)
     draw.RoundedBox(0, PadX, ((nScrH - StamBarT) - nTall / 2), flRatio * StamBarW, StamBarT, StamColorA)
     surface.DrawOutlinedRect(PadX, ((nScrH - StamBarT) - nTall / 2), StamBarW, StamBarT) 
- 
 end)
 
 local hide = {
