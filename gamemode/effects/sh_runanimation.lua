@@ -1,7 +1,8 @@
 // adapted from steam addon 1104562150
 
 hook.Add("CalcMainActivity", "EvilRunAnimation", function(ply, vVel)
-    if ply:IsBoss() and not Game:GetProfileInfo().no_running_animation then
+    local info = Game:GetProfileInfo()
+    if ply:IsBoss() and info and not info.no_running_animation then
         if not ply.bLastOnGround and not ply:OnGround() then
             ply.bLastOnGround = true
         end
