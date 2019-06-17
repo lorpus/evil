@@ -1,5 +1,5 @@
 // placeholder
-local flLastRatio = 0
+/*local flLastRatio = 0
 hook.Add("HUDPaint", "stamina hud", function()
     local flStamina = LocalPlayer():GetNWFloat("stamina")
     local flMaxStamina = Stamina.maxstamina
@@ -9,4 +9,4 @@ hook.Add("HUDPaint", "stamina hud", function()
     flLastRatio = flRatio
 
     draw.RoundedBox(0, 35, ScrH() * 0.85, ScrW() * 0.1 * flRatio, 30, color_white)
-end)
+end)*/
