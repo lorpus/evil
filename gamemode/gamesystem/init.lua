@@ -27,7 +27,7 @@ function Game:SetupBoss(ply)
     local info = Evil.Bosses[key]
     
     Game:SetProfile(key)
-    Game:SetBoss(pEnt)
+    Game:SetBoss(ply)
     
     ply:SetTeam(TEAM_BOSS)
     ply:SetModel(info.model)
