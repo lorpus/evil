@@ -26,6 +26,7 @@ hook.Add("InitPostEntity", "Ambience", function()
 end)
 
 hook.Add("PostCleanupMap", "AmbienceLighting", function()
+    if not Ambience.Enabled then return end
     for i = 0, 63 do
         engine.LightStyle(i, "b")
     end
