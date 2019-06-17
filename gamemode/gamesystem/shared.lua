@@ -25,8 +25,25 @@ function Game:GetProfileInfo()
     return Evil.Bosses[GetGlobalString("EvilProfile")]
 end
 
+function Game:GetGametype()
+    return GetGlobalString("EvilGametype")
+end
+
+function Game:GetGametypeInfo()
+    return Game.Gametypes[Game:GetGametype()] 
+end
+
 hook.Add("ShouldCheckStamina", "nobossstamina", function(ply)
     if ply:Team() == TEAM_BOSS then
         return false
+    end
+end)
+
+hook.Add("Think", "ProcessGametypeThink", function()
+    if Round:IsPlaying() then
+        local info = Game:GetGametypeInfo()
+        if info.think then
+            info.think()
+        end
     end
 end)
