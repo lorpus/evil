@@ -25,7 +25,7 @@ function Round:WaitForPlayers()
             Round:StartGame()
             timer.Remove("RoundWaitPlayers")
         else
-            Network:NotifyAll("Waiting for players...")
+            Network:NotifyAll("#Round_WaitingForPlayers", true)
         end
     end)
 end
@@ -65,21 +65,10 @@ function Round:End(strReason)
     Round:SetRound(ROUND_POST)
     dbg.print("Round:End()", strReason)
     
-    if strReason == "bosswin" then
-        Network:NotifyAll("The boss has won!")
-    elseif strReason == "bossdead" then
-        Network:NotifyAll("The boss has mysteriously died!")
-    elseif strReason == "pagescollected" then
-        Network:NotifyAll("The humans have collected all the pages!")
-    elseif strReason == "timeup" then
-        Network:NotifyAll("The boss has won!")
-        for _, ply in pairs(eutil.GetLivingPlayers(TEAM_HUMAN)) do
-            ply:Kill()
-        end
-    elseif strReason == "admin" then
-        Network:NotifyAll("An admin has forcefully ended the game")
+    if strReason then
+        Network:NotifyAll(strReason, strReason:StartWith("#")) // not the best but ur retarded if u use a # as first char and u dont want lang
     else
-        Network:NotifyAll("The game has been ended for an unknown reason (likely manually)")
+        Network:NotifyAll("#Round_EndUnknown")
     end
 
     timer.Simple(5, function()
@@ -96,13 +85,13 @@ hook.Add("Think", "RoundThink", function()
 
     if Round:IsPlaying() then
         if CurTime() > Round:GetEndTime() then
-            return Round:End("timeup")
+            return Round:End("#Round_EndTimeUp")
         end
 
         if #eutil.GetLivingPlayers(TEAM_HUMAN) == 0 then
-            Round:End("bosswin")
+            Round:End("#Round_EndBossWin")
         elseif #eutil.GetLivingPlayers(TEAM_BOSS) == 0 then
-            Round:End("bossdead")
+            Round:End("#Round_EndTimeUp")
         end
     end
 end)

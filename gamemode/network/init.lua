@@ -1,18 +1,23 @@
 util.AddNetworkString(Network.Id)
 
-local function StartNotify(str)
+local function StartNotify(str, isLang, langArgs)
     net.Start(Network.Id)
     net.WriteInt(N_NOTIFY, 4)
     net.WriteString(str)
+    net.WriteBool(isLang)
+    net.WriteBool(langArgs != nil)
+    if langArgs then
+        net.WriteTable(langArgs)
+    end
 end
 
-function Network:Notify(ply, str)
-    StartNotify(str)
+function Network:Notify(ply, str, isLang, langArgs)
+    StartNotify(str, isLang)
     net.Send(ply)
 end
 
-function Network:NotifyAll(str)
-    StartNotify(str)
+function Network:NotifyAll(str, isLang, langArgs)
+    StartNotify(str, isLang, langArgs)
     net.Broadcast()
 end
 

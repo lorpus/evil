@@ -23,7 +23,7 @@ Game.Gametypes = {
         end,
 
         pagetaken = function(taker, page)
-            Network:NotifyAll(taker:Nick() .. " has collected a page!")
+            Network:NotifyAll("#Game_PageCollected", true, { player = taker:Nick() })
             SetGlobalInt("PagesCollected", GetGlobalInt("PagesCollected") + 1)
         end,
 
@@ -34,7 +34,7 @@ Game.Gametypes = {
         think = function()
             if SERVER then
                 if GetGlobalInt("PagesCollected") >= 8 then
-                    Round:End("pagescollected")
+                    Round:End("#Round_EndPagesCollected")
                 end
             end
         end

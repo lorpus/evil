@@ -31,6 +31,7 @@ include_sh "effects/sh_runanimation.lua"
 include_cl "cl_gui.lua"
 include_cl "cl_hud.lua"
 
+include_md "lang"
 include_md "flashlight"
 include_md "admin"
 include_md "network"

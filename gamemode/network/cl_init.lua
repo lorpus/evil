@@ -6,6 +6,16 @@ local function ReceiveHandler(iLen, ply)
     dbg.print(cmd)
     if cmd == N_NOTIFY then
         local str = net.ReadString()
+        local isLang = net.ReadBool()
+        local hasArgs = net.ReadBool()
+        if isLang then
+            if hasArgs then
+                local args = net.ReadTable()
+                str = Lang:Format(str, args)
+            else
+                str = Lang:Get(str)
+            end
+        end
         chat.AddText(color_black, "[", color_red, "Evil", color_black, "]", color_white, ": ", str)
     elseif cmd == N_HOOK then
         local event = net.ReadString()
