@@ -69,6 +69,8 @@ function Round:End(strReason)
         Network:NotifyAll("The boss has won!")
     elseif strReason == "bossdead" then
         Network:NotifyAll("The boss has mysteriously died!")
+    elseif strReason == "pagescollected" then
+        Network:NotifyAll("The humans have collected all the pages!")
     elseif strReason == "timeup" then
         Network:NotifyAll("The boss has won!")
         for _, ply in pairs(eutil.GetLivingPlayers(TEAM_HUMAN)) do

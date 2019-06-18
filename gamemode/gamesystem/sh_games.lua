@@ -4,14 +4,43 @@ Game.Gametypes = {
 
         start = function()
             dbg.print("pages.start()")
+            SetGlobalInt("PagesCollected", 0)
+            local inc = 0
+            for i, v in RandomPairs(Map.pages) do
+                if inc >= 8 then break end
+                inc = inc + 1
+
+                local ent = ents.Create("evil_page")
+                ent:SetPos(v.pos)
+                ent:SetAngles(v.ang)
+                ent:SetMaterial(string.format("models/jason278/slender/sheets/sheet_%s.vtf", inc))
+                ent:Spawn()
+            end
         end,
 
         finish = function()
             dbg.print("pages.finish()")
         end,
 
+        pagetaken = function(taker, page)
+            Network:NotifyAll(taker:Nick() .. " has collected a page!")
+            SetGlobalInt("PagesCollected", GetGlobalInt("PagesCollected") + 1)
+        end,
+
         playable = function()
-            return true
+            return Map.pages != nil
+        end,
+
+        think = function()
+            if SERVER then
+                if GetGlobalInt("PagesCollected") >= 8 then
+                    Round:End("pagescollected")
+                end
+            end
         end
     }
 }
+
+hook.Add("EvilPageTaken", "PageTaken", function(taker, page)
+    Game.Gametypes.pages.pagetaken(taker, page)
+end)
