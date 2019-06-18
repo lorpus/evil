@@ -57,6 +57,11 @@ function Round:End(strReason)
         return false
     end
 
+    local info = Game:GetGametypeInfo()
+    if info.finish then
+        info.finish()
+    end
+
     Round:SetRound(ROUND_POST)
     dbg.print("Round:End()", strReason)
     
