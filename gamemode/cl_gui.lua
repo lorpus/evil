@@ -157,7 +157,7 @@ end
 hook.Add("HUDPaint", "OnloadGUIInit", function()
     hook.Remove("HUDPaint", "OnloadGUIInit")
     if frame then frame:Remove() end
-    //guitest()
+    guitest()
 end)
 
 concommand.Add("rmtest", function()
