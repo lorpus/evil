@@ -15,8 +15,6 @@ local function Timer()
     local FontA, FontB = "evilfont2", "evilfont1"
     local ColorA = Color(25, 25, 25)
     
-    draw.RoundedBox(0, nScrW / 2 - TimerW / 2, 0, TimerW, TimerT, ColorA)
-    
     local nTimerValue = math.floor(Round:GetEndTime() - CurTime())
     local TimerText = "Timer: " .. string.ToMinutesSeconds(math.floor(nTimerValue))
 
@@ -28,8 +26,6 @@ local function Timer()
 
     local Awide, Atall = TimerW, TimerT / 2
 
-    draw.RoundedBox(0, nScrW / 2 - Awide / 2, TimerT, Awide, Atall, ColorA)
-    
     surface.SetFont(FontA)
     local TextW, TextH = surface.GetTextSize(ArbritratyText)
     draw.DrawText(ArbritratyText, FontA, nScrW / 2 - TextW / 2, TimerT + (Atall / 2 - TextH / 2), Color(255,255,255,255))
