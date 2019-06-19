@@ -16,7 +16,7 @@ local function Timer()
     local ColorA = Color(25, 25, 25)
     
     local nTimerValue = math.floor(Round:GetEndTime() - CurTime())
-    local TimerText = "Timer: " .. string.ToMinutesSeconds(math.floor(nTimerValue))
+    local TimerText = string.ToMinutesSeconds(math.floor(nTimerValue))
 
     surface.SetFont(FontB)
     local TextW, TextH = surface.GetTextSize(TimerText)
