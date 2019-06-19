@@ -60,7 +60,8 @@ end)
 local hide = {
     ["CHudHealth"] = true,
     ["CHudBattery"] = true,
-    ["CHudAmmo"] = true
+    ["CHudAmmo"] = true,
+    ["CHudSecondaryAmmo"] = true
 }
 
 hook.Add("HUDShouldDraw", "HideDasDefaults", function(n)
