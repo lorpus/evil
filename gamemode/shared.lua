@@ -38,6 +38,7 @@ include_md "network"
 include_md "stamina"
 include_md "gamesystem"
 include_md "roundsystem"
+include_md "spectator"
 
 function GM:Initialize()
     if SERVER then

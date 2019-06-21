@@ -19,6 +19,7 @@ function Game:ResetPlayers()
         ply:StripWeapons()
         ply:SetWalkSpeed(Evil.Cfg.PlayerWalkspeed)
         ply:SetRunSpeed(Evil.Cfg.PlayerRunspeed)
+        ply:StopSpectating()
     end
 end
 
@@ -106,8 +107,15 @@ hook.Add("PlayerShouldTakeDamage", "NoBossDamage", function(ply, attacker)
     end
 end)
 
-hook.Add("DoPlayerDeath", "EvilPlayerKilledHook", function(victim, inflictor, attacker)
-    dbg.print(victim, attacker)
+hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, attacker)
+    if not victim:IsBoss() then // game's over anyways
+        timer.Simple(4, function()
+            if IsValid(victim) then
+                victim:StartSpectating()
+            end
+        end)
+    end
+
     if type(attacker) == "CTakeDamageInfo" then
         if IsValid(attacker:GetAttacker()) and not attacker:GetAttacker():IsBoss() then
             return

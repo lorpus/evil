@@ -100,21 +100,10 @@ hook.Add("PlayerDeathThink", "DisableRespawn", function()
     return false
 end)
 
-hook.Add("PlayerDeath", "RoundPlayerDeath", function(ply)
-    timer.Simple(5, function()
-        if ply:Alive() then
-            return
-        end
-
-        // ply:StartSpectating()
-    end)
-end)
-
 hook.Add("PlayerSpawn", "InitialSpawnButNotQuite", function(ply)
     if not ply:GetNWBool("HasSpawned") then
         ply:SetTeam(TEAM_SPEC)
         ply:KillSilent()
         ply:SetNWBool("HasSpawned", true)
-        // ply:StartSpectating()
     end
 end)
