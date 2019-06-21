@@ -38,6 +38,7 @@ local StamMaterial = Material("ebil/stamina.png")
 local function PlayerStats()
 
     if LocalPlayer():IsBoss() then return end
+    if not LocalPlayer():Alive() then return end
 
     local nScrW, nScrH = ScrW(), ScrH()
     local PadX, PadY = 10, 10

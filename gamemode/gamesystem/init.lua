@@ -155,3 +155,7 @@ hook.Add("Think", "bossattack", function()
         end
     end*/
 end)
+
+hook.Add("PlayerDeathSound", "silentdeathsound", function()
+    return false
+end)
