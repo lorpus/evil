@@ -100,6 +100,12 @@ function Game:PickAndStartGameType()
     Game:StartGametype(key)
 end
 
+hook.Add("PlayerShouldTakeDamage", "NoBossDamage", function(ply, attacker)
+    if ply:IsBoss() then
+        return false
+    end
+end)
+
 hook.Add("DoPlayerDeath", "EvilPlayerKilledHook", function(victim, inflictor, attacker)
     dbg.print(victim, attacker)
     if type(attacker) == "CTakeDamageInfo" then
