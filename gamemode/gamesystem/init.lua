@@ -48,13 +48,19 @@ function Game:SetupBoss(ply)
     end)
 end
 
+local lastChosenBoss
 function Game:PickAndSetupBoss()
     local ply
     if IsValid(Evil._NEXTBOSS) then
         ply = Evil._NEXTBOSS
         Evil._NEXTBOSS = nil
     else
-        ply = table.Random(player.GetAll())
+        local pool = player.GetAll()
+        if IsValid(lastChosenBoss) then
+            table.RemoveByValue(pool, lastChosenBoss)
+        end
+        ply = table.Random(pool)
+        lastChosenBoss = ply
     end
 
     Game:SetupBoss(ply)
