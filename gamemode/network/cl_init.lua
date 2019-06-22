@@ -1,6 +1,3 @@
-local color_black = Color(0, 0, 0)
-local color_red   = Color(125, 0, 0)
-
 local function ReceiveHandler(iLen, ply)
     local cmd = net.ReadInt(4)
     dbg.print(cmd)
@@ -16,7 +13,7 @@ local function ReceiveHandler(iLen, ply)
                 str = Lang:Get(str)
             end
         end
-        chat.AddText(color_black, "[", color_red, "Evil", color_black, "]", color_white, ": ", str)
+        Evil:AddTextChat(str)
     elseif cmd == N_HOOK then
         local event = net.ReadString()
         local args = net.ReadTable()
