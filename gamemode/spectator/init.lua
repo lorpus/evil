@@ -13,8 +13,9 @@ end)
 
 function PLAYER:StartSpectating()
     if self:IsSpectating() then return end
-    self:Spectate(OBS_MODE_ROAMING)
-    self:SetMoveType(MOVETYPE_NOCLIP)
+    self:Spectate(OBS_MODE_IN_EYE)
+    self:SetMoveType(MOVETYPE_NONE)
+    self:CycleSpectatorTarget(1)
     self:SetNWBool("IsSpectating", true)
 end
 
