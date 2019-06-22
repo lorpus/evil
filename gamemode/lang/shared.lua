@@ -11,7 +11,10 @@ Lang.Translations = {
         ["#Round_EndUnknown"] = "The game has been ended for an unknown reason (likely manually)",
         ["#Game_PageCollected"] = "{{player}} has collected a page!",
         ["#InvalidLocale"] = "Unfortunately this isn't a supported language setting",
-        ["#LocaleChanged"] = "Language successfully changed"
+        ["#LocaleChanged"] = "Language successfully changed",
+        ["#NoLangSpecified"] = "You need to specify a language. (e.g. /evil lang en)",
+        ["#Spec_Spectating"] = "Spectating",
+        ["#Spec_HUDInfo"] = "Press {{key}} to cycle modes. Click to cycle targets"
     }
 }
 

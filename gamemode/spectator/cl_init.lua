@@ -10,12 +10,12 @@ surface.CreateFont("Arial14", {
 
 hook.Add("HUDPaint", "SpectatorHUD", function()
     if LocalPlayer():IsSpectating() then
-        local text = "Spectating"
+        local text = Lang:Get("#Spec_Spectating")
         if IsValid(LocalPlayer():GetObserverTarget()) then
             text = LocalPlayer():GetObserverTarget():Nick()
         end
 
         draw.SimpleText(text, "Arial30", ScrW() / 2, ScrH() - 50, color_white, TEXT_ALIGN_CENTER)
-        draw.SimpleText("Press " .. input.LookupBinding("+reload"):upper() .. " to cycle modes. Click to cycle targets", "Arial14", ScrW() / 2, ScrH() - 20, color_white, TEXT_ALIGN_CENTER)
+        draw.SimpleText(Lang:Format("#Spec_HUDInfo", { key = input.LookupBinding("+reload"):upper() }), "Arial14", ScrW() / 2, ScrH() - 20, color_white, TEXT_ALIGN_CENTER)
     end
 end)
