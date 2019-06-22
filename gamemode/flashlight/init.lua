@@ -6,7 +6,9 @@ hook.Add("StartCommand", "EvilFlashlight", function(ply, cmd)
 
     local toggle = not ply:GetNWBool("flashlight")
     ply:EmitSound("items/flashlight1.wav", 125)
-    ply:SetNWBool("flashlight", toggle)
+    if not ply.FlashlightBlocked then
+        ply:SetNWBool("flashlight", toggle)
+    end
 end)
 
 hook.Add("Think", "EvilFlashlightFizzle", function()
@@ -15,6 +17,11 @@ hook.Add("Think", "EvilFlashlightFizzle", function()
             if eutil.Percent(Evil.Cfg.Flashlight.FizzleChance) then
                 ply:SetNWBool("flashlight", false)
                 ply:EmitSound("weapons/physcannon/superphys_small_zap1.wav", 125)
+
+                ply.FlashlightBlocked = true
+                timer.Simple(5, function()
+                    ply.FlashlightBlocked = false
+                end)
             end
         end
     end
