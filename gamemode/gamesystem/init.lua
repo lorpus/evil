@@ -109,11 +109,13 @@ end)
 
 hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, attacker)
     if not victim:IsBoss() then // game's over anyways
-        timer.Simple(4, function()
-            if IsValid(victim) then
-                victim:StartSpectating()
-            end
-        end)
+        if not Round:IsWaiting() then
+            timer.Simple(4, function()
+                if IsValid(victim) then
+                    victim:StartSpectating()
+                end
+            end)
+        end
     end
 
     if type(attacker) == "CTakeDamageInfo" then
