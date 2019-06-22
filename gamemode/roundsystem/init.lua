@@ -91,7 +91,7 @@ hook.Add("Think", "RoundThink", function()
         if #eutil.GetLivingPlayers(TEAM_HUMAN) == 0 then
             Round:End("#Round_EndBossWin")
         elseif #eutil.GetLivingPlayers(TEAM_BOSS) == 0 then
-            Round:End("#Round_EndTimeUp")
+            Round:End("#Round_EndBossDie")
         end
     end
 end)
