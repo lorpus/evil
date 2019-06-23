@@ -32,10 +32,6 @@ local function SortPlayers(tab)
     return boss, humans, dead
 end
 
-local BossColor = team.GetColor(TEAM_BOSS)
-local HumanColor = team.GetColor(TEAM_HUMAN)
-local DeadColor = team.GetColor(TEAM_SPEC)
-
 function Scoreboard:Toggle()
     if Scoreboard.mainframe then 
         Scoreboard.mainframe:Remove() 
@@ -43,6 +39,9 @@ function Scoreboard:Toggle()
         return
     end
     
+    local BossColor = team.GetColor(TEAM_BOSS)
+    local HumanColor = team.GetColor(TEAM_HUMAN)
+    local DeadColor = team.GetColor(TEAM_SPEC)
     local scrW, scrH = ScrW(), ScrH()
     local PadX, PadY = ScreenScale(5), ScreenScale(5)
     local Players = player.GetAll()
