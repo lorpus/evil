@@ -4,8 +4,9 @@ surface.CreateFont("ebilfont", {
 })
 
 surface.CreateFont("endgamebil", {
-    font = "Verdana",
-    size = ScreenScale(40)
+    font = "Chiller",
+    size = ScreenScale(40),
+    blursize = 0.5
 })
 
 surface.CreateFont("ebilfontsmaller", {
@@ -156,7 +157,9 @@ local function FirstTimeGUI()
 end
 
 local globalAlpha = 0
-local function guitest()
+function Evil:ShowEndScreen()
+    if frame then frame:Remove() end
+
     local ScrW, ScrH = ScrW(), ScrH()
     local PadX, PadY = ScreenScale(5), ScreenScale(5)
     local Players = player.GetAll()
@@ -256,7 +259,7 @@ local function guitest()
 
         surface.SetFont("endgamebil")
         local TextW, TextH = surface.GetTextSize(Arbitrary)
-        draw.DrawText(Arbitrary, "endgamebil", w / 2 - TextW / 2, PadY, Color(255, 255, 255, textAlpha))
+        draw.DrawText(Arbitrary, "endgamebil", w / 2 - TextW / 2, PadY, Color(255, 0, 0, textAlpha))
 
         if frame.opaque then
             if ((flPhase == 0 and (CurTime() - curTime > Delay)) or ((flPhase > 1) and (flPhase < 2))) then 
@@ -300,6 +303,7 @@ local function guitest()
                     for _, panel in pairs(Avatars) do
                         
                         panel:SetPos(x, y)
+
                         I = I + 1
                         
                         x = x + PadX + AvatarScale
@@ -394,6 +398,7 @@ local function guitest()
                     for _, panel in pairs(Avatars) do
                         
                         panel:SetPos(x, y)
+
                         I = I + 1
                         
                         x = x + PadX + AvatarScale
@@ -466,6 +471,5 @@ hook.Add("HUDPaint", "OnloadGUIInit", function()
 end)
 
 concommand.Add("runtestgui", function()
-    if frame then frame:Remove() end
-    guitest()
+    Evil:ShowEndScreen()
 end)
