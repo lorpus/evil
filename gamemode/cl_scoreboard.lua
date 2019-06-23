@@ -109,7 +109,7 @@ function Scoreboard:Toggle()
         end
         PanelY = PanelY + Boss:GetTall() + PadY
 
-        BossPlayerList = vgui.Create("DScrollPanel", ScrollPanel)
+        BossPlayerList = vgui.Create("DPanel", ScrollPanel)
         BossPlayerList:SetSize(MainW - (PadX * 2), math.floor(#boss * Scale))
         BossPlayerList:SetPos(PadX, PadY + (ScreenScale(25) / 2))
         function BossPlayerList:Paint(w, h)
@@ -136,7 +136,7 @@ function Scoreboard:Toggle()
         end
         PanelY = PanelY + Humans:GetTall()
 
-        HumanPlayerList = vgui.Create("DScrollPanel", ScrollPanel)
+        HumanPlayerList = vgui.Create("DPanel", ScrollPanel)
         HumanPlayerList:SetSize(MainW - (PadX * 2), (#humans * Scale) - PadY)
         HumanPlayerList:SetPos(PadX, PanelY)
         function HumanPlayerList:Paint(w, h)
@@ -163,7 +163,7 @@ function Scoreboard:Toggle()
         end
         PanelY = PanelY + Dead:GetTall()
 
-        DeadPlayerList = vgui.Create("DScrollPanel", ScrollPanel)
+        DeadPlayerList = vgui.Create("DPanel", ScrollPanel)
         DeadPlayerList:SetSize(MainW - (PadX * 2), (#dead * Scale) - PadY)
         DeadPlayerList:SetPos(PadX, PanelY)
         function DeadPlayerList:Paint(w, h)
