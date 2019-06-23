@@ -233,7 +233,7 @@ local function guitest()
     local textAlpha = 0
     local flPhase = 0
     local Delay = 2
-    local TextFadeDelay = 4
+    local TextFadeDelay = 2
     local MainW, MainH = Main:GetWide(), Main:GetTall()
     local TempVar = 1
     --[[ 
