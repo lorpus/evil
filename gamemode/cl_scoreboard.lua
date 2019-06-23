@@ -137,7 +137,7 @@ function Scoreboard:Toggle()
         PanelY = PanelY + Humans:GetTall()
 
         HumanPlayerList = vgui.Create("DPanel", ScrollPanel)
-        HumanPlayerList:SetSize(MainW - (PadX * 2), (#humans * Scale) - PadY)
+        HumanPlayerList:SetSize(MainW - (PadX * 2), #humans * Scale)
         HumanPlayerList:SetPos(PadX, PanelY)
         function HumanPlayerList:Paint(w, h)
             surface.SetDrawColor(0, 0, 0)
@@ -164,14 +164,14 @@ function Scoreboard:Toggle()
         PanelY = PanelY + Dead:GetTall()
 
         DeadPlayerList = vgui.Create("DPanel", ScrollPanel)
-        DeadPlayerList:SetSize(MainW - (PadX * 2), (#dead * Scale) - PadY)
+        DeadPlayerList:SetSize(MainW - (PadX * 2), #dead * Scale)
         DeadPlayerList:SetPos(PadX, PanelY)
         function DeadPlayerList:Paint(w, h)
             surface.SetDrawColor(0, 0, 0)
             surface.DrawOutlinedRect(0, 0, w, h)
         end
 
-        PanelY = PanelY + HumanPlayerList:GetTall() + PadY
+        PanelY = PanelY + DeadPlayerList:GetTall() + PadY
 
     end
 
@@ -244,11 +244,9 @@ end
 
 
 function GM:ScoreboardShow()
-    print("shown")
 	Scoreboard:Toggle()
 end
 
 function GM:ScoreboardHide()
-    print("hide")
 	Scoreboard:Toggle()
 end
