@@ -14,7 +14,17 @@ Lang.Translations = {
         ["#LocaleChanged"] = "Language successfully changed",
         ["#NoLangSpecified"] = "You need to specify a language. (e.g. /evil lang en)",
         ["#Spec_Spectating"] = "Spectating",
-        ["#Spec_HUDInfo"] = "Press {{key}} to cycle modes. Click to cycle targets"
+        ["#Spec_HUDInfo"] = "Press {{key}} to cycle modes. Click to cycle targets",
+        ["#End_OnlyNSurvived"] = "Only {{count}} Survived",
+        ["#End_NSurvived"] = "{{count}} Survived",
+        ["#End_NobodySurvived"] = "Nobody Survived",
+        ["#End_OnlySurvivor"] = "{{nick}} was the only survivor!",
+        ["#End_OnlyNDied"] = "Only {{count}} Died",
+        ["#End_NDied"] = "{{count}} Died",
+        ["#End_NobodyDied"] = "Nobody Died",
+        ["#End_EveryoneDied"] = "Everyone Died",
+        ["#Help"] = "Help",
+        ["#Exit"] = "Exit",
     }
 }
 
