@@ -3,6 +3,11 @@ surface.CreateFont("ebilfontsmaller", {
     size = ScreenScale(10)
 })
 
+surface.CreateFont("ebilfontsmallerer", {
+    font = "Verdana",
+    size = ScreenScale(6.5)
+})
+
 surface.CreateFont("ebilfontscoreboard", {
     font = "Verdana",
     size = ScreenScale(12)
@@ -24,7 +29,6 @@ local function SortPlayers(tab)
         if ply:Team() == TEAM_BOSS then table.insert(boss, ply) continue end
         table.insert(dead, ply)
     end
-    PrintTable(boss)
     return boss, humans, dead
 end
 
@@ -61,92 +65,122 @@ function Scoreboard:Toggle()
         surface.DrawOutlinedRect(0, 0, w, h)
     end
 
+    local ScrollPanel = vgui.Create("DScrollPanel", Scoreboard.mainframe)
+    ScrollPanel:SetSize(Scoreboard.mainframe:GetWide() - PadX * 2, Scoreboard.mainframe:GetTall() - PadY * 2)
+    ScrollPanel:SetPos(PadX, PadY)
+
+    local sbar = ScrollPanel:GetVBar()
+    function sbar:Paint(w, h) 
+        draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 40))
+    end
+    function sbar.btnUp:Paint(w, h) 
+        draw.RoundedBox(0, 0, 0, w, h, Color(40, 40, 40, 200))
+        surface.SetFont("ebilfontsmallerer")
+        local TextW, TextH = surface.GetTextSize("↑")
+        draw.DrawText("↑", "ebilfontsmallerer", w / 2 - TextW / 2, h / 2 - TextH / 2)
+    end
+    function sbar.btnDown:Paint(w, h) 
+        draw.RoundedBox(0, 0, 0, w, h, Color(40, 40, 40, 200))
+        surface.SetFont("ebilfontsmallerer")
+        local TextW, TextH = surface.GetTextSize("↓")
+        draw.DrawText("↓", "ebilfontsmallerer", w / 2 - TextW / 2, h / 2 - TextH / 2)
+    end
+    function sbar.btnGrip:Paint(w, h) 
+        draw.RoundedBox(0, 0, 0, w, h, Color(55, 55, 55, 200))
+    end
+
     local PanelY = 0
+    local Scale = ScreenScale(16)
 
-    local Boss = vgui.Create("DPanel", Scoreboard.mainframe)
-    Boss:SetSize(MainW - (PadX * 2), ScreenScale(25) / 2)
-    Boss:SetPos(PadX, PadY)
+    local BossPlayerList, HumanPlayerList, DeadPlayerList
 
-    function Boss:Paint(w, h)
-        draw.RoundedBox(0, 0, 0, w, h, BossColor)
-        
-        surface.SetFont("ebilfontsmaller")
-        local TextW, TextH = surface.GetTextSize("Boss")
-        draw.DrawText("Boss", "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
-    end
-    PanelY = PanelY + Boss:GetTall() + PadY
+    if #boss > 0 then
 
-    local BossPlayerList = vgui.Create("DScrollPanel", Scoreboard.mainframe)
-    BossPlayerList:SetSize(MainW - (PadX * 2), ScreenScale(32))
-    BossPlayerList:SetPos(PadX, PadY + (ScreenScale(25) / 2))
-    function BossPlayerList:Paint(w, h)
-        surface.SetDrawColor(0, 0, 0)
-        surface.DrawOutlinedRect(0, 0, w, h)
-    end
+        local Boss = vgui.Create("DPanel", ScrollPanel)
+        Boss:SetSize(MainW - (PadX * 2), ScreenScale(25) / 2)
+        Boss:SetPos(PadX, PadY)
 
-    PanelY = PanelY + BossPlayerList:GetTall() + PadY
+        function Boss:Paint(w, h)
+            draw.RoundedBox(0, 0, 0, w, h, BossColor)
+            
+            surface.SetFont("ebilfontsmaller")
+            local TextW, TextH = surface.GetTextSize("Boss")
+            draw.DrawText("Boss", "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
+        end
+        PanelY = PanelY + Boss:GetTall() + PadY
 
-    local Humans = vgui.Create("DPanel", Scoreboard.mainframe)
-    Humans:SetSize(MainW - (PadX * 2), ScreenScale(25) / 2)
-    Humans:SetPos(PadX, PanelY)
+        BossPlayerList = vgui.Create("DScrollPanel", ScrollPanel)
+        BossPlayerList:SetSize(MainW - (PadX * 2), math.floor(#boss * Scale))
+        BossPlayerList:SetPos(PadX, PadY + (ScreenScale(25) / 2))
+        function BossPlayerList:Paint(w, h)
+            surface.SetDrawColor(0, 0, 0)
+            surface.DrawOutlinedRect(0, 0, w, h)
+        end
 
-    function Humans:Paint(w, h)
-        draw.RoundedBox(0, 0, 0, w, h, HumanColor)
-        
-        surface.SetFont("ebilfontsmaller")
-        local TextW, TextH = surface.GetTextSize("Humans")
-        draw.DrawText("Humans", "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
-    end
-    PanelY = PanelY + Humans:GetTall()
+        PanelY = PanelY + BossPlayerList:GetTall() + PadY
 
-    local halved = (MainT - PanelY - PadY * 2) / 2
-    local HumanPlayerList = vgui.Create("DScrollPanel", Scoreboard.mainframe)
-    HumanPlayerList:SetSize(MainW - (PadX * 2), halved)
-    HumanPlayerList:SetPos(PadX, PanelY)
-    function HumanPlayerList:Paint(w, h)
-        surface.SetDrawColor(0, 0, 0)
-        surface.DrawOutlinedRect(0, 0, w, h)
     end
 
-    PanelY = PanelY + HumanPlayerList:GetTall() + PadY
+    if #humans > 0 then
 
-    local Dead = vgui.Create("DPanel", Scoreboard.mainframe)
-    Dead:SetSize(MainW - (PadX * 2), ScreenScale(25) / 2)
-    Dead:SetPos(PadX, PanelY)
+        local Humans = vgui.Create("DPanel", ScrollPanel)
+        Humans:SetSize(MainW - (PadX * 2), ScreenScale(25) / 2)
+        Humans:SetPos(PadX, PanelY)
 
-    function Dead:Paint(w, h)
-        draw.RoundedBox(0, 0, 0, w, h, DeadColor)
-        
-        surface.SetFont("ebilfontsmaller")
-        local TextW, TextH = surface.GetTextSize("Dead")
-        draw.DrawText("Dead", "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
+        function Humans:Paint(w, h)
+            draw.RoundedBox(0, 0, 0, w, h, HumanColor)
+            
+            surface.SetFont("ebilfontsmaller")
+            local TextW, TextH = surface.GetTextSize("Humans")
+            draw.DrawText("Humans", "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
+        end
+        PanelY = PanelY + Humans:GetTall()
+
+        HumanPlayerList = vgui.Create("DScrollPanel", ScrollPanel)
+        HumanPlayerList:SetSize(MainW - (PadX * 2), (#humans * Scale) - PadY)
+        HumanPlayerList:SetPos(PadX, PanelY)
+        function HumanPlayerList:Paint(w, h)
+            surface.SetDrawColor(0, 0, 0)
+            surface.DrawOutlinedRect(0, 0, w, h)
+        end
+
+        PanelY = PanelY + HumanPlayerList:GetTall() + PadY
+
     end
-    PanelY = PanelY + Dead:GetTall()
 
-    local DeadPlayerList = vgui.Create("DScrollPanel", Scoreboard.mainframe)
-    DeadPlayerList:SetSize(MainW - (PadX * 2), halved - PadY * 2)
-    DeadPlayerList:SetPos(PadX, PanelY)
-    function DeadPlayerList:Paint(w, h)
-        surface.SetDrawColor(0, 0, 0)
-        surface.DrawOutlinedRect(0, 0, w, h)
+    if #dead > 0 then
+
+        local Dead = vgui.Create("DPanel", ScrollPanel)
+        Dead:SetSize(MainW - (PadX * 2), ScreenScale(25) / 2)
+        Dead:SetPos(PadX, PanelY)
+
+        function Dead:Paint(w, h)
+            draw.RoundedBox(0, 0, 0, w, h, DeadColor)
+            
+            surface.SetFont("ebilfontsmaller")
+            local TextW, TextH = surface.GetTextSize("Dead")
+            draw.DrawText("Dead", "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
+        end
+        PanelY = PanelY + Dead:GetTall()
+
+        DeadPlayerList = vgui.Create("DScrollPanel", ScrollPanel)
+        DeadPlayerList:SetSize(MainW - (PadX * 2), (#dead * Scale) - PadY)
+        DeadPlayerList:SetPos(PadX, PanelY)
+        function DeadPlayerList:Paint(w, h)
+            surface.SetDrawColor(0, 0, 0)
+            surface.DrawOutlinedRect(0, 0, w, h)
+        end
+
+        PanelY = PanelY + HumanPlayerList:GetTall() + PadY
+
     end
 
-    local sbar = BossPlayerList:GetVBar()
-    function sbar:Paint() end
-
-    local sbar = HumanPlayerList:GetVBar()
-    function sbar:Paint() end
-
-    local sbar = DeadPlayerList:GetVBar()
-    function sbar:Paint() end
-
-    local rowWidth, rowTall = BossPlayerList:GetWide(), BossPlayerList:GetTall()
-    local AvatarScale = ScreenScale(rowTall / 2) - PadX * 2
+    local AvatarScale = ScreenScale(Scale / 2) - PadX * 2
 
     local y = 0
     local addRow = function(ply, PlayerList, hideSbar)
         local panel = vgui.Create("DPanel", PlayerList)
-        panel:SetSize(rowWidth, rowTall)
+        panel:SetSize(PlayerList:GetWide(), Scale)
         panel:SetPos(0, y)
         
         local Avatar = vgui.Create("AvatarImage", panel)
@@ -170,11 +204,11 @@ function Scoreboard:Toggle()
 
             surface.SetFont("ebilfontsmaller")
             local TextW = surface.GetTextSize("Ping")
-            local center = ScreenScale(300) + TextW / 2
+            local center = ScreenScale(290) + TextW / 2
 
             surface.SetFont("ebilfontscoreboard")
-            local TextW, TextH = surface.GetTextSize(ply:Ping())
-            draw.DrawText(ply:Ping(), "ebilfontscoreboard", center - TextW / 2, h / 2 - TextH / 2)
+            local TextW, TextH = surface.GetTextSize(ply:Ping() .. " ms")
+            draw.DrawText(ply:Ping() .. " ms", "ebilfontscoreboard", center - TextW / 2, h / 2 - TextH / 2)
 
             surface.SetDrawColor(5, 5, 5, 125)
             surface.DrawOutlinedRect(0, 0, hideSbar and (sbar and w - sbar:GetWide()) or w, h)
@@ -192,11 +226,20 @@ function Scoreboard:Toggle()
         end
     end
 
-    for _, ply in pairs(boss) do addRow(ply, BossPlayerList) end
-    y = 0
-    for _, ply in pairs(humans) do addRow(ply, HumanPlayerList, true) end
-    y = 0
-    for _, ply in pairs(dead) do addRow(ply, DeadPlayerList, true) end
+    if #boss > 0 then
+        for _, ply in pairs(boss) do addRow(ply, BossPlayerList) end
+        y = 0
+    end
+
+    if #humans > 0 then
+        for _, ply in pairs(humans) do addRow(ply, HumanPlayerList, true) end
+        y = 0
+    end
+
+    if #dead > 0 then
+        for _, ply in pairs(dead) do addRow(ply, DeadPlayerList, true) end
+        y = 0
+    end
 end
 
 
