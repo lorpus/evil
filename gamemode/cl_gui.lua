@@ -314,11 +314,7 @@ local function guitest()
                 end
 
                 // time to do cool things with the avatars!! - aids
-                local AvatarFadeSpeed = 0.1
-                if #Avatars >= 10 then AvatarFadeSpeed = 0.4 end
-                if #Avatars >= 20 then AvatarFadeSpeed = 0.3 end
-                if #Avatars >= 30 then AvatarFadeSpeed = 0.2 end
-                if #Avatars >= 40 then AvatarFadeSpeed = 0.1 end
+                local AvatarFadeSpeed = math.Clamp(0.5 - #Avatars / 100, 0.1, 0.5)
                 if flPhase == 1.2 and (CurTime() - curTime > AvatarFadeSpeed) then
                     for n, panel in pairs(Avatars) do
                         if TempVar != n then continue end
@@ -412,11 +408,7 @@ local function guitest()
                 end
 
                 // time to do cool things with the avatars!! - aids
-                local AvatarFadeSpeed = 0.1
-                if #Avatars >= 10 then AvatarFadeSpeed = 0.4 end
-                if #Avatars >= 20 then AvatarFadeSpeed = 0.3 end
-                if #Avatars >= 30 then AvatarFadeSpeed = 0.2 end
-                if #Avatars >= 40 then AvatarFadeSpeed = 0.1 end
+                local AvatarFadeSpeed = math.Clamp(0.5 - #Avatars / 100, 0.1, 0.5)
                 if flPhase == 2.2 and (CurTime() - curTime > AvatarFadeSpeed) then
                     for n, panel in pairs(Avatars) do
                         if TempVar != n then continue end
