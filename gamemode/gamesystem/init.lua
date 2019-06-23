@@ -175,3 +175,7 @@ end)
 hook.Add("PlayerDeathSound", "silentdeathsound", function()
     return false
 end)
+
+function GM:IsSpawnpointSuitable(ply, spawnpointEnt, bMakeSuitable)
+    return true
+end
