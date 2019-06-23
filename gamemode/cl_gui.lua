@@ -20,7 +20,6 @@ local nFadeSpeed = 6
 
 
 local function FirstTimeGUI()
-    
     local sw, sh = ScrW(), ScrH()
     frame = vgui.Create("DFrame")
     local overlay = vgui.Create("DPanel", frame)
@@ -35,7 +34,6 @@ local function FirstTimeGUI()
     frame.Closing = false
 
     function frame:Paint(w, h)
-
         if overlay.ClosingFinished or help.Done then 
             if help.Clicked then
                 draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0))
@@ -136,11 +134,11 @@ local function FirstTimeGUI()
             end
 
             if overlay.ClosingFinished then
-                overlay.alpha = math.Approach(alpha, 0, nFadeSpeed)
+                overlay.alpha = math.Approach(alpha, 0, nFadeSpeed * delta)
                 return
             end
 
-            overlay.alpha = math.Approach(alpha, 255, nFadeSpeed * 2)
+            overlay.alpha = math.Approach(alpha, 255, nFadeSpeed * 2 * delta)
             return
         end
 
@@ -150,13 +148,11 @@ local function FirstTimeGUI()
         if alpha == 0 and overlay.ClosingFinished then timer.Destroy("13/50") frame:Remove() end
 
         if overlay.ClosingFinished then
-            overlay.alpha = math.Approach(alpha, 0, nFadeSpeed)
+            overlay.alpha = math.Approach(alpha, 0, nFadeSpeed * delta)
             return
         end
-        overlay.alpha = math.Approach(alpha, 255, nFadeSpeed)
+        overlay.alpha = math.Approach(alpha, 255, nFadeSpeed * delta)
     end)
-
-
 end
 
 local globalAlpha = 0
@@ -175,12 +171,17 @@ local function guitest()
     frame.fade = false
     frame.opaque = false
 
+    local lastCurTime = CurTime()
+    local delta
     function frame:Paint(w, h)
+        delta = (CurTime() - lastCurTime) * 143
+        lastCurTime = CurTime()
+
         frame.opaque = (globalAlpha >= 255)
         if not frame.fade then
-            globalAlpha = math.Approach(globalAlpha, 255, nFadeSpeed)
+            globalAlpha = math.Approach(globalAlpha, 255, nFadeSpeed * delta)
         else
-            globalAlpha = math.Approach(globalAlpha, 0, nFadeSpeed)
+            globalAlpha = math.Approach(globalAlpha, 0, nFadeSpeed * delta)
             if globalAlpha == 0 then self:Remove() end
         end
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, globalAlpha))
@@ -243,12 +244,12 @@ local function guitest()
     function Outline:Paint(w, h)
         surface.SetDrawColor(75, 75, 75, globalAlpha)
         //surface.DrawOutlinedRect(0, 0, w, h)
-        
+
         if self.fadeintext then
-            textAlpha =  math.Approach(textAlpha, 255, TextFadeDelay)
+            textAlpha =  math.Approach(textAlpha, 255, TextFadeDelay * delta)
             self.textfadefinished = (textAlpha >= 255)
         else
-            textAlpha =  math.Approach(textAlpha, 0, TextFadeDelay)
+            textAlpha =  math.Approach(textAlpha, 0, TextFadeDelay * delta)
             self.textfadefinished = (textAlpha <= 0)
         end
 
@@ -261,12 +262,11 @@ local function guitest()
                 
                 // das setup por phase 1
                 if flPhase == 0 then 
-                    print("Starting Phase 1")
                     local avatartable = SetupAvatars(survivors) 
                     local total = #avatartable
                     if total == 0 then flPhase = 2 return end
 
-                    Arbitrary = ((total < 10 and "Only " or "") .. total .. " Survived")
+                    Arbitrary = ((total < (#player.GetAll() / 2) and "Only " or "") .. total .. " Survived")
                     if total == 0 then Arbitrary = "Nobody Survived" end
                     if total == 1 and #survivors[1]:GetName() <= 12 then Arbitrary = survivors[1]:GetName() .. " was the only survivor" end
                     
@@ -327,7 +327,7 @@ local function guitest()
                 if flPhase == 1.2 then
                     for n, panel in pairs(Avatars) do
                         if panel.myturn then
-                            panel:SetAlpha(math.Approach(panel:GetAlpha(), 255, 2))
+                            panel:SetAlpha(math.Approach(panel:GetAlpha(), 255, 2 * delta))
                         end
                         if n == #Avatars and panel:GetAlpha() == 255 then
                             flPhase = 1.3
@@ -339,7 +339,7 @@ local function guitest()
                 if flPhase == 1.3 and CurTime() - curTime > 5 then
                     self.fadeintext = false
                     for n, panel in pairs(Avatars) do
-                        panel:SetAlpha(math.Approach(panel:GetAlpha(), 0, 2))
+                        panel:SetAlpha(math.Approach(panel:GetAlpha(), 0, 2 * delta))
                         if n == #Avatars and panel:GetAlpha() == 0 then
                             flPhase = 2
                             curTime = CurTime()
@@ -360,10 +360,9 @@ local function guitest()
                 
                 // das setup por phase 1
                 if flPhase == 2 then 
-                    print("Starting Phase 2")
                     local total = #SetupAvatars(deaders) 
                     
-                    Arbitrary = ((total == 0 and "Nobody Died") or (total == #player.GetAll() and "Everyone Died") or ((total == 1 and survivors[1]:GetName()) or (total < 10 and "Only " or "") .. total .. " Died"))
+                    Arbitrary = ((total == 0 and "Nobody Died") or (total == #player.GetAll() and "Everyone Died") or ((total == 1 and survivors[1]:GetName()) or (total < (#player.GetAll() / 2) and "Only " or "") .. total .. " Died"))
                     self.fadeintext = true
 
                     curTime = CurTime()
@@ -421,7 +420,7 @@ local function guitest()
                 if flPhase == 2.2 then
                     for n, panel in pairs(Avatars) do
                         if panel.myturn then
-                            panel:SetAlpha(math.Approach(panel:GetAlpha(), 255, 2))
+                            panel:SetAlpha(math.Approach(panel:GetAlpha(), 255, 2 * delta))
                         end
                         if n == #Avatars and panel:GetAlpha() == 255 then
                             flPhase = 2.3
@@ -433,7 +432,7 @@ local function guitest()
                 if flPhase == 2.3 and CurTime() - curTime > 5 then
                     self.fadeintext = false
                     for n, panel in pairs(Avatars) do
-                        panel:SetAlpha(math.Approach(panel:GetAlpha(), 0, 2))
+                        panel:SetAlpha(math.Approach(panel:GetAlpha(), 0, 2 * delta))
                         if n == #Avatars and panel:GetAlpha() == 0 then
                             flPhase = 3
                             curTime = CurTime()
