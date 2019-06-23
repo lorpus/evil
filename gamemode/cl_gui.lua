@@ -362,7 +362,8 @@ local function guitest()
                 // das setup por phase 1
                 if flPhase == 2 then 
                     local total = #SetupAvatars(deaders) 
-                    
+                    if total == 0 then flPhase = 3 return end
+
                     Arbitrary = ((total == 0 and "Nobody Died") or (total == #player.GetAll() and "Everyone Died") or ((total == 1 and survivors[1]:GetName()) or (total < (#player.GetAll() / 2) and "Only " or "") .. total .. " Died"))
                     self.fadeintext = true
 
