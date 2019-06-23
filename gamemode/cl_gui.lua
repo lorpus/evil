@@ -3,6 +3,10 @@ surface.CreateFont("ebilfont", {
     size = ScreenScale(40)
 })
 
+surface.CreateFont("endgamebil", {
+    font = "Verdana",
+    size = ScreenScale(40)
+})
 
 surface.CreateFont("ebilfontsmaller", {
     font = "Verdana",
@@ -12,9 +16,10 @@ surface.CreateFont("ebilfontsmaller", {
 
 local sTitle = Evil.Cfg.MainMenu.TitleText
 local sHelp = Evil.Cfg.MainMenu.HelpText
-local nFadeSpeed = 5
+local nFadeSpeed = 6
 
-function guitest()
+
+local function FirstTimeGUI()
     
     local sw, sh = ScrW(), ScrH()
     frame = vgui.Create("DFrame")
@@ -154,12 +159,320 @@ function guitest()
 
 end
 
+local globalAlpha = 0
+local function guitest()
+    local ScrW, ScrH = ScrW(), ScrH()
+    local PadX, PadY = ScreenScale(5), ScreenScale(5)
+    local Players = player.GetAll()
+    local curTime = CurTime()
+
+    frame = vgui.Create("DFrame")
+    frame:SetSize(ScrW, ScrH)
+    frame:ShowCloseButton(false)
+    frame:SetTitle("")
+    frame:SetDraggable(false)
+    frame:MakePopup()
+    frame.fade = false
+    frame.opaque = false
+
+    function frame:Paint(w, h)
+        frame.opaque = (globalAlpha >= 255)
+        if not frame.fade then
+            globalAlpha = math.Approach(globalAlpha, 255, nFadeSpeed)
+        else
+            globalAlpha = math.Approach(globalAlpha, 0, nFadeSpeed)
+            if globalAlpha == 0 then self:Remove() end
+        end
+        draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, globalAlpha))
+    end
+
+    local survivors, deaders = {}, {}
+
+    // sorting
+    for x, ply in pairs(Players) do
+        if ply:Alive() then
+            table.insert(survivors, ply)
+            continue
+        end
+        table.insert(deaders, ply)
+    end
+
+    local Outline = vgui.Create("DPanel", frame)
+    Outline:SetSize(ScrW - (PadX * 2), ScrH - (PadY * 2))
+    Outline:SetPos(PadX, PadY)
+    Outline.fadeintext = false
+
+    local Main = vgui.Create("DPanel", Outline)
+    Main:SetSize(Outline:GetWide() - ScreenScale(12.5), Outline:GetTall() - ScreenScale(100))
+    Main:SetPos(ScreenScale(12.5) / 2, ScreenScale(100) - PadY)
+    
+    function Main:Paint(w, h) 
+        //surface.DrawOutlinedRect(0, 0, w, h)
+    end
+
+    local AvatarScale = ScreenScale(32)
+    local Avatars = {}
+    local SetupAvatars = function(tbl)
+        if Avatars[1] then
+            for  _, panel in pairs(Avatars) do panel:Remove() end
+            table.Empty(Avatars)
+        end
+
+        for n, ply in pairs(tbl) do
+            local AvatarImg = vgui.Create("AvatarImage", Main)
+            AvatarImg:SetSize(AvatarScale, AvatarScale)
+            AvatarImg:SetPlayer(ply, AvatarScale)
+            AvatarImg:SetAlpha(0)
+            table.insert(Avatars, AvatarImg)
+        end
+        return Avatars
+    end
+
+    local Arbitrary = "Placeholder"
+    local textAlpha = 0
+    local flPhase = 0
+    local Delay = 2
+    local TextFadeDelay = 4
+    local MainW, MainH = Main:GetWide(), Main:GetTall()
+    local TempVar = 1
+    --[[ 
+        0/1 = Fade in & Survivors
+        2 = Deaders
+        3 = Fadeout -- highlights coming soon later in a theater near u
+      ]]
+    function Outline:Paint(w, h)
+        surface.SetDrawColor(75, 75, 75, globalAlpha)
+        //surface.DrawOutlinedRect(0, 0, w, h)
+        
+        if self.fadeintext then
+            textAlpha =  math.Approach(textAlpha, 255, TextFadeDelay)
+            self.textfadefinished = (textAlpha >= 255)
+        else
+            textAlpha =  math.Approach(textAlpha, 0, TextFadeDelay)
+            self.textfadefinished = (textAlpha <= 0)
+        end
+
+        surface.SetFont("endgamebil")
+        local TextW, TextH = surface.GetTextSize(Arbitrary)
+        draw.DrawText(Arbitrary, "endgamebil", w / 2 - TextW / 2, PadY, Color(255, 255, 255, textAlpha))
+
+        if frame.opaque then
+            if ((flPhase == 0 and (CurTime() - curTime > Delay)) or ((flPhase > 1) and (flPhase < 2))) then 
+                
+                // das setup por phase 1
+                if flPhase == 0 then 
+                    print("Starting Phase 1")
+                    local avatartable = SetupAvatars(survivors) 
+                    local total = #avatartable
+                    if total == 0 then flPhase = 2 return end
+
+                    Arbitrary = ((total < 10 and "Only " or "") .. total .. " Survived")
+                    if total == 0 then Arbitrary = "Nobody Survived" end
+                    if total == 1 and #survivors[1]:GetName() <= 12 then Arbitrary = survivors[1]:GetName() .. " was the only survivor" end
+                    
+                    self.fadeintext = true
+
+                    curTime = CurTime()
+                    flPhase = 1.1
+                    if total == 0 then flPhase = 1.3 end
+                end
+
+                // time to position tha avatars in the right spot
+                if flPhase == 1.1 and (CurTime() - curTime > 1) then
+                    local MainW, MainH = AvatarScale + PadX, AvatarScale + PadY
+                    local maxColumns = math.Round((w - PadX * 16) / MainW)
+                    local rowsMax = 1
+
+                    local temp = #Avatars
+                    while temp > maxColumns do
+                        rowsMax = rowsMax + 1
+                        temp = temp - maxColumns
+                    end
+
+                    if maxColumns > #Avatars then maxColumns = #Avatars end
+                    
+                    Main:SetSize((MainW * maxColumns) + PadX, (MainH * rowsMax) + PadY)
+                    Main:SetPos(w / 2 - Main:GetWide() / 2, TextH + PadY * 2)
+                    
+                    local I = 0
+                    local x, y = PadX, PadY
+                    for _, panel in pairs(Avatars) do
+                        
+                        panel:SetPos(x, y)
+                        I = I + 1
+                        
+                        x = x + PadX + AvatarScale
+                        if I == maxColumns then
+                            y = y + panel:GetTall() + PadY
+                            x = PadX
+                            I = 0
+                        end
+                    end
+
+                    curTime = CurTime()
+                    flPhase = 1.2
+                end
+
+                // time to do cool things with the avatars!! - aids
+                local AvatarFadeSpeed = 0.1
+                if #Avatars >= 10 then AvatarFadeSpeed = 0.4 end
+                if #Avatars >= 20 then AvatarFadeSpeed = 0.3 end
+                if #Avatars >= 30 then AvatarFadeSpeed = 0.2 end
+                if #Avatars >= 40 then AvatarFadeSpeed = 0.1 end
+                if flPhase == 1.2 and (CurTime() - curTime > AvatarFadeSpeed) then
+                    for n, panel in pairs(Avatars) do
+                        if TempVar != n then continue end
+                        curTime = CurTime()
+                        panel.myturn = true
+                    end
+                    TempVar = TempVar + 1
+                end
+
+                if flPhase == 1.2 then
+                    for n, panel in pairs(Avatars) do
+                        if panel.myturn then
+                            panel:SetAlpha(math.Approach(panel:GetAlpha(), 255, 2))
+                        end
+                        if n == #Avatars and panel:GetAlpha() == 255 then
+                            flPhase = 1.3
+                            TempVar = 1
+                        end
+                    end
+                end
+
+                if flPhase == 1.3 and CurTime() - curTime > 5 then
+                    self.fadeintext = false
+                    for n, panel in pairs(Avatars) do
+                        panel:SetAlpha(math.Approach(panel:GetAlpha(), 0, 2))
+                        if n == #Avatars and panel:GetAlpha() == 0 then
+                            flPhase = 2
+                            curTime = CurTime()
+                        end
+                    end
+                    if #Avatars == 0 then
+                        flPhase = 1.4
+                        curTime = CurTime()
+                    end
+                end
+
+                if flPhase == 1.4 and CurTime() - curTime > 0.1 then
+                    if #Avatars == 0 and self.textfadefinished then flPhase = 2 curTime = CurTime() end
+                end
+            end
+
+            if ((flPhase == 2 and (CurTime() - curTime > Delay)) or ((flPhase > 2) and (flPhase < 3))) then 
+                
+                // das setup por phase 1
+                if flPhase == 2 then 
+                    print("Starting Phase 2")
+                    local total = #SetupAvatars(deaders) 
+                    
+                    Arbitrary = ((total == 0 and "Nobody Died") or (total == #player.GetAll() and "Everyone Died") or ((total == 1 and survivors[1]:GetName()) or (total < 10 and "Only " or "") .. total .. " Died"))
+                    self.fadeintext = true
+
+                    curTime = CurTime()
+                    flPhase = 2.1
+                    if total == 0 then flPhase = 2.3 end
+                end
+
+                // time to position tha avatars in the right spot
+                if flPhase == 2.1 and (CurTime() - curTime > 1) then
+                    local MainW, MainH = AvatarScale + PadX, AvatarScale + PadY
+                    local maxColumns = math.Round((w - PadX * 16) / MainW)
+                    local rowsMax = 1
+
+                    local temp = #Avatars
+                    while temp > maxColumns do
+                        rowsMax = rowsMax + 1
+                        temp = temp - maxColumns
+                    end
+
+                    if maxColumns > #Avatars then maxColumns = #Avatars end
+                    
+                    Main:SetSize((MainW * maxColumns) + PadX, (MainH * rowsMax) + PadY)
+                    Main:SetPos(w / 2 - Main:GetWide() / 2, TextH + PadY * 2)
+                    
+                    local I = 0
+                    local x, y = PadX, PadY
+                    for _, panel in pairs(Avatars) do
+                        
+                        panel:SetPos(x, y)
+                        I = I + 1
+                        
+                        x = x + PadX + AvatarScale
+                        if I == maxColumns then
+                            y = y + panel:GetTall() + PadY
+                            x = PadX
+                            I = 0
+                        end
+                    end
+
+                    curTime = CurTime()
+                    flPhase = 2.2
+                end
+
+                // time to do cool things with the avatars!! - aids
+                local AvatarFadeSpeed = 0.1
+                if #Avatars >= 10 then AvatarFadeSpeed = 0.4 end
+                if #Avatars >= 20 then AvatarFadeSpeed = 0.3 end
+                if #Avatars >= 30 then AvatarFadeSpeed = 0.2 end
+                if #Avatars >= 40 then AvatarFadeSpeed = 0.1 end
+                if flPhase == 2.2 and (CurTime() - curTime > AvatarFadeSpeed) then
+                    for n, panel in pairs(Avatars) do
+                        if TempVar != n then continue end
+                        curTime = CurTime()
+                        panel.myturn = true
+                    end
+                    TempVar = TempVar + 1
+                end
+
+                if flPhase == 2.2 then
+                    for n, panel in pairs(Avatars) do
+                        if panel.myturn then
+                            panel:SetAlpha(math.Approach(panel:GetAlpha(), 255, 2))
+                        end
+                        if n == #Avatars and panel:GetAlpha() == 255 then
+                            flPhase = 2.3
+                            TempVar = 1
+                        end
+                    end
+                end
+
+                if flPhase == 2.3 and CurTime() - curTime > 5 then
+                    self.fadeintext = false
+                    for n, panel in pairs(Avatars) do
+                        panel:SetAlpha(math.Approach(panel:GetAlpha(), 0, 2))
+                        if n == #Avatars and panel:GetAlpha() == 0 then
+                            flPhase = 3
+                            curTime = CurTime()
+                        end
+                    end
+                    if #Avatars == 0 then
+                        flPhase = 2.4
+                        curTime = CurTime()
+                    end
+                end
+
+                if flPhase == 2.4 and CurTime() - curTime > 0.1 then
+                    if #Avatars == 0 and self.textfadefinished then flPhase = 3 curTime = CurTime() end
+                end
+            end
+
+            if ((flPhase == 3 and (CurTime() - curTime > Delay)) or ((flPhase > 3) and (flPhase < 4))) then
+                frame.fade = true
+            end
+
+        end
+    end
+end
+
 hook.Add("HUDPaint", "OnloadGUIInit", function()
     hook.Remove("HUDPaint", "OnloadGUIInit")
     if frame then frame:Remove() end
-    guitest()
+    //FirstTimeGUI()
 end)
 
-concommand.Add("rmtest", function()
-    frame:Remove()
+concommand.Add("runtestgui", function()
+    if frame then frame:Remove() end
+    guitest()
 end)
