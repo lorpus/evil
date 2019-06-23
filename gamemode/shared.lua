@@ -30,6 +30,7 @@ include_sv "effects/sv_ambience.lua"
 include_sh "effects/sh_runanimation.lua"
 include_cl "cl_gui.lua"
 include_cl "cl_hud.lua"
+include_cl "cl_scoreboard.lua"
 
 include_md "lang"
 include_md "flashlight"
