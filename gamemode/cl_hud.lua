@@ -64,7 +64,9 @@ end
 
 hook.Add("HUDPaint", "Screen_Attributes", function()
     PlayerStats()
-    Timer()
+    if Round:IsPlaying() then
+        Timer()
+    end
 end)
 
 local hide = {
