@@ -191,6 +191,7 @@ local function guitest()
 
     // sorting
     for x, ply in pairs(Players) do
+        if ply:IsBoss() then continue end
         if ply:Alive() then
             table.insert(survivors, ply)
             continue
