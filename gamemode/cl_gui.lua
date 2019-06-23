@@ -72,8 +72,8 @@ local function FirstTimeGUI()
         surface.SetDrawColor(255, 255, 255)
         surface.DrawOutlinedRect(0, 0, w, h)
         surface.SetFont("ebilfontsmaller")
-        local TxtW, TxtH = surface.GetTextSize("Help")
-        draw.DrawText("Help", "ebilfontsmaller", w / 2 - TxtW / 2, h / 2 - TxtH / 2, Color(255,255,255,255))
+        local TxtW, TxtH = surface.GetTextSize(Lang:Get("#Help"))
+        draw.DrawText(Lang:Get("#Help"), "ebilfontsmaller", w / 2 - TxtW / 2, h / 2 - TxtH / 2, Color(255,255,255,255))
     end
 
     exit:SetSize(ScreenScale(50), ScreenScale(25))
@@ -89,8 +89,8 @@ local function FirstTimeGUI()
         surface.SetDrawColor(255, 255, 255)
         surface.DrawOutlinedRect(0, 0, w, h) 
         surface.SetFont("ebilfontsmaller")
-        local TxtW, TxtH = surface.GetTextSize("Exit")
-        draw.DrawText("Exit", "ebilfontsmaller", w / 2 - TxtW / 2, h / 2 - TxtH / 2, Color(255,255,255,255))
+        local TxtW, TxtH = surface.GetTextSize(Lang:Get("#Exit"))
+        draw.DrawText(Lang:Get("#Exit"), "ebilfontsmaller", w / 2 - TxtW / 2, h / 2 - TxtH / 2, Color(255,255,255,255))
     end
 
     // das do click functions (better to have them together to understand whats happening)
@@ -270,10 +270,16 @@ function Evil:ShowEndScreen()
                     local total = #avatartable
                     if total == 0 then flPhase = 2 return end
 
-                    Arbitrary = ((total < (#player.GetAll() / 2) and "Only " or "") .. total .. " Survived")
-                    if total == 0 then Arbitrary = "Nobody Survived" end
-                    if total == 1 and #survivors[1]:GetName() <= 12 then Arbitrary = survivors[1]:GetName() .. " was the only survivor" end
-                    
+                    if total < (#player.GetAll() / 2) then
+                        Arbitrary = Lang:Format("#End_OnlyNSurvived", { count = total })
+                    else
+                        Arbitrary = Lang:Format("#End_NSurvived", { count = total })
+                    end
+                    if total == 0 then Arbitrary = Lang:Get("#End_NobodySurvived") end
+                    if total == 1 and #survivors[1]:GetName() <= 12 then
+                        Arbitrary = Lang:Format("#End_OnlySurvivor", { nick = survivors[1]:GetName() })
+                    end
+
                     self.fadeintext = true
 
                     curTime = CurTime()
@@ -368,7 +374,15 @@ function Evil:ShowEndScreen()
                     local total = #SetupAvatars(deaders) 
                     if total == 0 then flPhase = 3 return end
 
-                    Arbitrary = ((total == 0 and "Nobody Died") or (total == #player.GetAll() and "Everyone Died") or ((total == 1 and survivors[1]:GetName()) or (total < (#player.GetAll() / 2) and "Only " or "") .. total .. " Died"))
+                    if total == 0 then
+                        Arbitrary = Lang:Get("#End_NobodyDied")
+                    elseif total == #player.GetAll() then
+                        Arbitrary = Lang:Get("#End_EveryoneDied")
+                    elseif total < #player.GetAll() / 2 then
+                        Arbitrary = Lang:Format("#End_OnlyNDied", { count = total })
+                    else
+                        Arbitrary = Lang:Format("#End_NDied", { count = total })
+                    end
                     self.fadeintext = true
 
                     curTime = CurTime()
