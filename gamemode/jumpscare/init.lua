@@ -5,7 +5,7 @@ function Jumpscare:SendScare(ply)
 end
 
 hook.Add("PlayerDeath", "Jumpscare", function(ply, inflictor, attacker)
-    if  not Game:IsPlaying() or
+    if  not Round:IsPlaying() or
         ply:IsBoss() or
         not IsValid(attacker) or
         not attacker:IsPlayer() then return end
