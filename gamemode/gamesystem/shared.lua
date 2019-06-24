@@ -33,6 +33,18 @@ function Game:GetGametypeInfo()
     return Game.Gametypes[Game:GetGametype()] 
 end
 
+function Game:CanESP()
+    if Game:GetGametype() == "pages" then
+        local taken = GetGlobalInt("PagesCollected")
+        local total = 8 // change
+        if taken / total < 0.7 then return false end
+    else
+        return false
+    end
+
+    return true
+end
+
 hook.Add("ShouldCheckStamina", "nobossstamina", function(ply)
     if ply:Team() == TEAM_BOSS then
         return false

@@ -15,3 +15,43 @@ hook.Add("EvilPlayerKilled", "OnPlayerKilled", function(victim)
         info.killhook(victim)
     end
 end)
+
+// should this be in a diff file ?
+
+hook.Add("PostDrawOpaqueRenderables", "EvilBossESP", function()
+    if not LocalPlayer():IsBoss() then return end
+
+    local pos = LocalPlayer():EyePos() + LocalPlayer():EyeAngles():Forward() * 10
+    local ang = LocalPlayer():EyeAngles()
+    ang = Angle(ang.p + 90, ang.y, 0)
+
+    for _, ply in pairs(player.GetAll()) do
+        if not ply:IsHuman() then continue end
+        if not ply:GetNWBool("EvilForceESP") and not Game:CanESP() then continue end
+
+        render.ClearStencil()
+		render.SetStencilEnable(true)
+			render.SetStencilWriteMask(255)
+			render.SetStencilTestMask(255)
+			render.SetStencilReferenceValue(1)
+			render.SetStencilFailOperation(STENCILOPERATION_KEEP)
+			render.SetStencilZFailOperation(STENCILOPERATION_REPLACE)
+			render.SetStencilPassOperation(STENCILOPERATION_KEEP)
+			render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_ALWAYS)
+			render.SetBlend(0)
+			ply:DrawModel()
+			render.SetBlend(1)
+			render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_EQUAL)
+			cam.Start3D2D(pos, ang, 1)
+				local hp = (ply:Health() / ply:GetMaxHealth()) * 255
+				surface.SetDrawColor(255 - hp, hp, 0)
+				surface.DrawRect(-ScrW(), -ScrH(), ScrW() * 2, ScrH() * 2)
+			cam.End3D2D()
+			ply:DrawModel()
+
+			render.SetStencilPassOperation(STENCILOPERATION_REPLACE)
+			render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_ALWAYS)
+			ply:DrawModel()
+		render.SetStencilEnable(false)
+    end
+end)
