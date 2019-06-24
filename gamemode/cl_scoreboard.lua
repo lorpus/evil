@@ -13,7 +13,6 @@ surface.CreateFont("ebilfontscoreboard", {
     size = ScreenScale(12)
 })
 
-
 Scoreboard = {}
 
 local function GetPlayerStatus(ply)
@@ -25,10 +24,11 @@ local function SortPlayers(tab)
     local boss, humans, dead = {}, {}, {}
 
     for _, ply in pairs(tab) do
-        if ply:Team() == TEAM_HUMAN then table.insert(humans, ply) continue end
-        if ply:Team() == TEAM_BOSS then table.insert(boss, ply) continue end
+        if ply:IsHuman() then table.insert(humans, ply) continue end
+        if ply:IsBoss() then table.insert(boss, ply) continue end
         table.insert(dead, ply)
     end
+
     return boss, humans, dead
 end
 
@@ -72,18 +72,21 @@ function Scoreboard:Toggle()
     function sbar:Paint(w, h) 
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 40))
     end
+
     function sbar.btnUp:Paint(w, h) 
         draw.RoundedBox(0, 0, 0, w, h, Color(40, 40, 40, 200))
         surface.SetFont("ebilfontsmallerer")
         local TextW, TextH = surface.GetTextSize("↑")
         draw.DrawText("↑", "ebilfontsmallerer", w / 2 - TextW / 2, h / 2 - TextH / 2)
     end
+
     function sbar.btnDown:Paint(w, h) 
         draw.RoundedBox(0, 0, 0, w, h, Color(40, 40, 40, 200))
         surface.SetFont("ebilfontsmallerer")
         local TextW, TextH = surface.GetTextSize("↓")
         draw.DrawText("↓", "ebilfontsmallerer", w / 2 - TextW / 2, h / 2 - TextH / 2)
     end
+
     function sbar.btnGrip:Paint(w, h) 
         draw.RoundedBox(0, 0, 0, w, h, Color(55, 55, 55, 200))
     end
@@ -94,7 +97,6 @@ function Scoreboard:Toggle()
     local BossPlayerList, HumanPlayerList, DeadPlayerList
 
     if #boss > 0 then
-
         local Boss = vgui.Create("DPanel", ScrollPanel)
         Boss:SetSize(MainW - (PadX * 2), ScreenScale(25) / 2)
         Boss:SetPos(PadX, PadY)
@@ -103,8 +105,8 @@ function Scoreboard:Toggle()
             draw.RoundedBox(0, 0, 0, w, h, BossColor)
             
             surface.SetFont("ebilfontsmaller")
-            local TextW, TextH = surface.GetTextSize("Boss")
-            draw.DrawText("Boss", "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
+            local TextW, TextH = surface.GetTextSize(Lang:Get("#Boss"))
+            draw.DrawText(Lang:Get("#Boss"), "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
         end
         PanelY = PanelY + Boss:GetTall() + PadY
 
@@ -117,11 +119,9 @@ function Scoreboard:Toggle()
         end
 
         PanelY = PanelY + BossPlayerList:GetTall() + PadY
-
     end
 
     if #humans > 0 then
-
         local Humans = vgui.Create("DPanel", ScrollPanel)
         Humans:SetSize(MainW - (PadX * 2), ScreenScale(25) / 2)
         Humans:SetPos(PadX, PanelY)
@@ -130,9 +130,10 @@ function Scoreboard:Toggle()
             draw.RoundedBox(0, 0, 0, w, h, HumanColor)
             
             surface.SetFont("ebilfontsmaller")
-            local TextW, TextH = surface.GetTextSize("Humans")
-            draw.DrawText("Humans", "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
+            local TextW, TextH = surface.GetTextSize(Lang:Get("#Humans"))
+            draw.DrawText(Lang:Get("#Humans"), "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
         end
+
         PanelY = PanelY + Humans:GetTall()
 
         HumanPlayerList = vgui.Create("DPanel", ScrollPanel)
@@ -144,11 +145,9 @@ function Scoreboard:Toggle()
         end
 
         PanelY = PanelY + HumanPlayerList:GetTall() + PadY
-
     end
 
     if #dead > 0 then
-
         local Dead = vgui.Create("DPanel", ScrollPanel)
         Dead:SetSize(MainW - (PadX * 2), ScreenScale(25) / 2)
         Dead:SetPos(PadX, PanelY)
@@ -157,9 +156,10 @@ function Scoreboard:Toggle()
             draw.RoundedBox(0, 0, 0, w, h, DeadColor)
             
             surface.SetFont("ebilfontsmaller")
-            local TextW, TextH = surface.GetTextSize("Dead")
-            draw.DrawText("Dead", "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
+            local TextW, TextH = surface.GetTextSize(Lang:Get("#Dead"))
+            draw.DrawText(Lang:Get("#Dead"), "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
         end
+
         PanelY = PanelY + Dead:GetTall()
 
         DeadPlayerList = vgui.Create("DPanel", ScrollPanel)
@@ -171,7 +171,6 @@ function Scoreboard:Toggle()
         end
 
         PanelY = PanelY + DeadPlayerList:GetTall() + PadY
-
     end
 
     local AvatarScale = ScreenScale(Scale / 2) - PadX * 2
@@ -197,9 +196,9 @@ function Scoreboard:Toggle()
             local TextW = surface.GetTextSize("Status")
             local center = ScreenScale(200) + TextW / 2
 
-           --[[surface.SetFont("ebilfontscoreboard")
+            /*surface.SetFont("ebilfontscoreboard")
             local TextW, TextH = surface.GetTextSize(GetPlayerStatus(ply))
-            draw.DrawText(GetPlayerStatus(ply), "ebilfontscoreboard", center - TextW / 2, h / 2 - TextH / 2)]]
+            draw.DrawText(GetPlayerStatus(ply), "ebilfontscoreboard", center - TextW / 2, h / 2 - TextH / 2)*/
 
             surface.SetFont("ebilfontsmaller")
             local TextW = surface.GetTextSize("Ping")
@@ -211,7 +210,6 @@ function Scoreboard:Toggle()
 
             surface.SetDrawColor(5, 5, 5, 125)
             surface.DrawOutlinedRect(0, 0, hideSbar and (sbar and w - sbar:GetWide()) or w, h)
-
         end
         
         if ply:IsBot() then return end
@@ -221,7 +219,7 @@ function Scoreboard:Toggle()
         button:SetText("")
         function button:Paint() end
         function button:DoClick()
-            gui.OpenURL("https://steamcommunity.com/profiles/" .. ply:SteamID64()) 
+            ply:ShowProfile()
         end
     end
 
@@ -240,7 +238,6 @@ function Scoreboard:Toggle()
         y = 0
     end
 end
-
 
 function GM:ScoreboardShow()
 	Scoreboard:Toggle()

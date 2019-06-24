@@ -25,6 +25,9 @@ Lang.Translations = {
         ["#End_EveryoneDied"] = "Everyone Died",
         ["#Help"] = "Help",
         ["#Exit"] = "Exit",
+        ["#Boss"] = "Boss",
+        ["#Humans"] = "Humans",
+        ["#Dead"] = "Dead",
     }
 }
 
