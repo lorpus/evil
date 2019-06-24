@@ -81,4 +81,5 @@ hook.Add("HUDShouldDraw", "HideDasDefaults", function(n)
 end)
 
 hook.Add("HUDDrawTargetID", "HidePlayerTarget", function()
+    return false
 end)
