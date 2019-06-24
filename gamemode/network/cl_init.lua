@@ -19,6 +19,8 @@ local function ReceiveHandler(iLen, ply)
         local args = net.ReadTable()
 
         hook.Run(event, unpack(args))
+    elseif cmd == N_JUMPSCARE then
+        Jumpscare:NetReceive()
     end
 end
 net.Receive(Network.Id, ReceiveHandler)

@@ -11,10 +11,23 @@ hook.Add("Think", "ForceSpectator", function()
     end
 end)
 
+function PLAYER:GetSpectators()
+    local ret = {}
+
+    for _, ply in pairs(player.GetAll()) do
+        if ply:IsSpectating() and ply:GetObserverTarget() == self then
+            table.insert(ret, ply)
+        end
+    end
+
+    return ret
+end
+
 function PLAYER:StartSpectating()
     if self:IsSpectating() then return end
     self:Spectate(OBS_MODE_IN_EYE)
     self:SetMoveType(MOVETYPE_NONE)
+    self:SetTeam(TEAM_SPEC)
     self:CycleSpectatorTarget(1)
     self:SetNWBool("IsSpectating", true)
 end

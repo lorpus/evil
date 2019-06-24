@@ -14,6 +14,12 @@ Evil.Bosses = {
             if SERVER then
                 victim:SetModel("models/player/skeleton.mdl")
             end
-        end
+        end,
+
+        jumpscare = {
+            mat = "evil/scares/mrbones/scare1",
+            sound = "evil/mrbones/scare1.mp3",
+            len = 27 / 30
+        }
     }
 }
