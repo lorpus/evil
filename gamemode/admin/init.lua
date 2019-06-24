@@ -1,3 +1,5 @@
+Evil.TestingCVar = CreateConVar("evil_testing", 0, FCVAR_CHEAT + FCVAR_NOTIFY + FCVAR_REPLICATED, "Enables testing mode")
+
 concommand.Add("evil_endgame", function(ply, cmd, args, argStr)
     if Admin:IsAdmin(ply) then
         if not Round:End("#Round_EndAdmin") then

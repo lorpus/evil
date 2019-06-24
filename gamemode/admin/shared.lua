@@ -37,3 +37,43 @@ function Admin:FindTarget(str)
 
     return targets
 end
+
+hook.Add("PlayerNoClip", "EvilAdminHandleNoclipping", function(ply, bDesired)
+    if Admin:IsAdmin(ply) and bDesired then return true end
+    if SERVER and GetConVar("evil_testing"):GetBool() then return true end
+    return not bDesired
+end)
+
+cvars.AddChangeCallback("evil_testing", function(convar, old, new)
+    if SERVER then
+        Evil.bLocked = false
+    end
+
+    print(new)
+    if new == "1" then
+        if SERVER then
+            print("testing mode is enabled")
+            Network:NotifyAll("testing mode is now enabled")
+        
+            Round:SetRound(ROUND_POST)
+
+            for _, ply in pairs(player.GetAll()) do
+                ply:SetTeam(TEAM_HUMAN)
+                ply:Spawn()
+                ply:StopSpectating()
+            end
+        end
+    else
+        if SERVER then
+            print("testing mode is now disabled")
+            Network:NotifyAll("testing mode is now disabled")
+        end
+        
+        for _, ply in pairs(player.GetAll()) do
+            if SERVER then
+                ply:KillSilent()
+            end
+            ply:SetMoveType(MOVETYPE_WALK)
+        end
+    end
+end, "blahblahidentifier")
