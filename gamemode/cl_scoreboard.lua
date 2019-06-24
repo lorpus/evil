@@ -188,6 +188,12 @@ function Scoreboard:Toggle()
         y = y + panel:GetTall()
 
         function panel:Paint(w, h)
+            if not IsValid(ply) then 
+                self:Remove()
+                Scoreboard:Toggle()
+                Scoreboard:Toggle()
+                return 
+            end
             surface.SetFont("ebilfontscoreboard")
             local TextW, TextH = surface.GetTextSize(ply:GetName())
             draw.DrawText(ply:GetName(), "ebilfontscoreboard", Avatar:GetWide() + PadX * 2, panel:GetTall() / 2 - TextH / 2)
