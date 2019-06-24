@@ -79,3 +79,6 @@ local hide = {
 hook.Add("HUDShouldDraw", "HideDasDefaults", function(n)
 	if hide[n] then return false end
 end)
+
+hook.Add("HUDDrawTargetID", "HidePlayerTarget", function()
+end)
