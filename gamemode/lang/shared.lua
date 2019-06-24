@@ -37,9 +37,11 @@ end
 
 function Lang:Format(key, tab)
     local ret = Lang:Get(key)
+    
     for key, replacement in pairs(tab) do
         ret = string.Replace(ret, "{{" .. key .. "}}", replacement)
     end
+
     return ret
 end
 

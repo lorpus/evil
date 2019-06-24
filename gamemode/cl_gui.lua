@@ -19,7 +19,6 @@ local sTitle = Evil.Cfg.MainMenu.TitleText
 local sHelp = Evil.Cfg.MainMenu.HelpText
 local nFadeSpeed = 6
 
-
 local function FirstTimeGUI()
     local sw, sh = ScrW(), ScrH()
     frame = vgui.Create("DFrame")
@@ -58,7 +57,6 @@ local function FirstTimeGUI()
         local TxtW, TxtH = surface.GetTextSize(sHelp)
         draw.DrawText(sHelp, "ebilfontsmaller", w / 2, h / 2 - TxtH / 2, color_white, TEXT_ALIGN_CENTER)
     end
-
     
     help:SetSize(ScreenScale(50), ScreenScale(25))
     local centerX, centerY = ((sw / 2) - (help:GetWide() / 2)), ((sh / 2) - (help:GetTall() / 2))
@@ -240,11 +238,11 @@ function Evil:ShowEndScreen()
     local TextFadeDelay = 2
     local MainW, MainH = Main:GetWide(), Main:GetTall()
     local TempVar = 1
-    --[[ 
+    /* 
         0/1 = Fade in & Survivors
         2 = Deaders
         3 = Fadeout -- highlights coming soon later in a theater near u
-      ]]
+    */
     function Outline:Paint(w, h)
         surface.SetDrawColor(75, 75, 75, globalAlpha)
         //surface.DrawOutlinedRect(0, 0, w, h)
@@ -304,19 +302,18 @@ function Evil:ShowEndScreen()
                     Main:SetSize((MainW * maxColumns) + PadX, (MainH * rowsMax) + PadY)
                     Main:SetPos(w / 2 - Main:GetWide() / 2, TextH + PadY * 2)
                     
-                    local I = 0
+                    local i = 0
                     local x, y = PadX, PadY
                     for _, panel in pairs(Avatars) do
-                        
                         panel:SetPos(x, y)
 
-                        I = I + 1
+                        i = i + 1
                         
                         x = x + PadX + AvatarScale
-                        if I == maxColumns then
+                        if i == maxColumns then
                             y = y + panel:GetTall() + PadY
                             x = PadX
-                            I = 0
+                            i = 0
                         end
                     end
 
@@ -332,6 +329,7 @@ function Evil:ShowEndScreen()
                         curTime = CurTime()
                         panel.myturn = true
                     end
+
                     TempVar = TempVar + 1
                 end
 
@@ -340,6 +338,7 @@ function Evil:ShowEndScreen()
                         if panel.myturn then
                             panel:SetAlpha(math.Approach(panel:GetAlpha(), 255, 2 * delta))
                         end
+
                         if n == #Avatars and panel:GetAlpha() == 255 then
                             flPhase = 1.3
                             TempVar = 1
@@ -356,6 +355,7 @@ function Evil:ShowEndScreen()
                             curTime = CurTime()
                         end
                     end
+                    
                     if #Avatars == 0 then
                         flPhase = 1.4
                         curTime = CurTime()
@@ -383,6 +383,7 @@ function Evil:ShowEndScreen()
                     else
                         Arbitrary = Lang:Format("#End_NDied", { count = total })
                     end
+
                     self.fadeintext = true
 
                     curTime = CurTime()
@@ -407,19 +408,19 @@ function Evil:ShowEndScreen()
                     Main:SetSize((MainW * maxColumns) + PadX, (MainH * rowsMax) + PadY)
                     Main:SetPos(w / 2 - Main:GetWide() / 2, TextH + PadY * 2)
                     
-                    local I = 0
+                    local i = 0
                     local x, y = PadX, PadY
                     for _, panel in pairs(Avatars) do
                         
                         panel:SetPos(x, y)
 
-                        I = I + 1
+                        i = i + 1
                         
                         x = x + PadX + AvatarScale
-                        if I == maxColumns then
+                        if i == maxColumns then
                             y = y + panel:GetTall() + PadY
                             x = PadX
-                            I = 0
+                            i = 0
                         end
                     end
 
@@ -435,6 +436,7 @@ function Evil:ShowEndScreen()
                         curTime = CurTime()
                         panel.myturn = true
                     end
+        
                     TempVar = TempVar + 1
                 end
 
@@ -459,6 +461,7 @@ function Evil:ShowEndScreen()
                             curTime = CurTime()
                         end
                     end
+
                     if #Avatars == 0 then
                         flPhase = 2.4
                         curTime = CurTime()
@@ -473,7 +476,6 @@ function Evil:ShowEndScreen()
             if ((flPhase == 3 and (CurTime() - curTime > Delay)) or ((flPhase > 3) and (flPhase < 4))) then
                 frame.fade = true
             end
-
         end
     end
 end

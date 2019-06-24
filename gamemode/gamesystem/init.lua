@@ -90,6 +90,7 @@ end
 
 function Game:PickAndStartGameType()
     local keys = {}
+    
     for k, v in RandomPairs(Game.Gametypes) do
         if v.playable then
             if v.playable() then
@@ -99,16 +100,18 @@ function Game:PickAndStartGameType()
             table.insert(keys, k)
         end
     end
+
     if #keys == 0 then
         return Evil:Lock("playable gametype configuration is broke")
     end
+
     local key = table.Random(keys)
 
     Game:SetGametype(key)
     Game:StartGametype(key)
 end
 
-hook.Add("PlayerShouldTakeDamage", "NoBossDamage", function(ply, attacker)
+hook.Add("PlayerShouldTakeDamage", "EvilNoBossDamage", function(ply, attacker)
     if ply:IsBoss() then
         return false
     end
@@ -166,7 +169,7 @@ hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
     end
 end)
 
-hook.Add("PlayerDeathSound", "silentdeathsound", function()
+hook.Add("PlayerDeathSound", "EvilRemoveDeathSound", function()
     return false
 end)
 

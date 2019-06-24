@@ -11,15 +11,12 @@ function Round:AddTime(time)
 end
 
 function Round:CanStart()
-    if #player.GetAll() >= 2 then
-        return true
-    end
-
-    return false
+    return #player.GetAll() >= 2
 end
 
 function Round:WaitForPlayers()
     Round:SetRound(ROUND_WAITING)
+
     timer.Create("RoundWaitPlayers", 30, 0, function()
         if Round:CanStart() then
             Round:StartGame()
@@ -84,6 +81,7 @@ hook.Add("Think", "RoundThink", function()
             ply:SetTeam(TEAM_SPEC)
             ply:KillSilent()
         end
+
         return Round:WaitForPlayers()
     end
 

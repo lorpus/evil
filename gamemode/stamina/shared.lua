@@ -32,6 +32,7 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         if flStamina > 0 then
             flStamina = flStamina - Stamina.loserate
         end
+        
         ply.flLastSpeed = CurTime()
     elseif not ply:KeyDown(IN_SPEED) and flStamina <= Stamina.maxstamina then
         if ply.flLastSpeed then

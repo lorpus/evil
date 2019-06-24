@@ -29,14 +29,12 @@ local function Timer()
     surface.SetFont(FontA)
     local TextW, TextH = surface.GetTextSize(ArbritratyText)
     draw.DrawText(ArbritratyText, FontA, nScrW / 2 - TextW / 2, TimerT + (Atall / 2 - TextH / 2), Color(255,255,255,255))
-
 end
 
 local Old = 0
 local StamMaterial = Material("ebil/stamina.png")
 
 local function PlayerStats()
-
     if LocalPlayer():IsBoss() then return end
     if not LocalPlayer():Alive() then return end
 
@@ -59,7 +57,6 @@ local function PlayerStats()
     surface.SetDrawColor(255, 255, 255)
     surface.SetMaterial(StamMaterial)
     surface.DrawTexturedRectUV(x + PadX, nScrH - PadY - Scaled * (1 - fmul), Scaled, Scaled * (1 - fmul), 0, fmul, 1, 1)
-
 end
 
 hook.Add("HUDPaint", "Screen_Attributes", function()
