@@ -1,7 +1,7 @@
 "ebil"
 {
     "base"          "base"
-    "title"         "Ebil"
-    "maps"          "^ebil_"
+    "title"         "Evil"
+    "maps"          "^evil_"
     "menusystem"    "0"
 }

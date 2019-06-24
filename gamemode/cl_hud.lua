@@ -32,7 +32,7 @@ local function Timer()
 end
 
 local Old = 0
-local StamMaterial = Material("ebil/stamina.png")
+local StamMaterial = Material("evil/stamina.png")
 
 local function PlayerStats()
     if LocalPlayer():IsBoss() then return end
