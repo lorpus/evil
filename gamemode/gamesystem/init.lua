@@ -144,37 +144,6 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     end
 end)
 
-hook.Add("KeyPress", "bossattack", function(ply, key)
-    if ply:Team() == TEAM_BOSS then
-        if key == IN_ATTACK2 then
-            ply.mouse2down = true
-        end 
-    end
-end)
-
-hook.Add("KeyRelease", "bossattack", function(ply, key)
-    if ply:Team() == TEAM_BOSS then
-        if key == IN_ATTACK2 then
-            ply.mouse2down = false
-        end
-    end
-end)
-
-hook.Add("Think", "bossattack", function()
-    /*local boss = Game:GetBoss()
-    if IsValid(boss) then
-        if boss.mouse2down then
-            boss.pentup = boss.pentup + 1
-        else
-            local x = boss.pentup
-            boss.pentup = 0
-            if x > 50 then
-                boss:SetVelocity(boss:GetAimVector() * x * 10)
-            end
-        end
-    end*/
-end)
-
 hook.Add("PlayerDeathSound", "silentdeathsound", function()
     return false
 end)
