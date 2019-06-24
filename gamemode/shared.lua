@@ -46,6 +46,8 @@ include_md "gamesystem"
 include_md "roundsystem"
 include_md "spectator"
 include_md "jumpscare"
+include_md "stats"
+include_md "achievements"
 
 function GM:Initialize()
     if SERVER then
