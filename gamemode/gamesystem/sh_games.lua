@@ -5,9 +5,11 @@ Game.Gametypes = {
         start = function()
             dbg.print("pages.start()")
             SetGlobalInt("PagesCollected", 0)
+            local pagesTotal = math.min(8, #Map.pages)
+            SetGlobalInt("PagesTotal", pagesTotal)
             local inc = 0
             for i, v in RandomPairs(Map.pages) do
-                if inc >= 8 then break end
+                if inc >= pagesTotal then break end
                 inc = inc + 1
 
                 local ent = ents.Create("evil_page")
@@ -33,7 +35,7 @@ Game.Gametypes = {
 
         think = function()
             if SERVER then
-                if GetGlobalInt("PagesCollected") >= 8 then
+                if GetGlobalInt("PagesCollected") >= GetGlobalInt("PagesTotal") then
                     Round:End("#Round_EndPagesCollected")
                 end
             end

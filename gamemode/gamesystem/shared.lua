@@ -36,7 +36,7 @@ end
 function Game:CanESP()
     if Game:GetGametype() == "pages" then
         local taken = GetGlobalInt("PagesCollected")
-        local total = 8 // change
+        local total = GetGlobalInt("PagesTotal")
         if taken / total < 0.7 then return false end
     else
         return false
