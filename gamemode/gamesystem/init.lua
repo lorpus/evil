@@ -19,6 +19,7 @@ function Game:ResetPlayers()
         ply:StripWeapons()
         ply:SetWalkSpeed(Evil.Cfg.PlayerWalkspeed)
         ply:SetRunSpeed(Evil.Cfg.PlayerRunspeed)
+        ply:SetJumpPower(Stamina.normaljump)
         ply:StopSpectating()
     end
 end
