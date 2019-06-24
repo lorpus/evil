@@ -189,17 +189,10 @@ function Scoreboard:Toggle()
 
         function panel:Paint(w, h)
             if not IsValid(ply) then 
-<<<<<<< HEAD
-                self:Remove()
-                Scoreboard:Toggle()
-                Scoreboard:Toggle()
-                return 
-=======
                 Scoreboard:Toggle()
                 Scoreboard:Toggle()
                 self:Remove()
                 return
->>>>>>> 1165d7fc1f2ba1d6b03e0a853d4800a62ae3c93d
             end
             surface.SetFont("ebilfontscoreboard")
             local TextW, TextH = surface.GetTextSize(ply:GetName())
