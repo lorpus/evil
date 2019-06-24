@@ -80,6 +80,10 @@ end
 
 hook.Add("Think", "RoundThink", function()
     if not Round:CanStart() and not Round:IsWaiting() then
+        for _, ply in pairs(player.GetAll()) do
+            ply:SetTeam(TEAM_SPEC)
+            ply:KillSilent()
+        end
         return Round:WaitForPlayers()
     end
 
