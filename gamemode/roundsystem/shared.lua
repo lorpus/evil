@@ -34,6 +34,10 @@ function Round:IsPost()
     return Round:GetRound() == ROUND_POST
 end
 
+function Round:GetRoundCount() // number of times there has been ROUND_PLAYING
+    return GetGlobalInt("RoundCount")
+end
+
 function Round:Initialize()
     if SERVER then
         Round:WaitForPlayers()

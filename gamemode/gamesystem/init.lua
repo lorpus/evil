@@ -120,8 +120,9 @@ end)
 hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, attacker)
     if not victim:IsBoss() then // game's over anyways
         if not Round:IsWaiting() then
+            local round = Round:GetRoundCount()
             timer.Simple(4, function()
-                if IsValid(victim) then
+                if round == Round:GetRoundCount() and IsValid(victim) then
                     victim:StartSpectating()
                 end
             end)
