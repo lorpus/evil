@@ -30,8 +30,6 @@ end
 hook.Add("DrawOverlay", "DrawJumpscare", function()
     if Jumpscare.Running and drawing then
         surface.SetDrawColor(0, 0, 0)
-        drawing:SetFloat("$frame", 0)
-        print(drawing:GetFloat("$frame"))
         surface.SetMaterial(drawing)
         surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
     end
