@@ -144,6 +144,28 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     end
 end)
 
+hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
+    if ply:IsSpecTeam() then return end
+    
+    local humans = Map.spawns.humans
+    local boss = Map.spawns.boss
+    if ply:IsHuman() and humans then
+        local spawn = humans[math.random(#humans)]
+        ply:SetPos(spawn.pos)
+        if spawn.ang then
+            ply:SetEyeAngles(spawn.ang)
+        end
+    elseif ply:IsBoss() and boss then
+        local spawn = boss[math.random(#boss)]
+        ply:SetPos(spawn.pos)
+        if spawn.ang then
+            ply:SetEyeAngles(spawn.ang)
+        end
+    else
+        Evil:Lock("spawns are misconfigured")
+    end
+end)
+
 hook.Add("PlayerDeathSound", "silentdeathsound", function()
     return false
 end)

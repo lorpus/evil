@@ -31,3 +31,7 @@ end
 function PLAYER:IsBoss()
 	return self:Team() == TEAM_BOSS
 end
+
+function PLAYER:IsSpecTeam() // avoid confusion
+	return self:Team() == TEAM_SPEC
+end
