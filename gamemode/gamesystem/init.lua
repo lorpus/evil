@@ -134,6 +134,8 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
         return
     end
 
+    Jumpscare:SendScare(victim)
+
     Network:SendHook("EvilPlayerKilled", victim)
     local info = Game:GetProfileInfo()
     if info.killhook then
