@@ -8,10 +8,12 @@ surface.CreateFont("evilfont2", {
     size = ScreenScale(7),
 })
 
+
+
 local function Timer()
     local nScrW, nScrH = ScrW(), ScrH()
     local TimerW, TimerT = ScreenScale(60), ScreenScale(15)
-    local ArbritratyText = nil
+    local ArbitratyText = nil
     local FontA, FontB = "evilfont2", "evilfont1"
     local ColorA = Color(25, 25, 25)
     
@@ -22,13 +24,13 @@ local function Timer()
     local TextW, TextH = surface.GetTextSize(TimerText)
     draw.DrawText(TimerText, FontB, nScrW / 2 - TextW / 2, TimerT / 2 - TextH / 2, Color(219, 255, 201))
 
-    if not ArbritratyText then return end
+    if not ArbitratyText then return end
 
     local Awide, Atall = TimerW, TimerT / 2
 
     surface.SetFont(FontA)
-    local TextW, TextH = surface.GetTextSize(ArbritratyText)
-    draw.DrawText(ArbritratyText, FontA, nScrW / 2 - TextW / 2, TimerT + (Atall / 2 - TextH / 2), Color(255,255,255,255))
+    local TextW, TextH = surface.GetTextSize(ArbitratyText)
+    draw.DrawText(ArbitratyText, FontA, nScrW / 2 - TextW / 2, TimerT + (Atall / 2 - TextH / 2), Color(255,255,255,255))
 end
 
 local Old = 0
@@ -63,6 +65,17 @@ hook.Add("HUDPaint", "Screen_Attributes", function()
     PlayerStats()
     if Round:IsPlaying() then
         Timer()
+    end
+
+    if LocalPlayer():Team() == TEAM_SPEC then return end
+    
+    local ent = Entity(1):GetEyeTrace().Entity
+    local pos1 = ent:GetPos()
+    local pos2 = LocalPlayer():GetPos()
+    if ent:IsPlayer() and not ent:IsBoss() and not LocalPlayer():IsBoss() and pos2:Distance(pos1) < 300 then
+        surface.SetFont("evilfont2")
+        local TextW, TextH = surface.GetTextSize(ent:GetName())
+        draw.DrawText(ent:GetName(), "evilfont2", ScrW() / 2 - TextW / 2, ScrH() / 2 - TextH / 2 + ScreenScale(15), Color(255, 150, 150))
     end
 end)
 
