@@ -68,15 +68,19 @@ hook.Add("HUDPaint", "Screen_Attributes", function()
     end
 
     if LocalPlayer():Team() == TEAM_SPEC then return end
-    
-    local ent = Entity(1):GetEyeTrace().Entity
+    local ent = LocalPlayer():GetEyeTrace().Entity
+    if not ent:IsPlayer() then return end
+    if ent == LocalPlayer() then return end
+    if ent:IsBoss() then return end
+    if LocalPlayer():IsBoss() then return end
+
     local pos1 = ent:GetPos()
     local pos2 = LocalPlayer():GetPos()
-    if ent:IsPlayer() and not ent:IsBoss() and not LocalPlayer():IsBoss() and pos2:Distance(pos1) < 300 then
-        surface.SetFont("evilfont2")
-        local TextW, TextH = surface.GetTextSize(ent:GetName())
-        draw.DrawText(ent:GetName(), "evilfont2", ScrW() / 2 - TextW / 2, ScrH() / 2 - TextH / 2 + ScreenScale(15), Color(255, 150, 150))
-    end
+
+    if not (pos2:Distance(pos1) < 300) then return end
+    surface.SetFont("evilfont2")
+    local TextW, TextH = surface.GetTextSize(ent:GetName())
+    draw.DrawText(ent:GetName(), "evilfont2", ScrW() / 2 - TextW / 2, ScrH() / 2 - TextH / 2 + ScreenScale(15), Color(255, 150, 150))
 end)
 
 local hide = {
