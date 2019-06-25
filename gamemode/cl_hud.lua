@@ -45,7 +45,7 @@ local function PlayerStats()
     local Scaled = ScreenScale(48)
     local x, y = 0, nScrH - Scaled
 
-    local ColorA = {25, 25, 25, 120}
+    local ColorA = {65, 65, 65, 50}
     local ColorB = {0, 0, 0}
 
     local fmul = 1 - LocalPlayer():GetNWFloat("stamina") / Stamina.maxstamina
