@@ -120,6 +120,16 @@ end)
 
 hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, attacker)
     print(victim, inflictor, attacker)
+    for _, ply in pairs(player.GetAll()) do
+        if ply:IsSpectating() and ply:GetObserverTarget() == victim then
+            timer.Simple(1.5, function()
+                if IsValid(ply) then
+                    ply:CycleSpectatorTarget(1)
+                end
+            end)
+        end
+    end
+
     if not victim:IsBoss() then // game's over anyways
         if not Round:IsWaiting() then
             local round = Round:GetRoundCount()
