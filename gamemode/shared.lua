@@ -27,7 +27,6 @@ if SERVER and not Map then
     Evil:Lock("this map is not configured or has a faulty configuration!")
 end
 
-include_sh "sh_resources.lua"
 include_sh "utils.lua"
 include_sh "sh_player_ext.lua"
 //include_cl "textchat/cl_init.lua"
@@ -51,6 +50,7 @@ include_md "spectator"
 include_md "jumpscare"
 include_md "stats"
 include_md "achievements"
+include_sh "sh_resources.lua"
 
 function GM:Initialize()
     if SERVER then

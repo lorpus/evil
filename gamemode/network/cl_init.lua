@@ -1,3 +1,7 @@
+function Evil:AddTextChat(str)
+    chat.AddText(color_black, "[", color_red, "Evil", color_black, "]", color_white, ": ", str)
+end
+
 local function ReceiveHandler(iLen, ply)
     local cmd = net.ReadInt(4)
     dbg.print(cmd)
