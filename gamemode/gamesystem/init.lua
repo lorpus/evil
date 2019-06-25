@@ -174,6 +174,15 @@ hook.Add("PlayerDeathSound", "EvilRemoveDeathSound", function()
     return false
 end)
 
+hook.Add("EntityTakeDamage", "InstaDabOnPlyers", function(ent, info)
+    if not ent:IsPlayer() then return end
+    local attacker = info:GetAttacker()
+    if not IsValid(attacker) or not attacker:IsPlayer() or not attacker:IsBoss() then return end
+
+    // something to make this optional
+    ent:Kill()
+end)
+
 function GM:IsSpawnpointSuitable(ply, spawnpointEnt, bMakeSuitable)
     return true
 end
