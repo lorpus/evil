@@ -19,3 +19,9 @@ hook.Add("CheckPassword", "DontJoinOnLocked", function()
         return false, "The server has been locked due to a really nasty error: " .. Evil.strLockReason
     end
 end)
+
+hook.Add("InitPostEntity", "RunMapHook", function()
+    if isfunction(Map.InitPostEntity) then
+        Map.InitPostEntity()
+    end
+end)
