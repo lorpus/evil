@@ -54,7 +54,7 @@ end)
 hook.Add("Think", "ProcessGametypeThink", function()
     if Round:IsPlaying() then
         local info = Game:GetGametypeInfo()
-        if info.think then
+        if info and info.think then
             info.think()
         end
     end
