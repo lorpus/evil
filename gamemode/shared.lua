@@ -48,8 +48,7 @@ include_md "gamesystem"
 include_md "roundsystem"
 include_md "spectator"
 include_md "jumpscare"
-include_md "stats"
-include_md "achievements"
+
 include_sh "sh_resources.lua"
 
 function GM:Initialize()
