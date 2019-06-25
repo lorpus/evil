@@ -59,3 +59,7 @@ hook.Add("Think", "ProcessGametypeThink", function()
         end
     end
 end)
+
+function GM:PlayerFootstep(ply, pos, foot, sound, volume, filter)
+    if ply:IsBoss() then return true end
+end

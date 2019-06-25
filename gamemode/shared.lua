@@ -56,3 +56,9 @@ function GM:Initialize()
         Round:Initialize()
     end
 end
+
+hook.Add("InitPostEntity", "RunMapHook", function()
+    if isfunction(Map.InitPostEntity) then
+        Map.InitPostEntity()
+    end
+end)
