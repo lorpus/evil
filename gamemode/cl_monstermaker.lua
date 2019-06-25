@@ -44,4 +44,3 @@ local function open()
     end
 end
 concommand.Add("monster_maker", open)
-open()
