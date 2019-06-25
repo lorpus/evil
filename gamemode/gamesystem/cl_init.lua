@@ -27,6 +27,7 @@ hook.Add("PostDrawOpaqueRenderables", "EvilBossESP", function()
 
     for _, ply in pairs(player.GetAll()) do
         if not ply:IsHuman() then continue end
+		if not ply:Alive() then continue end
         if not ply:GetNWBool("EvilForceESP") and not Game:CanESP() then continue end
 
         render.ClearStencil()
