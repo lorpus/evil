@@ -27,7 +27,8 @@ local configuration = {
     },
 
     PlayerWalkspeed = 200,
-    PlayerRunspeed  = 320
+    PlayerRunspeed  = 320,
+    TauntCooldown   = 5,
 }
 
 function ApplyConfiguration(tab)
