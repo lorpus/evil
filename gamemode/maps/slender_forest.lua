@@ -132,7 +132,7 @@ Map = {
 
     InitPostEntity = function() // get rid of the models that are in the map
         for _, ent in pairs(ents.FindByModel("models/slender/sheet.mdl")) do
-            SafeRemoveEntity(ent)
-        end
+			SafeRemoveEntity(ent)
+		end
     end
 }
