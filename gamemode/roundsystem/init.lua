@@ -108,5 +108,13 @@ hook.Add("PlayerSpawn", "InitialSpawnButNotQuite", function(ply)
         ply:SetTeam(TEAM_SPEC)
         ply:KillSilent()
         ply:SetNWBool("HasSpawned", true)
+        
+        if Round:IsPlaying() then
+            timer.Simple(5, function() // weird
+                if IsValid(ply) then
+                    ply:StartSpectating()
+                end
+            end)
+        end
     end
 end)
