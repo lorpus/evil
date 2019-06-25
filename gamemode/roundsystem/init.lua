@@ -32,7 +32,7 @@ function Round:Startup()
 end
 
 function Round:StartGame()
-    Round:SetEndTime(CurTime() + 300)
+    Round:SetEndTime(CurTime() + 600)
     game.CleanUpMap()
 
     Game:ResetPlayers()

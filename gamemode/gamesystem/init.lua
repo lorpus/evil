@@ -36,6 +36,7 @@ function Game:SetupBoss(ply)
     ply:SetRunSpeed(info.runspeed)
     ply:SetWalkSpeed(info.walkspeed)
     ply:Spawn()
+    Network:Notify(ply, "You are the boss!")
 
     for _, v in pairs(info.weapons) do
         ply:Give(v)
