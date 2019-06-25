@@ -119,6 +119,7 @@ hook.Add("PlayerShouldTakeDamage", "EvilNoBossDamage", function(ply, attacker)
 end)
 
 hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, attacker)
+    print(victim, inflictor, attacker)
     if not victim:IsBoss() then // game's over anyways
         if not Round:IsWaiting() then
             local round = Round:GetRoundCount()
@@ -175,14 +176,17 @@ hook.Add("PlayerDeathSound", "EvilRemoveDeathSound", function()
     return false
 end)
 
+/*
 hook.Add("EntityTakeDamage", "InstaDabOnPlyers", function(ent, info)
     if not ent:IsPlayer() then return end
     local attacker = info:GetAttacker()
     if not IsValid(attacker) or not attacker:IsPlayer() or not attacker:IsBoss() then return end
 
+    // todo: make it so the info isnt overwritten with :Kill()'s info'
+
     // something to make this optional
     ent:Kill()
-end)
+end)*/
 
 function GM:IsSpawnpointSuitable(ply, spawnpointEnt, bMakeSuitable)
     return true
