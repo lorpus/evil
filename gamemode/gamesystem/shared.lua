@@ -60,6 +60,18 @@ hook.Add("Think", "ProcessGametypeThink", function()
     end
 end)
 
-function GM:PlayerFootstep(ply, pos, foot, sound, volume, filter)
-    if ply:IsBoss() then return true end
-end
+hook.Add("EntityEmitSound", "memefootsteps", function(data)
+    if not IsValid(data.Entity) or not data.Entity:IsPlayer() then return end
+    if not data.SoundName:find("footsteps") then return end
+
+    if CLIENT and LocalPlayer():IsBoss() then
+        return
+    else
+        if CLIENT and data.Entity:IsBoss() then
+            return false
+        elseif data.Entity:Crouching() then
+            data.Volume = data.Volume * 0.5
+            return true
+        end
+    end
+end)
