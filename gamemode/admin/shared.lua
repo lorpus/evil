@@ -1,5 +1,7 @@
 Admin = Admin or {}
 
+Evil.ShowPlayerDbg = CreateConVar("evil_showplayers", 0, FCVAR_CHEAT + FCVAR_NOTIFY + FCVAR_REPLICATED, "Shows all players (debug)")
+
 function Admin:IsAdmin(ply)
     if not IsValid(ply) then
         return true // server is calling
