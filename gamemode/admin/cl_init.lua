@@ -25,7 +25,7 @@ hook.Add("Think", "DebugShit", function()
     if GetConVar("evil_showplayers"):GetBool() then
         for _, ply in pairs(player.GetAll()) do
             if ply:Alive() and ply != LocalPlayer() then
-                debugoverlay.Text(ply:GetPos(), ply:Nick(), 0.1 / engine.TickInterval(), true)
+                debugoverlay.Text(ply:GetPos(), ply:Nick(), 0.1, true)
             end
         end
     end

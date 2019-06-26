@@ -29,12 +29,12 @@ function PLAYER:StartSpectating()
     self:SetMoveType(MOVETYPE_NONE)
     self:SetTeam(TEAM_SPEC)
     self:CycleSpectatorTarget(1)
-    self:SetNWBool("IsSpectating", true)
+    self:SetNW2Bool("IsSpectating", true)
 end
 
 function PLAYER:StopSpectating()
     self:Spectate(OBS_MODE_NONE)
-    self:SetNWBool("IsSpectating", false)
+    self:SetNW2Bool("IsSpectating", false)
 end
 
 function PLAYER:CycleSpectatorMode()

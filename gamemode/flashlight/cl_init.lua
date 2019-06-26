@@ -6,7 +6,7 @@ local function RenderUserFlashlight(ply)
             light:SetPos(ply:EyePos() + ply:GetAimVector() * 14)
             light:SetAngles(ply:EyeAngles())
             light:SetFarZ(Evil.Cfg.Flashlight.FlashlightDistance)
-            light:SetFOV(50)
+            light:SetFOV(Evil.Cfg.Flashlight.FlashlightSize)
             light:SetNearZ(1)
             light:Update()
             ply.EvilFlashlight = light
@@ -34,24 +34,29 @@ local function RenderUserFlashlight(ply)
     end
 end
 
+local function RemoveLight(ply)
+    if ply.EvilFlashlight then
+        ply.EvilFlashlight:Remove()
+        ply.EvilFlashlight = nil
+    end
+end
+
 hook.Add("Think", "EvilFlashlight", function()
-    if Round:IsPlaying() then
+    if Round:IsPlaying() or Round:IsPost() then
         for _, ply in pairs(player.GetAll()) do
             if ply:IsHuman() and ply:Alive()  then
-                if ply:GetNWBool("flashlight") and ply:GetNWBool("CanUseEvilFlashlight") then
+                if ply:GetNW2Bool("flashlight") and ply:GetNW2Bool("CanUseEvilFlashlight") then
                     RenderUserFlashlight(ply)
                 else
-                    if ply.EvilFlashlight then
-                        ply.EvilFlashlight:Remove()
-                        ply.EvilFlashlight = nil
-                    end
+                    RemoveLight(ply)
                 end
             else
-                if ply.EvilFlashlight then
-                    ply.EvilFlashlight:Remove()
-                    ply.EvilFlashlight = nil
-                end
+                RemoveLight(ply)
             end
+        end
+    else
+        for _, ply in pairs(player.GetAll()) do
+            RemoveLight(ply)
         end
     end
 end)

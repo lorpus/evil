@@ -4,9 +4,9 @@ Game.Gametypes = {
 
         start = function()
             dbg.print("pages.start()")
-            SetGlobalInt("PagesCollected", 0)
+            SetGlobal2Int("PagesCollected", 0)
             local pagesTotal = math.min(8, #Map.pages)
-            SetGlobalInt("PagesTotal", pagesTotal)
+            SetGlobal2Int("PagesTotal", pagesTotal)
             local inc = 0
             for i, v in RandomPairs(Map.pages) do
                 if inc >= pagesTotal then break end
@@ -26,7 +26,7 @@ Game.Gametypes = {
 
         pagetaken = function(taker, page)
             Network:NotifyAll("#Game_PageCollected", true, { player = taker:Nick() })
-            SetGlobalInt("PagesCollected", GetGlobalInt("PagesCollected") + 1)
+            SetGlobal2Int("PagesCollected", GetGlobal2Int("PagesCollected") + 1)
             Round:AddTime(30)
         end,
 
@@ -36,7 +36,7 @@ Game.Gametypes = {
 
         think = function()
             if SERVER then
-                if GetGlobalInt("PagesCollected") >= GetGlobalInt("PagesTotal") then
+                if GetGlobal2Int("PagesCollected") >= GetGlobal2Int("PagesTotal") then
                     Round:End("#Round_EndPagesCollected")
                 end
             end

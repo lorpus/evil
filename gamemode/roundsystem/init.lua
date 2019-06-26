@@ -1,13 +1,13 @@
 function Round:SetRound(enRound)
-    SetGlobalInt("CurrentRound", enRound)
+    SetGlobal2Int("CurrentRound", enRound)
 end
 
 function Round:SetEndTime(endtime)
-    SetGlobalFloat("RoundEndTime", endtime)
+    SetGlobal2Float("RoundEndTime", endtime)
 end
 
 function Round:AddTime(time)
-    SetGlobalFloat("RoundEndTime", GetGlobalFloat("RoundEndTime") + time)
+    SetGlobal2Float("RoundEndTime", GetGlobal2Float("RoundEndTime") + time)
 end
 
 function Round:CanStart()
@@ -46,7 +46,7 @@ function Round:StartGame()
         Game:SetupHuman(v)
     end
 
-    SetGlobalInt("RoundCount", GetGlobalInt("RoundCount") + 1)
+    SetGlobal2Int("RoundCount", GetGlobal2Int("RoundCount") + 1)
     Round:SetRound(ROUND_PLAYING)
 end
 
@@ -104,10 +104,10 @@ hook.Add("PlayerDeathThink", "DisableRespawn", function()
 end)
 
 hook.Add("PlayerSpawn", "InitialSpawnButNotQuite", function(ply)
-    if not ply:GetNWBool("HasSpawned") then
+    if not ply:GetNW2Bool("HasSpawned") then
         ply:SetTeam(TEAM_SPEC)
         ply:KillSilent()
-        ply:SetNWBool("HasSpawned", true)
+        ply:SetNW2Bool("HasSpawned", true)
         
         if Round:IsPlaying() then
             timer.Simple(5, function() // weird

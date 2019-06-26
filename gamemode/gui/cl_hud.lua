@@ -48,7 +48,7 @@ local function PlayerStats()
     local ColorA = {65, 65, 65, 50}
     local ColorB = {0, 0, 0}
 
-    local fmul = 1 - LocalPlayer():GetNWFloat("stamina") / Stamina.maxstamina
+    local fmul = 1 - LocalPlayer():GetNW2Float("stamina") / Stamina.maxstamina
 
     surface.SetDrawColor(unpack(ColorA))
     surface.DrawRect(x, y - (PadY * 2), Scaled + (PadX * 2), Scaled + (PadY * 2))

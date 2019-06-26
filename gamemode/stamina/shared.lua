@@ -8,7 +8,7 @@ local function moving(ply, cmd)
 end
 
 hook.Add("StartCommand", "nazis", function(ply, cmd)
-    local flStamina = ply:GetNWFloat("stamina")
+    local flStamina = ply:GetNW2Float("stamina")
     local flOldStamina = flStamina
 
     if not ply.flLastSpeed then
@@ -51,7 +51,7 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
     end
 
     if flStamina != flOldStamina and SERVER then
-        ply:SetNWFloat("stamina", flStamina)
+        ply:SetNW2Float("stamina", flStamina)
     end
 end)
 

@@ -11,11 +11,11 @@ end
 
 // absolute
 function Round:GetEndTime()
-    return GetGlobalFloat("RoundEndTime")
+    return GetGlobal2Float("RoundEndTime")
 end
 
 function Round:GetRound()
-    return GetGlobalInt("CurrentRound", -1)
+    return GetGlobal2Int("CurrentRound", -1)
 end
 
 function Round:GetRoundString()
@@ -35,7 +35,7 @@ function Round:IsPost()
 end
 
 function Round:GetRoundCount() // number of times there has been ROUND_PLAYING
-    return GetGlobalInt("RoundCount")
+    return GetGlobal2Int("RoundCount")
 end
 
 function Round:Initialize()

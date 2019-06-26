@@ -54,8 +54,8 @@ cvars.AddChangeCallback("evil_testing", function(convar, old, new)
     print(new)
     if new == "1" then
         if SERVER then
-            print("testing mode is enabled")
-            Network:NotifyAll("testing mode is now enabled")
+            print(Lang:Get("#Admin_TestingOn"))
+            Network:NotifyAll(Lang:Get("Admin_TestingOn"))
         
             Round:SetRound(ROUND_POST)
 
@@ -67,8 +67,8 @@ cvars.AddChangeCallback("evil_testing", function(convar, old, new)
         end
     else
         if SERVER then
-            print("testing mode is now disabled")
-            Network:NotifyAll("testing mode is now disabled")
+            print(Lang:Get("#Admin_TestingOff"))
+            Network:NotifyAll(Lang:Get("#Admin_TestingOff"))
         end
         
         for _, ply in pairs(player.GetAll()) do

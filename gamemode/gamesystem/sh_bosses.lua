@@ -32,18 +32,18 @@ Evil.Bosses = {
         }
     },
 
-    jeffthekiller = { // referred to as profiles
-        name        = "Jeff The Killer", // display name of the boss
-        bio         = "A schizophrenic boy that doesn't play nicely. ", // description/bio of the boss
-        model       = "models/player/skeleton.mdl", // playermodel
-        runspeed    = 350, // sprinting speed of the boss
-        walkspeed   = 250, // walking speed of hte boss
+    /*jeffthekiller = {
+        name        = "Jeff The Killer",
+        bio         = "A schizophrenic boy that doesn't play nicely. ",
+        model       = "models/player/skeleton.mdl"
+        runspeed    = 350,
+        walkspeed   = 250,
 
-        weapons     = { // what to give the boss
-            "ev_monster_kill" // default insta-kill wep
+        weapons     = {
+            "ev_monster_kill"
         },
 
-        killhook = function(victim) // called when a player is killed
+        killhook = function(victim)
             if SERVER then
                 victim:SetModel("models/player/skeleton.mdl")
             end
@@ -55,5 +55,5 @@ Evil.Bosses = {
             "evil/jeff/sleep.wav",
             "evil/jeff/whats wrong.wav",
         }
-    }
+    }*/
 }
