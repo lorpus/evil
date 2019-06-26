@@ -54,6 +54,6 @@ Evil.Bosses = {
             "evil/jeff/find you.wav",
             "evil/jeff/sleep.wav",
             "evil/jeff/whats wrong.wav",
-        }*/
-    }
+        }
+    }*/
 }
