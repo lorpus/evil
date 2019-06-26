@@ -20,3 +20,13 @@ concommand.Add("evil_getpagepos", function(ply, cmd, args, argStr)
 }
     ]], pos.x, pos.y, pos.z, ang.p, ang.y, ang.r))
 end)
+
+hook.Add("Think", "DebugShit", function()
+    if GetConVar("evil_showplayers"):GetBool() then
+        for _, ply in pairs(player.GetAll()) do
+            if ply:Alive() and ply != LocalPlayer() then
+                debugoverlay.Text(ply:GetPos(), ply:NIck(), 0.7 / engine.TickInterval(), true)
+            end
+        end
+    end
+end)
