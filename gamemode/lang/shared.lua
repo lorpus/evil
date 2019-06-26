@@ -28,6 +28,16 @@ Lang.Translations = {
         ["#Boss"] = "Boss",
         ["#Humans"] = "Humans",
         ["#Dead"] = "Dead",
+        ["#Admin_MoreThanOneTarget"] = "Found more than one matching target",
+        ["#Admin_NoTargets"] = "Found no matching targets",
+        ["#Admin_CantEnd"] = "The round could not be ended",
+        ["#Admin_TestingOn"] = "Testing mode is enabled",
+        ["#Admin_TestingOff"] = "Testing mode is disabled",
+        ["#Admin_NextBoss"] = "The next boss is now {{name}}",
+        ["#NoReasonGiven"] = "No reason given",
+        ["#ServerLocked"] = "This server has been locked due to a large error: {{error}}",
+        ["#ServerNoContent"] = "Evil Content Pack {{num}} is NOT installed. This will cause big problems!",
+        ["#ClientNoContent"] = "You are missing Evil Content Pack {{num}}. Please install it to avoid errors and bugs!",
     }
 }
 
