@@ -24,10 +24,10 @@ Evil.Bosses = {
 
         taunts = {
             "evil/mrbones/ache.wav",
-            "evil/mrbones/bone to pick.wav",
+            "evil/mrbones/bone to pick1.wav",
+            "evil/mrbones/bone to pick2.wav",
             "evil/mrbones/hmyaa.wav",
             "evil/mrbones/how unpleasant.wav",
-            "evil/mrbones/rattle.wav",
             "evil/mrbones/suitcase.wav"
         }
     },
