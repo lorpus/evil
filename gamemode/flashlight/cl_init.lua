@@ -38,7 +38,7 @@ hook.Add("Think", "EvilFlashlight", function()
     if Round:IsPlaying() then
         for _, ply in pairs(player.GetAll()) do
             if ply:IsHuman() and ply:Alive()  then
-                if ply:GetNWBool("flashlight") and ply:GetNWBool("CanUseEvilFlashlight") then
+                if ply:GetNW2Bool("flashlight") and ply:GetNW2Bool("CanUseEvilFlashlight") then
                     RenderUserFlashlight(ply)
                 else
                     if ply.EvilFlashlight then

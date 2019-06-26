@@ -2,15 +2,15 @@ AddCSLuaFile("sh_bosses.lua")
 AddCSLuaFile("sh_games.lua")
 
 function Game:SetBoss(pEnt)
-    SetGlobalEntity("EvilBoss", pEnt)
+    SetGlobal2Entity("EvilBoss", pEnt)
 end
 
 function Game:SetGametype(strGametype)
-    SetGlobalString("EvilGametype", strGametype)
+    SetGlobal2String("EvilGametype", strGametype)
 end
 
 function Game:SetProfile(strProfile)
-    SetGlobalString("EvilProfile", strProfile)
+    SetGlobal2String("EvilProfile", strProfile)
 end
 
 function Game:ResetPlayers()

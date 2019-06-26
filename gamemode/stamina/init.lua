@@ -1,5 +1,5 @@
 hook.Add("PlayerSpawn", "staminareset", function(ply)
-    ply:SetNWFloat("stamina", Stamina.maxstamina)
+    ply:SetNW2Float("stamina", Stamina.maxstamina)
 end)
 
 local function moving(ply)

@@ -17,5 +17,5 @@ function Spec:GetValidTargetsFor(ply)
 end
 
 function PLAYER:IsSpectating()
-    return self:GetNWBool("IsSpectating")
+    return self:GetNW2Bool("IsSpectating")
 end

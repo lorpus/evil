@@ -14,19 +14,19 @@ team.SetUp(TEAM_HUMAN, "Human", Color(63,  113, 170), false)
 team.SetUp(TEAM_SPEC,  "Boss",  Color(130, 130, 130), false)
 
 function Game:GetBoss()
-    return GetGlobalEntity("EvilBoss")
+    return GetGlobal2Entity("EvilBoss")
 end
 
 function Game:GetProfile()
-    return GetGlobalString("EvilProfile")
+    return GetGlobal2String("EvilProfile")
 end
 
 function Game:GetProfileInfo()
-    return Evil.Bosses[GetGlobalString("EvilProfile")]
+    return Evil.Bosses[GetGlobal2String("EvilProfile")]
 end
 
 function Game:GetGametype()
-    return GetGlobalString("EvilGametype")
+    return GetGlobal2String("EvilGametype")
 end
 
 function Game:GetGametypeInfo()
@@ -35,8 +35,8 @@ end
 
 function Game:CanESP()
     if Game:GetGametype() == "pages" then
-        local taken = GetGlobalInt("PagesCollected")
-        local total = GetGlobalInt("PagesTotal")
+        local taken = GetGlobal2Int("PagesCollected")
+        local total = GetGlobal2Int("PagesTotal")
         if taken / total < 0.7 then return false end
     else
         return false
