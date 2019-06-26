@@ -6,7 +6,7 @@ local function RenderUserFlashlight(ply)
             light:SetPos(ply:EyePos() + ply:GetAimVector() * 14)
             light:SetAngles(ply:EyeAngles())
             light:SetFarZ(Evil.Cfg.Flashlight.FlashlightDistance)
-            light:SetFOV(50)
+            light:SetFOV(Evil.Cfg.Flashlight.FlashlightSize)
             light:SetNearZ(1)
             light:Update()
             ply.EvilFlashlight = light
