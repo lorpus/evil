@@ -15,11 +15,11 @@ surface.CreateFont("smallebilmonstermaker", {
 
 local monstertable = [[
 {
-    name        = "BOSS_NAME", // display name of the boss
-    bio         = "BIO_TEXT", // description/bio of the boss
-    model       = "MODEL_PATH", // playermodel
-    runspeed    = RUN_SPEED, // sprinting speed of the boss
-    walkspeed   = WALK_SPEED, // walking speed of hte boss
+    name        = "%s", // display name of the boss
+    bio         = "%s", // description/bio of the boss
+    model       = "%s", // playermodel
+    runspeed    = %s, // sprinting speed of the boss
+    walkspeed   = %s, // walking speed of hte boss
 
     weapons     = { // what to give the boss
         "ev_monster_kill" // default insta-kill wep
@@ -32,30 +32,24 @@ local monstertable = [[
     end,
 
     jumpscare = {
-        mat = "JUMP_MAT",
-        sound = "JUMP_SOUND",
-        len = JUMP_LEN
+        mat = "%s",
+        sound = "%s",
+        len = %s
+    }
+
+    taunts = %s
 }
 ]]
 local Taunts = {}
 local function output(name, walkspeed, runspeed, modelpath, biotext, jumpmat, jumpsound, jumplen)
     local string = monstertable
-    local string = string.Replace(string, "BOSS_NAME", name)
-    local string = string.Replace(string, "WALK_SPEED", walkspeed)
-    local string = string.Replace(string, "RUN_SPEED", runspeed)
-    local string = string.Replace(string, "MODEL_PATH", modelpath)
-    local string = string.Replace(string, "BIO_TEXT", biotext)
-    local string = string.Replace(string, "JUMP_MAT", jumpmat)
-    local string = string.Replace(string, "JUMP_SOUND", jumpsound)
-    local string = string.Replace(string, "JUMP_LEN", jumplen)
-    print(string)
-    print("////////////////////////////////////")
     local tauntstring = [[{]]
     for i, t in pairs(Taunts) do
         tauntstring = tauntstring .. [["]] .. t.path .. (i == #Taunts and "" or [[", ]])
     end
     tauntstring = tauntstring .. [[}]]
-    print(tauntstring)
+    local string = string.format(monstertable, name, biotext, modelpath, runspeed, walkspeed, jumpmat, jumpsound, jumplen, tauntstring)
+    print(string)
 end
 
 local function tauntlist()
