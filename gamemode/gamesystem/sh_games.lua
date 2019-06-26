@@ -27,6 +27,7 @@ Game.Gametypes = {
         pagetaken = function(taker, page)
             Network:NotifyAll("#Game_PageCollected", true, { player = taker:Nick() })
             SetGlobalInt("PagesCollected", GetGlobalInt("PagesCollected") + 1)
+            Round:AddTime(30)
         end,
 
         playable = function()
