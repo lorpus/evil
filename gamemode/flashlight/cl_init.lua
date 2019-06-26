@@ -34,24 +34,29 @@ local function RenderUserFlashlight(ply)
     end
 end
 
+local function RemoveLight(ply)
+    if ply.EvilFlashlight then
+        ply.EvilFlashlight:Remove()
+        ply.EvilFlashlight = nil
+    end
+end
+
 hook.Add("Think", "EvilFlashlight", function()
-    if Round:IsPlaying() then
+    if Round:IsPlaying() or Round:IsPost() then
         for _, ply in pairs(player.GetAll()) do
             if ply:IsHuman() and ply:Alive()  then
                 if ply:GetNW2Bool("flashlight") and ply:GetNW2Bool("CanUseEvilFlashlight") then
                     RenderUserFlashlight(ply)
                 else
-                    if ply.EvilFlashlight then
-                        ply.EvilFlashlight:Remove()
-                        ply.EvilFlashlight = nil
-                    end
+                    RemoveLight(ply)
                 end
             else
-                if ply.EvilFlashlight then
-                    ply.EvilFlashlight:Remove()
-                    ply.EvilFlashlight = nil
-                end
+                RemoveLight(ply)
             end
+        end
+    else
+        for _, ply in pairs(player.GetAll()) do
+            RemoveLight(ply)
         end
     end
 end)

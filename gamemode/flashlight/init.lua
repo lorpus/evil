@@ -39,6 +39,7 @@ hook.Add("Think", "EvilFlashlightFizzle", function()
 end)
 
 hook.Add("PlayerSpawn", "EvilFlashlightEnable", function(ply)
+    ply:SetNW2Bool("flashlight", false)
     if ply:IsHuman() then
         ply:SetNW2Bool("CanUseEvilFlashlight", true)
     else
