@@ -19,5 +19,5 @@ hook.Add("KeyPress", "EvilTaunt", function(ply, key)
 
     ply.flLastTaunt = CurTime()
     local sound = profile.taunts[math.random(#profile.taunts)]
-    ply:EmitSound(sound, 105, 100, 1, CHAN_VOICE)
+    ply:EmitSound(sound, SNDLVL_TALKING, 100, 1, CHAN_VOICE)
 end)
