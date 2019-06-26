@@ -42,7 +42,13 @@ Lang.Translations = {
 }
 
 function Lang:Get(key)
-    return Lang.Translations[Lang.Locale][key]
+    local ret = Lang.Translations[Lang.Locale][key]
+    
+    if not ret then
+        ret = Lang.Translations["en"][key]
+    end
+
+    return ret
 end
 
 function Lang:Format(key, tab)
