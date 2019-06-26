@@ -59,24 +59,24 @@ local function output(name, walkspeed, runspeed, modelpath, biotext, jumpmat, ju
 end
 
 local function tauntlist()
-    if tauntframe then tauntframe:Remove() end
+    if TauntFrame then TauntFrame:Remove() end
     
     local tauntvolume, tauntpath
     local padX, padY = ScreenScale(2.5), ScreenScale(2.5)
-    tauntframe = vgui.Create("DFrame")
-    tauntframe:SetSize(ScreenScale(350), ScreenScale(200))
-    tauntframe:Center()
-    tauntframe:MakePopup()
+    TauntFrame = vgui.Create("DFrame")
+    TauntFrame:SetSize(ScreenScale(350), ScreenScale(200))
+    TauntFrame:Center()
+    TauntFrame:MakePopup()
 
-    function tauntframe:Paint(w, h)
+    function TauntFrame:Paint(w, h)
         draw.RoundedBox(0, 0, 0, w, h, Color(25, 25, 25, a))
         surface.SetDrawColor(0, 0, 0)
         surface.DrawOutlinedRect(0, 0, w, h)
     end
 
-    local taunts = vgui.Create("DListView", tauntframe)
+    local taunts = vgui.Create("DListView", TauntFrame)
     taunts:SetMultiSelect(false)
-    taunts:SetSize(tauntframe:GetWide(), tauntframe:GetTall() - ScreenScale(50))
+    taunts:SetSize(TauntFrame:GetWide(), TauntFrame:GetTall() - ScreenScale(50))
     taunts:AddColumn("Path")
     taunts:AddColumn("Volume")
     
@@ -88,8 +88,8 @@ local function tauntlist()
         taunts:AddLine(v.path, v.volume)
     end
 
-    local panel = vgui.Create("DPanel", tauntframe)
-    panel:SetSize(tauntframe:GetWide() / 2 - padX * 4, ScreenScale(25))
+    local panel = vgui.Create("DPanel", TauntFrame)
+    panel:SetSize(TauntFrame:GetWide() / 2 - padX * 4, ScreenScale(25))
     panel:SetPos(padX, taunts:GetTall() + padY)
     function panel:Paint(w, h) 
         surface.SetDrawColor(50, 50, 50)
@@ -99,17 +99,17 @@ local function tauntlist()
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
     end
 
-    tauntpath = vgui.Create("DTextEntry", tauntframe)
-    tauntpath:SetSize(tauntframe:GetWide() / 2 - padX * 4, ScreenScale(25))
+    tauntpath = vgui.Create("DTextEntry", TauntFrame)
+    tauntpath:SetSize(TauntFrame:GetWide() / 2 - padX * 4, ScreenScale(25))
     tauntpath:SetPos(padX, taunts:GetTall() + padY)
     tauntpath:SetFont("ebilmonstermaker")
     tauntpath:SetPlaceholderText("Taunt Path")
     tauntpath:SetPaintBackground(false)
     tauntpath:SetTextColor(Color(165, 0, 0))
     
-    local panel = vgui.Create("DPanel", tauntframe)
-    panel:SetSize(tauntframe:GetWide() / 2 - padX * 4, ScreenScale(25))
-    panel:SetPos(tauntframe:GetWide() / 2 + padX * 4, taunts:GetTall() + padY)
+    local panel = vgui.Create("DPanel", TauntFrame)
+    panel:SetSize(TauntFrame:GetWide() / 2 - padX * 4, ScreenScale(25))
+    panel:SetPos(TauntFrame:GetWide() / 2 + padX * 4, taunts:GetTall() + padY)
     function panel:Paint(w, h) 
         surface.SetDrawColor(50, 50, 50)
         surface.DrawOutlinedRect(0, 0, w, h)
@@ -122,18 +122,18 @@ local function tauntlist()
         self:RemoveLine(id)
     end
 
-    tauntvolume = vgui.Create("DTextEntry", tauntframe)
-    tauntvolume:SetSize(tauntframe:GetWide() / 2 - padX * 4, ScreenScale(25))
-    tauntvolume:SetPos(tauntframe:GetWide() / 2 + padX * 4, taunts:GetTall() + padY)
+    tauntvolume = vgui.Create("DTextEntry", TauntFrame)
+    tauntvolume:SetSize(TauntFrame:GetWide() / 2 - padX * 4, ScreenScale(25))
+    tauntvolume:SetPos(TauntFrame:GetWide() / 2 + padX * 4, taunts:GetTall() + padY)
     tauntvolume:SetFont("ebilmonstermaker")
     tauntvolume:SetPlaceholderText("Taunt Volume")
     tauntvolume:SetPaintBackground(false)
     tauntvolume:SetTextColor(Color(165, 0, 0))
     tauntvolume:SetNumeric(true)
 
-    local done = vgui.Create("DButton", tauntframe)
+    local done = vgui.Create("DButton", TauntFrame)
     done:SetSize(ScreenScale(50), ScreenScale(15))
-    done:SetPos((tauntframe:GetWide() / 2 - done:GetWide() / 2) - done:GetWide() - padX, (tauntframe:GetTall() - done:GetTall()) - padY)
+    done:SetPos((TauntFrame:GetWide() / 2 - done:GetWide() / 2) - done:GetWide() - padX, (TauntFrame:GetTall() - done:GetTall()) - padY)
     done:SetFont("smallebilmonstermaker")
     done:SetText("Done")
 
@@ -142,7 +142,7 @@ local function tauntlist()
         for _, line in pairs(taunts:GetLines()) do
             table.insert(Taunts, {id = id, path = line:GetValue(1), volume = line:GetValue(2)})
         end
-        tauntframe:Remove() 
+        TauntFrame:Remove() 
     end
     
     function done:Paint(w, h)
@@ -153,9 +153,9 @@ local function tauntlist()
         surface.DrawOutlinedRect(0, 0, w, h)
     end
 
-    local add = vgui.Create("DButton", tauntframe)
+    local add = vgui.Create("DButton", TauntFrame)
     add:SetSize(ScreenScale(50), ScreenScale(15))
-    add:SetPos((tauntframe:GetWide() / 2 - add:GetWide() / 2) + done:GetWide() + padX, (tauntframe:GetTall() - add:GetTall()) - padY)
+    add:SetPos((TauntFrame:GetWide() / 2 - add:GetWide() / 2) + done:GetWide() + padX, (TauntFrame:GetTall() - add:GetTall()) - padY)
     add:SetFont("smallebilmonstermaker")
     add:SetText("Add")
 
@@ -173,18 +173,18 @@ local function tauntlist()
 end
 
 local function open()
-    if mainframe then mainframe:Remove() end
+    if MonsterMaker then MonsterMaker:Remove() end
     local padX, padY = ScreenScale(2.5), ScreenScale(2.5)
     local currentModel = "models/player/alyx.mdl"
     local mosntername, walkspeed, runspeed, modelpath, bio
 
-    mainframe = vgui.Create("DFrame")
-    mainframe:SetSize(ScrW() - ScreenScale(350), ScrH() - ScreenScale(100))
-    mainframe:Center()
-    mainframe:SetTitle("")
-    mainframe:MakePopup()
+    MonsterMaker = vgui.Create("DFrame")
+    MonsterMaker:SetSize(ScrW() - ScreenScale(350), ScrH() - ScreenScale(100))
+    MonsterMaker:Center()
+    MonsterMaker:SetTitle("")
+    MonsterMaker:MakePopup()
     local y = 0
-    function mainframe:Paint(w, h)
+    function MonsterMaker:Paint(w, h)
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
         surface.SetDrawColor(45, 45, 45)
         surface.DrawOutlinedRect(0, 0, w, h)
@@ -194,11 +194,11 @@ local function open()
         draw.DrawText("Monster Maker 3000", "ebilifont", w / 2 - textwide / 2, padY)
     end
 
-    local mw, mh = mainframe:GetWide(), mainframe:GetTall()
+    local mw, mh = MonsterMaker:GetWide(), MonsterMaker:GetTall()
     local w, h = (mw - padX) - mw / 2.5, ScreenScale(25)
     local x, y = mw / 2.5, ScreenScale(20) + padY * 2
 
-    local model = vgui.Create("DModelPanel", mainframe)
+    local model = vgui.Create("DModelPanel", MonsterMaker)
     model:SetSize(mw / 2.5, mh - (padY * 2))
     model:SetModel(currentModel)
     
@@ -206,14 +206,14 @@ local function open()
         model:SetFOV(ScreenScale(35 / 2))
     end
 
-    local panel = vgui.Create("DPanel", mainframe)
+    local panel = vgui.Create("DPanel", MonsterMaker)
     panel:SetSize(mw / 2.5, mh - (padY * 2))
     function panel:Paint(w, h) 
         surface.SetDrawColor(50, 50, 50)
         surface.DrawOutlinedRect(padX * 2, ScreenScale(20) + padY * 2, w - padX * 2, h - (ScreenScale(20) + padY * 2))
     end
 
-    local panel = vgui.Create("DPanel", mainframe)
+    local panel = vgui.Create("DPanel", MonsterMaker)
     panel:SetSize(w - padX * 2, h)
     panel:SetPos(x + padX, y)
     function panel:Paint(w, h) 
@@ -224,7 +224,7 @@ local function open()
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
     end
 
-    monstername = vgui.Create("DTextEntry", mainframe)
+    monstername = vgui.Create("DTextEntry", MonsterMaker)
     monstername:SetSize(w - padX * 2, h)
     monstername:SetPos(x + padX, y)
     monstername:SetFont("ebilmonstermaker")
@@ -233,7 +233,7 @@ local function open()
     monstername:SetTextColor(Color(165, 0, 0))
     y = y + monstername:GetTall() + padY
     
-    local panel = vgui.Create("DPanel", mainframe)
+    local panel = vgui.Create("DPanel", MonsterMaker)
     panel:SetSize(w - padX * 2, h)
     panel:SetPos(x + padX, y)
     function panel:Paint(w, h) 
@@ -244,7 +244,7 @@ local function open()
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
     end
 
-    modelpath = vgui.Create("DTextEntry", mainframe)
+    modelpath = vgui.Create("DTextEntry", MonsterMaker)
     modelpath:SetSize(w - padX * 2, h)
     modelpath:SetPos(x + padX, y)
     modelpath:SetFont("ebilmonstermaker")
@@ -258,7 +258,7 @@ local function open()
     end
     y = y + modelpath:GetTall() + padY
 
-    local panel = vgui.Create("DPanel", mainframe)
+    local panel = vgui.Create("DPanel", MonsterMaker)
     panel:SetSize(w - padX * 2, h)
     panel:SetPos(x + padX, y)
     function panel:Paint(w, h) 
@@ -269,7 +269,7 @@ local function open()
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
     end
 
-    walkspeed = vgui.Create("DTextEntry", mainframe)
+    walkspeed = vgui.Create("DTextEntry", MonsterMaker)
     walkspeed:SetSize(w - padX * 2, h)
     walkspeed:SetPos(x + padX, y)
     walkspeed:SetFont("ebilmonstermaker")
@@ -279,7 +279,7 @@ local function open()
     walkspeed:SetNumeric(true)
     y = y + walkspeed:GetTall() + padY
 
-    local panel = vgui.Create("DPanel", mainframe)
+    local panel = vgui.Create("DPanel", MonsterMaker)
     panel:SetSize(w - padX * 2, h)
     panel:SetPos(x + padX, y)
     function panel:Paint(w, h) 
@@ -290,7 +290,7 @@ local function open()
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
     end
 
-    runspeed = vgui.Create("DTextEntry", mainframe)
+    runspeed = vgui.Create("DTextEntry", MonsterMaker)
     runspeed:SetSize(w - padX * 2, h)
     runspeed:SetPos(x + padX, y)
     runspeed:SetFont("ebilmonstermaker")
@@ -300,7 +300,7 @@ local function open()
     runspeed:SetNumeric(true)
     y = y + runspeed:GetTall() + padY
 
-    local panel = vgui.Create("DPanel", mainframe)
+    local panel = vgui.Create("DPanel", MonsterMaker)
     panel:SetSize(w - padX * 2, h + h + padY)
     panel:SetPos(x + padX, y)
     function panel:Paint(w, h) 
@@ -311,7 +311,7 @@ local function open()
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
     end
 
-    bio = vgui.Create("DTextEntry", mainframe)
+    bio = vgui.Create("DTextEntry", MonsterMaker)
     bio:SetSize(w - padX * 2, h + h + padY)
     bio:SetPos(x + padX, y)
     bio:SetFont("ebilmonstermaker")
@@ -321,7 +321,7 @@ local function open()
     bio:SetMultiline(true)
     y = y + bio:GetTall() + padY
 
-    local panel = vgui.Create("DPanel", mainframe)
+    local panel = vgui.Create("DPanel", MonsterMaker)
     panel:SetSize(w - padX * 2, h)
     panel:SetPos(x + padX, y)
     function panel:Paint(w, h) 
@@ -332,7 +332,7 @@ local function open()
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
     end
 
-    jumpscaremat = vgui.Create("DTextEntry", mainframe)
+    jumpscaremat = vgui.Create("DTextEntry", MonsterMaker)
     jumpscaremat:SetSize(w - padX * 2, h)
     jumpscaremat:SetPos(x + padX, y)
     jumpscaremat:SetFont("ebilmonstermaker")
@@ -341,7 +341,7 @@ local function open()
     jumpscaremat:SetTextColor(Color(165, 0, 0))
     y = y + jumpscaremat:GetTall()
 
-    local panel = vgui.Create("DPanel", mainframe)
+    local panel = vgui.Create("DPanel", MonsterMaker)
     panel:SetSize((w - padX * 2) / 2, h)
     panel:SetPos(x + padX, y)
     function panel:Paint(w, h) 
@@ -352,7 +352,7 @@ local function open()
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
     end
 
-    jumpscaresound = vgui.Create("DTextEntry", mainframe)
+    jumpscaresound = vgui.Create("DTextEntry", MonsterMaker)
     jumpscaresound:SetSize((w - padX * 2) / 2, h)
     jumpscaresound:SetPos(x + padX, y)
     jumpscaresound:SetFont("ebilmonstermaker")
@@ -360,7 +360,7 @@ local function open()
     jumpscaresound:SetPaintBackground(false)
     jumpscaresound:SetTextColor(Color(165, 0, 0))
     
-    local panel = vgui.Create("DPanel", mainframe)
+    local panel = vgui.Create("DPanel", MonsterMaker)
 
     panel:SetSize((w - padX * 2) / 2, h)
     panel:SetPos(x + padX + (w - padX * 2) / 2, y)
@@ -372,7 +372,7 @@ local function open()
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
     end
 
-    jumpscarelen = vgui.Create("DTextEntry", mainframe)
+    jumpscarelen = vgui.Create("DTextEntry", MonsterMaker)
     jumpscarelen:SetSize((w - padX * 2) / 2, h)
     jumpscarelen:SetPos(x + padX + (w - padX * 2) / 2, y)
     jumpscarelen:SetFont("ebilmonstermaker")
@@ -382,7 +382,7 @@ local function open()
     jumpscarelen:SetNumeric(true)
     y = y + jumpscarelen:GetTall() + padY
 
-    local done = vgui.Create("DButton", mainframe)
+    local done = vgui.Create("DButton", MonsterMaker)
     done:SetSize(ScreenScale(50), ScreenScale(15))
     done:SetPos(mw - done:GetWide() - padX, (mh - done:GetTall()) - padY)
     done:SetFont("smallebilmonstermaker")
@@ -401,7 +401,7 @@ local function open()
         surface.DrawOutlinedRect(0, 0, w, h)
     end
 
-    local tauntbutton = vgui.Create("DButton", mainframe)
+    local tauntbutton = vgui.Create("DButton", MonsterMaker)
     tauntbutton:SetSize(ScreenScale(50), ScreenScale(25))
     tauntbutton:SetPos()
     tauntbutton:SetFont("smallebilmonstermaker")
