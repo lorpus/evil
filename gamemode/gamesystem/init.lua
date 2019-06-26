@@ -198,6 +198,11 @@ hook.Add("EntityTakeDamage", "InstaDabOnPlyers", function(ent, info)
     ent:Kill()
 end)*/
 
+function GM:CanPlayerSuicide(ply)
+    Network:Notify(ply, "Sorry, you're stuck here")
+    return false
+end
+
 function GM:IsSpawnpointSuitable(ply, spawnpointEnt, bMakeSuitable)
     return true
 end
