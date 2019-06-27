@@ -35,6 +35,12 @@ function Game:SetupBoss(ply)
     ply:SetModel(info.model)
     ply:SetRunSpeed(info.runspeed)
     ply:SetWalkSpeed(info.walkspeed)
+
+    local hands = ply:GetHands()
+    if info.hands_model and IsValid(hands) then
+        hands:SetModel(info.hands_model)
+    end
+
     ply:Spawn()
     Network:Notify(ply, "You are the boss!")
 
@@ -119,7 +125,7 @@ hook.Add("PlayerShouldTakeDamage", "EvilNoBossDamage", function(ply, attacker)
 end)
 
 hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, attacker)
-    print(victim, inflictor, attacker)
+    dbg.print(victim, inflictor, attacker)
     for _, ply in pairs(player.GetAll()) do
         if ply:IsSpectating() and ply:GetObserverTarget() == victim then
             timer.Simple(1.5, function()

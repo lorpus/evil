@@ -1,3 +1,19 @@
+gameevent.Listen("player_spawn")
+hook.Add("player_spawn", "EvilPlayerSpawnClient", function(data)
+	timer.Simple(1, function() // gay
+		local ply = Player(data.userid)
+		if ply == LocalPlayer() then
+			local profile = Game:GetProfileInfo()
+			if profile.hands_model then
+				local hands = LocalPlayer():GetHands()
+				if IsValid(hands) then
+					hands:SetModel(profile.hands_model)
+				end
+			end
+		end
+	end)
+end)
+
 hook.Add("CalcView", "cameraview", function(ply, vOrigin, qAngles, flFov, flZnear, flZfar)
     if Round:IsWaiting() then
         local iCamera = math.floor(CurTime() / 15 % #Map.cameras) + 1
