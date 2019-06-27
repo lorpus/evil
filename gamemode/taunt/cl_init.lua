@@ -1,2 +1,1 @@
-
-local function a() end
+//
