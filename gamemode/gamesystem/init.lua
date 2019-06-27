@@ -158,6 +158,10 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     if info.killhook then
         info.killhook(victim)
     end
+    
+    if istable(info.killsounds) then
+        Network:BroadcastSound(info.killsounds[math.random(#info.killsounds)])
+    end
 end)
 
 hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
