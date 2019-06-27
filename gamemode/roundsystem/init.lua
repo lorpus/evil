@@ -1,4 +1,6 @@
 function Round:SetRound(enRound)
+    hook.Run("RoundSet", enRound)
+    Network:SendHook("RoundSet", enRound)
     SetGlobal2Int("CurrentRound", enRound)
 end
 
