@@ -4,7 +4,7 @@ hook.Add("player_spawn", "EvilPlayerSpawnClient", function(data)
 		local ply = Player(data.userid)
 		if ply == LocalPlayer() then
 			local profile = Game:GetProfileInfo()
-			if profile.hands_model then
+			if profile and profile.hands_model then
 				local hands = LocalPlayer():GetHands()
 				if IsValid(hands) then
 					hands:SetModel(profile.hands_model)
