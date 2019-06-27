@@ -12,12 +12,12 @@ concommand.Add("evil_setnextboss", function(ply, cmd, args, argStr)
     if Admin:IsAdmin(ply) then
         local targets = Admin:FindTarget(argStr)
         if #targets > 1 then
-            return Admin:AdminMessage(ply, Lang:Get("#Admin_MoreThanOneTarget"))
+            return Admin:AdminMessage(ply, "#Admin_MoreThanOneTarget")
         elseif #targets == 0 then
-            return Admin:AdminMessage(ply, Lang:Get("#Admin_NoTargets"))
+            return Admin:AdminMessage(ply, "#Admin_NoTargets")
         end
 
         Evil._NEXTBOSS = targets[1]
-        Admin:AdminMessage(ply, Lang:Format("#Admin_NextBoss", { name = Evil._NEXTBOSS:Nick() }))
+        Admin:AdminMessage(ply, "#Admin_NextBoss", { name = Evil._NEXTBOSS:Nick() })
     end
 end)

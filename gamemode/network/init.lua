@@ -28,3 +28,10 @@ function Network:SendHook(name, ...)
         net.WriteTable({...})
     net.Broadcast()
 end
+
+function Network:BroadcastSound(snd)
+    net.Start(Network.Id)
+        net.WriteInt(N_SOUND, 4)
+        net.WriteString(snd)
+    net.Broadcast()
+end

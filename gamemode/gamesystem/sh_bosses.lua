@@ -26,9 +26,12 @@ Evil.Bosses = {
             "evil/mrbones/ache.wav",
             "evil/mrbones/bone to pick1.wav",
             "evil/mrbones/bone to pick2.wav",
-            "evil/mrbones/hmyaa.wav",
             "evil/mrbones/how unpleasant.wav",
-            "evil/mrbones/suitcase.wav"
+            "evil/mrbones/suitcase.wav",
+        },
+
+        killsounds = {
+            "evil/mrbones/hmyaa.wav",
         }
     },
 

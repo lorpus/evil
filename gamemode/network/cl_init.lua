@@ -28,6 +28,10 @@ local function ReceiveHandler(iLen, ply)
         hook.Run(event, unpack(args))
     elseif cmd == N_JUMPSCARE then
         Jumpscare:NetReceive()
+    elseif cmd == N_SOUND then
+        local snd = net.ReadString()
+        dbg.print(snd)
+        surface.PlaySound(snd)
     end
 end
 net.Receive(Network.Id, ReceiveHandler)
