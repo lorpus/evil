@@ -1,4 +1,6 @@
-Lang = Lang or {}
+Lang = Lang or {
+    Locale = "en"
+}
 
 Lang.Translations = {
     en = {

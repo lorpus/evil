@@ -14,11 +14,15 @@ function Admin:IsAdmin(ply)
     return false
 end
 
-function Admin:AdminMessage(target, msg)
+function Admin:AdminMessage(target, msg, format)
     if not IsValid(target) then // console
-        print(msg)
+        if istable(format) then
+            print(Lang:Format(msg, format))
+        else
+            print(msg:StartWith("#") and Lang:Get(msg) or msg)
+        end
     else
-        Network:Notify(target, msg)
+        Network:Notify(target, msg, istable(format), format)
     end
 end
 
