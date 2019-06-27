@@ -1,0 +1,2 @@
+
+local function a() end
