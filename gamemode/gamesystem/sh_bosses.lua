@@ -35,6 +35,41 @@ Evil.Bosses = {
         }
     },
 
+    loli = {
+        name        = "Loli",
+        bio         = "unused",
+        model       = "models/jazzmcfly/kantai/nt/nt.mdl",
+        hands_model = "models/jazzmcfly/kantai/nt/c_arms/nt.mdl",
+        runspeed    = 350,
+        walkspeed   = 250,
+
+        weapons     = {
+            "ev_monster_kill"
+        },
+
+        taunts = {
+            "evil/loli/bulgywulgy.mp3",
+            "evil/loli/canthide.mp3",
+            "evil/loli/fun.mp3",
+            "evil/loli/maga.mp3",
+            "evil/loli/nuzzle.mp3",
+            "evil/loli/playwithme.mp3",
+            "evil/loli/question06.mp3",
+            "evil/loli/senpai.mp3",
+            "evil/loli/stophiding.mp3",
+            "evil/loli/trap.mp3",
+            "evil/loli/yiff.mp3"
+        },
+
+        killsounds = {
+            "evil/loli/gotyou.mp3",
+            "evil/loli/noescape.mp3",
+            "evil/loli/thereyouare.mp3",
+            "evil/loli/rawr.mp3",
+            "evil/loli/uwu.mp3",
+        }
+    }
+
     /*jeffthekiller = {
         name        = "Jeff The Killer",
         bio         = "A schizophrenic boy that doesn't play nicely. ",
