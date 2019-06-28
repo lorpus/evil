@@ -22,7 +22,7 @@ function Admin:AdminMessage(target, msg, format)
             print(msg:StartWith("#") and Lang:Get(msg) or msg)
         end
     else
-        Network:Notify(target, msg, istable(format), format)
+        Network:Notify(target, msg, msg:StartWith("#"), format)
     end
 end
 

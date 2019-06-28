@@ -12,7 +12,7 @@ local function StartNotify(str, isLang, langArgs)
 end
 
 function Network:Notify(ply, str, isLang, langArgs)
-    StartNotify(str, isLang)
+    StartNotify(str, isLang, langArgs)
     net.Send(ply)
 end
 
