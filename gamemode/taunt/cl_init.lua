@@ -101,7 +101,7 @@ local function open(bool)
         inc = 360 / numTaunts
         local n = 1
         for i = 0, 361 - inc, inc do
-            if not polys[n] then polys[n] = {color = {r = 0, g = 0, b = 0, a = 200}} end
+            if not polys[n] then polys[n] = {color = Color(0, 0, 0, 200)} end
             local startDeg, endDeg = i, i + inc
             local cir = DrawCircle(originX, originY, radius, startDeg, endDeg, 25, polys[n].color)
             table.insert(cir, cir[1])
@@ -119,13 +119,13 @@ local function open(bool)
             local tab = polys[i].circle
             local vert = {x = mouseX - frameX, y = mouseY - frameY}
             if InsideConvexPolygon(vert, tab) then 
-                polys[i].color = {r = 50, g = 50, b = 50, a = 200}
+                polys[i].color = Color(50, 50, 50, 200)
                 if not made then
                     hovering = i
                     made = true
                 end
             else
-                polys[i].color = {r = 0, g = 0, b = 0, a = 200}
+                polys[i].color = Color(0, 0, 0, 200)
             end
 
             if not made then
@@ -141,9 +141,14 @@ local function open(bool)
     text:SetTitle("")
     text:ShowCloseButton(false)
 
+    local firstpos = input.GetCursorPos()
     function text:Paint(w, h)
         if not mainframe then self:Remove() end
-        draw.DrawText(Taunts[hovering] or "", "evilfont1", w / 2, h / 2, color_white, TEXT_ALIGN_CENTER)
+        if input.GetCursorPos() == firstpos then
+            draw.DrawText("Random Taunt", "evilfont1", w / 2, h / 2, color_white, TEXT_ALIGN_CENTER)
+        elseif Taunts[hovering] then
+            draw.DrawText(Taunts[hovering], "evilfont1", w / 2, h / 2, color_white, TEXT_ALIGN_CENTER)
+        end
     end
 end
 
@@ -153,7 +158,7 @@ local lastDown = false
 local lastpos
 
 local function RequestPlayTaunt(taunt)
-
+    print(taunt)
 end
 
 hook.Add("Think", "TauntHUD", function()
