@@ -19,17 +19,29 @@ hook.Add("Think", "EvilLight", function()
 
     if LocalPlayer():IsSpectating() then
         local target = LocalPlayer():GetObserverTarget()
-        if not IsValid(target) then return end
+        local pos
+        local size
+        local brightness
+        if IsValid(target) and LocalPlayer():GetObserverMode() != OBS_MODE_ROAMING then
+            pos = target:GetPos() + Vector(0, 0, 2)
+            size = 600
+            brightness = 2.7
+        else
+            target = LocalPlayer()
+            pos = LocalPlayer():EyePos()
+            size = 2222
+            brightness = 4
+        end
 
         local light = DynamicLight(target:EntIndex())
         if light then
-            light.pos = target:GetPos() + Vector(0, 0, 2)
+            light.pos = pos
             light.r = 21
             light.g = 48
             light.b = 91
-            light.brightness = 2.7
+            light.brightness = brightness
             light.Decay = 1000
-            light.Size = 600
+            light.Size = size
             light.DieTime = CurTime() + 1
         end
     end
