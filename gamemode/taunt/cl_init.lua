@@ -46,7 +46,7 @@ local function centroid(verts)
     return (1 / (6 * ar)) * sumcx, (1 / (6 * ar)) * sumcy
 end
 
-function draw.Circle(centerX, centerY, radius, startDeg, endDeg, segments, color)
+local function DrawCircle(centerX, centerY, radius, startDeg, endDeg, segments, color)
     local cir = {}
     
     table.insert(cir, {
@@ -61,6 +61,7 @@ function draw.Circle(centerX, centerY, radius, startDeg, endDeg, segments, color
             y = math.cos(a) * radius + centerY
         })
     end
+
     surface.SetDrawColor(color.r, color.b, color.g, color.a)
     surface.DrawPoly(cir)
     tracepoly(cir)
@@ -68,12 +69,14 @@ function draw.Circle(centerX, centerY, radius, startDeg, endDeg, segments, color
 end
 
 local Taunts = {
-    "nigger.mp3",
-    "nigg.mp3",
-    "o shit.wav",
-    "AHHH.mp3",
-    "fuck.mp3"
+    "bruh1.mp3",
+    "bruh2.mp3",
+    "bruh3.wav",
+    "bruh4.mp3",
+    "bruh5.mp3",
+    "bruh6.mp3"
 }
+
 local mainframe
 local hovering = "Default"
 local function open(bool)
@@ -97,10 +100,10 @@ local function open(bool)
         surface.SetDrawColor(0, 0, 0)
         inc = 360 / numTaunts
         local n = 1
-        for i = 0, 360 - inc, inc do
+        for i = 0, 361 - inc, inc do
             if not polys[n] then polys[n] = {color = {r = 0, g = 0, b = 0, a = 200}} end
             local startDeg, endDeg = i, i + inc
-            local cir = draw.Circle(originX, originY, radius, startDeg, endDeg, 25, polys[n].color)
+            local cir = DrawCircle(originX, originY, radius, startDeg, endDeg, 25, polys[n].color)
             table.insert(cir, cir[1])
             polys[n].circle = cir
 
@@ -124,31 +127,12 @@ local function open(bool)
     end
 end
 
-local lastDown = false
-local lastpos
-hook.Add("Think", "a", function()
-    if input.IsKeyDown(KEY_R) and not lastDown then
-        lastpos = input.GetCursorPos()
-        open(true)
-        gui.EnableScreenClicker(true)
-        lastDown = true
-    elseif not input.IsKeyDown(KEY_R) and lastDown then
-        if lastpos == input.GetCursorPos() then 
-            print("Default!")
-        else
-            print(Taunts[hovering])
-        end
-        open(false)
-        gui.EnableScreenClicker(false)
-        lastDown = false
-    end
-end)
-
 local testtaunt = CreateClientConVar("evil_testtauntmenu", 0, false)
 
 local lastDown = false
 local lastpos
-hook.Add("Think", "a", function()
+
+hook.Add("Think", "TauntHUD", function()
     if not testtaunt:GetBool() then return end
 
     if input.IsKeyDown(KEY_R) and not lastDown then
@@ -162,6 +146,7 @@ hook.Add("Think", "a", function()
         else
             print(Taunts[hovering])
         end
+
         open(false)
         gui.EnableScreenClicker(false)
         lastDown = false
