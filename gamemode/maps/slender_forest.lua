@@ -131,6 +131,14 @@ Map = {
     },
 
     InitPostEntity = function() // get rid of the models that are in the map
+        if not SERVER then return end
+        for _, ent in pairs(ents.FindByModel("models/slender/sheet.mdl")) do
+			SafeRemoveEntity(ent)
+		end
+    end,
+
+    PostCleanUpMap = function()
+        if not SERVER then return end
         for _, ent in pairs(ents.FindByModel("models/slender/sheet.mdl")) do
 			SafeRemoveEntity(ent)
 		end

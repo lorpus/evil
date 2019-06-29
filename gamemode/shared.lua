@@ -63,3 +63,9 @@ hook.Add("InitPostEntity", "RunMapHook", function()
         Map.InitPostEntity()
     end
 end)
+
+hook.Add("PostCleanupMap", "RunMapHook", function()
+    if isfunction(Map.PostCleanUpMap) then
+        Map.PostCleanUpMap()
+    end
+end)
