@@ -40,11 +40,13 @@ hook.Add("Think", "DebugShit", function()
             end
         end
     end
+end)
 
+hook.Add("HUDPaint", "DebugAA", function()
     if GetConVar("evil_showmappositions"):GetBool() then
         for _, v in pairs(Map.spawns.humans) do
             local scr = v.pos:ToScreen()
-            draw.SimpleText("HUMAN", "DermaDefault", scr.x. scr.y)
+            draw.SimpleText("HUMAN", "DermaDefault", scr.x, scr.y)
         end
 
         for _, v in pairs(Map.spawns.boss) do
