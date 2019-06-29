@@ -46,7 +46,7 @@ local function PlayerStats()
     local x, y = 0, nScrH - Scaled
 
     local ColorA = {r = 65, g = 65, b = 65, a = 50}
-    local ColorB = {r = 0, g = 0, b = 0}
+    local ColorB = {r = 0, g = 0, b = 0, a = 255}
 
     local fmul = 1 - LocalPlayer():GetNW2Float("stamina") / Stamina.maxstamina
 
