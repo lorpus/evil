@@ -40,4 +40,21 @@ hook.Add("Think", "DebugShit", function()
             end
         end
     end
+
+    if GetConVar("evil_showmappositions"):GetBool() then
+        for _, v in pairs(Map.spawns.humans) do
+            local scr = v.pos:ToScreen()
+            draw.SimpleText("HUMAN", "DermaDefault", scr.x. scr.y)
+        end
+
+        for _, v in pairs(Map.spawns.boss) do
+            local scr = v.pos:ToScreen()
+            draw.SimpleText("BOSS", "DermaDefault", scr.x, scr.y)
+        end
+
+        for _, v in pairs(Map.pages) do
+            local scr = v.pos:ToScreen()
+            draw.SimpleText("PAGE", "DermaDefault", scr.x, scr.y)
+        end
+    end
 end)
