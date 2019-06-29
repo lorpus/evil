@@ -15,21 +15,15 @@ surface.CreateFont("smallebilmonsterframe", {
 
 local monstertable = [[
 {
-    name        = "%s", // display name of the boss
-    bio         = "%s", // description/bio of the boss
-    model       = "%s", // playermodel
-    runspeed    = %s, // sprinting speed of the boss
-    walkspeed   = %s, // walking speed of hte boss
+    name        = "%s",
+    bio         = "%s",
+    model       = "%s",
+    runspeed    = %s,
+    walkspeed   = %s,
 
-    weapons     = { // what to give the boss
-        "ev_monster_kill" // default insta-kill wep
+    weapons     = {
+        "ev_monster_kill"
     },
-
-    killhook = function(victim) // called when a player is killed
-        if SERVER then
-            victim:SetModel("models/player/skeleton.mdl")
-        end
-    end,
 
     jumpscare = {
         mat = "%s",
@@ -49,7 +43,7 @@ local function output(name, walkspeed, runspeed, modelpath, biotext, jumpmat, ju
 
     local tauntstring = [[{]]
     for i, t in pairs(Taunts) do
-        tauntstring = tauntstring .. [["]] .. t.path .. (i == #Taunts and "" or [[", ]])
+        tauntstring = tauntstring .. [["]] .. t.path .. (i == #Taunts and [["]] or [[", ]])
     end
     tauntstring = tauntstring .. [[}]]
 
