@@ -37,7 +37,7 @@ Evil.Bosses = {
         },
 
         killsounds = {
-            "evil/mrbones/hmyaa.wav",
+            "evil/mrbones/hmyaa.mp3",
         }
     },
 
