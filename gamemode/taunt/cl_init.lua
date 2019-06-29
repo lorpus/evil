@@ -113,15 +113,23 @@ local function open(bool)
             n = n + 1
         end
 
+        local made = false
         for i = 1, n do
             if not polys[i] then continue end
             local tab = polys[i].circle
             local vert = {x = mouseX - frameX, y = mouseY - frameY}
             if InsideConvexPolygon(vert, tab) then 
                 polys[i].color = {r = 50, g = 50, b = 50, a = 200}
-                hovering = i
+                if not made then
+                    hovering = i
+                    made = true
+                end
             else
                 polys[i].color = {r = 0, g = 0, b =  0, a = 200}
+            end
+
+            if not made then
+                hovering = nil
             end
         end
     end
@@ -131,6 +139,10 @@ local testtaunt = CreateClientConVar("evil_testtauntmenu", 0, false)
 
 local lastDown = false
 local lastpos
+
+local function RequestPlayTaunt(taunt)
+
+end
 
 hook.Add("Think", "TauntHUD", function()
     if not testtaunt:GetBool() then return end
@@ -142,9 +154,9 @@ hook.Add("Think", "TauntHUD", function()
         open(true)
     elseif not input.IsKeyDown(KEY_R) and lastDown then
         if lastpos == input.GetCursorPos() then 
-            print("Default!")
-        else
-            print(Taunts[hovering])
+            RequestPlayTaunt("random")
+        elseif hovering then
+            RequestPlayTaunt(Taunts[hovering])
         end
 
         open(false)
