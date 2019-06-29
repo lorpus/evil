@@ -31,13 +31,56 @@ Evil.Bosses = {
 
         tauntdisplay = {
             ["evil/mrbones/ache.mp3"] = "I ache to smash\nyou out of\nexistence!",
-            ["evil/mrbones/suitcase.mp3"] = "I'm going to\nturn you into\na suitcase!",
+            ["evil/mrbones/suitcase.mp3"] = "I'll turn you\ninto a suitcase!",
             ["evil/mrbones/howunpleasant.mp3"] = "How unpleasant it\nis to see you, you\nsniveling coward!",
             ["evil/mrbones/bonetopick.mp3"] = "I've got a\nbone to pick\nwith you!",
         },
 
         killsounds = {
             "evil/mrbones/hmyaa.wav",
+        }
+    },
+
+    gman = {
+        name        = "GMan",
+        bio         = "Always watching, always lurking. Be mindful, he can be anywhere at anytime.",
+        model       = "models/player/gman_high.mdl",
+        runspeed    = 450,
+        walkspeed   = 350,
+
+        weapons     = {
+            "ev_monster_kill"
+        },
+
+        jumpscare = {
+            mat = "evil/scares/gman",
+            sound = "evil/mrbones/scare1.mp3",
+            len = 27 / 30
+        },
+
+        taunts = {
+            "vo/Citadel/gman_exit01.wav", 
+            "vo/Citadel/gman_exit10.wav", 
+            "vo/Citadel/gman_exit04.wav", 
+            "vo/Citadel/gman_exit03.wav", 
+            "vo/Citadel/gman_exit02.wav", 
+            "vo/gman_misc/gman_03.wav", 
+            "vo/gman_misc/gman_04.wav", 
+        },
+
+
+        tauntdisplay = {
+            ["vo/Citadel/gman_exit01.wav"] = "Time?", 
+            ["vo/Citadel/gman_exit10.wav"] = "This is where\nI get off", 
+            ["vo/Citadel/gman_exit04.wav"] = "Done a great\ndeal in a\nsmall timespan", 
+            ["vo/Citadel/gman_exit03.wav"] = "Seems as if\nyou only just\n arrived", 
+            ["vo/Citadel/gman_exit02.wav"] = "Is it really\nthat time again", 
+            ["vo/gman_misc/gman_03.wav"] = "The right man\nin the wrong\nplace", 
+            ["vo/gman_misc/gman_04.wav"] = "Wake up"
+        },
+
+        killsounds = {
+            "vo/gman_misc/gman_riseshine.wav",
         }
     },
 
