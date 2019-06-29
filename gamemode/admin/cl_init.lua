@@ -22,9 +22,8 @@ concommand.Add("evil_getpagepos", function(ply, cmd, args, argStr)
 end)
 
 concommand.Add("evil_getspawnpos", function(ply, cmd, args, argStr)
-    local tr = ply:GetPos() + Vector(0, 0, 1)
-    local pos = tr.HitPos + tr.HitNormal * 2
-    local ang = tr.HitNormal:Angle()
+    local pos = ply:GetPos() + Vector(0, 0, 1)
+    local ang = ply:EyeAngles()
     print(string.format([[
 {
     pos = Vector(%f, %f, %f),
