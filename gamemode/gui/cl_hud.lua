@@ -45,15 +45,12 @@ local function PlayerStats()
     local Scaled = ScreenScale(48)
     local x, y = 0, nScrH - Scaled
 
-    local ColorA = {r = 65, g = 65, b = 65, a = 50}
-    local ColorB = {r = 0, g = 0, b = 0, a = 255}
-
     local fmul = 1 - LocalPlayer():GetNW2Float("stamina") / Stamina.maxstamina
 
-    surface.SetDrawColor(ColorA.r, ColorA.b, ColorA.g, ColorA.a)
+    surface.SetDrawColor(65, 65, 65, 50)
     surface.DrawRect(x, y - (PadY * 2), Scaled + (PadX * 2), Scaled + (PadY * 2))
 
-    surface.SetDrawColor(ColorB.r, ColorB.b, ColorB.g, ColorB.a)
+    surface.SetDrawColor(0, 0, 0)
     surface.DrawOutlinedRect(x, y - (PadY * 2), Scaled + (PadX * 2), Scaled + (PadY * 2))
     
     surface.SetDrawColor(255, 255, 255)
