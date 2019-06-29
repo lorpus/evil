@@ -5,6 +5,7 @@ function Evil:AddTextChat(str)
     chat.AddText(color_black, "[", color_red, "Evil", color_black, "]", color_white, ": ", str)
 end
 
+local killsoundAllowed = true
 local function ReceiveHandler(iLen, ply)
     local cmd = net.ReadInt(4)
     dbg.print(cmd)
@@ -32,6 +33,19 @@ local function ReceiveHandler(iLen, ply)
         local snd = net.ReadString()
         dbg.print(snd)
         surface.PlaySound(snd)
+    elseif cmd == N_KILLSOUND then
+        local snd = net.ReadString()
+        if killsoundAllowed then
+            sound.PlayFile("sound/" .. snd, "", function(chan, errId, errName)
+                if IsValid(chan) then
+                    chan:Play()
+                    killsoundAllowed = false
+                    timer.Simple(chan:GetLength(), function()
+                        killsoundAllowed = true
+                    end)
+                end
+            end)
+        end
     end
 end
 net.Receive(Network.Id, ReceiveHandler)

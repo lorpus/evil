@@ -176,7 +176,7 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     end
     
     if istable(info.killsounds) then
-        Network:BroadcastSound(info.killsounds[math.random(#info.killsounds)])
+        Network:BroadcastKillsound(info.killsounds[math.random(#info.killsounds)])
     end
 end)
 

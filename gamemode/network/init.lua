@@ -36,6 +36,13 @@ function Network:BroadcastSound(snd)
     net.Broadcast()
 end
 
+function Network:BroadcastKillsound(snd)
+    net.Start(Network.Id)
+        net.WriteInt(N_KILLSOUND, 4)
+        net.WriteString(snd)
+    net.Broadcast()
+end
+
 local function ReceiveHandler(len, ply)
     local cmd = net.ReadInt(4)
     dbg.print(cmd)
