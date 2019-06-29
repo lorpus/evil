@@ -25,7 +25,13 @@ function Game:ResetPlayers()
 end
 
 function Game:SetupBoss(ply)
-    local key = table.Random(table.GetKeys(Evil.Bosses))
+    local key
+    if Evil._NEXTBOSS then
+        key = Evil._NEXTBOSS
+        Evil._NEXTBOSS = nil
+    else
+        key = table.Random(table.GetKeys(Evil.Bosses))
+    end
     local info = Evil.Bosses[key]
     
     Game:SetProfile(key)
@@ -61,9 +67,9 @@ end
 local lastChosenBoss
 function Game:PickAndSetupBoss()
     local ply
-    if IsValid(Evil._NEXTBOSS) then
-        ply = Evil._NEXTBOSS
-        Evil._NEXTBOSS = nil
+    if IsValid(Evil._NEXTBOSSPLAYER) then
+        ply = Evil._NEXTBOSSPLAYER
+        Evil._NEXTBOSSPLAYER = nil
     else
         local pool = player.GetAll()
         if IsValid(lastChosenBoss) then

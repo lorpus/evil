@@ -9,6 +9,21 @@ concommand.Add("evil_endgame", function(ply, cmd, args, argStr)
 end)
 
 concommand.Add("evil_setnextboss", function(ply, cmd, args, argStr)
+    if not Admin:IsAdmin(ply) then return end
+
+    if #argStr == 0 then
+        return Admin:AdminMessage(ply, "#Admin_BossChoices", { bosslist = table.concat(table.GetKeys(Evil.Bosses), ", ") })
+    else
+        if Evil.Bosses[argStr] then
+            Evil._NEXTBOSS = argStr
+            return Admin:AdminMessage(ply, "#Admin_NextBoss", { boss = Evil.Bosses[argStr].name })
+        else
+            return Admin:AdminMessage(ply, "#Admin_BossChoices", { bosslist = table.concat(table.GetKeys(Evil.Bosses), ", ") })
+        end
+    end
+end)
+
+concommand.Add("evil_setnextbossplayer", function(ply, cmd, args, argStr)
     if Admin:IsAdmin(ply) then
         local targets = Admin:FindTarget(argStr)
         if #targets > 1 then
@@ -17,7 +32,7 @@ concommand.Add("evil_setnextboss", function(ply, cmd, args, argStr)
             return Admin:AdminMessage(ply, "#Admin_NoTargets")
         end
 
-        Evil._NEXTBOSS = targets[1]
-        Admin:AdminMessage(ply, "#Admin_NextBoss", { name = Evil._NEXTBOSS:Nick() })
+        Evil._NEXTBOSSPLAYER = targets[1]
+        Admin:AdminMessage(ply, "#Admin_NextBossPlayer", { name = Evil._NEXTBOSSPLAYER:Nick() })
     end
 end)
