@@ -110,6 +110,7 @@ hook.Add("PlayerSpawn", "InitialSpawnButNotQuite", function(ply)
         ply:SetTeam(TEAM_SPEC)
         ply:KillSilent()
         ply:SetNW2Bool("HasSpawned", true)
+        ply:SetCustomCollisionCheck(true)
         
         if Round:IsPlaying() then
             timer.Simple(5, function() // weird
