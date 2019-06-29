@@ -61,7 +61,7 @@ local mainframe
 local function tauntlist()
     if mainframe then mainframe:Remove() end
     
-    local tauntname, tauntpath
+    local tauntname, tauntpath, test
     local padX, padY = ScreenScale(2.5), ScreenScale(2.5)
     mainframe = vgui.Create("DFrame")
     mainframe:SetSize(ScreenScale(350), ScreenScale(200))
@@ -80,10 +80,15 @@ local function tauntlist()
     taunts:AddColumn("Path")
     taunts:AddColumn("Name")
     
-    function taunts:DoDoubleClick(id, line) 
+    function taunts:DoDoubleClick(id) 
         table.remove(Taunts, id)
         self:RemoveLine(id)
     end
+
+    function taunts:OnRowSelected(id) 
+        test:SetVisible(true)
+    end
+    
     for _, v in pairs(Taunts) do
         taunts:AddLine(v.path, v.name)
     end
@@ -148,6 +153,29 @@ local function tauntlist()
         local a = 50
         if self:IsHovered() then a = 150 end
         draw.RoundedBox(0, 0, 0, w, h, Color(25, 25, 25, a))
+        surface.SetDrawColor(0, 0, 0)
+        surface.DrawOutlinedRect(0, 0, w, h)
+    end
+
+    test = vgui.Create("DButton", mainframe)
+    test:SetSize(ScreenScale(50), ScreenScale(15))
+    test:SetPos((mainframe:GetWide() / 2 - test:GetWide() / 2), (mainframe:GetTall() - test:GetTall()) - padY)
+    test:SetFont("smallebilmonsterframe")
+    test:SetText("Test")
+    test:SetVisible(false)
+
+    function test:DoClick() 
+        local selected = taunts:GetSelectedLine()
+        local lines = taunts:GetLines()
+        print(lines[selected]:GetValue(1))
+        surface.PlaySound(lines[selected]:GetValue(1))
+    end
+    
+    function test:Paint(w, h)
+        if not taunts:GetSelectedLine() then self:SetVisible(false) end
+        local a = 50
+        if self:IsHovered() then a = 150 end
+        draw.RoundedBox(0, 0, 0, w, h, Color(80, 80, 80, a))
         surface.SetDrawColor(0, 0, 0)
         surface.DrawOutlinedRect(0, 0, w, h)
     end
