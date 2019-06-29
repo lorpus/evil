@@ -48,11 +48,13 @@ function Game:SetupBoss(ply)
         ply:Give(v)
     end
 
-    ply:Lock()
-    timer.Simple(5, function()
-        if IsValid(ply) then
-            ply:UnLock()
-        end
+    timer.Simple(0.1, function()
+        ply:Lock()
+        timer.Simple(5, function()
+            if IsValid(ply) then
+                ply:UnLock()
+            end
+        end)
     end)
 end
 
@@ -79,11 +81,13 @@ function Game:SetupHuman(ply)
     ply:SetDefaultModel()
     ply:Spawn()
 
-    ply:Lock()
-    timer.Simple(5, function()
-        if IsValid(ply) then
-            ply:UnLock()
-        end
+    timer.Simple(0.1, function()
+        ply:Lock()
+        timer.Simple(5, function()
+            if IsValid(ply) then
+                ply:UnLock()
+            end
+        end)
     end)
 end
 
