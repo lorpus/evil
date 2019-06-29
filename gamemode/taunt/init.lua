@@ -24,6 +24,6 @@ function Game:TauntNetHandler(len, ply)
     else
         snd = desired
     end
-    print(snd)
+    dbg.print(snd)
     ply:EmitSound(snd, 90, 100, 1, CHAN_VOICE)
 end

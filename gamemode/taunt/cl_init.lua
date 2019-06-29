@@ -162,8 +162,6 @@ local function open(bool)
     end
 end
 
-local testtaunt = CreateClientConVar("evil_testtauntmenu", 0, false)
-
 local lastDown = false
 local lastpos
 
@@ -173,16 +171,14 @@ local function RequestPlayTaunt(taunt)
 end
 
 hook.Add("Think", "TauntHUD", function()
-    if not LocalPlayer():IsBoss() then return end
-    if not testtaunt:GetBool() then return end
+    if gui.IsGameUIVisible() or LocalPlayer():IsTyping() then return end
 
-    if input.IsKeyDown(KEY_R) and not lastDown then
+    if input.IsKeyDown(KEY_R) and not lastDown and LocalPlayer():IsBoss() then
         gui.EnableScreenClicker(true)
         lastpos = input.GetCursorPos()
         lastDown = true
         open(true)
     elseif not input.IsKeyDown(KEY_R) and lastDown then
-        print(hovering)
         if lastpos == input.GetCursorPos() then 
             RequestPlayTaunt("random")
         elseif hovering and istable(Taunts) then
