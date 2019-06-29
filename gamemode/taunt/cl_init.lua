@@ -125,13 +125,25 @@ local function open(bool)
                     made = true
                 end
             else
-                polys[i].color = {r = 0, g = 0, b =  0, a = 200}
+                polys[i].color = {r = 0, g = 0, b = 0, a = 200}
             end
 
             if not made then
                 hovering = nil
             end
         end
+    end
+
+    local text = vgui.Create("DFrame")
+    text:SetSize(ScreenScale(200), ScreenScale(20))
+    text:SetPos(ScrW() / 2 - text:GetWide() / 2, ((ScrH() / 2 - text:GetTall() / 2) - mainframe:GetTall() / 2) - text:GetTall())
+    text:SetDraggable(false)
+    text:SetTitle("")
+    text:ShowCloseButton(false)
+
+    function text:Paint(w, h)
+        if not mainframe then self:Remove() end
+        draw.DrawText(Taunts[hovering] or "", "evilfont1", w / 2, h / 2, color_white, TEXT_ALIGN_CENTER)
     end
 end
 
