@@ -53,8 +53,8 @@ Evil.Bosses = {
         },
 
         jumpscare = {
-            mat = "evil/scares/gman",
-            sound = "evil/mrbones/scare1.mp3",
+            mat = "evil/scares/gman/scare1",
+            sound = "evil/gman/jumpscare.mp3",
             len = 27 / 30
         },
 
@@ -67,7 +67,6 @@ Evil.Bosses = {
             "vo/gman_misc/gman_03.wav", 
             "vo/gman_misc/gman_04.wav", 
         },
-
 
         tauntdisplay = {
             ["vo/Citadel/gman_exit01.wav"] = "Time?", 
@@ -94,6 +93,12 @@ Evil.Bosses = {
 
         weapons     = {
             "ev_monster_kill"
+        },
+
+        jumpscare = {
+            mat = "evil/scares/loli/bruhmoment",
+            sound = "evil/loli/reee.mp3",
+            len = 0.5
         },
 
         taunts = {
@@ -130,6 +135,52 @@ Evil.Bosses = {
             "evil/loli/thereyouare.mp3",
             "evil/loli/rawr.mp3",
             "evil/loli/uwu.mp3",
+        }
+    },
+
+    neckbeard = {
+        name        = "Neckbeard Nick",
+        bio         = "Certified NEET who has lived in his mother's basement for 12 years",
+        model       = "models/player/neckbeard.mdl",
+        runspeed    = 350,
+        walkspeed   = 250,
+
+        weapons = {
+            "ev_monster_kill"
+        },
+
+        killhook = function(victim) // called when a player is killed
+            if SERVER then
+                victim:SetModel("models/pinkiepie.mdl")
+            end
+        end,
+
+        jumpscare = {
+            mat = "evil/scares/neckbeard/mlady",
+            sound = "evil/neckbeard/reee.mp3",
+            len = 1.96
+        },
+
+        taunts = {
+            "evil/neckbeard/bodypillow1.mp3",
+            "evil/neckbeard/bodypillow2.mp3",
+            "evil/neckbeard/katana.mp3",
+            // "evil/neckbeard/maniac.mp3",
+            "evil/neckbeard/stophittingme.mp3",
+            "evil/neckbeard/waifu.mp3"
+        },
+
+        tauntdisplay = {
+            ["evil/neckbeard/bodypillow1.mp3"] = "Let me show you my\nbody pillow collection",
+            ["evil/neckbeard/bodypillow2.mp3"] = "I'm gonna turn\nyou into a body pillow!",
+            ["evil/neckbeard/katana.mp3"] = "I wanna show you\nmy favorite katana!",
+            ["evil/neckbeard/stophittingme.mp3"] = "Stop hitting me dad!",
+            ["evil/neckbeard/waifu.mp3"] = "You're looking\na lot like my waifu"
+        },
+
+        killsounds = {
+            "evil/neckbeard/uwu2.mp3",
+            "evil/neckbeard/maniac.mp3"
         }
     }
 
