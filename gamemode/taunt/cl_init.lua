@@ -68,23 +68,18 @@ local function DrawCircle(centerX, centerY, radius, startDeg, endDeg, segments, 
     return cir
 end
 
-local Taunts = {
-    "bruh1.mp3",
-    "bruh2.mp3",
-    "bruh3.wav",
-    "bruh4.mp3",
-    "bruh5.mp3",
-    "bruh6.mp3"
-}
-
 local mainframe
-local hovering = "Default"
+local hovering
+local Taunts
 local function open(bool)
-    if not bool then mainframe:Remove() mainframe = nil return end
-    hovering = "Default"
+    if not bool and mainframe then mainframe:Remove() mainframe = nil return end
+    local profile = Game:GetProfileInfo()
+    if not profile then return end
+    Taunts = profile.taunts
+    if not istable(Taunts) then return end
 
     mainframe = vgui.Create("DFrame")
-    mainframe:SetSize(ScreenScale(200), ScreenScale(200))
+    mainframe:SetSize(ScrH() * 0.9, ScrH() * 0.9)
     mainframe:Center()
     mainframe:SetDraggable(false)
     mainframe:SetTitle("")
@@ -108,7 +103,15 @@ local function open(bool)
             polys[n].circle = cir
 
             local centX, centY = centroid(polys[n].circle)
-            draw.SimpleText(Taunts[n], "ebilfontsmaller", centX, centY, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+            local text
+            if istable(profile.tauntdisplay) and profile.tauntdisplay[Taunts[n]] then
+                text = profile.tauntdisplay[Taunts[n]]
+            else
+                text = Taunts[n]
+            end
+            surface.SetFont("ebilfontsmaller")
+            local _, height = surface.GetTextSize(text)
+            draw.DrawText(text, "ebilfontsmaller", centX, centY - height / 2, color_white, TEXT_ALIGN_CENTER)
 
             n = n + 1
         end
@@ -135,7 +138,7 @@ local function open(bool)
     end
 
     local text = vgui.Create("DFrame")
-    text:SetSize(ScreenScale(200), ScreenScale(20))
+    text:SetSize(ScreenScale(250), ScreenScale(20))
     text:SetPos(ScrW() / 2 - text:GetWide() / 2, ((ScrH() / 2 - text:GetTall() / 2) - mainframe:GetTall() / 2) - text:GetTall())
     text:SetDraggable(false)
     text:SetTitle("")
@@ -147,7 +150,14 @@ local function open(bool)
         if input.GetCursorPos() == firstpos then
             draw.DrawText("Random Taunt", "evilfont1", w / 2, h / 2, color_white, TEXT_ALIGN_CENTER)
         elseif Taunts[hovering] then
-            draw.DrawText(Taunts[hovering], "evilfont1", w / 2, h / 2, color_white, TEXT_ALIGN_CENTER)
+            local text
+            if istable(profile.tauntdisplay) and profile.tauntdisplay[Taunts[hovering]] then
+                text = profile.tauntdisplay[Taunts[hovering]]
+            else
+                text = Taunts[hovering]
+            end
+            text = text:Replace("\n", " ")
+            draw.SimpleText(text, "evilfont1", w / 2, h / 2, color_white, TEXT_ALIGN_CENTER)
         end
     end
 end
@@ -158,10 +168,12 @@ local lastDown = false
 local lastpos
 
 local function RequestPlayTaunt(taunt)
-    print(taunt)
+    dbg.print(taunt)
+    Network:RequestTaunt(taunt)
 end
 
 hook.Add("Think", "TauntHUD", function()
+    if not LocalPlayer():IsBoss() then return end
     if not testtaunt:GetBool() then return end
 
     if input.IsKeyDown(KEY_R) and not lastDown then
@@ -170,9 +182,10 @@ hook.Add("Think", "TauntHUD", function()
         lastDown = true
         open(true)
     elseif not input.IsKeyDown(KEY_R) and lastDown then
+        print(hovering)
         if lastpos == input.GetCursorPos() then 
             RequestPlayTaunt("random")
-        elseif hovering then
+        elseif hovering and istable(Taunts) then
             RequestPlayTaunt(Taunts[hovering])
         end
 

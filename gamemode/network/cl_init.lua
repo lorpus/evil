@@ -35,3 +35,10 @@ local function ReceiveHandler(iLen, ply)
     end
 end
 net.Receive(Network.Id, ReceiveHandler)
+
+function Network:RequestTaunt(taunt)
+    net.Start(Network.Id)
+        net.WriteInt(N_TAUNT, 4)
+        net.WriteString(taunt)
+    net.SendToServer()
+end

@@ -23,11 +23,17 @@ Evil.Bosses = {
         },
 
         taunts = {
-            "evil/mrbones/ache.wav",
-            "evil/mrbones/bone to pick1.wav",
-            "evil/mrbones/bone to pick2.wav",
-            "evil/mrbones/how unpleasant.wav",
-            "evil/mrbones/suitcase.wav",
+            "evil/mrbones/ache.mp3",
+            "evil/mrbones/bonetopick.mp3",
+            "evil/mrbones/howunpleasant.mp3",
+            "evil/mrbones/suitcase.mp3"
+        },
+
+        tauntdisplay = {
+            ["evil/mrbones/ache.mp3"] = "I ache to smash\nyou out of\nexistence!",
+            ["evil/mrbones/suitcase.mp3"] = "I'm going to\nturn you into\na suitcase!",
+            ["evil/mrbones/howunpleasant.mp3"] = "How unpleasant it\nis to see you, you\nsniveling coward!",
+            ["evil/mrbones/bonetopick.mp3"] = "I've got a\nbone to pick\nwith you!",
         },
 
         killsounds = {
@@ -59,6 +65,20 @@ Evil.Bosses = {
             "evil/loli/stophiding.mp3",
             "evil/loli/trap.mp3",
             "evil/loli/yiff.mp3"
+        },
+
+        tauntdisplay = {
+            ["evil/loli/bulgywulgy.mp3"] = "I\nsee\na\nbulgy\nwulgy!",
+            ["evil/loli/canthide.mp3"] = "You can run\nbut you\ncan't hide!",
+            ["evil/loli/fun.mp3"] = "We're gonna have\nso much fun\ntogether!",
+            ["evil/loli/maga.mp3"] = "Make America\nGreat Again! Awoo!", // im not proud of this
+            ["evil/loli/nuzzle.mp3"] = "I'm\ngonna\nnuzzle\nyou to\ndeath\nwhen\nI find you!",
+            ["evil/loli/playwithme.mp3"] = "Why don't you\nwant to\ncome\nplay\nwith me!",
+            ["evil/loli/question06.mp3"] = "Sometimes,\nI dream about\ncheese.",
+            ["evil/loli/senpai.mp3"] = "owo senpai, I'm\ncoming for you!", // or this one
+            ["evil/loli/stophiding.mp3"] = "Stop trying\nto hide from me!",
+            ["evil/loli/trap.mp3"] = "I'm not a trap,\nI promise!",
+            ["evil/loli/yiff.mp3"] = "I'm gonna\nyiff you\nso hard\nyou won't\nknow what\nhit you!"
         },
 
         killsounds = {

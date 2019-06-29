@@ -35,3 +35,13 @@ function Network:BroadcastSound(snd)
         net.WriteString(snd)
     net.Broadcast()
 end
+
+local function ReceiveHandler(len, ply)
+    local cmd = net.ReadInt(4)
+    dbg.print(cmd)
+
+    if cmd == N_TAUNT then
+        Game:TauntNetHandler(len, ply)
+    end
+end
+net.Receive(Network.Id, ReceiveHandler)

@@ -1,6 +1,5 @@
-hook.Add("KeyPress", "EvilTaunt", function(ply, key)
+function Game:TauntNetHandler(len, ply)
     if not ply:IsBoss() then return end
-    if key != IN_RELOAD then return end
 
     local profile = Game:GetProfileInfo()
     if not istable(profile.taunts) then return end
@@ -18,6 +17,13 @@ hook.Add("KeyPress", "EvilTaunt", function(ply, key)
     end
 
     ply.flLastTaunt = CurTime()
-    local sound = profile.taunts[math.random(#profile.taunts)]
-    ply:EmitSound(sound, 90, 100, 1, CHAN_VOICE)
-end)
+    
+    local desired = net.ReadString()
+    if desired == "random" or not table.HasValue(profile.taunts, desired) then
+        snd = profile.taunts[math.random(#profile.taunts)]
+    else
+        snd = desired
+    end
+    print(snd)
+    ply:EmitSound(snd, 90, 100, 1, CHAN_VOICE)
+end
