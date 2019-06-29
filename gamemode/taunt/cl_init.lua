@@ -144,9 +144,13 @@ hook.Add("Think", "a", function()
     end
 end)
 
+local testtaunt = CreateClientConVar("evil_testtauntmenu", 0, false)
+
 local lastDown = false
 local lastpos
 hook.Add("Think", "a", function()
+    if not testtaunt:GetBool() then return end
+
     if input.IsKeyDown(KEY_R) and not lastDown then
         gui.EnableScreenClicker(true)
         lastpos = input.GetCursorPos()
