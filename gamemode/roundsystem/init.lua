@@ -90,7 +90,12 @@ hook.Add("Think", "RoundThink", function()
 
     if Round:IsPlaying() then
         if CurTime() > Round:GetEndTime() then
-            return Round:End("#Round_EndTimeUp")
+            Round:End("#Round_EndTimeUp")
+            for _, ply in pairs(player.GetAll()) do
+                if ply:IsHuman() then
+                    ply:Kill()
+                end
+            end
         end
 
         if #eutil.GetLivingPlayers(TEAM_HUMAN) == 0 then
