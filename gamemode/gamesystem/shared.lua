@@ -33,6 +33,18 @@ function Game:GetGametypeInfo()
     return Game.Gametypes[Game:GetGametype()] 
 end
 
+function Game:GetHumans()
+    local ret = {}
+
+    for _, ply in pairs(player.GetAll()) do
+        if ply:Alive() and ply:Team() == TEAM_HUMAN then
+            table.insert(ret, ply)
+        end
+    end
+
+    return ret
+end
+
 function Game:CanESP()
     if Game:GetGametype() == "pages" then
         local taken = GetGlobal2Int("PagesCollected")
