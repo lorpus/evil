@@ -27,7 +27,9 @@ end
 
 local function ChooseSpecialRound()
     if Evil._NEXT_SR and SR.SpecialRounds[Evil._NEXT_SR] then
-        return Evil._NEXT_SR
+        local x = Evil._NEXT_SR
+        Evil._NEXT_SR = nil
+        return x
     end
     
     local round // key
