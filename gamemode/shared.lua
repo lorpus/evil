@@ -76,6 +76,7 @@ include_fl "taunt"
 include_fl "roundsystem"
 include_fl "spectator"
 include_fl "jumpscare"
+include_fl "specialrounds"
 
 include_sh "sh_resources.lua"
 

@@ -20,9 +20,11 @@ local function Timer()
     local nTimerValue = math.floor(Round:GetEndTime() - CurTime())
     local TimerText = string.ToMinutesSeconds(math.floor(nTimerValue))
 
-    surface.SetFont(FontB)
-    local TextW, TextH = surface.GetTextSize(TimerText)
-    draw.DrawText(TimerText, FontB, nScrW / 2 - TextW / 2, TimerT / 2 - TextH / 2, Color(219, 255, 201))
+    if not SR.ActiveRounds["countdown"] then
+        surface.SetFont(FontB)
+        local TextW, TextH = surface.GetTextSize(TimerText)
+        draw.DrawText(TimerText, FontB, nScrW / 2 - TextW / 2, TimerT / 2 - TextH / 2, Color(219, 255, 201))
+    end
 
     if not ArbitratyText then return end
 
@@ -59,9 +61,11 @@ local function PlayerStats()
 end
 
 hook.Add("HUDPaint", "Screen_Attributes", function()
-    PlayerStats()
-    if Round:IsPlaying() then
-        Timer()
+    if not SR.ActiveRounds["realism"] then
+        PlayerStats()
+        if Round:IsPlaying() then
+            Timer()
+        end
     end
 
     if LocalPlayer():Team() == TEAM_SPEC then return end
