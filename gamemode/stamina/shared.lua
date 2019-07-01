@@ -26,6 +26,7 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
 
     if cmd:KeyDown(IN_JUMP) and not ply:KeyDownLast(IN_JUMP) and ply:OnGround() and flStamina > 0 then
         flStamina = flStamina - Stamina.jumplosestamina
+        ply.flLastSpeed = CurTime()
     end
 
     if cmd:KeyDown(IN_SPEED) and moving(ply, cmd) then
