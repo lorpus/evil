@@ -23,7 +23,8 @@ SR.SpecialRounds = {
                         if IsValid(t) then t:SetNoDraw(false) end
                     else
                         for _, ply in pairs(player.GetAll()) do
-                        ply:SetNoDraw(false)
+                            ply:SetNoDraw(false)
+                        end
                     end
                 end)
             end
