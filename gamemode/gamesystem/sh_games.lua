@@ -27,7 +27,7 @@ Game.Gametypes = {
         pagetaken = function(taker, page)
             Network:NotifyAll("#Game_PageCollected", true, { player = taker:Nick() })
             SetGlobal2Int("PagesCollected", GetGlobal2Int("PagesCollected") + 1)
-            if not SR.SpecialRounds["deadline"] then
+            if not SR.ActiveRounds["deadline"] then
                 Round:AddTime(30)
             end
         end,
