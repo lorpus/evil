@@ -1,5 +1,5 @@
 SR = SR or {}
-SR.Chance = 0.1
+SR.Chance = 1 / 6
 SR.ApplyDelay = 13.67
 SR.ActiveRounds = SR.ActiveRounds or {}
 
@@ -15,11 +15,16 @@ SR.SpecialRounds = {
         apply = function()
             if CLIENT then
                 hook.Add("Think", "Evil_SRAllAlone", function()
-                    for _, ply in pairs(player.GetAll()) do
-                        ply:SetNoDraw(true)
+                    if LocalPlayer():Alive() and LocalPlayer():IsHuman() then
+                        for _, ply in pairs(player.GetAll()) do
+                            ply:SetNoDraw(true)
+                        end
+                        local t = Game:GetBoss()
+                        if IsValid(t) then t:SetNoDraw(false) end
+                    else
+                        for _, ply in pairs(player.GetAll()) do
+                        ply:SetNoDraw(false)
                     end
-                    local t = Game:GetBoss()
-                    if IsValid(t) then t:SetNoDraw(false) end
                 end)
             end
         end,
@@ -82,5 +87,36 @@ SR.SpecialRounds = {
     deadline = {
         name = "Deadline",
         description = "No time will ever be added to the clock!"
+    },
+
+    matrix = {
+        name = "The Matrix",
+        description = "Pages will only materialize when you are within their range",
+
+        apply = function()
+            for _, ent in pairs(ents.FindByClass("evil_page")) do
+                ent:SetRenderFX(kRenderFxHologram)
+            end
+        end
+    },
+
+    blind = {
+        name = "Blindness",
+        description = "You cannot see anything unless your flashlight is on!",
+
+        apply = function()
+            if not CLIENT then return end
+            hook.Add("PreDrawHUD", "Evil_SRBlind", function()
+                if LocalPlayer():GetNW2Bool("flashlight") and LocalPlayer():GetNW2Bool("CanUseEvilFlashlight") then return end
+                cam.Start2D()
+                draw.RoundedBox(0, 0, 0, ScrW(), ScrH(), color_black)
+                cam.End2D()
+            end)
+        end,
+
+        remove = function()
+            if not CLIENT then return end
+            hook.Remove("PreDrawHUD", "Evil_SRBlind")
+        end
     }
 }
