@@ -60,5 +60,6 @@ end
 
 hook.Add("PreDrawHalos", "PageHalos", function()
     if LocalPlayer():IsBoss() then return end
+    if SR.ActiveRounds["matrix"] then return end
     halo.Add(ents.FindByClass("evil_page"), Color(20, 128, 20, 50), 1, 1, 1)
 end)
