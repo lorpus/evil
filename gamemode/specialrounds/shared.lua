@@ -108,6 +108,7 @@ SR.SpecialRounds = {
         apply = function()
             if not CLIENT then return end
             hook.Add("PreDrawHUD", "Evil_SRBlind", function()
+                if not LocalPlayer():Alive() or not LocalPlayer():IsHuman() then return end
                 if LocalPlayer():GetNW2Bool("flashlight") and LocalPlayer():GetNW2Bool("CanUseEvilFlashlight") then return end
                 cam.Start2D()
                 draw.RoundedBox(0, 0, 0, ScrW(), ScrH(), color_black)
