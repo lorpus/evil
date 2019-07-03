@@ -58,5 +58,11 @@ hook.Add("HUDPaint", "DebugAA", function()
             local scr = v.pos:ToScreen()
             draw.SimpleText("PAGE - " .. k, "DermaDefault", scr.x, scr.y)
         end
+
+        for _, v in pairs(Map.cameras) do
+            local start = v.pos:ToScreen()
+            local endpos = (v.pos + v.ang:Forward() * 32):ToScreen()
+            surface.DrawLine(start.x, start.y, endpos.x, endpos.y)
+        end
     end
 end)
