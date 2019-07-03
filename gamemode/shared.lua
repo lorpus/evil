@@ -52,6 +52,13 @@ local function include_fl(scanDirectory)
 	end
 end
 
+if SERVER then
+    function Evil:Lock(reason)
+        Evil.bLocked = true
+        Evil.strLockReason = reason or Lang:Get("#NoReasonGiven")
+    end
+end
+
 include_sh("maps/" .. game.GetMap() .. ".lua")
 
 if SERVER and not Map then

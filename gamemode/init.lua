@@ -1,10 +1,4 @@
 AddCSLuaFile("cl_init.lua")
-
-function Evil:Lock(reason)
-    Evil.bLocked = true
-    Evil.strLockReason = reason or Lang:Get("#NoReasonGiven")
-end
-
 include("shared.lua")
 
 hook.Add("Think", "KickJoinedPlayers", function() // may as well do it here cuz if someone is mid-join they wont get kicked (i dont think)
