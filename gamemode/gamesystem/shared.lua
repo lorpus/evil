@@ -57,11 +57,11 @@ function Game:CanESP()
     return true
 end
 
-function GM:ShouldCollide(e1, e2)
+hook.Add("ShouldCollide", "EvilPlayerNoCollide", function(e1, e2)
     if e1:IsPlayer() and e2:IsPlayer() then
         return e1:Team() != e2:Team()
     end
-end
+end)
 
 hook.Add("ShouldCheckStamina", "nobossstamina", function(ply)
     if ply:Team() == TEAM_BOSS then
