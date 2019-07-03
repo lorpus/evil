@@ -17,12 +17,14 @@ end
 function SWEP:PrimaryAttack()
     if not SERVER then return end
     local ply = self.Owner
+    ply:LagCompensation(true)
     local tr = util.TraceLine({
         start = ply:EyePos(),
         endpos = ply:EyePos() + ply:GetAimVector() * self.Distance,
         filter = { ply },
         mask = MASK_SHOT
     })
+    ply:LagCompensation(false)
 
     local ent = tr.Entity
     if not IsValid(ent) or not ent:IsPlayer() then return end
