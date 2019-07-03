@@ -44,19 +44,19 @@ end)
 
 hook.Add("HUDPaint", "DebugAA", function()
     if GetConVar("evil_showmappositions"):GetBool() then
-        for _, v in pairs(Map.spawns.humans) do
+        for k, v in pairs(Map.spawns.humans) do
             local scr = v.pos:ToScreen()
-            draw.SimpleText("HUMAN", "DermaDefault", scr.x, scr.y)
+            draw.SimpleText("HUMAN - " .. k, "DermaDefault", scr.x, scr.y)
         end
 
-        for _, v in pairs(Map.spawns.boss) do
+        for k, v in pairs(Map.spawns.boss) do
             local scr = v.pos:ToScreen()
-            draw.SimpleText("BOSS", "DermaDefault", scr.x, scr.y)
+            draw.SimpleText("BOSS - " .. k, "DermaDefault", scr.x, scr.y)
         end
 
-        for _, v in pairs(Map.pages) do
+        for k, v in pairs(Map.pages) do
             local scr = v.pos:ToScreen()
-            draw.SimpleText("PAGE", "DermaDefault", scr.x, scr.y)
+            draw.SimpleText("PAGE - " .. k, "DermaDefault", scr.x, scr.y)
         end
     end
 end)
