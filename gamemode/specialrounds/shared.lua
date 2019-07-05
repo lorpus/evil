@@ -120,5 +120,22 @@ SR.SpecialRounds = {
             if not CLIENT then return end
             hook.Remove("PreDrawHUD", "Evil_SRBlind")
         end
+    },
+
+    hax = {
+        name = "Wallhacks",
+        description = "The boss is now visible through walls!",
+
+        apply = function()
+            if not CLIENT then return end
+            hook.Add("PreDrawOutlines", "DrawBossOutline", function()
+                eutil.AddOutline(Game:GetBoss(), team.GetColor(TEAM_BOSS), OUTLINE_MODE_BOTH)
+            end)
+        end,
+
+        remove = function()
+            if not CLIENT then return end
+            hook.Remove("PreDrawOutlines", "DrawBossOutline")
+        end
     }
 }
