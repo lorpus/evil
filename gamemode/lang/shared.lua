@@ -42,6 +42,8 @@ Lang.Translations = {
         ["#ServerLocked"] = "This server has been locked due to a large error: {{error}}",
         ["#ServerNoContent"] = "Evil Content Pack {{num}} is NOT installed. This will cause big problems!",
         ["#ClientNoContent"] = "You are missing Evil Content Pack {{num}}. Please install it to avoid errors and bugs!",
+        ["#AFK_Marked"] = "You have been marked as AFK! Move within {{sec}} seconds to avoid being kicked!",
+        ["#AFK_Clear"] = "You are no longer marked as AFK"
     }
 }
 

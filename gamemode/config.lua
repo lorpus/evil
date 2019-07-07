@@ -30,6 +30,9 @@ local configuration = {
     PlayerWalkspeed = 200,
     PlayerRunspeed  = 320,
     TauntCooldown   = 5,
+
+    AFKKickTime     = 300, // if a player hasnt moved in this amount of seconds, theyll be flagged as afk and eventually kicked
+    AFKKickDelay    = 12, // when flagged, the player will be kicked after this amount of time if they dont move
 }
 
 function ApplyConfiguration(tab)
