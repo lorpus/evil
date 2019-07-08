@@ -12,7 +12,7 @@ end
 
 function Proxy:ShowPrompt()
     local frame = vgui.Create("DFrame")
-    frame:SetSize(180, 260)
+    frame:SetSize(ScreenScale(90), ScreenScale(30))
     frame:SetPos(0, (ScrH() / 2) - (frame:GetTall() / 2))
     frame:ShowCloseButton(false)
     frame:SetTitle("")
