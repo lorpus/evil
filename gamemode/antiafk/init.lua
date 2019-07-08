@@ -1,4 +1,5 @@
 hook.Add("StartCommand", "EvilAFKCheck", function(ply, cmd)
+    if ply:IsBot() then return end
     if cmd:GetButtons() != 0 or cmd:GetMouseX() != 0 or cmd:GetMouseY() != 0 then
         ply.flAFKLastMove = CurTime()
         if ply.bAFKIsBeingActedOn then
