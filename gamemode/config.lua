@@ -33,6 +33,8 @@ local configuration = {
 
     AFKKickTime     = 300, // if a player hasnt moved in this amount of seconds, theyll be flagged as afk and eventually kicked
     AFKKickDelay    = 12, // when flagged, the player will be kicked after this amount of time if they dont move
+
+    VoiceDistance = 768, // how far away players are audible
 }
 
 function ApplyConfiguration(tab)

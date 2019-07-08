@@ -226,3 +226,16 @@ end
 function GM:IsSpawnpointSuitable(ply, spawnpointEnt, bMakeSuitable)
     return true
 end
+
+function GM:PlayerCanHearPlayersVoice(listener, speaker)
+    local b = listener:EyePos():Distance(speaker:EyePos()) < (Evil.Cfg.VoiceDistance or 768)
+	if (listener:Alive() and not listener:IsHuman()) and (speaker:Alive() and not speaker:IsHuman()) then
+		return true, false
+	elseif listener:Alive() and speaker:Alive() then
+		return b, true
+	elseif listener:Alive() != speaker:Alive() then
+		return false, false
+	elseif not listener:Alive() and not speaker:Alive() then
+		return true, false
+	end
+end
