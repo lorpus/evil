@@ -5,7 +5,7 @@ surface.CreateFont("proxyfont", {
 
 function Proxy:SendReply(bAccept)
     net.Start(Network.Id)
-        net.WriteInt(N_PROXYASK, 4)
+        net.WriteInt(N_PROXYASK, Network.CmdBits)
         net.WriteBool(bAccept)
     net.SendToServer()
 end

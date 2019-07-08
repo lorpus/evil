@@ -7,7 +7,7 @@ end
 
 local killsoundAllowed = true
 local function ReceiveHandler(iLen, ply)
-    local cmd = net.ReadInt(4)
+    local cmd = net.ReadInt(Network.CmdBits)
     dbg.print(cmd)
     if cmd == N_NOTIFY then
         local str = net.ReadString()
@@ -54,7 +54,7 @@ net.Receive(Network.Id, ReceiveHandler)
 
 function Network:RequestTaunt(taunt)
     net.Start(Network.Id)
-        net.WriteInt(N_TAUNT, 4)
+        net.WriteInt(N_TAUNT, Network.CmdBits)
         net.WriteString(taunt)
     net.SendToServer()
 end

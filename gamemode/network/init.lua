@@ -2,7 +2,7 @@ util.AddNetworkString(Network.Id)
 
 local function StartNotify(str, isLang, langArgs)
     net.Start(Network.Id)
-    net.WriteInt(N_NOTIFY, 4)
+    net.WriteInt(N_NOTIFY, Network.CmdBits)
     net.WriteString(str)
     net.WriteBool(isLang)
     net.WriteBool(langArgs != nil)
@@ -23,7 +23,7 @@ end
 
 function Network:SendHook(name, ...)
     net.Start(Network.Id)
-        net.WriteInt(N_HOOK, 4)
+        net.WriteInt(N_HOOK, Network.CmdBits)
         net.WriteString(name)
         net.WriteTable({...})
     net.Broadcast()
@@ -31,20 +31,20 @@ end
 
 function Network:BroadcastSound(snd)
     net.Start(Network.Id)
-        net.WriteInt(N_SOUND, 4)
+        net.WriteInt(N_SOUND, Network.CmdBits)
         net.WriteString(snd)
     net.Broadcast()
 end
 
 function Network:BroadcastKillsound(snd)
     net.Start(Network.Id)
-        net.WriteInt(N_KILLSOUND, 4)
+        net.WriteInt(N_KILLSOUND, Network.CmdBits)
         net.WriteString(snd)
     net.Broadcast()
 end
 
 local function ReceiveHandler(len, ply)
-    local cmd = net.ReadInt(4)
+    local cmd = net.ReadInt(Network.CmdBits)
     dbg.print(cmd)
 
     if cmd == N_TAUNT then

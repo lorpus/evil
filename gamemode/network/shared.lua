@@ -1,5 +1,6 @@
 Network = Network or {
-    Id = "EvilNetwork"
+    Id = "EvilNetwork",
+    CmdBits = 4
 }
 
 N_NOTIFY    = 0

@@ -1,6 +1,6 @@
 function Jumpscare:SendScare(ply)
     net.Start(Network.Id)
-        net.WriteInt(N_JUMPSCARE, 4)
+        net.WriteInt(N_JUMPSCARE, Network.CmdBits)
     net.Send(ply)
 end
 

@@ -8,7 +8,7 @@ end
 
 function Proxy:AskToBeProxy(ply)
     net.Start(Network.Id)
-        net.WriteInt(N_PROXYASK, 4)
+        net.WriteInt(N_PROXYASK, Network.CmdBits)
     net.Send(ply)
     ply.bProxyBeingAsked = true
     timer.Simple(15, function()
