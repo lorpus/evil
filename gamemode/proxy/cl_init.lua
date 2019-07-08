@@ -36,7 +36,7 @@ function Proxy:ShowPrompt()
         end
 
         if not Round:IsPlaying() then
-            //self:Remove()
+            self:Remove()
         end
     end
 
