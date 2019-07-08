@@ -55,6 +55,15 @@ hook.Add("HUDPaint", "DebugAA", function()
         end
 
         for k, v in pairs(Map.pages) do
+            if not v.pos and istable(v[1]) then
+                for _, bruh in pairs(v) do
+                    local scr = bruh.pos:ToScreen()
+                    draw.SimpleText("PAGE - " .. k, "DermaDefault", scr.x, scr.y)
+                end
+
+                continue
+            end
+
             local scr = v.pos:ToScreen()
             draw.SimpleText("PAGE - " .. k, "DermaDefault", scr.x, scr.y)
         end

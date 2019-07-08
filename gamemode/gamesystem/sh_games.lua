@@ -13,6 +13,9 @@ Game.Gametypes = {
                 inc = inc + 1
 
                 local ent = ents.Create("evil_page")
+                if not v.pos and istable(v[1]) then
+                    v = v[math.random(#v)]
+                end
                 ent:SetPos(v.pos)
                 ent:SetAngles(v.ang)
                 ent:SetMaterial(string.format("models/jason278/slender/sheets/sheet_%s.vtf", inc))
