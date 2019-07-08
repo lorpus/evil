@@ -14,3 +14,11 @@ hook.Add("CheckPassword", "DontJoinOnLocked", function()
         return false, Lang:Format("#ServerLocked", { error = Evil.strLockReason })
     end
 end)
+
+function GM:PlayerConnect(name, ip)
+    Network:NotifyAll("#Player_Joined", true, { name = name })
+end
+
+function GM:PlayerDisconnected(ply)
+    Network:NotifyAll("#Player_Left_NoReason", true, { name = ply:Nick() })
+end

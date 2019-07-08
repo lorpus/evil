@@ -43,7 +43,10 @@ Lang.Translations = {
         ["#ServerNoContent"] = "Evil Content Pack {{num}} is NOT installed. This will cause big problems!",
         ["#ClientNoContent"] = "You are missing Evil Content Pack {{num}}. Please install it to avoid errors and bugs!",
         ["#AFK_Marked"] = "You have been marked as AFK! Move within {{sec}} seconds to avoid being kicked!",
-        ["#AFK_Clear"] = "You are no longer marked as AFK"
+        ["#AFK_Clear"] = "You are no longer marked as AFK",
+        ["#Player_Joined"] = "{{name}} connected",
+        ["#Player_Left"] = "{{name}} disconnected ({{reason}})",
+        ["#Player_Left_NoReason"] = "{{name}} disconnected"
     }
 }
 
