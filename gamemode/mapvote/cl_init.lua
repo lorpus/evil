@@ -1,3 +1,5 @@
+if MapVote then MapVote:Remove() end
+
 local function open(MapTable)
     if MapVote then MapVote:Remove() end
 
@@ -17,6 +19,12 @@ local function open(MapTable)
     end
     
     local choices = {}
+
+    local function unclick()
+        for _, tab in pairs(choices) do
+            tab.main.clicked = false
+        end
+    end
 
     local padX, padY = ScreenScale(5), ScreenScale(5)
     local w, h = MapVote:GetWide() - padX * 2, (MapVote:GetTall() - padY * 4) / 4
@@ -48,7 +56,10 @@ local function open(MapTable)
             button:SetPos(padX, y)
             button:SetText("")
             function button:Paint() end
-            function button:DoClick() panel.clicked = !panel.clicked end
+            function button:DoClick() 
+                unclick()
+                panel.clicked = true
+            end
         end
         
         y = y + h + padY
@@ -56,6 +67,5 @@ local function open(MapTable)
 
         table.insert(choices, {main = panel, button = button})
     end
-
 end
 //open({{map = "The Forest", path = "mapvote/theforest.png"}, {map = "The Forest", path = "mapvote/theforest.png"}, map = "The Forest", path = "mapvote/theforest.png"})
