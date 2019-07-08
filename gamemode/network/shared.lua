@@ -8,3 +8,4 @@ N_JUMPSCARE = 2
 N_SOUND     = 3
 N_TAUNT     = 4
 N_KILLSOUND = 5
+N_PROXYASK  = 6

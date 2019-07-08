@@ -8,10 +8,12 @@ include("sh_bosses.lua")
 TEAM_BOSS   = 2
 TEAM_HUMAN  = 3
 TEAM_SPEC   = 4
+TEAM_PROXY  = 5
 
 team.SetUp(TEAM_BOSS,  "Boss",  Color(190, 63,  63),  false)
 team.SetUp(TEAM_HUMAN, "Human", Color(63,  113, 170), false)
 team.SetUp(TEAM_SPEC,  "Boss",  Color(130, 130, 130), false)
+team.SetUp(TEAM_PROXY, "Proxy", Color(190, 63, 63),   false)
 
 function Game:GetBoss()
     return GetGlobal2Entity("EvilBoss")
@@ -43,6 +45,30 @@ function Game:GetHumans()
     end
 
     return ret
+end
+
+function Game:GetDead()
+    local ret = {}
+    
+    for _, ply in pairs(player.GetAll()) do
+        if not ply:Alive() then
+            table.insert(ret, ply)
+        end
+    end
+
+    return ret
+end
+
+function Game:GetPercentHumansAlive() // what % are humans that are alive
+    local count = #player.GetAll()
+    local percent = 0
+    for k, ply in pairs(Game:GetHumans()) do
+        if ply:Alive() then
+            percent = percent + (1 / count)
+        end
+    end
+
+    return percent
 end
 
 function Game:CanESP()

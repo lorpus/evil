@@ -87,6 +87,7 @@ include_fl "spectator"
 include_fl "jumpscare"
 include_fl "specialrounds"
 include_fl "antiafk"
+include_fl "proxy"
 
 include_sh "sh_resources.lua"
 

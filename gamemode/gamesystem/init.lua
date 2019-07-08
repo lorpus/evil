@@ -13,14 +13,18 @@ function Game:SetProfile(strProfile)
     SetGlobal2String("EvilProfile", strProfile)
 end
 
+function Game:ResetPlayer(ply)
+    ply:SetTeam(TEAM_SPEC)
+    ply:StripWeapons()
+    ply:SetWalkSpeed(Evil.Cfg.PlayerWalkspeed)
+    ply:SetRunSpeed(Evil.Cfg.PlayerRunspeed)
+    ply:SetJumpPower(Stamina.normaljump)
+    ply:StopSpectating()
+end
+
 function Game:ResetPlayers()
     for _, ply in pairs(player.GetAll()) do
-        ply:SetTeam(TEAM_SPEC)
-        ply:StripWeapons()
-        ply:SetWalkSpeed(Evil.Cfg.PlayerWalkspeed)
-        ply:SetRunSpeed(Evil.Cfg.PlayerRunspeed)
-        ply:SetJumpPower(Stamina.normaljump)
-        ply:StopSpectating()
+        Game:ResetPlayer(ply)
     end
 end
 
@@ -158,7 +162,7 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     end
 
     if type(attacker) == "CTakeDamageInfo" then
-        if IsValid(attacker:GetAttacker()) and not attacker:GetAttacker():IsBoss() then
+        if IsValid(attacker:GetAttacker()) and not attacker:GetAttacker():IsBoss() and not attacker:GetAttacker():IsProxy() then
             return
         elseif not IsValid(attacker:GetAttacker()) then
             return
@@ -185,6 +189,7 @@ hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
     
     local humans = Map.spawns.humans
     local boss = Map.spawns.boss
+    local proxy = Map.spawns.proxy
     if ply:IsHuman() and humans then
         local spawn = humans[math.random(#humans)]
         ply:SetPos(spawn.pos)
@@ -193,6 +198,14 @@ hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
         end
     elseif ply:IsBoss() and boss then
         local spawn = boss[math.random(#boss)]
+        ply:SetPos(spawn.pos)
+        if spawn.ang then
+            ply:SetEyeAngles(spawn.ang)
+        end
+    elseif ply:IsProxy() and boss then
+        local spawns = proxy
+        if not spawns then spawns = boss end
+        local spawn = spawns[math.random(#spawns)]
         ply:SetPos(spawn.pos)
         if spawn.ang then
             ply:SetEyeAngles(spawn.ang)

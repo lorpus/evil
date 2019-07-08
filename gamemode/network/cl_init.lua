@@ -46,6 +46,8 @@ local function ReceiveHandler(iLen, ply)
                 end
             end)
         end
+    elseif cmd == N_PROXYASK then
+        Proxy:ShowPrompt()
     end
 end
 net.Receive(Network.Id, ReceiveHandler)

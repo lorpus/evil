@@ -22,6 +22,49 @@ Evil.Bosses = {
             len = 27 / 30
         },
 
+        proxy = {
+            model = "models/player/skeleton.mdl", // required
+            walkspeed = 250, // required
+            runspeed = 250, // required
+
+            killhook = function(victim)
+                if SERVER then
+                    victim:SetModel("models/player/skeleton.mdl")
+                end
+            end,
+
+            weapons = {
+                "ev_monster_kill"
+            },
+
+            taunts = {
+                "evil/mrbones/proxy_ree.mp3", // this is an absolute mistake
+            },
+
+            tauntdisplay = {
+                ["evil/mrbones/proxy_ree.mp3"] = "ree",
+                ["evil/test"] = "bruh moment"
+            },
+
+            taunt_cooldown = 15,
+
+            start = function(proxy)
+                proxy.vProxyViewOffset = proxy:GetViewOffset()
+                proxy.vProxyViewOffsetDucked = proxy:GetViewOffsetDucked()
+                proxy:SetModelScale(0.4)
+                proxy:SetViewOffset(proxy.vProxyViewOffset - Vector(0, 0, proxy.vProxyViewOffset.z * (1 - proxy:GetModelScale())))
+                proxy:SetViewOffsetDucked(proxy.vProxyViewOffsetDucked - Vector(0, 0, proxy.vProxyViewOffsetDucked.z * (1 - proxy:GetModelScale())))
+            end,
+
+            finish = function(proxy)
+                proxy:SetModelScale(1)
+                proxy:SetViewOffset(proxy.vProxyViewOffset)
+                proxy:SetViewOffsetDucked(proxy.vProxyViewOffsetDucked)
+                proxy.vProxyViewOffset = nil
+                proxy.vProxyViewOffsetDucked = nil
+            end
+        },
+
         taunts = {
             "evil/mrbones/ache.mp3",
             "evil/mrbones/bonetopick.mp3",

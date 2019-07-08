@@ -1,8 +1,14 @@
 function Game:TauntNetHandler(len, ply)
-    if not ply:IsBoss() then return end
+    if not ply:IsBoss() and not ply:IsProxy() then return end
 
     local profile = Game:GetProfileInfo()
-    if not istable(profile.taunts) then return end
+    local taunts
+    if ply:IsBoss() then
+        taunts = profile.taunts
+    elseif ply:IsProxy() then
+        taunts = profile.proxy.taunts
+    end
+    if not istable(taunts) then return end
 
     if ply.flLastTaunt then
         local rel = profile.taunt_cooldown or Evil.Cfg.TauntCooldown
@@ -19,8 +25,8 @@ function Game:TauntNetHandler(len, ply)
     ply.flLastTaunt = CurTime()
     
     local desired = net.ReadString()
-    if desired == "random" or not table.HasValue(profile.taunts, desired) then
-        snd = profile.taunts[math.random(#profile.taunts)]
+    if desired == "random" or not table.HasValue(taunts, desired) then
+        snd = taunts[math.random(#taunts)]
     else
         snd = desired
     end

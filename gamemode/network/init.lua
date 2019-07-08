@@ -49,6 +49,8 @@ local function ReceiveHandler(len, ply)
 
     if cmd == N_TAUNT then
         Game:TauntNetHandler(len, ply)
+    elseif cmd == N_PROXYASK then
+        Proxy:HandleResponse(ply, net.ReadBool())
     end
 end
 net.Receive(Network.Id, ReceiveHandler)

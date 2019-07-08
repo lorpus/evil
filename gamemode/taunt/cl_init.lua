@@ -72,11 +72,29 @@ local mainframe
 local hovering
 local Taunts
 local function open(bool)
-    if not bool and mainframe then mainframe:Remove() mainframe = nil return end
+    if not bool then
+        if mainframe then
+            mainframe:Remove() mainframe = nil
+        end
+
+        return
+    end
+
     local profile = Game:GetProfileInfo()
     if not profile then return end
-    Taunts = profile.taunts
+    if LocalPlayer():IsBoss() then
+        Taunts = profile.taunts
+    elseif LocalPlayer():IsProxy() then
+        Taunts = profile.proxy.taunts
+    end
     if not istable(Taunts) then return end
+
+    local tauntdisplay
+    if LocalPlayer():IsBoss() then
+        tauntdisplay = profile.tauntdisplay
+    elseif LocalPlayer():IsProxy() then
+        tauntdisplay = profile.proxy.tauntdisplay
+    end
 
     mainframe = vgui.Create("DFrame")
     mainframe:SetSize(ScrH() * 0.9, ScrH() * 0.9)
@@ -104,8 +122,8 @@ local function open(bool)
 
             local centX, centY = centroid(polys[n].circle)
             local text
-            if istable(profile.tauntdisplay) and profile.tauntdisplay[Taunts[n]] then
-                text = profile.tauntdisplay[Taunts[n]]
+            if istable(tauntdisplay) and tauntdisplay[Taunts[n]] then
+                text = tauntdisplay[Taunts[n]]
             else
                 text = Taunts[n]
             end
@@ -151,8 +169,8 @@ local function open(bool)
             draw.DrawText("Random Taunt", "evilfont1", w / 2, h / 2, color_white, TEXT_ALIGN_CENTER)
         elseif Taunts[hovering] then
             local text
-            if istable(profile.tauntdisplay) and profile.tauntdisplay[Taunts[hovering]] then
-                text = profile.tauntdisplay[Taunts[hovering]]
+            if istable(tauntdisplay) and tauntdisplay[Taunts[hovering]] then
+                text = tauntdisplay[Taunts[hovering]]
             else
                 text = Taunts[hovering]
             end
@@ -171,12 +189,27 @@ local function RequestPlayTaunt(taunt)
 end
 
 hook.Add("Think", "TauntHUD", function()
-    if gui.IsGameUIVisible() or LocalPlayer():IsTyping() then return end
+    if gui.IsConsoleVisible() or gui.IsGameUIVisible() or LocalPlayer():IsTyping() then return end
 
-    if input.IsKeyDown(KEY_R) and not lastDown and LocalPlayer():IsBoss() then
+    if input.IsKeyDown(KEY_R) and not lastDown and (LocalPlayer():IsBoss() or LocalPlayer():IsProxy()) then
+        lastDown = true
+        
+        local profile = Game:GetProfileInfo()
+        local taunts
+        if LocalPlayer():IsBoss() then
+            taunts = profile.taunts
+        elseif LocalPlayer():IsProxy() then
+            taunts = profile.proxy.taunts
+        end
+        PrintTable(taunts)
+        dbg.print(#taunts)
+        if not taunts then return end
+        if #taunts == 1 then
+            return Network:RequestTaunt(taunts[1])
+        end
+
         gui.EnableScreenClicker(true)
         lastpos = input.GetCursorPos()
-        lastDown = true
         open(true)
     elseif not input.IsKeyDown(KEY_R) and lastDown then
         if lastpos == input.GetCursorPos() then 

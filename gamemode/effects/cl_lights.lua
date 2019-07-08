@@ -1,6 +1,6 @@
 local mylight
 hook.Add("Think", "EvilLight", function()
-    if LocalPlayer():IsBoss() and LocalPlayer():Alive() then
+    if (LocalPlayer():IsBoss() or LocalPlayer():IsProxy()) and LocalPlayer():Alive() then
         if not mylight then
             mylight = DynamicLight(LocalPlayer():EntIndex())
         end
