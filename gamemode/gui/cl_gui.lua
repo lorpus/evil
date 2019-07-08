@@ -32,14 +32,17 @@ local function FirstTimeGUI()
     frame:ShowCloseButton(false)
     frame:MakePopup()
     frame.Closing = false
-
+    
+    local lastCurTime = CurTime()
+    local delta
     function frame:Paint(w, h)
+        delta = (CurTime() - lastCurTime)
         if overlay.ClosingFinished or help.Done then 
             if help.Clicked then
                 draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0))
                 surface.SetFont("ebilfontsmaller")
                 local TxtW, TxtH = surface.GetTextSize(sHelp)
-                draw.DrawText("NIGGER NGIGER EIGANSDDIGGNASD", "ebilfontsmaller", w / 2, h / 2 - TxtH / 2, color_white, TEXT_ALIGN_CENTER)
+                draw.DrawText("AAAAAAAAA", "ebilfontsmaller", w / 2, h / 2 - TxtH / 2, color_white, TEXT_ALIGN_CENTER)
             end
             return 
         end
