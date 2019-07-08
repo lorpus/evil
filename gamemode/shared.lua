@@ -54,7 +54,7 @@ end
 
 if SERVER then
     function Evil:Lock(reason)
-        if Evil.TestingCVar:GetBool() then return end
+        if Evil.TestingCvar and Evil.TestingCVar:GetBool() then return end
         Evil.bLocked = true
         Evil.strLockReason = reason or Lang:Get("#NoReasonGiven")
     end
