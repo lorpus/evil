@@ -90,7 +90,7 @@ hook.Add("ShouldCollide", "EvilPlayerNoCollide", function(e1, e2)
 end)
 
 hook.Add("ShouldCheckStamina", "nobossstamina", function(ply)
-    if ply:Team() == TEAM_BOSS then
+    if ply:IsBoss() or ply:IsProxy() then
         return false
     end
 end)

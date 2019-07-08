@@ -39,7 +39,7 @@ local Old = 0
 local StamMaterial = Material("evil/stamina.png")
 
 local function PlayerStats()
-    if LocalPlayer():IsBoss() then return end
+    if LocalPlayer():IsBoss() or LocalPlayer():IsProxy() then return end
     if not LocalPlayer():Alive() then return end
 
     local nScrW, nScrH = ScrW(), ScrH()
