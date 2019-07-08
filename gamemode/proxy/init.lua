@@ -53,7 +53,7 @@ function Proxy:Cleanup(ply)
     if isfunction(profile.proxy.finish) then
         profile.proxy.finish(ply)
     end
-    Network:SendHook("ProxyFinish")
+    Network:SendHook("ProxyFinish", ply)
 end
 
 function Proxy:HandleResponse(ply, bAccept)

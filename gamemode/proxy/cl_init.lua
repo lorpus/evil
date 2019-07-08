@@ -48,3 +48,17 @@ function Proxy:ShowPrompt()
         end
     end)
 end
+
+hook.Add("ProxyStart", "EvilProxySystemStart", function(proxy)
+    local profile = Game:GetProfileInfo()
+    if profile.proxy and isfunction(profile.proxy.start) then
+        profile.proxy.start(proxy)
+    end
+end)
+
+hook.Add("ProxyFinish", "EvilProxySystemFinish", function(proxy)
+    local profile = Game:GetProfileInfo()
+    if profile.proxy and isfunction(profile.proxy.finish) then
+        profile.proxy.finish(proxy)
+    end
+end)
