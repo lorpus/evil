@@ -21,15 +21,16 @@ local function GetPlayerStatus(ply)
 end
 
 local function SortPlayers(tab)
-    local boss, humans, dead = {}, {}, {}
+    local boss, proxy, humans, dead = {}, {}, {}, {}
 
     for _, ply in pairs(tab) do
         if ply:IsHuman() then table.insert(humans, ply) continue end
         if ply:IsBoss() then table.insert(boss, ply) continue end
+        if ply:IsProxy() then table.insert(proxy, ply) continue end
         table.insert(dead, ply)
     end
 
-    return boss, humans, dead
+    return boss, proxy, humans, dead
 end
 
 function Scoreboard:Toggle()
@@ -45,7 +46,7 @@ function Scoreboard:Toggle()
     local scrW, scrH = ScrW(), ScrH()
     local PadX, PadY = ScreenScale(5), ScreenScale(5)
     local Players = player.GetAll()
-    local boss, humans, dead = SortPlayers(Players)
+    local boss, proxy, humans, dead = SortPlayers(Players)
 
     Scoreboard.mainframe = vgui.Create("DFrame")
     Scoreboard.mainframe:SetTitle("")
@@ -119,6 +120,31 @@ function Scoreboard:Toggle()
         end
 
         PanelY = PanelY + BossPlayerList:GetTall() + PadY
+    end
+
+    if #proxy > 0 then
+        local Proxy = vgui.Create("DPanel", ScrollPanel)
+        Proxy:SetSize(MainW - (PadX * 2), ScreenScale(25) / 2)
+        Proxy:SetPos(PadX, PanelY)
+        
+        function Proxy:Paint(w, h)
+            draw.RoundedBox(0, 0, 0, w, h, BossColor)
+
+            surface.SetFont("ebilfontsmaller")
+            local TextW, TextH = surface.GetTextSize(Lang:Get("#Proxy"))
+            draw.DrawText(Lang:Get("#Proxy"), "ebilfontsmaller", w / 2 - TextW / 2, h / 2 - TextH / 2)
+        end
+        PanelY = PanelY + Proxy:GetTall()
+
+        ProxyPlayerList = vgui.Create("DPanel", ScrollPanel)
+        ProxyPlayerList:SetSize(MainW - (PadX * 2), math.floor(#proxy * Scale))
+        ProxyPlayerList:SetPos(PadX, PanelY)
+        function ProxyPlayerList:Paint(w, h)
+            surface.SetDrawColor(0, 0, 0)
+            surface.DrawOutlinedRect(0, 0, w, h)
+        end
+
+        PanelY = PanelY + ProxyPlayerList:GetTall() + PadY
     end
 
     if #humans > 0 then
@@ -231,6 +257,11 @@ function Scoreboard:Toggle()
 
     if #boss > 0 then
         for _, ply in pairs(boss) do addRow(ply, BossPlayerList) end
+        y = 0
+    end
+
+    if #proxy > 0 then
+        for _, ply in pairs(proxy) do addRow(ply, ProxyPlayerList, true) end
         y = 0
     end
 

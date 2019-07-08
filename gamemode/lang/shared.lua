@@ -28,6 +28,7 @@ Lang.Translations = {
         ["#Help"] = "Help",
         ["#Exit"] = "Exit",
         ["#Boss"] = "Boss",
+        ["#Proxy"] = "Proxies",
         ["#Humans"] = "Humans",
         ["#Dead"] = "Dead",
         ["#Admin_MoreThanOneTarget"] = "Found more than one matching target",
