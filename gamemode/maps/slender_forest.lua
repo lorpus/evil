@@ -321,7 +321,13 @@ Map = {
         {
             pos = Vector(-1369.809692, 5002.519531, 55.013760),
             ang = Angle(30.708616, 270.000000, 0.000000)
+        },
+        {
+            pos = Vector(2766.918945, -2345.031250, -61.669937),
+            ang = Angle(-0.000000, 270.000000, 0.000000)
         }
+        
+        
     },
 
     InitPostEntity = function() // get rid of the models that are in the map
