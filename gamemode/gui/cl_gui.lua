@@ -18,6 +18,7 @@ surface.CreateFont("ebilfontsmaller", {
 local sTitle = Evil.Cfg.MainMenu.TitleText
 local sHelp = Evil.Cfg.MainMenu.HelpText
 local nFadeSpeed = 6
+local nAvatarFadeSpeed = 2
 
 local function FirstTimeGUI()
     local sw, sh = ScrW(), ScrH()
@@ -159,6 +160,7 @@ end
 
 local globalAlpha = 0
 function Evil:ShowEndScreen()
+    local CurrentTimeShown = CurTime()
     if frame then frame:Remove() end
 
     local ScrW, ScrH = ScrW(), ScrH()
@@ -186,7 +188,7 @@ function Evil:ShowEndScreen()
             globalAlpha = math.Approach(globalAlpha, 255, nFadeSpeed * delta)
         else
             globalAlpha = math.Approach(globalAlpha, 0, nFadeSpeed * delta)
-            if globalAlpha == 0 then self:Remove() end
+            if globalAlpha == 0 then self:Remove() dbg.print("Time it took to show: " .. CurTime() - CurrentTimeShown) end
         end
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, globalAlpha))
     end
@@ -246,6 +248,8 @@ function Evil:ShowEndScreen()
         2 = Deaders
         3 = Fadeout -- highlights coming soon later in a theater near u
     */
+
+    local centerText = false
     function Outline:Paint(w, h)
         surface.SetDrawColor(75, 75, 75, globalAlpha)
         //surface.DrawOutlinedRect(0, 0, w, h)
@@ -260,7 +264,12 @@ function Evil:ShowEndScreen()
 
         surface.SetFont("endgamebil")
         local TextW, TextH = surface.GetTextSize(Arbitrary)
-        draw.DrawText(Arbitrary, "endgamebil", w / 2 - TextW / 2, PadY, Color(255, 0, 0, textAlpha))
+
+        if centerText then
+            draw.DrawText(Arbitrary, "endgamebil", w / 2 - TextW / 2, h / 2 - TextH / 2, Color(255, 0, 0, textAlpha))
+        else
+            draw.DrawText(Arbitrary, "endgamebil", w / 2 - TextW / 2, PadY, Color(255, 0, 0, textAlpha))
+        end
 
         if frame.opaque then
             if ((flPhase == 0 and (CurTime() - curTime > Delay)) or ((flPhase > 1) and (flPhase < 2))) then 
@@ -269,14 +278,17 @@ function Evil:ShowEndScreen()
                 if flPhase == 0 then 
                     local avatartable = SetupAvatars(survivors) 
                     local total = #avatartable
-                    if total == 0 then flPhase = 2 return end
+                    //if total == 0 then flPhase = 2 return end -- to skip this phase
 
-                    if total < (#player.GetAll() / 2) then
+                    if total < (#player.GetAll() / 3) then
                         Arbitrary = Lang:Format("#End_OnlyNSurvived", { count = total })
                     else
                         Arbitrary = Lang:Format("#End_NSurvived", { count = total })
                     end
-                    if total == 0 then Arbitrary = Lang:Get("#End_NobodySurvived") end
+                    if total == 0 then 
+                        Arbitrary = Lang:Get("#End_NobodySurvived") 
+                        centerText = true
+                    end
                     if total == 1 and #survivors[1]:GetName() <= 12 then
                         Arbitrary = Lang:Format("#End_OnlySurvivor", { nick = survivors[1]:GetName() })
                     end
@@ -325,7 +337,7 @@ function Evil:ShowEndScreen()
                 end
 
                 // time to do cool things with the avatars!! - aids
-                local AvatarFadeSpeed = math.Clamp(0.5 - #Avatars / 100, 0.1, 0.5)
+                local AvatarFadeSpeed = nAvatarFadeSpeed / #Avatars
                 if flPhase == 1.2 and (CurTime() - curTime > AvatarFadeSpeed) then
                     for n, panel in pairs(Avatars) do
                         if TempVar != n then continue end
@@ -366,7 +378,11 @@ function Evil:ShowEndScreen()
                 end
 
                 if flPhase == 1.4 and CurTime() - curTime > 0.1 then
-                    if #Avatars == 0 and self.textfadefinished then flPhase = 2 curTime = CurTime() end
+                    if #Avatars == 0 and self.textfadefinished then 
+                        flPhase = 2 
+                        curTime = CurTime() 
+                        centerText = false 
+                    end
                 end
             end
 
@@ -375,13 +391,15 @@ function Evil:ShowEndScreen()
                 // das setup por phase 1
                 if flPhase == 2 then 
                     local total = #SetupAvatars(deaders) 
-                    if total == 0 then flPhase = 3 return end
+                    //if total == 0 then flPhase = 3 return end -- to skip this phase
 
                     if total == 0 then
                         Arbitrary = Lang:Get("#End_NobodyDied")
+                        centerText = true
+                        print("Everyone")
                     elseif total == #player.GetAll() then
                         Arbitrary = Lang:Get("#End_EveryoneDied")
-                    elseif total < #player.GetAll() / 2 then
+                    elseif total < #player.GetAll() / 3 then
                         Arbitrary = Lang:Format("#End_OnlyNDied", { count = total })
                     else
                         Arbitrary = Lang:Format("#End_NDied", { count = total })
@@ -432,7 +450,7 @@ function Evil:ShowEndScreen()
                 end
 
                 // time to do cool things with the avatars!! - aids
-                local AvatarFadeSpeed = math.Clamp(0.5 - #Avatars / 100, 0.1, 0.5)
+                local AvatarFadeSpeed = nAvatarFadeSpeed / #Avatars
                 if flPhase == 2.2 and (CurTime() - curTime > AvatarFadeSpeed) then
                     for n, panel in pairs(Avatars) do
                         if TempVar != n then continue end
@@ -472,7 +490,11 @@ function Evil:ShowEndScreen()
                 end
 
                 if flPhase == 2.4 and CurTime() - curTime > 0.1 then
-                    if #Avatars == 0 and self.textfadefinished then flPhase = 3 curTime = CurTime() end
+                    if #Avatars == 0 and self.textfadefinished then 
+                        flPhase = 3 
+                        curTime = CurTime() 
+                        centerText = false 
+                    end
                 end
             end
 
@@ -487,8 +509,6 @@ hook.Add("HUDPaint", "OnloadGUIInit", function()
     hook.Remove("HUDPaint", "OnloadGUIInit")
     if frame then frame:Remove() end
     //FirstTimeGUI()
+    //Evil:ShowEndScreen()
 end)
 
-concommand.Add("runtestgui", function()
-    Evil:ShowEndScreen()
-end)
