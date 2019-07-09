@@ -137,5 +137,29 @@ SR.SpecialRounds = {
             if not CLIENT then return end
             hook.Remove("PreDrawOutlines", "DrawBossOutline")
         end
+    },
+
+    earthquake = {
+        name = "Earthquake",
+        description = "The ground is so scared of the boss it will tremble around it too!",
+
+        apply = function()
+            if not CLIENT then return end
+            timer.Create("EvilSR_Earthquake", 0.25, 0, function()
+                if LocalPlayer():IsBoss() then return end
+
+                local boss = Game:GetBoss()
+                if not IsValid(boss) then return end
+                local amp = 15 - LocalPlayer():GetPos():Distance(boss:GetPos()) / 150 // i would just go serverside but i dont want boss to shake too
+                if amp < 0 then return end
+                dbg.print(amp)
+                util.ScreenShake(vector_origin, amp, 10, 0.5, 5000)
+            end)
+        end,
+
+        remove = function()
+            if not CLIENT then return end
+            timer.Remove("EvilSR_Earthquake")
+        end
     }
 }
