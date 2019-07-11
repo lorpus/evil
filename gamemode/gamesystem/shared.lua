@@ -98,7 +98,16 @@ end)
 hook.Add("Think", "ProcessGametypeThink", function()
     if Round:IsPlaying() then
         local info = Game:GetGametypeInfo()
-        if info and info.think then
+        if info and isfunction(info.think) then
+            info.think()
+        end
+    end
+end)
+
+hook.Add("Think", "EvilBossThink", function()
+    if Round:IsPlaying() then
+        local info = Game:GetProfileInfo()
+        if info and isfunction(info.think) then
             info.think()
         end
     end

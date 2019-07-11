@@ -69,9 +69,7 @@ end
 include_sh "utils.lua"
 include_sh "sh_player_ext.lua"
 //include_cl "textchat/cl_init.lua"
-include_cl "effects/cl_lights.lua"
-include_sv "effects/sv_ambience.lua"
-include_sh "effects/sh_runanimation.lua"
+include_fl "effects"
 include_fl "gui"
 
 include_fl "lang"

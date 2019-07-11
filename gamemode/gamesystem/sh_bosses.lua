@@ -278,6 +278,32 @@ Evil.Bosses = {
             "evil/xenomorph/scream3.mp3",
             "evil/xenomorph/scream4.mp3"
         },
+    },
+
+    greyman = {
+        name        = "The Grey Man",
+        bio         = "",
+        model       = "models/lsd_de/simspy.mdl",
+        runspeed    = 275,
+        walkspeed   = 200,
+
+        proximity_music = "evil/lsdman/monster_proximity2.mp3",
+    
+        think = function()
+            local boss = Game:GetBoss()
+            if not IsValid(boss) or not boss:Alive() then return end
+            if not SERVER then return end
+            for _, ent in pairs(ents.FindInSphere(boss:GetPos(), 192)) do
+                if ent:IsPlayer() and ent:IsHuman() then
+                    local d = DamageInfo()
+					d:SetDamage(ent:Health())
+					d:SetAttacker(boss)
+					d:SetDamageType(DMG_DISSOLVE)
+
+					ent:TakeDamageInfo(d)
+                end
+            end
+        end
     }
 
     /*jeffthekiller = {
