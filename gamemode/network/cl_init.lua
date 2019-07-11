@@ -48,6 +48,11 @@ local function ReceiveHandler(iLen, ply)
         end
     elseif cmd == N_PROXYASK then
         Proxy:ShowPrompt()
+    elseif cmd == N_PLAYANIM then
+        local ent = net.ReadEntity()
+        local slot = net.ReadUInt(3)
+        local seq = net.ReadUInt(11)
+        ent:AddVCDSequenceToGestureSlot(slot, seq, 0, true)
     end
 end
 net.Receive(Network.Id, ReceiveHandler)

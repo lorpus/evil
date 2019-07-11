@@ -43,6 +43,15 @@ function Network:BroadcastKillsound(snd)
     net.Broadcast()
 end
 
+function Network:SendAnim(ent, slot, seq)
+    net.Start(Network.Id)
+        net.WriteInt(N_PLAYANIM, Network.CmdBits)
+        net.WriteEntity(ent)
+        net.WriteUInt(slot, 3)
+        net.WriteUInt(seq, 11)
+    net.Broadcast()
+end
+
 local function ReceiveHandler(len, ply)
     local cmd = net.ReadInt(Network.CmdBits)
     dbg.print(cmd)

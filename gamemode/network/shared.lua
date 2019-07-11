@@ -10,3 +10,4 @@ N_SOUND     = 3
 N_TAUNT     = 4
 N_KILLSOUND = 5
 N_PROXYASK  = 6
+N_PLAYANIM  = 7

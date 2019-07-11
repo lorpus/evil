@@ -1,3 +1,5 @@
+AddCSLuaFile()
+
 SWEP.PrintName = "Yeeterizer"
 
 SWEP.ViewModel = ""
@@ -14,9 +16,37 @@ function SWEP:Initialize()
     self:SetHoldType("normal")
 end
 
+local anims = {
+    "zombie_attack_01",
+    "zombie_attack_02",
+    "zombie_attack_03",
+    "zombie_attack_04",
+    "zombie_attack_05",
+    "zombie_attack_06",
+    "zombie_attack_07",
+    "zombie_attack_08"
+}
+
+function SWEP:GetAttackAnimation()
+    return anims[math.random(#anims)]
+end
+
 function SWEP:PrimaryAttack()
     if not SERVER then return end
     local ply = self.Owner
+    if not ply.flLastGesture then ply.flLastGesture = 0 end
+    if not self.flLastSeqLen then self.flLastSeqLen = 0 end
+
+    if CurTime() - ply.flLastGesture > 1.5 then
+        ply.flLastGesture = CurTime()
+        local seq = ply:LookupSequence(self:GetAttackAnimation())
+
+        ply:AddVCDSequenceToGestureSlot(GESTURE_SLOT_ATTACK_AND_RELOAD, seq, 0, true)
+        Network:SendAnim(ply, GESTURE_SLOT_ATTACK_AND_RELOAD, seq)
+    end
+
+    if not SERVER then return end
+
     ply:LagCompensation(true)
     local tr = util.TraceLine({
         start = ply:EyePos(),
