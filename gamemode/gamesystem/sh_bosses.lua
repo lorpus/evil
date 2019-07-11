@@ -225,6 +225,59 @@ Evil.Bosses = {
             "evil/neckbeard/uwu2.mp3",
             "evil/neckbeard/maniac.mp3"
         }
+    },
+
+    xenomorph = {
+        name        = "Xenomorph",
+        bio         = "",
+        model       = "models/player/slow_alien.mdl",
+        modelscale  = 1.3,
+        runspeed    = 425,
+        walkspeed   = 300,
+
+        weapons = {
+            "ev_monster_kill",
+        },
+
+        jumpscare = {
+            mat = "evil/scares/xenomorph/xenscare",
+            sound = "evil/xenomorph/scare.mp3",
+            len = 39 / 30
+        },
+
+        taunts = {
+            "evil/xenomorph/chatter1.mp3",
+            "evil/xenomorph/chatter2.mp3",
+            "evil/xenomorph/chatter3.mp3",
+            "evil/xenomorph/growl1.mp3",
+            "evil/xenomorph/growl2.mp3",
+            "evil/xenomorph/growl3.mp3",
+            "evil/xenomorph/hiss1.mp3",
+            "evil/xenomorph/hiss2.mp3",
+            "evil/xenomorph/hiss3.mp3",
+            "evil/xenomorph/scream1.mp3",
+        },
+        
+        tauntdisplay = {
+            ["evil/xenomorph/chatter1.mp3"] = "Chatter 1",
+            ["evil/xenomorph/chatter2.mp3"] = "Chatter 2",
+            ["evil/xenomorph/chatter3.mp3"] = "Chatter 3",
+            ["evil/xenomorph/growl1.mp3"] = "Growl 1",
+            ["evil/xenomorph/growl2.mp3"] = "Growl 2",
+            ["evil/xenomorph/growl3.mp3"] = "Growl 3",
+            ["evil/xenomorph/hiss1.mp3"] = "Hiss 1",
+            ["evil/xenomorph/hiss2.mp3"] = "Hiss 2",
+            ["evil/xenomorph/hiss3.mp3"] = "Hiss 3",
+            ["evil/xenomorph/scream1.mp3"] = "Scream",
+        },
+
+        killsounds = {
+            "evil/xenomorph/attack1.mp3",
+            "evil/xenomorph/attack2.mp3",
+            "evil/xenomorph/scream2.mp3",
+            "evil/xenomorph/scream3.mp3",
+            "evil/xenomorph/scream4.mp3"
+        },
     }
 
     /*jeffthekiller = {
