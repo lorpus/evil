@@ -56,6 +56,13 @@ function Game:SetupBoss(ply)
         ply:SetModelScale(info.modelscale)
     end
 
+    if info.proximity_music then
+        net.Start(Network.Id)
+            net.WriteInt(N_BOSSMUSIC, Network.CmdBits)
+            net.WriteString(info.proximity_music)
+        net.Broadcast()
+    end
+
     ply:Spawn()
     Network:Notify(ply, "You are the boss!")
 

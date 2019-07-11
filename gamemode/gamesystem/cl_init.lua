@@ -1,3 +1,29 @@
+local bossMusicChannel // map cleanup invalidates this i think!!11
+function Game:StartBossProximityMusic(snd)
+	sound.PlayFile("sound/" .. snd, "3d", function(chan, errId, errName)
+		if errId then
+			dbg.print(string.format("play file failed! %s - %s", errId, errName))
+		end
+
+		if IsValid(chan) then
+			bossMusicChannel = chan
+			bossMusicChannel:Set3DFadeDistance(640, 3500)
+			bossMusicChannel:EnableLooping(true)
+			bossMusicChannel:Play()
+		end
+	end)
+end
+
+hook.Add("Think", "EvilUpdateBossMusic", function()
+	if IsValid(bossMusicChannel) and IsValid(Game:GetBoss()) then
+		if not Game:GetBoss():Alive() then
+			return bossMusicChannel:Stop()
+		end
+
+		bossMusicChannel:SetPos(Game:GetBoss():GetPos())
+	end
+end)
+
 gameevent.Listen("player_spawn")
 hook.Add("player_spawn", "EvilPlayerSpawnClient", function(data)
 	timer.Simple(1, function() // gay

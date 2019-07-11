@@ -53,6 +53,8 @@ local function ReceiveHandler(iLen, ply)
         local slot = net.ReadUInt(3)
         local seq = net.ReadUInt(11)
         ent:AddVCDSequenceToGestureSlot(slot, seq, 0, true)
+    elseif cmd == N_BOSSMUSIC then
+        Game:StartBossProximityMusic(net.ReadString())
     end
 end
 net.Receive(Network.Id, ReceiveHandler)
