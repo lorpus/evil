@@ -201,7 +201,7 @@ hook.Add("Think", "TauntHUD", function()
         elseif LocalPlayer():IsProxy() then
             taunts = profile.proxy.taunts
         end
-        PrintTable(taunts)
+
         dbg.print(#taunts)
         if not taunts then return end
         if #taunts == 1 then
