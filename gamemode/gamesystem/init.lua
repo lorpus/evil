@@ -19,6 +19,7 @@ function Game:ResetPlayer(ply)
     ply:SetWalkSpeed(Evil.Cfg.PlayerWalkspeed)
     ply:SetRunSpeed(Evil.Cfg.PlayerRunspeed)
     ply:SetJumpPower(Stamina.normaljump)
+    ply:SetModelScale(1)
     ply:StopSpectating()
 end
 
@@ -49,6 +50,10 @@ function Game:SetupBoss(ply)
     local hands = ply:GetHands()
     if info.hands_model and IsValid(hands) then
         hands:SetModel(info.hands_model)
+    end
+
+    if info.modelscale then
+        ply:SetModelScale(info.modelscale)
     end
 
     ply:Spawn()
