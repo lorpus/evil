@@ -66,8 +66,10 @@ function Game:SetupBoss(ply)
     ply:Spawn()
     Network:Notify(ply, "You are the boss!")
 
+    if istable(info.weapons) then
     for _, v in pairs(info.weapons) do
         ply:Give(v)
+    end
     end
 
     timer.Simple(0.1, function()
