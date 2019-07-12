@@ -51,6 +51,25 @@ hook.Add("CalcView", "cameraview", function(ply, vOrigin, qAngles, flFov, flZnea
     end
 end)
 
+hook.Add("EvilPostBossSetup", "EvilClientBossSetup", function(key, ply)
+	local info = Evil.Bosses[key]
+	dbg.print(LocalPlayer(), ply, LocalPlayer() == ply)
+	if info.modelscale and LocalPlayer() != ply then // no serverside so no collisions, no localplayer so no glitchy shit
+		dbg.print(ply, info.modelscale)
+		timer.Simple(1, function()
+			ply:SetModelScale(info.modelscale)
+		end)
+	end
+end)
+
+hook.Add("RoundSet", "FixModelShit", function(round)
+	if round == ROUND_PLAYING then return end
+	dbg.print(round)
+	for _, ply in pairs(player.GetAll()) do
+		ply:SetModelScale(1)
+	end
+end)
+
 hook.Add("EvilPlayerKilled", "OnPlayerKilled", function(victim)
     local info = Game:GetProfileInfo()
     if info.killhook then

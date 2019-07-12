@@ -52,10 +52,6 @@ function Game:SetupBoss(ply)
         hands:SetModel(info.hands_model)
     end
 
-    if info.modelscale then
-        ply:SetModelScale(info.modelscale)
-    end
-
     if info.proximity_music then
         net.Start(Network.Id)
             net.WriteInt(N_BOSSMUSIC, Network.CmdBits)
@@ -67,9 +63,9 @@ function Game:SetupBoss(ply)
     Network:Notify(ply, "You are the boss!")
 
     if istable(info.weapons) then
-    for _, v in pairs(info.weapons) do
-        ply:Give(v)
-    end
+        for _, v in pairs(info.weapons) do
+            ply:Give(v)
+        end
     end
 
     timer.Simple(0.1, function()
@@ -80,6 +76,9 @@ function Game:SetupBoss(ply)
             end
         end)
     end)
+
+    hook.Run("EvilPostBossSetup", key, ply)
+    Network:SendHook("EvilPostBossSetup", key, ply)
 end
 
 local lastChosenBoss
