@@ -1,5 +1,6 @@
 if SERVER then
     resource.AddWorkshop("1780893440")
+    resource.AddWorkshop("1800886537")
 
     if not EVIL_CONTENT_1_INSTALLED then
         print("\n\n")
@@ -7,9 +8,20 @@ if SERVER then
             print(Lang:Format("#ServerNoContent", { num = "1" }))
         end
     end
+
+    if not EVIL_BASE_CONTENT_INSTALLED then
+        print("\n\n")
+        for i = 1, 10 do
+            print(Lang:Format("#ServerNoContent", { num = "Base" }))
+        end
+    end
 else // cli
     // placeholder
     if not EVIL_CONTENT_1_INSTALLED then
         Evil:AddTextChat(Lang:Format("#ClientNoContent", { num = "1" }))
+    end
+
+    if not EVIL_BASE_CONTENT_INSTALLED then
+        Evil:AddTextChat(Lang:Format("#ClientNoContent", { num = "Base" }))
     end
 end
