@@ -202,8 +202,8 @@ hook.Add("Think", "TauntHUD", function()
             taunts = profile.proxy.taunts
         end
 
+        if not istable(taunts) then return end
         dbg.print(#taunts)
-        if not taunts then return end
         if #taunts == 1 then
             return Network:RequestTaunt(taunts[1])
         end
