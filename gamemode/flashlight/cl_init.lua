@@ -44,7 +44,7 @@ end
 hook.Add("Think", "EvilFlashlight", function()
     if Round:IsPlaying() or Round:IsPost() then
         for _, ply in pairs(player.GetAll()) do
-            if SR.ActiveRounds["allalone"] and ply != LocalPlayer() then continue end
+            if SR.ActiveRounds["allalone"] and ply != LocalPlayer() then RemoveLight(ply) continue end
             if ply:IsHuman() and ply:Alive()  then
                 if ply:GetNW2Bool("flashlight") and ply:GetNW2Bool("CanUseEvilFlashlight") then
                     RenderUserFlashlight(ply)
