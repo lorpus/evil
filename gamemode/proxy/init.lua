@@ -7,6 +7,7 @@ function Proxy:ProxiesAllowed()
 end
 
 function Proxy:AskToBeProxy(ply)
+    if ply.bProxyBeingAsked then return end
     net.Start(Network.Id)
         net.WriteInt(N_PROXYASK, Network.CmdBits)
     net.Send(ply)

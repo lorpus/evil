@@ -165,11 +165,12 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
         end
     end
 
-    if not victim:IsBoss() then // game's over anyways
+    if not victim:IsBoss() then
         if not Round:IsWaiting() then
+            victim:SetTeam(TEAM_SPEC)
             local round = Round:GetRoundCount()
             timer.Simple(4, function()
-                if round == Round:GetRoundCount() and IsValid(victim) then
+                if round == Round:GetRoundCount() and IsValid(victim) and not victim:IsProxy() then // perhaps :Alive() instead of :IsProxy()
                     victim:StartSpectating()
                 end
             end)
