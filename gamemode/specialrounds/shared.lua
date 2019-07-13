@@ -171,6 +171,7 @@ SR.SpecialRounds = {
             if not SERVER then return end
             hook.Add("EvilPageTaken", "EvilSR_DeathSwap", function()
                 local plys = Game:GetHumans()
+                if #plys == 1 then return end
                 for _, ply in pairs(Game:GetHumans()) do
                     local target
                     for _, targ in RandomPairs(plys) do
