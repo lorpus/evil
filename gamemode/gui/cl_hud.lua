@@ -13,7 +13,6 @@ surface.CreateFont("evilfont2", {
 local function Timer()
     local nScrW, nScrH = ScrW(), ScrH()
     local TimerW, TimerT = ScreenScale(60), ScreenScale(15)
-    local ArbitratyText = nil
     local FontA, FontB = "evilfont2", "evilfont1"
     local ColorA = Color(25, 25, 25)
     
@@ -26,13 +25,17 @@ local function Timer()
         draw.DrawText(TimerText, FontB, nScrW / 2 - TextW / 2, TimerT / 2 - TextH / 2, Color(219, 255, 201))
     end
 
-    if not ArbitratyText then return end
+    if Game:GetGametype() == "pages" then
+        SubText = string.format("%s / %s Collected", GetGlobal2Int("PagesCollected"), GetGlobal2Int("PagesTotal"))
+    end
+
+    if not SubText then return end
 
     local Awide, Atall = TimerW, TimerT / 2
 
     surface.SetFont(FontA)
-    local TextW, TextH = surface.GetTextSize(ArbitratyText)
-    draw.DrawText(ArbitratyText, FontA, nScrW / 2 - TextW / 2, TimerT + (Atall / 2 - TextH / 2), Color(255,255,255,255))
+    local TextW, TextH = surface.GetTextSize(SubText)
+    draw.DrawText(SubText, FontA, nScrW / 2 - TextW / 2, TimerT + (Atall / 2 - TextH / 2), Color(219, 255, 201))
 end
 
 local Old = 0
