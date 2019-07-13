@@ -161,5 +161,39 @@ SR.SpecialRounds = {
             if not CLIENT then return end
             timer.Remove("EvilSR_Earthquake")
         end
+    },
+
+    deathswap = {
+        name = "Death Swap",
+        description = "Watch out whenever someone collects a page!",
+
+        apply = function()
+            if not SERVER then return end
+            hook.Add("EvilPageTaken", "EvilSR_DeathSwap", function()
+                local plys = Game:GetHumans()
+                for _, ply in pairs(Game:GetHumans()) do
+                    local target
+                    for _, targ in RandomPairs(plys) do
+                        if ply != targ then
+                            target = targ
+                            break
+                        end
+                    end
+
+                    ply.tmpNewPos = target:GetPos()
+                    table.RemoveByValue(plys, target)
+                end
+
+                for _, ply in pairs(Game:GetHumans()) do
+                    ply:SetPos(ply.tmpNewPos)
+                    ply.tmpNewPos = nil
+                end
+            end)
+        end,
+
+        remove = function()
+            if not SERVER then return end
+            hook.Remove("EvilPageTaken", "EvilSR_DeathSwap")
+        end
     }
 }
