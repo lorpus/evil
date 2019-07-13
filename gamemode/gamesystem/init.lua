@@ -61,6 +61,8 @@ function Game:SetupBoss(ply)
 
     ply:Spawn()
     Network:Notify(ply, "You are the boss!")
+    Network:Notify(ply, "Press your reload key (probably R) to taunt (if the boss has it)")
+    Network:Notify(ply, "Hold left click to attack!")
 
     if istable(info.weapons) then
         for _, v in pairs(info.weapons) do
