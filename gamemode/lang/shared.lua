@@ -47,7 +47,10 @@ Lang.Translations = {
         ["#AFK_Clear"] = "You are no longer marked as AFK",
         ["#Player_Joined"] = "{{name}} connected",
         ["#Player_Left"] = "{{name}} disconnected ({{reason}})",
-        ["#Player_Left_NoReason"] = "{{name}} disconnected"
+        ["#Player_Left_NoReason"] = "{{name}} disconnected",
+        ["#Clock_Collect"] = "{{name}} collected a clock! 60 seconds has been added to the timer!",
+        ["#Skull_NoPlayers"] = "There are no players to revive...",
+        ["#Skull_Revive"] = "{{name}} collected Apollyon's Skull! A random player has been revived",
     }
 }
 

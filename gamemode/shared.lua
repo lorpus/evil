@@ -86,6 +86,7 @@ include_fl "jumpscare"
 include_fl "specialrounds"
 include_fl "antiafk"
 include_fl "proxy"
+include_fl "collectables"
 
 include_sh "sh_resources.lua"
 
