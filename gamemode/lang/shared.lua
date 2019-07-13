@@ -51,6 +51,8 @@ Lang.Translations = {
         ["#Clock_Collect"] = "{{name}} collected a clock! 60 seconds has been added to the timer!",
         ["#Skull_NoPlayers"] = "There are no players to revive...",
         ["#Skull_Revive"] = "{{name}} collected Apollyon's Skull! A random player has been revived",
+        ["#CollectPages"] = "Collect all {{count}} pages",
+        ["#StopHumansPages"] = "Stop the humans from collecting all {{count}} pages",
     }
 }
 

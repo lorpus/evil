@@ -8,8 +8,17 @@ surface.CreateFont("evilfont2", {
     size = ScreenScale(7),
 })
 
-
-
+local centerText
+local centerTextAlpha = 0
+local centerTextAlphaDir = 1.5
+timer.Create("AlphaTick", 0, 0, function()
+    if centerText then
+        centerTextAlpha = math.Approach(centerTextAlpha, centerTextAlphaDir * 400, centerTextAlphaDir)
+    else
+        centerTextAlpha = 0
+        centerTextAlphaDir = 1.5
+    end
+end)
 local function Timer()
     local nScrW, nScrH = ScrW(), ScrH()
     local TimerW, TimerT = ScreenScale(60), ScreenScale(15)
@@ -19,14 +28,24 @@ local function Timer()
     local nTimerValue = math.floor(Round:GetEndTime() - CurTime())
     local TimerText = string.ToMinutesSeconds(math.floor(nTimerValue))
 
-    if not SR.ActiveRounds["countdown"] then
-        surface.SetFont(FontB)
-        local TextW, TextH = surface.GetTextSize(TimerText)
-        draw.DrawText(TimerText, FontB, nScrW / 2 - TextW / 2, TimerT / 2 - TextH / 2, Color(219, 255, 201))
-    end
+    if SR.ActiveRounds["countdown"] then return end
+    surface.SetFont(FontB)
+    local TextW, TextH = surface.GetTextSize(TimerText)
+    draw.DrawText(TimerText, FontB, nScrW / 2 - TextW / 2, TimerT / 2 - TextH / 2, Color(219, 255, 201))
 
     if Game:GetGametype() == "pages" then
         SubText = string.format("%s / %s Collected", GetGlobal2Int("PagesCollected"), GetGlobal2Int("PagesTotal"))
+    end
+
+    if centerText then
+        dbg.print(centerTextAlpha, centerTextAlphaDir)
+        if centerTextAlpha >= 400 then
+            centerTextAlphaDir = -2
+        elseif centerTextAlpha < 0 then
+            centerText = nil
+        end
+
+        draw.SimpleText(centerText, FontB, nScrW / 2, nScrH / 3, Color(255, 255, 255, centerTextAlpha), TEXT_ALIGN_CENTER)
     end
 
     if not SubText then return end
@@ -100,4 +119,18 @@ end)
 
 hook.Add("HUDDrawTargetID", "HidePlayerTarget", function()
     return false
+end)
+
+hook.Add("RoundSet", "EvilStartInstructions", function(round)
+    if round != ROUND_PLAYING then return end
+    local gt = Game:GetGametype()
+    timer.Simple(1, function() // so in the amount of time it takes a hook to get networked to the client other variables like the players team cant... makes sense
+        if gt == "pages" then
+            if LocalPlayer():IsHuman() then
+                centerText = Lang:Format("#CollectPages", { count = GetGlobal2Int("PagesTotal") })
+            elseif LocalPlayer():IsBoss() then
+                centerText = Lang:Format("#StopHumansPages", { count = GetGlobal2Int("PagesTotal") })
+            end
+        end
+    end)
 end)
