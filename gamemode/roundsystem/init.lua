@@ -35,7 +35,6 @@ end
 
 function Round:StartGame()
     Round:SetEndTime(CurTime() + 300)
-    game.CleanUpMap()
 
     Game:ResetPlayers()
 
@@ -70,6 +69,10 @@ function Round:End(strReason)
     else
         Network:NotifyAll("#Round_EndUnknown")
     end
+
+    timer.Simple(4, function()
+        game.CleanUpMap()
+    end)
 
     timer.Simple(5, function()
         Round:StartGame()
