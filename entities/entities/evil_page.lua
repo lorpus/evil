@@ -28,7 +28,7 @@ end
 
 local nig = VectorRand()
 function ENT:Draw()
-    if LocalPlayer():IsBoss() then return end
+    if LocalPlayer():IsBoss() or LocalPlayer():IsProxy() then return end
     // i genuinely dont understand why i need to do this pls find other way (the pages are black, presumably cuz of engine.LightStyle?)
     render.SuppressEngineLighting(true)
     local ang = self:GetAngles()
@@ -45,7 +45,7 @@ function ENT:Use(ply, caller)
     if self.taken then return end
     
     if ply:GetEyeTrace().Entity != self then return end
-    if ply:IsBoss() then return end
+    if ply:IsBoss() or ply:IsProxy() then return end
     
     self.taken = true
 
