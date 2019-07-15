@@ -188,8 +188,13 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     end
 
     Jumpscare:SendScare(victim)
-
-    Network:SendHook("EvilPlayerKilled", victim)
+    if attacker:GetAttacker():IsProxy() then
+        hook.Run("EvilPlayerKilled", victim, TEAM_PROXY)
+        Network:SendHook("EvilPlayerKilled", victim, TEAM_PROXY)
+    else
+        hook.Run("EvilPlayerKilled", victim, TEAM_BOSS)
+        Network:SendHook("EvilPlayerKilled", victim, TEAM_BOSS)
+    end
     local info = Game:GetProfileInfo()
     if info.killhook then
         info.killhook(victim)
