@@ -17,7 +17,8 @@ local configuration = {
         walkspeed   = 200, // the speed the player should have when sprinting if they don't have stamina
         normaljump  = 160, // the jump power the player should have when they have stamina
         staminajump = 80, // the jump power the player should have when they don't have stamina
-        jumplosestamina = 5 // how much stamina the player should lose on jump
+        jumplosestamina = 5, // how much stamina the player should lose on jump
+        gainwait = 2.5, // how long before stamina starts recharging
     },
 
     Flashlight = {

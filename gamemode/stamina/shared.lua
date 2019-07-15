@@ -37,7 +37,7 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         ply.flLastSpeed = CurTime()
     elseif not ply:KeyDown(IN_SPEED) and flStamina <= Stamina.maxstamina then
         if ply.flLastSpeed then
-            if CurTime() - ply.flLastSpeed > 5 then
+            if CurTime() - ply.flLastSpeed > Evil.Cfg.Stamina.gainwait then
                 flStamina = flStamina + Stamina.gainrate
             end
         end
