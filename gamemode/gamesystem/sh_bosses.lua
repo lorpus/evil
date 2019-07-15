@@ -204,6 +204,16 @@ Evil.Bosses = {
             len = 1.96
         },
 
+        proxy = {
+            model = "models/pinkiepie.mdl",
+            walkspeed = 270,
+            runspeed = 320,
+
+            weapons = {
+                "ev_monster_kill"
+            }
+        },
+
         taunts = {
             "evil/neckbeard/bodypillow1.mp3",
             "evil/neckbeard/bodypillow2.mp3",
