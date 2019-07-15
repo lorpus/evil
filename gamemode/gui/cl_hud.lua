@@ -66,7 +66,7 @@ local function PlayerStats()
 
     local nScrW, nScrH = ScrW(), ScrH()
     local PadX, PadY = 10, 10
-    local Scaled = ScreenScale(48)
+    local Scaled = ScreenScale(30)
     local x, y = 0, nScrH - Scaled
 
     local fmul = 1 - LocalPlayer():GetNW2Float("stamina") / Stamina.maxstamina
