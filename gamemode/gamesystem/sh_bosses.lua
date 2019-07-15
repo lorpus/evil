@@ -204,7 +204,7 @@ Evil.Bosses = {
             len = 1.96
         },
 
-        proxy = {
+        /*proxy = {
             model = "models/pinkiepie.mdl",
             walkspeed = 270,
             runspeed = 320,
@@ -212,7 +212,7 @@ Evil.Bosses = {
             weapons = {
                 "ev_monster_kill"
             }
-        },
+        },*/
 
         taunts = {
             "evil/neckbeard/bodypillow1.mp3",
