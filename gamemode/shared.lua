@@ -66,6 +66,15 @@ if SERVER and not Map then
     Evil:Lock("this map is not configured or has a faulty configuration!")
 end
 
+if istable(Map[1]) then
+    GMap = Map
+    Map = GMap[1]
+    hook.Add("RoundSet", "ChangeMapConfigs", function(round)
+        if round != ROUND_POST then return end
+        Map = GMap[math.random(#GMap)]
+    end)
+end
+
 include_sh "utils.lua"
 include_sh "sh_player_ext.lua"
 //include_cl "textchat/cl_init.lua"

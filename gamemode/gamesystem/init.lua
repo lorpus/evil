@@ -242,6 +242,23 @@ hook.Add("PlayerDeathSound", "EvilRemoveDeathSound", function()
     return false
 end)
 
+local function SpawnBlockers()
+    if not istable(Map.blockers) then return end
+    for _, block in pairs(Map.blockers) do
+        local mins = Vector(block.mins)
+        local maxs = Vector(block.maxs)
+        OrderVectors(mins, maxs)
+        local blocker = ents.Create("evil_blockmove")
+        // local center = (mins + maxs) / 2
+        blocker:SetPos(mins)
+        blocker:SetMins(Vector())
+        blocker:SetMaxs(maxs - mins)
+        blocker:Spawn()
+    end
+end
+hook.Add("InitPostEntity", "SpawnBlockers", SpawnBlockers)
+hook.Add("PostCleanupMap", "SpawnBlockers", SpawnBlockers)
+
 /*
 hook.Add("EntityTakeDamage", "InstaDabOnPlyers", function(ent, info)
     if not ent:IsPlayer() then return end

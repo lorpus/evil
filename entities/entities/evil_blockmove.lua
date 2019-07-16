@@ -4,15 +4,12 @@ local DrawBlockMove = CreateConVar("evil_drawblockmove", 0, FCVAR_REPLICATED, "D
 
 DEFINE_BASECLASS("base_anim")
 
-ENT.mins = Vector(-64, -64, -64)
-ENT.maxs = Vector( 64,  64,  64)
-
 function ENT:Initialize()
-    self.Collide = CreatePhysCollideBox(self.mins, self.maxs)
-    self:SetCollisionBounds(self.mins, self.maxs)
+    self.Collide = CreatePhysCollideBox(self:GetMins(), self:GetMaxs())
+    self:SetCollisionBounds(self:GetMins(), self:GetMaxs())
 
     if SERVER then
-        self:PhysicsInitBox(self.mins, self.maxs)
+        self:PhysicsInitBox(self:GetMins(), self:GetMaxs())
         self:SetSolid(SOLID_VPHYSICS)
         local phys = self:GetPhysicsObject()
         if phys:IsValid() then
@@ -20,11 +17,16 @@ function ENT:Initialize()
             phys:EnableMotion(false)
         end
     else
-        self:SetRenderBounds(self.mins, self.maxs)
+        self:SetRenderBounds(self:GetMins(), self:GetMaxs())
     end
 
     self:EnableCustomCollisions(true)
     self:DrawShadow(false)
+end
+
+function ENT:SetupDataTables()
+    self:NetworkVar("Vector", 0, "Mins")
+    self:NetworkVar("Vector", 1, "Maxs")
 end
 
 function ENT:TestCollision(start, delta, isbox, extents)
@@ -56,6 +58,14 @@ end
 
 function ENT:Draw()
     if DrawBlockMove:GetBool() then
-        render.DrawWireframeBox(self:GetPos(), self:GetAngles(), self.mins, self.maxs, color_white, true)
+        local sin = math.abs(math.sin(CurTime())) * 50 + 50
+        local top1 = self:GetMins() top1.z = self:GetMaxs().z top1 = top1 + self:GetPos()
+        local bottom2 = self:GetMaxs() bottom2.z = 0 bottom2 = bottom2 + self:GetPos()
+        local top2 = self:GetMaxs() top2 = top2 + self:GetPos()
+        local bottom1 = self:GetMins() bottom1 = bottom1 + self:GetPos()
+        local col = Color(sin, 0, 0)
+        render.DrawLine(top1, bottom2, col, true)
+        render.DrawLine(top2, bottom1, col, true)
+        render.DrawWireframeBox(self:GetPos(), self:GetAngles(), self:GetMins(), self:GetMaxs(), Color(sin, 0, 0), true)
     end
 end
