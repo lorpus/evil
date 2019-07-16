@@ -175,7 +175,6 @@ function Evil:ShowEndScreen()
     frame:ShowCloseButton(false)
     frame:SetTitle("")
     frame:SetDraggable(false)
-    frame:MakePopup()
     frame.fade = false
     frame.opaque = false
 
