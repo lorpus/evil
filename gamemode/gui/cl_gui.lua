@@ -158,6 +158,8 @@ local function FirstTimeGUI()
     end)
 end
 
+// here be dragons
+
 local globalAlpha = 0
 function Evil:ShowEndScreen()
     local CurrentTimeShown = CurTime()
@@ -197,12 +199,11 @@ function Evil:ShowEndScreen()
 
     // sorting
     for x, ply in pairs(Players) do
-        if ply:IsBoss() then continue end
-        if ply:Alive() then
+        if ply:Alive() and ply:IsHuman() then
             table.insert(survivors, ply)
-            continue
+        elseif ply:GetNW2Bool("EvilKilled") then
+            table.insert(deaders, ply)
         end
-        table.insert(deaders, ply)
     end
 
     local Outline = vgui.Create("DPanel", frame)
@@ -504,6 +505,14 @@ function Evil:ShowEndScreen()
         end
     end
 end
+
+hook.Add("RoundSet", "EvilEndGUI", function(round)
+    if round == ROUND_POST then
+        timer.Simple(2, function()
+            Evil:ShowEndScreen()
+        end)
+    end
+end)
 
 hook.Add("HUDPaint", "OnloadGUIInit", function()
     hook.Remove("HUDPaint", "OnloadGUIInit")

@@ -70,11 +70,18 @@ function Round:End(strReason)
         Network:NotifyAll("#Round_EndUnknown")
     end
 
-    timer.Simple(4, function()
+    timer.Simple(10, function()
+        for _, ply in pairs(player.GetAll()) do
+            ply:KillSilent()
+            ply:SetTeam(TEAM_SPEC)
+        end
+    end)
+
+    timer.Simple(25, function()
         game.CleanUpMap()
     end)
 
-    timer.Simple(5, function()
+    timer.Simple(26, function()
         Round:StartGame()
     end)
 
