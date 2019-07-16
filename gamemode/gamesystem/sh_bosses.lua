@@ -5,6 +5,7 @@ Evil.Bosses = {
         model       = "models/player/skeleton.mdl", // playermodel
         runspeed    = 350, // sprinting speed of the boss
         walkspeed   = 250, // walking speed of hte boss
+        proximity_music = "evil/mrbones/monster_proximity2.mp3",
 
         weapons     = { // what to give the boss
             "ev_monster_kill" // default insta-kill wep
