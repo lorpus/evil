@@ -9,6 +9,8 @@ Music = Music or {
 
 function Music:StartRandom()
     local pick = Music.Library[math.random(#Music.Library)]
+    local hkval = hook.Run("EvilChooseMusic")
+    if hkval != nil then pick = hkval end
     dbg.print(pick)
     sound.PlayFile(pick, "", function(chan, errId, errName)
         if not IsValid(chan) then
@@ -37,9 +39,16 @@ function Music:Kill()
     end)
 end
 
+hook.Add("EvilChooseMusic", "EvilBossCustomMusic", function()
+    local profile = Game:GetProfileInfo()
+    return profile.round_music // nil otherwise :goodthink:
+end)
+
 hook.Add("RoundSet", "EvilHandleMusic", function(round)
     if round == ROUND_PLAYING then
-        Music:StartRandom()
+        timer.Simple(1, function() // cuz global shit doesnt broadcast fast enough i dont get it :DD
+            Music:StartRandom()
+        end)
     else
         Music:Kill()
     end
