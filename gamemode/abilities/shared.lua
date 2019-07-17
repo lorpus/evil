@@ -36,6 +36,28 @@ Abilities.Abilities = {
         end,
     },
 
+    blinder = {
+        name = "#Blinder",
+        description = "#BlinderDesc",
+
+        cooldown = 30,
+
+        use = function(ply)
+            if not CLIENT then return end
+            if not LocalPlayer():IsHuman() then return end
+            hook.Add("PreDrawHUD", "EvilAbilityBlinder", function()
+                if not LocalPlayer():Alive() or not LocalPlayer():IsHuman() then return end
+                cam.Start2D()
+                draw.RoundedBox(0, 0, 0, ScrW(), ScrH(), color_black)
+                cam.End2D()
+            end)
+
+            timer.Simple(10, function()
+                hook.Remove("PreDrawHUD", "EvilAbilityBlinder")
+            end)
+        end,
+    },
+
     linklight = {
         name = "#LinkLight",
         description = "#LinkLightDesc",
