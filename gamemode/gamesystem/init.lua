@@ -56,10 +56,12 @@ function Game:SetupBoss(ply)
     end
 
     if info.proximity_music then
-        net.Start(Network.Id)
-            net.WriteInt(N_BOSSMUSIC, Network.CmdBits)
-            net.WriteString(info.proximity_music)
-        net.Broadcast()
+        timer.Simple(1, function()
+            net.Start(Network.Id)
+                net.WriteInt(N_BOSSMUSIC, Network.CmdBits)
+                net.WriteString(info.proximity_music)
+            net.Broadcast()
+        end)
     end
 
     ply:Spawn()
