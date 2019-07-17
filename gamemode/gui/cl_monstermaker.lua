@@ -167,7 +167,7 @@ local function tauntlist()
     function test:DoClick() 
         local selected = taunts:GetSelectedLine()
         local lines = taunts:GetLines()
-        print(lines[selected]:GetValue(1))
+        dbg.print(lines[selected]:GetValue(1))
         surface.PlaySound(lines[selected]:GetValue(1))
     end
     

@@ -396,7 +396,7 @@ function Evil:ShowEndScreen()
                     if total == 0 then
                         Arbitrary = Lang:Get("#End_NobodyDied")
                         centerText = true
-                        print("Everyone")
+                        dbg.print("Everyone")
                     elseif total == #player.GetAll() then
                         Arbitrary = Lang:Get("#End_EveryoneDied")
                     elseif total < #player.GetAll() / 3 then

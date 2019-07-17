@@ -56,7 +56,7 @@ cvars.AddChangeCallback("evil_testing", function(convar, old, new)
         Evil.bLocked = false
     end
 
-    print(new)
+    dbg.print(new)
     if new == "1" then
         if SERVER then
             print(Lang:Get("#Admin_TestingOn"))
