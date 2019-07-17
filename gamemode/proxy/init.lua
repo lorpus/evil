@@ -40,6 +40,11 @@ function Proxy:Setup(ply)
     if isfunction(profile.proxy.start) then
         profile.proxy.start(ply)
     end
+
+    if profile.proxy.ability then
+        Abilities:SetPlayerAbility(ply, profile.proxy.ability)
+    end
+
     Network:SendHook("ProxyStart", ply)
 
     ply:Spawn()
