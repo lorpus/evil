@@ -89,9 +89,21 @@ hook.Add("ShouldCollide", "EvilPlayerNoCollide", function(e1, e2)
     end
 end)
 
-hook.Add("ShouldCheckStamina", "nobossstamina", function(ply)
-    if ply:IsBoss() or ply:IsProxy() then
-        return false
+hook.Add("ShouldCheckStamina", "EviCheckStamina", function(ply)
+    if ply:IsBoss() then
+        local info = Game:GetProfileInfo()
+        if info and info.stamina then
+            return true
+        else
+            return false
+        end
+    elseif ply:IsProxy() then
+        local info = Game:GetProfileInfo()
+        if info and info.proxy and info.proxy.stamina then
+            return true
+        else
+            return false
+        end
     end
 end)
 

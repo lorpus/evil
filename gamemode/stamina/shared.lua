@@ -44,10 +44,22 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
     end
 
     if flStamina <= 0 then
-        ply:SetRunSpeed(Stamina.walkspeed)
+        local walkspeed = Stamina.walkspeed
+        if ply:IsBoss() then
+            walkspeed = Game:GetProfileInfo().walkspeed
+        elseif ply:IsProxy() then
+            walkspeed = Game:GetProfileInfo().proxy.walkspeed
+        end
+        ply:SetRunSpeed(walkspeed)
         ply:SetJumpPower(Stamina.staminajump)
     else
-        ply:SetRunSpeed(Stamina.runspeed)
+        local runspeed = Stamina.runspeed
+        if ply:IsBoss() then
+            runspeed = Game:GetProfileInfo().runspeed
+        elseif ply:IsProxy() then
+            runspeed = Game:GetProfileInfo().proxy.runspeed
+        end
+        ply:SetRunSpeed(runspeed)
         ply:SetJumpPower(Stamina.normaljump)
     end
 
