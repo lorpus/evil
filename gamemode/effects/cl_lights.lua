@@ -1,4 +1,7 @@
 local mylight
+timer.Create("ScuffedLightFix", 10, 0, function()
+    mylight = nil
+end)
 hook.Add("Think", "EvilLight", function()
     if (LocalPlayer():IsBoss() or LocalPlayer():IsProxy()) and LocalPlayer():Alive() then
         if not mylight then
