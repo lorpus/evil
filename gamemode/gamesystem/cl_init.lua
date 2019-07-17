@@ -80,16 +80,12 @@ end)
 // should this be in a diff file ?
 
 hook.Add("PostDrawOpaqueRenderables", "EvilBossESP", function()
-    if not LocalPlayer():IsBoss() then return end
-
     local pos = LocalPlayer():EyePos() + LocalPlayer():EyeAngles():Forward() * 10
     local ang = LocalPlayer():EyeAngles()
     ang = Angle(ang.p + 90, ang.y, 0)
 
     for _, ply in pairs(player.GetAll()) do
-        if not ply:IsHuman() then continue end
-		if not ply:Alive() then continue end
-        if not ply:GetNW2Bool("EvilForceESP") and not Game:CanESP() then continue end
+        if not ply:GetNW2Bool("EvilForceESP") and not Game:CanESP(LocalPlayer(), ply) then continue end
 
         render.ClearStencil()
 		render.SetStencilEnable(true)

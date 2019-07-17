@@ -71,16 +71,30 @@ function Game:GetPercentHumansAlive() // what % are humans that are alive
     return percent
 end
 
-function Game:CanESP()
-    if Game:GetGametype() == "pages" then
+function Game:CanESP(viewer, viewed)
+    if viewer == viewed then return false end
+
+    local d = true
+    if not viewed:IsHuman() or not viewed:Alive() then
+        d = false
+    elseif not viewer:IsBoss() then
+        d = false
+    elseif viewer:IsBoss() and viewed:GetNW2Bool("EvilForceESP") then
+        d = true
+    elseif Game:GetGametype() == "pages" then
         local taken = GetGlobal2Int("PagesCollected")
         local total = GetGlobal2Int("PagesTotal")
-        if taken / total < 0.7 then return false end
+        if taken / total < 0.7 then d = false end
     else
-        return false
+        d = false
+    end 
+
+    local hk = hook.Run("CanSeePlayerESP", viwer, viewed)
+    if hk != nil then
+        return hk
     end
 
-    return true
+    return d
 end
 
 hook.Add("ShouldCollide", "EvilPlayerNoCollide", function(e1, e2)
