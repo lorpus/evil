@@ -333,6 +333,18 @@ Evil.Bosses = {
         },
 
         ability = "adrenalinerush",
+
+        proxy = {
+            model = "models/player/runescape/player_bob.mdl",
+            walkspeed = 275,
+            runspeed = 200,
+
+            ability = "adrenalinerush",
+
+            weapons = {
+                "ev_monster_kill"
+            }
+        }
     }
 
     /*jeffthekiller = {
