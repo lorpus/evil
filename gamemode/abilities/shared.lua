@@ -45,6 +45,7 @@ Abilities.Abilities = {
         use = function(ply)
             if not CLIENT then return end
             if not LocalPlayer():IsHuman() then return end
+            if LocalPlayer():GetPos():Distance(ply:GetPos()) < 1500 then return end
             hook.Add("PreDrawHUD", "EvilAbilityBlinder", function()
                 if not LocalPlayer():Alive() or not LocalPlayer():IsHuman() then return end
                 cam.Start2D()
