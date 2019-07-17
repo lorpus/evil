@@ -53,6 +53,12 @@ Lang.Translations = {
         ["#Skull_Revive"] = "{{name}} collected Apollyon's Skull! A random player has been revived",
         ["#CollectPages"] = "Collect all {{count}} pages",
         ["#StopHumansPages"] = "Stop the humans from collecting all {{count}} pages",
+        ["#Teleport"] = "Teleport",
+        ["#TeleportDesc"] = "Teleport to a random human spawn",
+        ["#YouAreBoss"] = "You are the boss",
+        ["#HowToTaunt"] = "Press R to taunt (if the boss has it)",
+        ["#HowToAttack"] = "Hold left click to attack!",
+        ["#AbilityCooldown"] = "You need to wait {{time}} seconds before using your ability again",
     }
 }
 

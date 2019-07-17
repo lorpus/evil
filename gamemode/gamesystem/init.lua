@@ -21,6 +21,7 @@ function Game:ResetPlayer(ply)
     ply:SetJumpPower(Stamina.normaljump)
     ply:SetModelScale(1)
     ply:SetNW2Bool("EvilKilled", false)
+    Abilities:StripPlayerAbilities(ply)
     ply:StopSpectating()
 end
 
@@ -61,14 +62,18 @@ function Game:SetupBoss(ply)
     end
 
     ply:Spawn()
-    Network:Notify(ply, "You are the boss!")
-    Network:Notify(ply, "Press your reload key (probably R) to taunt (if the boss has it)")
-    Network:Notify(ply, "Hold left click to attack!")
+    Network:Notify(ply, "#YouAreBoss", true)
+    Network:Notify(ply, "#HowToTaunt", true)
+    Network:Notify(ply, "#HowToAttack", true)
 
     if istable(info.weapons) then
         for _, v in pairs(info.weapons) do
             ply:Give(v)
         end
+    end
+
+    if info.ability then
+        Abilities:SetPlayerAbility(ply, info.ability)
     end
 
     timer.Simple(0.1, function()

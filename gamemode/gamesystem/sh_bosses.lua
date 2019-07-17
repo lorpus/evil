@@ -96,6 +96,8 @@ Evil.Bosses = {
             "ev_monster_kill"
         },
 
+        ability = "teleport",
+
         jumpscare = {
             mat = "evil/scares/gman/scare1",
             sound = "evil/gman/jumpscare.mp3",
