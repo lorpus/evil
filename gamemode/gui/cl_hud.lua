@@ -77,7 +77,11 @@ local function PlayerStats()
     surface.SetDrawColor(0, 0, 0)
     surface.DrawOutlinedRect(x, y - (PadY * 2), Scaled + (PadX * 2), Scaled + (PadY * 2))
     
-    surface.SetDrawColor(255, 255, 255)
+    if LocalPlayer():IsBoss() or LocalPlayer():IsProxy() then
+        surface.SetDrawColor(100, 50, 50, 255)
+    else
+        surface.SetDrawColor(255, 255, 255)
+    end
     surface.SetMaterial(StamMaterial)
     surface.DrawTexturedRectUV(x + PadX, nScrH - PadY - Scaled * (1 - fmul), Scaled, Scaled * (1 - fmul), 0, fmul, 1, 1)
 end
