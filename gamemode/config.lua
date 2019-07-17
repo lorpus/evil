@@ -33,7 +33,7 @@ local configuration = {
     TauntCooldown   = 5,
 
     AFKKickTime     = 300, // if a player hasnt moved in this amount of seconds, theyll be flagged as afk and eventually kicked
-    AFKKickDelay    = 12, // when flagged, the player will be kicked after this amount of time if they dont move
+    AFKKickDelay    = 30, // when flagged, the player will be kicked after this amount of time if they dont move
 
     ProxyAskInterval = 45, // how many seconds between asking players to become proxy
 
