@@ -317,6 +317,22 @@ Evil.Bosses = {
                 end
             end
         end
+    },
+
+    runescapebob = {
+        name        = "Runescape Bob",
+        bio         = "unused",
+        model       = "models/player/runescape/player_bob.mdl",
+        walkspeed   = 200,
+        runspeed    = 300,
+
+        round_music = "sound/evil/runescapebob/spooky.mp3",
+
+        weapons = {
+            "ev_monster_kill"
+        },
+
+        ability = "adrenalinerush",
     }
 
     /*jeffthekiller = {
