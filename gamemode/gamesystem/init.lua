@@ -22,6 +22,7 @@ function Game:ResetPlayer(ply)
     ply:SetModelScale(1)
     ply:SetNW2Bool("EvilKilled", false)
     Abilities:StripPlayerAbilities(ply)
+    Traits:ClearTraits(ply)
     ply:StopSpectating()
 end
 
@@ -74,6 +75,12 @@ function Game:SetupBoss(ply)
 
     if info.ability then
         Abilities:SetPlayerAbility(ply, info.ability)
+    end
+
+    if istable(info.traits) then
+        for _, v in pairs({ "flashlightfreeze" }) do
+            Traits:AddTrait(ply, v)
+        end
     end
 
     timer.Simple(0.1, function()

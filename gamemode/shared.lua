@@ -97,6 +97,7 @@ include_fl "antiafk"
 include_fl "proxy"
 include_fl "collectables"
 include_fl "abilities"
+include_fl "traits"
 
 include_sh "sh_resources.lua"
 
