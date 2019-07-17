@@ -34,5 +34,22 @@ Abilities.Abilities = {
                 ply:SetLaggedMovementValue(1)
             end)
         end,
-    }
+    },
+
+    linklight = {
+        name = "#LinkLight",
+        description = "#LinkLightDesc",
+
+        cooldown = 60,
+
+        use = function(ply)
+            if SERVER then
+                for _, ply in pairs(Game:GetHumans()) do
+                    FizzlePlayerFlashlight(ply)
+                end
+            else
+                surface.PlaySound("evil/link/laugh2.mp3")
+            end
+        end,
+    },
 }

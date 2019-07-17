@@ -1,4 +1,4 @@
-local function FizzlePlayerFlashlight(ply)
+function FizzlePlayerFlashlight(ply) // move this in some table eventually
     ply:SetNW2Bool("flashlight", false)
     ply:EmitSound("weapons/physcannon/superphys_small_zap1.wav", 125)
 
