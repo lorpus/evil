@@ -46,7 +46,7 @@ end)
 
 hook.Add("RoundSet", "EvilHandleMusic", function(round)
     if round == ROUND_PLAYING then
-        timer.Simple(1, function() // cuz global shit doesnt broadcast fast enough i dont get it :DD
+        timer.Simple(3, function() // cuz global shit doesnt broadcast fast enough i dont get it :DD
             Music:StartRandom()
         end)
     else
