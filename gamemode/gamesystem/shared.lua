@@ -89,7 +89,7 @@ function Game:CanESP(viewer, viewed)
         d = false
     end 
 
-    local hk = hook.Run("CanSeePlayerESP", viwer, viewed)
+    local hk = hook.Run("CanSeePlayerESP", viewer, viewed)
     if hk != nil then
         return hk
     end
