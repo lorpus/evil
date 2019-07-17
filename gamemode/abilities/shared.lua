@@ -68,7 +68,6 @@ hook.Add("CanSeePlayerESP", "EvilAbilityLinkESP", function(viewer, viewed)
     else
         a = viewer:GetNW2String("EvilAbility")
     end
-    print(a)
     if a == "linklight" and viewer:GetNW2Bool("EvilAbilityLinkESP") then
         return true
     end
