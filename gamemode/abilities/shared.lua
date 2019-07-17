@@ -19,5 +19,20 @@ Abilities.Abilities = {
                 surface.PlaySound("plats/elevbell1.wav")
             end
         end
+    },
+
+    adrenalinerush = {
+        name = "#Adrenaline",
+        description = "#AdrenalineDesc",
+
+        cooldown = 30,
+
+        use = function(ply)
+            if not SERVER then return end
+            ply:SetLaggedMovementValue(2)
+            timer.Simple(5, function() // there cant possibly be anything wrong with this ffs
+                ply:SetLaggedMovementValue(1)
+            end)
+        end,
     }
 }
