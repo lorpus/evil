@@ -345,6 +345,24 @@ Evil.Bosses = {
                 "ev_monster_kill"
             }
         }
+    },
+
+    link = {
+        name        = "Scary Spaghetti Link",
+        bio         = "unused",
+        model       = "models/empty_link/empty_link_02.mdl",
+        walkspeed   = 300,
+        runspeed    = 600,
+
+        weapons = {
+            "ev_monster_kill"
+        },
+
+        ability = "linklight",
+
+        traits = {
+            "flashlightfreeze"
+        }
     }
 
     /*jeffthekiller = {

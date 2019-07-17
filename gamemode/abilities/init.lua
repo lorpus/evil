@@ -15,8 +15,10 @@ end
 function Abilities:SetPlayerAbility(ply, ability)
     if not Abilities.Abilities[ability] then return end
     ply.strEvilAbility = ability
+    ply:SetNW2String("EvilAbility", ability)
 end
 
 function Abilities:StripPlayerAbilities(ply)
     ply.strEvilAbility = nil
+    ply:SetNW2String("EvilAbility", nil)
 end

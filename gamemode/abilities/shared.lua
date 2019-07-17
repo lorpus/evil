@@ -47,9 +47,29 @@ Abilities.Abilities = {
                 for _, ply in pairs(Game:GetHumans()) do
                     FizzlePlayerFlashlight(ply)
                 end
+
+                ply:SetNW2Bool("EvilAbilityLinkESP", true)
+                timer.Simple(5, function()
+                    if IsValid(ply) then
+                        ply:SetNW2Bool("EvilAbilityLinkESP", false)
+                    end
+                end)
             else
                 surface.PlaySound("evil/link/laugh2.mp3")
             end
         end,
     },
 }
+
+hook.Add("CanSeePlayerESP", "EvilAbilityLinkESP", function(viewer, viewed)
+    local a
+    if SERVER then
+        a = viewer.strEvilAbility
+    else
+        a = viewer:GetNW2String("EvilAbility")
+    end
+    print(a)
+    if a == "linklight" and viewer:GetNW2Bool("EvilAbilityLinkESP") then
+        return true
+    end
+end)
