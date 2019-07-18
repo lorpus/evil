@@ -363,7 +363,31 @@ Evil.Bosses = {
         traits = {
             "flashlightfreeze"
         }
-    }
+    },
+
+    scp173 = {
+        name        = "SCP-173",
+        bio         = "unused",
+        model       = "models/breach173.mdl",
+        walkspeed   = 300,
+        runspeed    = 600,
+        round_music = "evil/scp173/thedread.mp3",
+
+        weapons = {
+            "ev_monster_kill"
+        },
+
+        ability = "blinder",
+
+        traits = {
+            "lookfreeze"
+        },
+
+        killsounds = {
+            "evil/scp173/snap1.mp3",
+            "evil/scp173/snap2.mp3",
+        },
+    },
 
     /*jeffthekiller = {
         name        = "Jeff The Killer",
