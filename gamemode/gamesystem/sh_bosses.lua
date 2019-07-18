@@ -371,7 +371,7 @@ Evil.Bosses = {
         model       = "models/breach173.mdl",
         walkspeed   = 300,
         runspeed    = 600,
-        round_music = "evil/scp173/thedread.mp3",
+        round_music = "sound/evil/scp173/thedread.mp3",
 
         weapons = {
             "ev_monster_kill"
