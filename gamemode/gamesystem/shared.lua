@@ -99,8 +99,14 @@ end
 
 hook.Add("ShouldCollide", "EvilPlayerNoCollide", function(e1, e2)
     if e1:IsPlayer() and e2:IsPlayer() then
+        local wep = e2:GetActiveWeapon() // e2 seems to be the shooter
+        if IsValid(wep) and CurTime() - wep:LastShootTime() < 0.1 then // retarded way to check if someone shot
+            return true
+        end
         return e1:Team() != e2:Team()
     end
+
+    return true // fuck you
 end)
 
 hook.Add("ShouldCheckStamina", "EviCheckStamina", function(ply)
