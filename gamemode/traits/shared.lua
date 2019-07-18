@@ -33,7 +33,38 @@ Traits.Traits = {
             if not SERVER then return end
             ply:UnLock()
         end
-    }
+    },
+
+    lookfreeze = {
+        think = function(ply)
+            if not SERVER then return end
+            local freeze
+            for _, v in pairs(Game:GetHumans()) do
+                if v:GetNW2Bool("AbilityBlinded") then continue end
+                if not v:IsLineOfSightClear(ply) then continue end
+
+                local p = -(v:GetAimVector():Dot((v:EyePos() - ply:EyePos()):GetNormalized()))
+                local frac = 1.215 - 0.0095 * ply:GetFOV()
+                if p > frac then
+                    freeze = true
+                    break
+                end
+            end
+
+            if freeze and not ply:IsFrozen() then
+                dbg.print("lock")
+                ply:Lock()
+            elseif not freeze and ply:IsFrozen() then
+                dbg.print("unlock")
+                ply:UnLock()
+            end
+        end,
+
+        remove = function(ply)
+            if not SERVER then return end
+            ply:UnLock()
+        end,
+    },
 }
 
 hook.Add("Think", "TraitThink", function()
