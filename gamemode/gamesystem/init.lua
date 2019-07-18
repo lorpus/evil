@@ -80,7 +80,7 @@ function Game:SetupBoss(ply)
     end
 
     if istable(info.traits) then
-        for _, v in pairs({ "flashlightfreeze" }) do
+        for _, v in pairs(info.traits) do
             Traits:AddTrait(ply, v)
         end
     end
