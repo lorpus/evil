@@ -59,6 +59,8 @@ Lang.Translations = {
         ["#HowToTaunt"] = "Press R to taunt (if the boss has it)",
         ["#HowToAttack"] = "Hold left click to attack!",
         ["#AbilityCooldown"] = "You need to wait {{time}} seconds before using your ability again",
+        ["#Deathmatch_EndTimeUp"] = "Times up! {{winners}} won with {{kills}} kills!",
+        ["#Deathmatch_EndTimeUpNone"] = "Times up! Somehow everyone was so bad that nobody got a single kill!",
     }
 }
 

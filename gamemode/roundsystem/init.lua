@@ -51,7 +51,7 @@ function Round:StartGame()
     Round:SetRound(ROUND_PLAYING)
 end
 
-function Round:End(strReason)
+function Round:End(strReason, format)
     if not Round:IsPlaying() then
         return false
     end
@@ -65,9 +65,9 @@ function Round:End(strReason)
     dbg.print("Round:End()", strReason)
     
     if strReason then
-        Network:NotifyAll(strReason, strReason:StartWith("#")) // not the best but ur retarded if u use a # as first char and u dont want lang
+        Network:NotifyAll(strReason, strReason:StartWith("#"), format)
     else
-        Network:NotifyAll("#Round_EndUnknown")
+        Network:NotifyAll("#Round_EndUnknown", true, format)
     end
 
     timer.Simple(10, function()
@@ -99,6 +99,11 @@ hook.Add("Think", "RoundThink", function()
     end
 
     if Round:IsPlaying() then
+        local gt = Game:GetGametypeInfo()
+        if gt and isfunction(gt.endlogic) then
+            return gt.endlogic()
+        end
+
         if CurTime() > Round:GetEndTime() then
             Round:End("#Round_EndTimeUp")
             for _, ply in pairs(player.GetAll()) do

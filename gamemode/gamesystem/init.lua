@@ -116,10 +116,12 @@ function Game:PickAndSetupBoss()
     Game:SetupBoss(ply)
 end
 
-function Game:SetupHuman(ply)
+function Game:SetupHuman(ply, nolock)
     ply:SetTeam(TEAM_HUMAN)
     ply:SetDefaultModel()
     ply:Spawn()
+
+    if nolock then return end
 
     timer.Simple(0.1, function()
         ply:Lock()
@@ -180,15 +182,20 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
         end
     end
 
-    if not victim:IsBoss() then
-        if not Round:IsWaiting() then
-            victim:SetTeam(TEAM_SPEC)
-            local round = Round:GetRoundCount()
-            timer.Simple(4, function()
-                if round == Round:GetRoundCount() and IsValid(victim) and not victim:IsProxy() then // perhaps :Alive() instead of :IsProxy()
-                    victim:StartSpectating()
-                end
-            end)
+    local gt = Game:GetGametypeInfo()
+    if isfunction(gt.deathlogic) then
+        gt.deathlogic(victim, inflictor, attacker)
+    else
+        if not victim:IsBoss() then
+            if not Round:IsWaiting() then
+                victim:SetTeam(TEAM_SPEC)
+                local round = Round:GetRoundCount()
+                timer.Simple(4, function()
+                    if round == Round:GetRoundCount() and IsValid(victim) and not victim:IsProxy() then // perhaps :Alive() instead of :IsProxy()
+                        victim:StartSpectating()
+                    end
+                end)
+            end
         end
     end
 
@@ -272,6 +279,14 @@ local function SpawnBlockers()
 end
 hook.Add("InitPostEntity", "SpawnBlockers", SpawnBlockers)
 hook.Add("PostCleanupMap", "SpawnBlockers", SpawnBlockers)
+
+function GM:EntityTakeDamage(ply, dmginfo)
+    if not ply:IsPlayer() then return end
+
+    if IsValid(dmginfo:GetAttacker()) then
+        dmginfo:SetDamage(ply:Health() * 10)
+    end
+end
 
 /*
 hook.Add("EntityTakeDamage", "InstaDabOnPlyers", function(ent, info)
