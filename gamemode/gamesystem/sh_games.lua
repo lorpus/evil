@@ -68,7 +68,7 @@ Game.Gametypes = {
         end,
 
         playable = function()
-            return #player.GetAll() >= 3
+            return false
         end,
     },
 

@@ -41,7 +41,14 @@ Traits.Traits = {
             local freeze
             for _, v in pairs(Game:GetHumans()) do
                 if v:GetNW2Bool("AbilityBlinded") then continue end
-                if not v:IsLineOfSightClear(ply) then continue end
+                if v:EyePos():Distance(ply:GetPos()) > 1500 then continue end
+                local tr = util.TraceLine({
+                    start = v:EyePos(),
+                    endpos = ply:EyePos(),
+                    filter = { v, ply }
+                })
+
+                if tr.Hit then continue end
 
                 local p = -(v:GetAimVector():Dot((v:EyePos() - ply:EyePos()):GetNormalized()))
                 local frac = 1.215 - 0.0095 * ply:GetFOV()

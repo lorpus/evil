@@ -4,6 +4,7 @@ function FizzlePlayerFlashlight(ply) // move this in some table eventually
 
     ply.FlashlightBlocked = true
     timer.Simple(5, function()
+        if not IsValid(ply) then return end
         ply.FlashlightBlocked = false
     end)
 end
@@ -21,7 +22,11 @@ hook.Add("StartCommand", "EvilFlashlight", function(ply, cmd)
 
         if ply.Toggles == nil then ply.Toggles = 0 end
         ply.Toggles = ply.Toggles + 1
-        timer.Simple(3, function() ply.Toggles = ply.Toggles - 1 end)
+        timer.Simple(3, function()
+            if not IsValid(ply) then return end
+            ply.Toggles = ply.Toggles - 1
+        end)
+
         if ply.Toggles >= 12 then
             FizzlePlayerFlashlight(ply)
         end
