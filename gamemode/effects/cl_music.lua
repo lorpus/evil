@@ -1,7 +1,9 @@
 Music = Music or {
     Library = {
         "sound/evil/music/bentandbroken.mp3",
-        "sound/evil/music/decay.mp3",
+        "sound/evil/music/paratropic_apartments_fx_demo.mp3",
+        "sound/evil/music/paratropic_interrogation.mp3",
+        "sound/evil/music/paratropic_the_diner.mp3",
         "sound/evil/music/unknownplanet.mp3",
         "sound/evil/music/smogcemetery.mp3",
     }
