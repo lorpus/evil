@@ -29,6 +29,13 @@ function Network:SendHook(name, ...)
     net.Broadcast()
 end
 
+function Network:PlaySound(ply, snd)
+    net.Start(Network.Id)
+        net.WriteInt(N_SOUND, Network.CmdBits)
+        net.WriteString(snd)
+    net.Send(ply)
+end
+
 function Network:BroadcastSound(snd)
     net.Start(Network.Id)
         net.WriteInt(N_SOUND, Network.CmdBits)

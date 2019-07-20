@@ -60,6 +60,22 @@ function SWEP:PrimaryAttack()
     if not IsValid(ent) or not ent:IsPlayer() then return end
     if ent:Team() != TEAM_HUMAN or not ent:Alive() then return end
 
+    if ent:GetNW2Bool("HasBible") then
+        ent:SetNW2Bool("HasBible")
+        self:SetNextPrimaryFire(CurTime() + 1) // avoid automatic firing too fast
+
+        local boss = Map.spawns.boss
+        local spawn = boss[math.random(#boss)]
+        self.Owner:SetPos(spawn.pos)
+        if spawn.ang then
+            self.Owner:SetEyeAngles(spawn.ang)
+        end
+
+        Network:Notify(ent, "#Bible_Used", true)
+        Network:PlaySound(self.Owner, "evil/items/bible/christ.mp3")
+        return
+    end
+
     local info = DamageInfo()
     info:SetAttacker(self.Owner) // :Kill() doesnt carry the attacker
     info:SetDamage(ent:Health() * 10)

@@ -18,6 +18,15 @@ Collectable.Collectables = {
         end,
     },
 
+    bible = {
+        mdl = "models/sharaprops/revolutionary pack/revolutionary_book.mdl",
+        oncollect = function(collector)
+            if not SERVER then return end
+            Network:Notify(collector, "#Bible_Collect", true)
+            collector:SetNW2Bool("HasBible", true)
+        end,
+    },
+
     skull = {
         mdl = "models/Gibs/HGIBS.mdl",
         oncollect = function(collector)
