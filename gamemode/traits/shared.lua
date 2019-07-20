@@ -9,8 +9,12 @@ Traits.Traits = {
             local freeze
             for _, v in pairs(Game:GetHumans()) do
                 if v:GetNW2Bool("flashlight") then
-                    if v:EyePos():Distance(ply:EyePos()) > 755 then continue end
-                    if not v:IsLineOfSightClear(ply) then continue end
+                    if v:EyePos():Distance(ply:GetPos()) > 1500 then continue end
+                    local tr = util.TraceLine({
+                        start = v:EyePos(),
+                        endpos = ply:EyePos(),
+                        filter = { v, ply }
+                    })
 
                     local p = -(v:GetAimVector():Dot((v:EyePos() - ply:EyePos()):GetNormalized()))
                     if p > 0.9 then
