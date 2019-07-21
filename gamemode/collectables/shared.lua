@@ -40,6 +40,19 @@ Collectable.Collectables = {
         end,
     },
 
+    soda = {
+        mdl = "models/props_junk/popcan01a.mdl",
+        oncollect = function(collector)
+            if not SERVER then return end
+            collector:SetLaggedMovementValue(1.25)
+            collector:EmitSound("npc/barnacle/barnacle_gulp1.wav")
+            timer.Simple(15, function()
+                if not IsValid(collector) then return end
+                collector:SetLaggedMovementValue(1)
+            end)
+        end,
+    },
+
     skull = {
         mdl = "models/Gibs/HGIBS.mdl",
         oncollect = function(collector)
