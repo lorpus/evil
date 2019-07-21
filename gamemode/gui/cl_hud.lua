@@ -138,3 +138,5 @@ hook.Add("RoundSet", "EvilStartInstructions", function(round)
         end
     end)
 end)
+
+function GM:DrawDeathNotice() end
