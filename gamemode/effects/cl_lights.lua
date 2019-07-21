@@ -49,3 +49,16 @@ hook.Add("Think", "EvilLight", function()
         end
     end
 end)
+
+hook.Add("Think", "EvilNightVision", function()
+    if not LocalPlayer():GetNW2Bool("EvilNightVision") then return end
+    if not LocalPlayer():Alive() or not LocalPlayer():IsHuman() then return end
+    local light = DynamicLight(129)
+    light.r = 0
+    light.g = 50
+    light.b = 0
+    light.pos = LocalPlayer():GetPos()
+    light.brightness = 5
+    light.size = 1e5
+    light.dietime = CurTime() + 1
+end)

@@ -48,30 +48,18 @@ SR.SpecialRounds = {
             if SERVER then
                 for _, ply in pairs(player.GetAll()) do
                     ply:SetNW2Bool("CanUseEvilFlashlight", false)
+                    ply:SetNW2Bool("EvilNightVision", true)
                 end
-                return
             end
-            hook.Add("Think", "Evil_SRNightVision", function()
-                if not LocalPlayer():Alive() or not LocalPlayer():IsHuman() then return end
-                local light = DynamicLight(129)
-                light.r = 0
-                light.g = 50
-                light.b = 0
-                light.pos = LocalPlayer():GetPos()
-                light.brightness = 5
-                light.size = 1e5
-                light.dietime = CurTime() + 1
-            end)
         end,
 
         remove = function()
             if SERVER then
                 for _, ply in pairs(player.GetAll()) do
                     ply:SetNW2Bool("CanUseEvilFlashlight", true)
+                    ply:SetNW2Bool("EvilNightVision", false)
                 end
-                return
             end
-            hook.Remove("Think", "Evil_SRNightVision")
         end
     },
 

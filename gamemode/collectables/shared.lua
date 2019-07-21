@@ -27,6 +27,19 @@ Collectable.Collectables = {
         end,
     },
 
+    nightvison = {
+        mdl = "models/vinrax/props/nvg.mdl",
+        oncollect = function(collector)
+            if SERVER then
+                collector:SetNW2Bool("EvilNightVision", true)
+            else
+                if collector == LocalPlayer() then
+                    surface.PlaySound("evil/items/nvg/on.mp3")
+                end
+            end
+        end,
+    },
+
     skull = {
         mdl = "models/Gibs/HGIBS.mdl",
         oncollect = function(collector)
