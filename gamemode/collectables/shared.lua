@@ -10,6 +10,14 @@ Collectable.Collectables = {
         end,
     },
 
+    lantern = {
+        mdl = "models/cof/weapons/lantern/w_lantern.mdl",
+        oncollect = function(collector)
+            if not SERVER then return end
+            collector:Give("ev_lantern")
+        end
+    },
+
     flaregun = {
         mdl = "models/weapons/w_dkflaregun.mdl",
         oncollect = function(collector)

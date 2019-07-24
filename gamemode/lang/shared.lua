@@ -63,6 +63,7 @@ Lang.Translations = {
         ["#AbilityCooldown"] = "You need to wait {{time}} seconds before using your ability again",
         ["#Deathmatch_EndTimeUp"] = "Times up! {{winners}} won with {{kills}} kills!",
         ["#Deathmatch_EndTimeUpNone"] = "Times up! Somehow everyone was so bad that nobody got a single kill!",
+        ["#Lantern_Destroy"] = "Press {{button}} to destroy this lantern!",
     }
 }
 

@@ -6,7 +6,9 @@ ENT.Type = "anim"
 ENT.Base = "base_anim"
 
 function ENT:Initialize()
-    self:PhysicsInit(SOLID_VPHYSICS)
+    if SERVER then
+        self:PhysicsInit(SOLID_VPHYSICS)
+    end
     self:SetMoveType(MOVETYPE_VPHYSICS)
     self:SetSolid(SOLID_VPHYSICS)
     
