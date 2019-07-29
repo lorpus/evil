@@ -202,7 +202,7 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     end
 
     if type(attacker) == "CTakeDamageInfo" then
-        if IsValid(attacker:GetAttacker()) and not attacker:GetAttacker():IsBoss() and not attacker:GetAttacker():IsProxy() then
+        if IsValid(attacker:GetAttacker()) and attacker:GetAttacker():IsPlayer() and not attacker:GetAttacker():IsBoss() and not attacker:GetAttacker():IsProxy() then
             return
         elseif not IsValid(attacker:GetAttacker()) then
             return
