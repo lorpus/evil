@@ -1,0 +1,1 @@
+MapVote = MapVote or {}

@@ -69,6 +69,8 @@ local function ReceiveHandler(len, ply)
         Proxy:HandleResponse(ply, net.ReadBool())
     elseif cmd == N_ABILITY then
         Abilities:NetHandler(len, ply)
+    elseif cmd == N_MAPVOTE then
+        MapVote:NetHandler(len, ply)
     end
 end
 net.Receive(Network.Id, ReceiveHandler)

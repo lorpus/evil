@@ -1,71 +1,157 @@
-if MapVote then MapVote:Remove() end
+surface.CreateFont("MapVoteTitle", {
+    font = "Verdana",
+    size = ScreenScale(11)
+})
 
-local function open(MapTable)
-    if MapVote then MapVote:Remove() end
+surface.CreateFont("MapVoteText", {
+    font = "Verdana",
+    size = ScreenScale(6)
+})
 
-    MapVote = vgui.Create("DFrame")
-    MapVote:SetSize(ScrW() / 1.5, ScrH() / 1.2)
-    MapVote:Center()
-    MapVote:SetDraggable(false)
-    MapVote:SetTitle("")
-    MapVote:MakePopup()
-    MapVote:ShowCloseButton(false)
+/*local recv = {
+    {
+        filename = "slender_forest",
+        lang = "#The_Forest",
+        fallback = "The Forest",
+        img = "construct.png"
+    },
+    {
+        filename = "slender_forest",
+        lang = "#The_Forest",
+        fallback = "The Forest"
+    },
+    {
+        filename = "slender_forest",
+        lang = "#The_Forest",
+        fallback = "The Forest"
+    },
+    {
+        filename = "slender_forest",
+        lang = "#The_Forest",
+        fallback = "The Forest"
+    },
+    {
+        filename = "slender_forest",
+        lang = "#The_Forest",
+        fallback = "The Forest"
+    }
+}*/
 
-    function MapVote:Paint(w, h)
-        Derma_DrawBackgroundBlur(self)
-        draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, 200))
-        surface.SetDrawColor(40, 40, 40)
-        surface.DrawOutlinedRect(0, 0, w, h)
+local matcache = {}
+local mapnames = {} // kept for notification of result (if not extend)
+
+hook.Add("EvilMapVoteResult", "EvilShowMapResult", function(winner)
+    Evil:AddTextChat(Lang:Format("#NewMapWon", { map = mapnames[winner] }))
+end)
+
+local mvframe
+function MapVote:ShowVoteUI(recv)
+    if #recv == 0 and mvframe then mvframe:Remove() mvframe = nil return end
+
+    local frame = vgui.Create("DFrame")
+    mvframe = frame
+
+    frame:SetSize(ScreenScale(100), ScrW() / 5)
+    frame:SetPos(0, ScrH() / 2 - frame:GetTall() / 2)
+    frame:SetTitle("")
+    frame:ShowCloseButton(false)
+    function frame:Paint(w, h)
+        draw.RoundedBoxEx(10, 0, 0, w, h, Color(20, 20, 20), false, true, false, true)
     end
-    
-    local choices = {}
 
-    local function unclick()
-        for _, tab in pairs(choices) do
-            tab.main.clicked = false
+    local endTime = CurTime() + Evil.Cfg.MapVote.Time
+
+    local title = vgui.Create("DLabel", frame)
+    title:SetFont("MapVoteTitle")
+    title:SetText(Lang:Format("#MapVote", { secs = Evil.Cfg.MapVote.Time }))
+    title:SizeToContents()
+    title:SetPos(frame:GetWide() / 2 - title:GetWide() / 2, 0)
+
+    function title:Think()
+        title:SetText(Lang:Format("#MapVote", { secs = math.Round(endTime - CurTime()) }))
+        title:SizeToContents()
+    end
+
+    local padding = 4
+    local basePos = frame:GetTall() / 8
+    local posOffset = basePos
+    local index = 1
+
+    local selectedIndex = 0
+    local lastDown = {}
+    function frame:Think()
+        for i = 1, #recv + 1 do
+            if input.IsKeyDown(KEY_0 + i) and not lastDown[i] then
+                if selectedIndex == i then continue end
+
+                selectedIndex = i
+                lastDown[i] = true
+                if not recv[i] then
+                    dbg.print("selected extend")
+                else
+                    dbg.print("selected", recv[i])
+                end
+                net.Start(Network.Id)
+                    net.WriteInt(N_MAPVOTE, Network.CmdBits)
+                    if recv[i] then
+                        net.WriteUInt(i, 3)
+                    else
+                        net.WriteUInt(0, 3) // extend
+                    end
+                net.SendToServer()
+            elseif not input.IsKeyDown(KEY_0 + i) then
+                lastDown[i] = false
+            end
         end
     end
 
-    local padX, padY = ScreenScale(5), ScreenScale(5)
-    local w, h = MapVote:GetWide() - padX * 2, (MapVote:GetTall() - padY * 4) / 4
-    local y = padY
-    for i=1, 4 do
-        local panel = vgui.Create("DPanel", MapVote)
-        panel:SetSize(w, h - (i == 4 and padY or 0))
-        panel:SetPos(padX, y)
-        panel.clicked = false
+    local function addthing(text, mat)
+        local opt = vgui.Create("DPanel", frame)
+        opt:SetSize(frame:GetWide() * 0.9, basePos)
+        opt:SetPos(10, posOffset)
         
-        local MapMat = Material(MapTable.path)
-        function panel:Paint(w, h)
-            if i == 1 then 
-                draw.RoundedBox(0, 0, 0, w, h, Color(70, 70, 70))
-                return
+        local dindex = index
+        function opt:Paint(w, h)
+            if mat then
+                surface.SetDrawColor(255, 255, 255)
+                surface.SetMaterial(mat)
+                surface.DrawTexturedRect(0, 0, w, h) 
+            else
+                draw.RoundedBox(5, 0, 0, w, h, Color(50, 50, 50)) // rounded outline
+                draw.RoundedBox(5, 1, 1, w - 2, h - 2, Color(20, 20, 20))
             end
 
-            surface.SetDrawColor(255, 255, 255)
-            surface.SetMaterial(MapMat)
-            surface.DrawTexturedRect(0, 0, w, h)
-            if panel.clicked then
-                draw.RoundedBox(0, 0, 0, w, h, Color(0, 255, 0, 100))
-            end
-        end
-
-        if i != 1 then 
-            local button = vgui.Create("DButton", MapVote)
-            button:SetSize(w, h - (i == 4 and padY or 0))
-            button:SetPos(padX, y)
-            button:SetText("")
-            function button:Paint() end
-            function button:DoClick() 
-                unclick()
-                panel.clicked = true
+            draw.SimpleText(string.format("%s. %s", dindex, text), "MapVoteText", 10, h / 2, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+            if selectedIndex == dindex then
+                draw.RoundedBox(5, 1, 1, w - 2, h - 2, Color(100, 255, 100, 5))
             end
         end
-        
-        y = y + h + padY
-        if i == 1 then continue end
 
-        table.insert(choices, {main = panel, button = button})
+        index = index + 1
+        posOffset = posOffset + basePos + padding
     end
+
+    for k, v in pairs(recv) do
+        local dat = Evil.Cfg.MapVote.MapInfo[v]
+        local text
+        local mat
+        if dat then
+            text = Lang:Get(dat.lang)
+            if not text then text = dat.fallback end
+            // cache materials & load if no exist
+            if dat.img then
+                if matcache[v] then
+                    mat = matcache[v]
+                else
+                    mat = Material(dat.img, "noclamp smooth")
+                    matcache[v] = mat
+                end
+            end
+        end
+        if not text then text = v end
+        mapnames[v] = text
+        addthing(text, mat)
+    end
+    addthing("Extend")
 end
-//open({{map = "The Forest", path = "mapvote/theforest.png"}, {map = "The Forest", path = "mapvote/theforest.png"}, map = "The Forest", path = "mapvote/theforest.png"})
+concommand.Add("mapvote", function() MapVote:ShowVoteUI({"slender_forest"}) end)

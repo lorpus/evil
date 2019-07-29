@@ -18,6 +18,13 @@ Lang.Translations = {
         ["#HowToTaunt"] = "Press R to taunt (if the boss has it)",
         ["#HowToAttack"] = "Hold left click to attack!",
 
+        // map vote/map names
+        ["#MapVote"] = "Map Vote! ({{secs}}s)",
+        ["#MapVoteCanceled"] = "The map vote has been canceled by an admin",
+        ["#ExtendWon"] = "The vote has decided that the current map will be extended!",
+        ["#NewMapWon"] = "The vote has decided that we will change to {{map}}! The map will change after the round ends",
+        ["#The_Forest"] = "The Forest",
+
         // round
         ["#Round_EndBossWin"] = "The boss has won!",
         ["#Round_EndBossDie"] = "The boss has mysteriously died!",

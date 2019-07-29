@@ -55,6 +55,8 @@ local function ReceiveHandler(iLen, ply)
         ent:AddVCDSequenceToGestureSlot(slot, seq, 0, true)
     elseif cmd == N_BOSSMUSIC then
         Game:StartBossProximityMusic(net.ReadString())
+    elseif cmd == N_MAPVOTE then
+        MapVote:ShowVoteUI(net.ReadTable())
     end
 end
 net.Receive(Network.Id, ReceiveHandler)

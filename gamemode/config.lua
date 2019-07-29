@@ -9,6 +9,19 @@ local configuration = {
         HelpText = "Placeholder\nPlaceholder\nPlaceholder"        
     },
 
+    MapVote = {
+        Time = 30, // seconds for the map vote to last
+        RoundsPerVote = 5, // how many rounds should occur before asking to vote for map
+
+        MapInfo = {
+            ["slender_forest"] = { // filename of the map (no .bsp)
+                img = "construct.png", // optional png file to draw
+                lang = "#Slender_Forest", // language entry to display
+                fallback = "The Forest" // fallback text if language entry doesn't exist
+            },
+        }
+    },
+
     Stamina = {
         maxstamina  = 100, // you shouldnt really need to change this
         loserate    = 1 / 5, // how fast to drain stamina while sprinting
