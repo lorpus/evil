@@ -5,13 +5,13 @@ hook.Add("Think", "KickJoinedPlayers", function() // may as well do it here cuz 
     if not Evil.bLocked then return end
     
     for _, ply in pairs(player.GetAll()) do
-        ply:Kick(Lang:Format("#ServerLocked", { error = Evil.strLockReason }))
+        ply:Kick("This server has been locked due to an error: " .. Evil.strLockReason)
     end
 end)
 
 hook.Add("CheckPassword", "DontJoinOnLocked", function()
     if Evil.bLocked then
-        return false, Lang:Format("#ServerLocked", { error = Evil.strLockReason })
+        return false, "This server has been locked due to an error: " .. Evil.strLockReason
     end
 end)
 
