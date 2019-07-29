@@ -100,6 +100,8 @@ function MapVote:StartVote()
 end
 
 hook.Add("RoundSet", "EvilCheckMapVote", function(round)
+    if Evil.Cfg.MapVote.Disable then return end
+
     if round == ROUND_POST then
         if MapVote.NextMap then
             timer.Simple(21, function() // let end game hud do its thing

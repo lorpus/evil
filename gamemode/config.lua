@@ -10,12 +10,13 @@ local configuration = {
     },
 
     MapVote = {
+        Disable = true,
         Time = 30, // seconds for the map vote to last
         RoundsPerVote = 5, // how many rounds should occur before asking to vote for map
 
         MapInfo = {
             ["slender_forest"] = { // filename of the map (no .bsp)
-                img = "construct.png", // optional png file to draw
+                img = nil, // optional png file to draw
                 lang = "#Slender_Forest", // language entry to display
                 fallback = "The Forest" // fallback text if language entry doesn't exist
             },
