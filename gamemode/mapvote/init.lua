@@ -8,6 +8,7 @@ function MapVote:NetHandler(len, ply)
     local vote = net.ReadUInt(3)
     dbg.print(ply:Nick(), vote)
     local filename = MapVote.Roster[vote] // or extend :v
+    if not filename then return end
     if MapVote.Voters[ply] then // drop their current vote
         local i = MapVote.Voters[ply]
         MapVote.Voted[i] = MapVote.Voted[i] - 1
