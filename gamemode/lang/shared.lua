@@ -42,6 +42,28 @@ Lang.Translations = {
         ["#End_NobodyDied"] = "Nobody Died",
         ["#End_EveryoneDied"] = "Everyone Died",
 
+        // special rounds
+        ["#SR_AllAlone"] = "All Alone",
+        ["#SR_AllAloneDesc"] = "Where are your fellow humans?",
+        ["#SR_NightVision"] = "Night Vision",
+        ["#SR_NightVisionDesc"] = "No more flashlight, goggles only!",
+        ["#SR_Countdown"] = "Countdown",
+        ["#SR_CountdownDesc"] = "Your timer seems to be missing!",
+        ["#SR_Realism"] = "Realism",
+        ["#SR_RealismDesc"] = "Full realism! Say bye to your HUD!",
+        ["#SR_Deadline"] = "Deadline",
+        ["#SR_DeadlineDesc"] = "No time will ever be added to the clock!",
+        ["#SR_Matrix"] = "The Matrix",
+        ["#SR_MatrixDesc"] = "Pages will only materialize when you are within their range",
+        ["#SR_Blindness"] = "Blindness",
+        ["#SR_BlindnessDesc"] = "You cannot see anything unless your flashlight is on!",
+        ["#SR_Wallhacks"] = "Wallhacks",
+        ["#SR_WallhacksDesc"] = "The boss is now visible through walls!",
+        ["#SR_Earthquake"] = "Earthquake",
+        ["#SR_EarthquakeDesc"] = "The ground is so scared of the boss it will tremble around it too!",
+        ["#SR_DeathSwap"] = "Page Swap",
+        ["#SR_DeathSwapDesc"] = "Watch out whenever someone collects a page!",
+
         // gametype
         ["#Game_PageCollected"] = "{{player}} has collected a page!",
         ["#Deathmatch_EndTimeUp"] = "Times up! {{winners}} won with {{kills}} kills!",

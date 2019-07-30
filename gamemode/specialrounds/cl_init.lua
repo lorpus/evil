@@ -10,7 +10,10 @@ local function DisplayCycleReal(rightDisplay)
     dbg.print(roundcount, Round:GetRound())
     local todisplay = {}
     for k, v in pairs(SR.SpecialRounds) do
-        table.insert(todisplay, v.name:upper() .. " - " .. v.description)
+        local name, desc = v.name, v.description
+        if name:StartWith("#") then name = Lang:Get(name) end
+        if desc:StartWith("#") then desc = Lang:Get(desc) end
+        table.insert(todisplay, name:upper() .. " - " .. desc)
     end
 
     local cycle = true
@@ -23,7 +26,10 @@ local function DisplayCycleReal(rightDisplay)
             displayThing = todisplay[math.floor(CurTime() * 10 % #todisplay) + 1]
         else
             local x = SR.SpecialRounds[rightDisplay]
-            displayThing = x.name:upper() .. " - " .. x.description
+            local name, desc = x.name, x.description
+            if name:StartWith("#") then name = Lang:Get(name) end
+            if desc:StartWith("#") then desc = Lang:Get(desc) end
+            displayThing = name:upper() .. " - " .. desc
         end
         draw.SimpleText(displayThing, "srfont", ScrW() / 2, 50, color_white, TEXT_ALIGN_CENTER)
     end)

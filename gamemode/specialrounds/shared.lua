@@ -5,8 +5,8 @@ SR.ActiveRounds = SR.ActiveRounds or {}
 
 SR.SpecialRounds = {
     allalone = {
-        name = "All Alone",
-        description = "Where are your fellow humans?",
+        name = "#SR_AllAlone",
+        description = "#SR_AllAloneDesc",
 
         pickable = function()
             return #Game:GetHumans() >= 2
@@ -41,8 +41,8 @@ SR.SpecialRounds = {
     },
 
     nightvision = {
-        name = "Night Vision",
-        description = "No more flashlight, goggles only!",
+        name = "#SR_NightVision",
+        description = "#SR_NightVisionDesc",
 
         apply = function()
             if SERVER then
@@ -64,23 +64,23 @@ SR.SpecialRounds = {
     },
 
     countdown = { // gui/cl_hud.lua
-        name = "Countdown",
-        description = "Your timer seems to be missing!"
+        name = "#SR_Countdown",
+        description = "#SR_CountdownDesc"
     },
 
     realism = {
-        name = "Realism",
-        description = "Full realism! Say bye to your HUD!"
+        name = "#SR_Realism",
+        description = "#SR_RealismDesc"
     },
 
     deadline = {
-        name = "Deadline",
+        name = "#SR_Deadline",
         description = "No time will ever be added to the clock!"
     },
 
     matrix = {
-        name = "The Matrix",
-        description = "Pages will only materialize when you are within their range",
+        name = "#SR_Matrix",
+        description = "#SR_MatrixDesc",
 
         apply = function()
             for _, ent in pairs(ents.FindByClass("evil_page")) do
@@ -90,8 +90,8 @@ SR.SpecialRounds = {
     },
 
     blind = {
-        name = "Blindness",
-        description = "You cannot see anything unless your flashlight is on!",
+        name = "#SR_Blindness",
+        description = "#SR_BlindnessDesc",
 
         apply = function()
             if not CLIENT then return end
@@ -111,8 +111,8 @@ SR.SpecialRounds = {
     },
 
     hax = {
-        name = "Wallhacks",
-        description = "The boss is now visible through walls!",
+        name = "#SR_Wallhacks",
+        description = "#SR_WallhacksDesc",
 
         apply = function()
             if not CLIENT then return end
@@ -128,8 +128,8 @@ SR.SpecialRounds = {
     },
 
     earthquake = {
-        name = "Earthquake",
-        description = "The ground is so scared of the boss it will tremble around it too!",
+        name = "#SR_Earthquake",
+        description = "#SR_EarthquakeDesc",
 
         apply = function()
             if not CLIENT then return end
@@ -152,8 +152,8 @@ SR.SpecialRounds = {
     },
 
     deathswap = {
-        name = "Death Swap",
-        description = "Watch out whenever someone collects a page!",
+        name = "#SR_DeathSwap",
+        description = "#SR_DeathSwapDesc",
 
         apply = function()
             if not SERVER then return end
