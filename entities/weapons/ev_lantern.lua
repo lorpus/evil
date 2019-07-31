@@ -58,6 +58,7 @@ function SWEP:PrimaryAttack()
     end
 
     local ent = ents.Create("evil_placedlantern")
+    ent:SetModelScale(2)
     ent:SetPos(pos)
     ent:Spawn()
     self:Remove()

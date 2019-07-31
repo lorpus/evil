@@ -52,13 +52,23 @@ end
 function ENT:Think()
     if not CLIENT then return end
 
-    if not self.projlower or not self.projupper then
+    self.light = DynamicLight(self:EntIndex())
+    self.light.r = 200
+    self.light.g = 200
+    self.light.b = 200
+    self.light.brightness = 5
+    self.light.decay = 1e100
+    self.light.size = 400
+    self.light.DieTime = CurTime() + 1
+    self.light.pos = self:GetPos() + Vector(0, 0, 2)
+    
+    /*if not self.projlower or not self.projupper then
         self.projlower = ProjectedTexture() // these can only be 180deg so we need two
         self.projupper = ProjectedTexture()
 
         self.projlower:SetTexture("effects/flashlight/soft")
         self.projlower:SetAngles(Angle(-90, 0, 0))
-        self.projlower:SetFarZ(Evil.Cfg.Flashlight.FlashlightDistance)
+        self.projlower:SetFarZ(Evil.Cfg.Flashlight.FlashlightDistance / 2)
         self.projlower:SetFOV(179)
         self.projlower:SetPos(self:GetPos() + Vector(0, 0, 32))
         self.projlower:SetNearZ(1)
@@ -66,7 +76,7 @@ function ENT:Think()
 
         self.projupper:SetTexture("effects/flashlight/soft")
         self.projupper:SetAngles(Angle(90, 0, 0))
-        self.projupper:SetFarZ(Evil.Cfg.Flashlight.FlashlightDistance)
+        self.projupper:SetFarZ(Evil.Cfg.Flashlight.FlashlightDistance / 2)
         self.projupper:SetFOV(179)
         self.projupper:SetPos(self:GetPos() + Vector(0, 0, 32))
         self.projupper:SetNearZ(1)
@@ -74,19 +84,31 @@ function ENT:Think()
         return
     end
 
+    self.projupper:SetFOV(120)
+    self.projupper:SetFarZ(Evil.Cfg.Flashlight.FlashlightDistance)
+    self.projlower:SetFOV(1)
+
+    local tr = util.TraceLine({
+        start = self:GetPos() + Vector(0, 0, 20),
+        endpos = self:GetPos() + Vector(0, 0, 200)
+    })
+
+    local pos = tr.HitPos
+    if not tr.Hit then pos = self:GetPos() + Vector(0, 0, 200) end
+
     self.projlower:SetPos(self:GetPos() + Vector(0, 0, 100))
     self.projlower:SetNearZ(1)
     self.projlower:Update()
     
-    self.projupper:SetPos(self:GetPos() + Vector(0, 0, 135)) // slightly offset because of a gap in the fov
+    self.projupper:SetPos(pos) // slightly offset because of a gap in the fov
     self.projupper:SetNearZ(1)
-    self.projupper:Update()
+    self.projupper:Update()*/
 end
 
 function ENT:OnRemove()
     if not CLIENT then return end
-    self.projlower:Remove()
-    self.projupper:Remove()
+    /*self.projlower:Remove()
+    self.projupper:Remove()*/
 end
 
 function ENT:UpdateTransmitState()
