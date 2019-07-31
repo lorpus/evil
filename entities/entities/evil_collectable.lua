@@ -18,6 +18,10 @@ function ENT:Initialize()
     end
 end
 
+function ENT:SetupDataTables()
+    self:NetworkVar("String", 0, "Collectable")
+end
+
 function ENT:Draw()
     if LocalPlayer():IsBoss() or LocalPlayer():IsProxy() then return end // you can still see shadows but whatever
     self:DrawModel()

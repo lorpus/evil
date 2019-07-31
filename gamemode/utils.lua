@@ -4,6 +4,18 @@ function eutil.Percent(p)
     return math.random() <= p
 end
 
+function eutil.PRNS(kv, fallback)
+	local max = 0
+	for _, prob in pairs(kv) do
+		max = max + (prob or fallback)
+	end
+	local p = math.random() * max
+	for result, prob in pairs(kv) do
+		if p < prob then return result end
+		p = p - prob
+	end
+end
+
 // outline system adopted from https://github.com/Facepunch/garrysmod/pull/1590
 
 if not CLIENT then return end

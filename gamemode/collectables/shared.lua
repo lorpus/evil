@@ -28,6 +28,7 @@ Collectable.Collectables = {
 
     bible = {
         mdl = "models/sharaprops/revolutionary pack/revolutionary_book.mdl",
+        op = true,
         oncollect = function(collector)
             if not SERVER then return end
             Network:Notify(collector, "#Bible_Collect", true)
@@ -84,7 +85,7 @@ Collectable.Collectables = {
 }
 
 hook.Add("EvilCollectableTaken", "EvilCollectableHandle", function(collector, ent)
-    local info = Collectable.Collectables[ent:GetNW2String("Collectable")]
+    local info = Collectable.Collectables[ent:GetCollectable()]
     if not info then return end
 
     if isfunction(info.oncollect) then

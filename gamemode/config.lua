@@ -9,6 +9,23 @@ local configuration = {
         HelpText = "Placeholder\nPlaceholder\nPlaceholder"        
     },
 
+    Collectables = {
+        Odds = {
+            OP = { // count
+                [0] = 0.15,
+                [1] = 0.65,
+                [2] = 0.15,
+            },
+
+            Normal = {
+                [1    ] = 0.25,
+                [2 / 3] = 0.45,
+                [1 / 2] = 0.20,
+                [1 / 4] = 0.1,
+            }
+        }
+    },
+
     MapVote = {
         Disable = true,
         Time = 30, // seconds for the map vote to last
