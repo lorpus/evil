@@ -10,6 +10,8 @@ hook.Add("StartCommand", "EvilAFKCheck", function(ply, cmd)
 end)
 
 hook.Add("Think", "EvilAFKHandler", function()
+    if Evil.Cfg.DisableAFK then return end
+
     for _, ply in pairs(player.GetAll()) do
         if ply.bAFKIsBeingActedOn or not ply.flAFKLastMove then return end
 
