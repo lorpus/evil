@@ -12,9 +12,11 @@ hook.Add("Initialize", "InitLanguage", function()
 end)
 
 local function changelocale(try)
-    if not table.HasValue(Lang:GetAvailableLocales(), try) then
-        return Evil:AddTextChat(Lang:Get("#InvalidLocale"))
+    if not table.HasValue(Lang:GetAvailableLangs(), try) then
+        return Evil:AddTextChat(Lang:Get("#InvalidLang"))
     end
+
+    try = Lang.ISOToLang[try:lower()]
 
     local settings = file.Read("evilsettings.txt", "DATA")
     if settings then
@@ -26,7 +28,7 @@ local function changelocale(try)
         file.Write("evilsettings.txt", "{ \"language\": \"" .. try .. "\" }")
     end
 
-    Evil:AddTextChat(Lang:Get("#LocaleChanged"))
+    Evil:AddTextChat(Lang:Get("#LangChanged"))
 end
 
 concommand.Add("evil_setlanguage", function(ply, cmd, args, argStr)

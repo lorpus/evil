@@ -1,5 +1,28 @@
 Lang = Lang or {
-    Locale = "en"
+    Locale = "en",
+    ISOToLang = {
+        ["en"]      = "en",
+        ["en-au"]   = "en",
+        ["en-bz"]   = "en",
+        ["en-ca"]   = "en",
+        ["en-cb"]   = "en",
+        ["en-gb"]   = "en",
+        ["en-ie"]   = "en",
+        ["en-jm"]   = "en",
+        ["en-nz"]   = "en",
+        ["en-ph"]   = "en",
+        ["en-tt"]   = "en",
+        ["en-us"]   = "en",
+        ["en-za"]   = "en",
+        ["en-zw"]   = "en",
+        /*["fr"]      = "fr",
+        ["fr-BE"]   = "fr",
+        ["fr-CA"]   = "fr",
+        ["fr-CH"]   = "fr",
+        ["fr-FR"]   = "fr",
+        ["fr-LU"]   = "fr",
+        ["fr-MC"]   = "fr",*/
+    },
 }
 
 Lang.Translations = {
@@ -75,8 +98,8 @@ Lang.Translations = {
         ["#StopHumansPages"] = "Stop the humans from collecting all {{count}} pages",
         
         // lang
-        ["#InvalidLocale"] = "Unfortunately this isn't a supported language setting",
-        ["#LocaleChanged"] = "Language successfully changed",
+        ["#InvalidLang"] = "Unfortunately this isn't a supported language setting",
+        ["#LangChanged"] = "Language successfully changed",
         ["#NoLangSpecified"] = "You need to specify a language. (e.g. /evil lang en)",
 
         // spectator
@@ -138,6 +161,6 @@ function Lang:Format(key, tab)
     return ret
 end
 
-function Lang:GetAvailableLocales()
-    return table.GetKeys(Lang.Translations)
+function Lang:GetAvailableLangs()
+    return table.GetKeys(Lang.ISOToLang)
 end
