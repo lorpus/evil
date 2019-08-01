@@ -1,14 +1,35 @@
 hook.Add("Initialize", "InitLanguage", function()
-    local settings = file.Read("evilsettings.txt", "DATA")
-    if settings then
-        local t = util.JSONToTable(settings)
-        if t and t.language then
-            Lang.Locale = t.language
+    Evil.Locale = "en" // jic
+    timer.Simple(1, function()
+        local settings = file.Read("evilsettings.txt", "DATA")
+        if settings then
+            local t = util.JSONToTable(settings)
+            if t and t.language then
+                Lang.Locale = t.language
+            end
+        else
+            local servlang = GetGlobalString("EvilServerLang")
+
+            local cc = system.GetCountry()
+            if not cc then // idk if this is possible
+                file.Write("evilsettings.txt", "{ \"language\": \"" .. servlang .. "\" }")
+                Lang.Locale = servlang
+                Evil:AddTextChat(Lang:Format("#LangObtainFail", { lang = Lang.LangToName[servlang] }))
+            end
+            if Lang.CCToISO[cc] then
+                local lang = Lang.ISOToLang[Lang.CCToISO[cc]:lower()]
+                if lang then
+                    file.Write("evilsettings.txt", "{ \"language\": \"" .. lang .. "\" }")
+                    Lang.Locale = lang
+                    Evil:AddTextChat(Lang:Format("#LangGuess", { country = Lang.CCToName[cc], lang = Lang.LangToName[lang] }))
+                else
+                    file.Write("evilsettings.txt", "{ \"language\": \"" .. servlang .. "\" }")
+                    Lang.Locale = servlang
+                    Evil:AddTextChat(Lang:Format("#LangGuessFail", { country = Lang.CCToName[cc], lang = Lang.LangToName[servlang] }))
+                end
+            end
         end
-    else
-        file.Write("evilsettings.txt", "{ \"language\": \"en\" }")
-        Lang.Locale = "en"
-    end
+    end)
 end)
 
 local function changelocale(try)

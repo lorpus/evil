@@ -1,5 +1,9 @@
-/*hook.Add("PlayerSay", "SuppressLangChange", function(ply, text, team)
-    if text:StartWith("/evil lang") then
-        return ""
+hook.Add("Initialize", "EvilLangInit", function()
+    if not Lang.ISOToLang[Evil.Cfg.ServerLanguage] then
+        print(Evil.Cfg.ServerLanguage, "is not a valid language, fallback to English")
+    else
+        Lang.Locale = Lang.ISOToLang[Evil.Cfg.ServerLanguage]
     end
-end)*/ // stops client from actually knowing they chatted :\
+
+    SetGlobalString("EvilServerLang", Lang.Locale)
+end)

@@ -4,6 +4,8 @@ AddCSLuaFile()
 local configuration = {
     Debug = true,    // set to true to enable debugging and lots of verbosity
 
+    ServerLanguage = "en",
+
     MainMenu = {
         TitleText = "Evil",
         HelpText = "Placeholder\nPlaceholder\nPlaceholder"        
