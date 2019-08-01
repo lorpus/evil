@@ -14,9 +14,12 @@ Lang.Translations = {
         ["#Player_Joined"] = "{{name}} connected",
         ["#Player_Left"] = "{{name}} disconnected ({{reason}})",
         ["#Player_Left_NoReason"] = "{{name}} disconnected",
-        ["#YouAreBoss"] = "You are the boss",
-        ["#HowToTaunt"] = "Press R to taunt (if the boss has it)",
-        ["#HowToAttack"] = "Hold left click to attack!",
+
+        // gui
+        ["#YouAreBoss"] = "You are {{name}}!",
+        ["#HowToAttack_A"] = "Hold left click to attack!",
+        ["#HowToTaunt"] = "Press {{key}} to taunt",
+        ["#HowToAbility"] = "Right click to use your ability!",
 
         // map vote/map names
         ["#MapVote"] = "Map Vote! ({{secs}}s)",

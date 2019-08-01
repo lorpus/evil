@@ -67,9 +67,9 @@ function Game:SetupBoss(ply)
     end
 
     ply:Spawn()
-    Network:Notify(ply, "#YouAreBoss", true)
+    /*Network:Notify(ply, "#YouAreBoss", true)
     Network:Notify(ply, "#HowToTaunt", true)
-    Network:Notify(ply, "#HowToAttack", true)
+    Network:Notify(ply, "#HowToAttack", true)*/
 
     if istable(info.weapons) then
         for _, v in pairs(info.weapons) do
