@@ -94,6 +94,30 @@ Abilities.Abilities = {
             end
         end,
     },
+
+    scp096burst = {
+        name = "#SCP096Burst",
+        description = "#SCP096BurstDesc",
+
+        cooldown = 60,
+
+        use = function(ply)
+            if not SERVER then return end
+            ply:EmitSound("npc/stalker/go_alert2a.wav", 160)
+            ply:SetNW2Bool("NoForceSpeeds", true)
+            local rs = ply:GetRunSpeed()
+            local ws = ply:GetWalkSpeed()
+            ply:SetRunSpeed(rs * 2)
+            ply:SetWalkSpeed(ws * 2)
+            timer.Simple(3, function()
+                if IsValid(ply) then
+                    ply:SetRunSpeed(rs)
+                    ply:SetWalkSpeed(ws)
+                    ply:SetNW2Bool("NoForceSpeed", false)
+                end
+            end)
+        end,
+    }
 }
 
 hook.Add("CanSeePlayerESP", "EvilAbilityLinkESP", function(viewer, viewed)

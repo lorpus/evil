@@ -389,6 +389,37 @@ Evil.Bosses = {
         },
     },
 
+    scp096 = {
+        name        = "SCP-096",
+        bio         = "unused",
+        model       = "models/scp096anim/player/scp096pm_raf.mdl",
+        walkspeed   = 250,
+        runspeed    = 350,
+        round_music = "sound/evil/scp173/thedread.mp3",
+
+        no_running_animation = true,
+
+        weapons = {
+            "ev_monster_kill"
+        },
+
+        jumpscare = {
+            mat = "evil/scares/scp096/rake1",
+            sound = "npc/stalker/go_alert2a.wav",
+            len = 0.5
+        },
+
+        ability = "scp096burst",
+
+        traits = {
+            "digestion"
+        },
+
+        killsounds = {
+            "npc/stalker/go_alert2.wav"
+        },
+    },
+
     /*jeffthekiller = {
         name        = "Jeff The Killer",
         bio         = "A schizophrenic boy that doesn't play nicely. ",
