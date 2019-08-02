@@ -85,7 +85,7 @@ Collectable.Collectables = {
 }
 
 hook.Add("EvilCollectableTaken", "EvilCollectableHandle", function(collector, ent)
-    local info = Collectable.Collectables[ent:GetCollectable()]
+    local info = Collectable.Collectables[ent:GetNW2String("Collectable")]
     if not info then return end
 
     if isfunction(info.oncollect) then

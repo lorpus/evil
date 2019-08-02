@@ -35,7 +35,7 @@ hook.Add("RoundSet", "SpawnCollectables", function(round)
             local ent = ents.Create("evil_collectable")
             dbg.print(info, key, ent, pos)
             ent:SetModel(info.mdl)
-            ent:SetCollectable(key)
+            ent:SetNW2String("Collectable", key)
             ent:SetPos(pos)
             ent:Spawn()
         end
