@@ -73,5 +73,21 @@ hook.Add("HUDPaint", "DebugAA", function()
             local endpos = (v.pos + v.ang:Forward() * 32):ToScreen()
             surface.DrawLine(start.x, start.y, endpos.x, endpos.y)
         end
+
+        if istable(Map.collectables) then
+            if istable(Map.collectables.op) then
+                for _, pos in pairs(Map.collectables.op) do
+                    local scr = pos:ToScreen()
+                    draw.SimpleText("OP COLLECTABLE", "DermaDefault", scr.x, scr.y)
+                end
+            end
+
+            if istable(Map.collectables.normal) then
+                for _, pos in pairs(Map.collectables.normal) do
+                    local scr = pos:ToScreen()
+                    draw.SimpleText("NORMAL COLLECTABLE", "DermaDefault", scr.x, scr.y)
+                end
+            end
+        end
     end
 end)
