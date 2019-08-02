@@ -81,7 +81,6 @@ Traits.Traits = {
         apply = function(ply)
             if not SERVER then return end
             hook.Add("EvilPlayerKilled", "EvilTraitDigest", function(victim, killerteam, killer)
-                print(killer, ply)
                 if killer == ply then
                     killer:EmitSound("npc/stalker/breathing3.wav")
                     ply:SetLaggedMovementValue(0)
