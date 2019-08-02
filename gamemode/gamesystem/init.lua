@@ -214,11 +214,11 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     victim:SetNW2Bool("EvilKilled", true)
     Jumpscare:SendScare(victim)
     if attacker:GetAttacker():IsProxy() then
-        hook.Run("EvilPlayerKilled", victim, TEAM_PROXY)
-        Network:SendHook("EvilPlayerKilled", victim, TEAM_PROXY)
+        hook.Run("EvilPlayerKilled", victim, TEAM_PROXY, attacker:GetAttacker())
+        Network:SendHook("EvilPlayerKilled", victim, TEAM_PROXY, attacker:GetAttacker())
     else
-        hook.Run("EvilPlayerKilled", victim, TEAM_BOSS)
-        Network:SendHook("EvilPlayerKilled", victim, TEAM_BOSS)
+        hook.Run("EvilPlayerKilled", victim, TEAM_BOSS, attacker:GetAttacker())
+        Network:SendHook("EvilPlayerKilled", victim, TEAM_BOSS, attacker:GetAttacker())
     end
     local info = Game:GetProfileInfo()
     if info.killhook then
