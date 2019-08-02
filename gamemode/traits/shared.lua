@@ -76,6 +76,24 @@ Traits.Traits = {
             ply:UnLock()
         end,
     },
+
+    digestion = {
+        apply = function(ply)
+            if not SERVER then return end
+            hook.Add("EvilPlayerKilled", "EvilTraitDigest", function(victim, killerteam, killer)
+                print(killer, ply)
+                if killer == ply then
+                    killer:EmitSound("npc/stalker/breathing3.wav")
+                    ply:SetLaggedMovementValue(0)
+                    timer.Simple(5, function()
+                        if IsValid(ply) then
+                            ply:SetLaggedMovementValue(1)
+                        end
+                    end)
+                end
+            end)
+        end,
+    }
 }
 
 hook.Add("Think", "TraitThink", function()
