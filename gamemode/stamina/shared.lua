@@ -43,7 +43,7 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         end
     end
 
-    if flStamina <= 0 then
+    if flStamina <= 0 and not ply:GetNW2Bool("NoForceSpeeds") then
         local walkspeed = Stamina.walkspeed
         if ply:IsBoss() then
             walkspeed = Game:GetProfileInfo().walkspeed
@@ -52,7 +52,7 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         end
         ply:SetRunSpeed(walkspeed)
         ply:SetJumpPower(Stamina.staminajump)
-    else
+    elseif not ply:GetNW2Bool("NoForceSpeeds") then
         local runspeed = Stamina.runspeed
         if ply:IsBoss() then
             runspeed = Game:GetProfileInfo().runspeed
