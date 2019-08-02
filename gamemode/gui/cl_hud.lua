@@ -141,7 +141,7 @@ local function ShowBossInfoPanel()
     
         draw.SimpleText(Lang:Format("#YouAreBoss", { name = info.name }), "EvilInfoPanelTitle", self.drawwidth - w / 2, 5, color_white, TEXT_ALIGN_CENTER)
         // draw.SimpleText("Always watching, always lurking. Be mindful, he can be anywhere at anytime.", "EvilInfoPanelSub", self.drawwidth - w / 2, self:GetTall() * 0.75, color_white, TEXT_ALIGN_CENTER)
-        if table.HasValue(info.weapons, "ev_monster_kill") then
+        if istable(info.weapons) and table.HasValue(info.weapons, "ev_monster_kill") then
             draw.SimpleText(Lang:Get("#HowToAttack_A"), "EvilInfoPanelSub", self.drawwidth - w / 2, self:GetTall() * 0.7 + pad, color_white, TEXT_ALIGN_CENTER)
         end
         local bump = pad * 2
