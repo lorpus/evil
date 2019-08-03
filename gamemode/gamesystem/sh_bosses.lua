@@ -412,7 +412,8 @@ Evil.Bosses = {
         ability = "scp096burst",
 
         traits = {
-            "digestion"
+            "digestion",
+            "onlyforwardmove",
         },
 
         killsounds = {

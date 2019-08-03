@@ -92,7 +92,21 @@ Traits.Traits = {
                 end
             end)
         end,
-    }
+    },
+
+    onlyforwardmove = {
+        apply = function(ply)
+            hook.Add("StartCommand", "TraitOFM_" .. tostring(ply), function(ply, cmd)
+                cmd:SetButtons(bit.band(cmd:GetButtons(), bit.bnot(bit.bor(IN_MOVELEFT, IN_MOVERIGHT, IN_BACK))))
+                cmd:SetSideMove(0)
+                cmd:SetForwardMove(math.max(0, cmd:GetForwardMove()))
+            end)
+        end,
+
+        remove = function(ply)
+            hook.Remove("StartCommand", "TraitOFM_" .. tostring(ply))
+        end,
+    },
 }
 
 hook.Add("Think", "TraitThink", function()
