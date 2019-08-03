@@ -39,3 +39,8 @@ end
 function ENT:UpdateTransmitState()
     return TRANSMIT_ALWAYS
 end
+
+hook.Add("PreDrawHalos", "CollectableHalos", function()
+    if LocalPlayer():IsBoss() then return end
+    halo.Add(ents.FindByClass("evil_collectable"), Color(20, 20, 128, 50), 1, 1, 1)
+end)
