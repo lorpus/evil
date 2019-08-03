@@ -117,7 +117,31 @@ Abilities.Abilities = {
                 end
             end)
         end,
-    }
+    },
+
+    explosivebottle = {
+        name = "#ExplosiveBottle",
+        description = "#ExplosiveBottleDesc",
+
+        cooldown = 30,
+
+        use = function(ply)
+            if not SERVER then return end
+            local sounds = {
+                "vo/ravenholm/madlaugh01.wav",
+                "vo/ravenholm/madlaugh02.wav",
+                "vo/ravenholm/madlaugh03.wav",
+                "vo/ravenholm/madlaugh04.wav",
+            }
+
+            local wep = ply:GetActiveWeapon()
+            if not IsValid(wep) then return end
+
+            wep.ShouldThrowExplosive = true
+            ply:EmitSound(sounds[math.random(#sounds)])
+            Network:Notify(ply, "#NextBottleExplosive", true)
+        end,
+    },
 }
 
 hook.Add("CanSeePlayerESP", "EvilAbilityLinkESP", function(viewer, viewed)

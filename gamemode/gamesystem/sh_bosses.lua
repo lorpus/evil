@@ -420,6 +420,20 @@ Evil.Bosses = {
         },
     },
 
+    hobo = {
+        name        = "Crazed Drunk Hobo",
+        bio         = "unused",
+        model       = "models/player/group03/male_03.mdl",
+        walkspeed   = 250,
+        runspeed    = 350,
+
+        weapons = {
+            "ev_throwable_bottle"
+        },
+
+        ability = "explosivebottle",
+    },
+
     /*jeffthekiller = {
         name        = "Jeff The Killer",
         bio         = "A schizophrenic boy that doesn't play nicely. ",

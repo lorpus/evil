@@ -182,6 +182,7 @@ Lang.Translations = {
         ["#Teleport"] = "Teleport", // unused
         ["#TeleportDesc"] = "Teleport to a random human spawn", // unused
         ["#AbilityCooldown"] = "You need to wait {{time}} seconds before using your ability again",
+        ["#NextBottleExplosive"] = "Your next bottle will be explosive!",
     }
 }
 
