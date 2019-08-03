@@ -108,7 +108,7 @@ surface.CreateFont("EvilInfoPanelSub", {
 })
 
 local DisplayTime = 3
-local function ShowBossInfoPanel()
+function ShowBossInfoPanel()
     // because the dmodelpanel wont draw when it's xpos is < 0 cuz of cam.Start3D we gotta do a lot of gay workarounds
     local info = Game:GetProfileInfo()
     local frame = vgui.Create("DFrame")
@@ -132,7 +132,7 @@ local function ShowBossInfoPanel()
         elseif self.drawwidth < 0 then
             self:Remove()
         end
-        self.drawwidth = self.drawwidth + movedir
+        self.drawwidth = self.drawwidth + movedir * RealFrameTime() * 50
     end
 
     local pad = 16
@@ -174,7 +174,7 @@ local function ShowBossInfoPanel()
         elseif self.xpos < -self:GetWide() then
             self:Remove()
         end
-        self.xpos = self.xpos + movedirb
+        self.xpos = self.xpos + movedirb * RealFrameTime() * 50
 
         self.Entity:SetPos(Vector(-self.xpos, self.xpos, -20))
     end
