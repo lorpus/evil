@@ -50,7 +50,7 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         elseif ply:IsProxy() then
             walkspeed = Game:GetProfileInfo().proxy.walkspeed
         end
-        local hkws = hook.Run("StaminaWalkspeed", walkspeed)
+        local hkws = hook.Run("StaminaWalkspeed", ply, walkspeed)
         if hkws != nil then walkspeed = hkws end
         ply:SetRunSpeed(walkspeed)
         ply:SetJumpPower(Stamina.staminajump)
@@ -61,7 +61,7 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         elseif ply:IsProxy() then
             runspeed = Game:GetProfileInfo().proxy.runspeed
         end
-        local hkrs = hook.Run("StaminaRunspeed", runspeed)
+        local hkrs = hook.Run("StaminaRunspeed", ply, runspeed)
         if hkrs != nil then runspeed = hkrs end
         ply:SetRunSpeed(runspeed)
         ply:SetJumpPower(Stamina.normaljump)
