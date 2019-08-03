@@ -1,6 +1,9 @@
 hook.Add("ApplyTrait", "EvilClientTrait", function(ply, trait)
     if not ply.EvilTraits then ply.EvilTraits = {} end
     ply.EvilTraits[trait] = true
+    if isfunction(Traits.Traits[trait].apply) then
+        Traits.Traits[trait].apply(ply)
+    end
 end)
 
 hook.Add("RemoveTraits", "EvilClientTrait", function(ply)
