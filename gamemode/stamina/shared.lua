@@ -24,21 +24,25 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
 
     if not ply:Alive() then return end
 
+    local staminaScale = hook.Run("PlayerStaminaScale", ply)
+    if staminaScale == nil then staminaScale = 1 end
+    //dbg.print(ply, staminaScale)
+
     if cmd:KeyDown(IN_JUMP) and not ply:KeyDownLast(IN_JUMP) and ply:OnGround() and flStamina > 0 then
-        flStamina = flStamina - Stamina.jumplosestamina
+        flStamina = flStamina - Stamina.jumplosestamina * staminaScale
         ply.flLastSpeed = CurTime()
     end
 
     if cmd:KeyDown(IN_SPEED) and moving(ply, cmd) then
         if flStamina > 0 then
-            flStamina = flStamina - Stamina.loserate
+            flStamina = flStamina - Stamina.loserate * staminaScale
         end
         
         ply.flLastSpeed = CurTime()
     elseif not ply:KeyDown(IN_SPEED) and flStamina <= Stamina.maxstamina then
         if ply.flLastSpeed then
             if CurTime() - ply.flLastSpeed > Evil.Cfg.Stamina.gainwait then
-                flStamina = flStamina + Stamina.gainrate
+                flStamina = flStamina + Stamina.gainrate * staminaScale
             end
         end
     end

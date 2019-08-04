@@ -183,6 +183,15 @@ Lang.Translations = {
         ["#TeleportDesc"] = "Teleport to a random human spawn", // unused
         ["#AbilityCooldown"] = "You need to wait {{time}} seconds before using your ability again",
         ["#NextBottleExplosive"] = "Your next bottle will be explosive!",
+
+        // classes
+        ["#YouAreClass"] = "You are {{name}}!",
+        ["#AlyxDesc"] = "You have +15 speed!",
+        ["#MonkDesc"] = "You have -15 speed!",
+        ["#BarneyDesc"] = "You have twice the stamina of a normal person!",
+        ["#KleinerDesc"] = "You can see one page at a time!",
+        ["#EliDesc"] = "The boss can always see you, watch out!",
+        ["#SealTeamDesc"] = "You have night vision goggles!",
     }
 }
 

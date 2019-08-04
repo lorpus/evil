@@ -25,6 +25,7 @@ function Game:ResetPlayer(ply)
     ply:SetNW2Bool("EvilNightVision", false)
     ply:SetNW2Bool("NoForceSpeeds", false)
     Abilities:StripPlayerAbilities(ply)
+    Classes:ClearPlayerClass(ply)
     Traits:ClearTraits(ply)
     ply:StopSpectating()
 end
@@ -123,6 +124,8 @@ function Game:SetupHuman(ply, nolock)
     ply:SetTeam(TEAM_HUMAN)
     ply:SetDefaultModel()
     ply:Spawn()
+
+    Classes:HandlePlayer(ply)
 
     if nolock then return end
 
