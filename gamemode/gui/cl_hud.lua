@@ -108,7 +108,7 @@ surface.CreateFont("EvilInfoPanelSub", {
 })
 
 local DisplayTime = 3
-function ShowBossInfoPanel()
+local function ShowBossInfoPanel()
     // because the dmodelpanel wont draw when it's xpos is < 0 cuz of cam.Start3D we gotta do a lot of gay workarounds
     local info = Game:GetProfileInfo()
     local frame = vgui.Create("DFrame")
