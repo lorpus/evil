@@ -16,6 +16,28 @@ function eutil.PRNS(kv, fallback)
 	end
 end
 
+function eutil.NewlineText(str, count)
+    local lines = {}
+    local words = {}
+    local chars = 0
+    for _, word in pairs(string.Explode(" ", str, false)) do
+        chars = chars + string.len(word)
+        if chars >= count then
+            table.insert(lines, table.concat(words, " "))
+            words = {}
+            chars = 0
+        end
+
+        table.insert(words, word)
+    end
+
+    if #words != 0 then
+        table.insert(lines, table.concat(words, " "))
+    end
+
+    return table.concat(lines, "\n")
+end
+
 // outline system adopted from https://github.com/Facepunch/garrysmod/pull/1590
 
 if not CLIENT then return end

@@ -20,6 +20,7 @@ function Classes:SetupRandomClass(ply)
             break
         end
     end
+    if not key then return end
     takenclasses[key] = true
     Classes:SetPlayerClass(ply, key)
 end

@@ -185,7 +185,7 @@ Lang.Translations = {
         ["#NextBottleExplosive"] = "Your next bottle will be explosive!",
 
         // classes
-        ["#YouAreClass"] = "You are {{name}}!",
+        ["#YouAreClass"] = "Your class is {{name}}!",
         ["#AlyxDesc"] = "You have +15 speed!",
         ["#MonkDesc"] = "You have -15 speed!",
         ["#BarneyDesc"] = "You have twice the stamina of a normal person!",
