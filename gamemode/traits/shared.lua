@@ -16,6 +16,8 @@ Traits.Traits = {
                         filter = { v, ply }
                     })
 
+                    if tr.Hit then continue end
+
                     local p = -(v:GetAimVector():Dot((v:EyePos() - ply:EyePos()):GetNormalized()))
                     if p > 0.9 then
                         freeze = true
