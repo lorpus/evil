@@ -43,7 +43,7 @@ end
 
 hook.Add("EvilChooseMusic", "EvilBossCustomMusic", function()
     local profile = Game:GetProfileInfo()
-    return profile.round_music // nil otherwise :goodthink:
+    return profile and profile.round_music // i fail to understand how this fuckwad can still be nil after THREE SECONDS
 end)
 
 hook.Add("RoundSet", "EvilHandleMusic", function(round)
