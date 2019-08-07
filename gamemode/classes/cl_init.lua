@@ -1,5 +1,6 @@
 local DisplayTime = 3
-local function ShowClassInfoPanel(key)
+local function ShowClassInfoPanel(key, optname, optdesc)
+    local iscitizen = key == true
     local info = Classes.Classes[key]
     local frame = vgui.Create("DFrame")
     
@@ -28,9 +29,15 @@ local function ShowClassInfoPanel(key)
     function frame:Paint(w, h)
         draw.RoundedBoxEx(10, 0, 0, self.drawwidth, h, Color(20, 20, 20), false, true, false, true)
     
-        draw.SimpleText(Lang:Format("#YouAreClass", { name = info.name }), "EvilInfoPanelTitle", self.drawwidth - w / 2, 5, color_white, TEXT_ALIGN_CENTER)
-        local text = info.desc
-        if text:StartWith("#") then text = Lang:Get(text) end
+        local text
+        if iscitizen then
+            draw.SimpleText(Lang:Format("#YourName", { name = optname }), "EvilInfoPanelTitle", self.drawwidth - w / 2, 5, color_white, TEXT_ALIGN_CENTER)
+            text = optdesc
+        else
+            draw.SimpleText(Lang:Format("#YouAreClass", { name = info.name }), "EvilInfoPanelTitle", self.drawwidth - w / 2, 5, color_white, TEXT_ALIGN_CENTER)
+            text = info.desc
+            if text:StartWith("#") then text = Lang:Get(text) end
+        end
         draw.DrawText(eutil.NewlineText(text, 30), "EvilInfoPanelSub", self.drawwidth - w / 2, self:GetTall() * 0.7 + pad, color_white, TEXT_ALIGN_CENTER)
     end
 
@@ -63,6 +70,16 @@ hook.Add("EvilSetClass", "ShowClassHUD", function(ply, key)
     if ply == LocalPlayer() then
         timer.Simple(1, function()
             ShowClassInfoPanel(key)
+        end)
+    end
+end)
+
+hook.Add("EvilClassCitizen", "ShowClassHUDCitizen", function(ply, name)
+    if ply == LocalPlayer() then
+        timer.Simple(1, function()
+            local desc = Classes.CitizenStats[math.random(#Classes.CitizenStats)]
+            if desc:StartWith("#") then desc = Lang:Get(desc) end
+            ShowClassInfoPanel(true, name, desc) // i didnt have this in mind when making the class thing but whatever
         end)
     end
 end)
