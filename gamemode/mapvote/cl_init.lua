@@ -121,7 +121,7 @@ function MapVote:ShowVoteUI(recv)
                 draw.RoundedBox(5, 1, 1, w - 2, h - 2, Color(20, 20, 20))
             end
 
-            draw.SimpleText(string.format("%s. %s", dindex, text), "MapVoteText", 10, h / 2, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+            draw.SimpleTextOutlined(string.format("%s. %s", dindex, text), "MapVoteText", 10, h / 2, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, color_black)
             if selectedIndex == dindex then
                 draw.RoundedBox(5, 1, 1, w - 2, h - 2, Color(100, 255, 100, 5))
             end
