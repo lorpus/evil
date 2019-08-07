@@ -38,7 +38,7 @@ local function Timer()
     end
 
     if centerText then
-        dbg.print(centerTextAlpha, centerTextAlphaDir)
+        //dbg.print(centerTextAlpha, centerTextAlphaDir)
         if centerTextAlpha >= 400 then
             centerTextAlphaDir = -2
         elseif centerTextAlpha < 0 then
