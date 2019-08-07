@@ -25,9 +25,23 @@ function Classes:SetupRandomClass(ply)
     Classes:SetPlayerClass(ply, key)
 end
 
+function Classes:MakeCitizen(ply)
+    local name
+    if ply:GetModel():lower():find("male") then
+        name = Classes.CitizenNames.m[math.random(#Classes.CitizenNames.m)]
+    else
+        name = Classes.CitizenNames.f[math.random(#Classes.CitizenNames.f)]
+    end
+    name = name .. " " .. Classes.CitizenNames.last[math.random(#Classes.CitizenNames.last)]
+    ply:SetNW2String("ClassName", name)
+    Network:SendHook("EvilClassCitizen", ply, name) // desc only shows up to the single client so it doesnt matter
+end
+
 function Classes:HandlePlayer(ply)
     if eutil.Percent(0.33) then
         Classes:SetupRandomClass(ply)
+    else
+        Classes:MakeCitizen(ply)
     end
 end
 

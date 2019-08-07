@@ -1,5 +1,52 @@
 Classes = Classes or {}
 
+Classes.CitizenStats = {
+    "#CitizenStat1",
+    "#CitizenStat2",
+    "#CitizenStat3",
+    "#CitizenStat4",
+    "#CitizenStat5",
+    "#CitizenStat6",
+    "#CitizenStat7",
+    "#CitizenStat8",
+    "#CitizenStat9",
+    "#CitizenStat10",
+    "#CitizenStat11",
+    "#CitizenStat12",
+    "#CitizenStat13",
+    "#CitizenStat14",
+    "#CitizenStat15",
+    "#CitizenStat16",
+    "#CitizenStat17",
+    "#CitizenStat18",
+    "#CitizenStat19",
+    "#CitizenStat20",
+    "#CitizenStat21",
+}
+
+Classes.CitizenNames = {
+    m = {
+        "John", "Edward", "Charles", "Frank", "Orlando", "Dale", "Fernando", "Shawn", "Lloyd", "Ulysses",
+        "Fred", "Richard", "George", "Peter", "James", "Jason", "Demetrius", "Rudolph", "Keith",
+        "Jose", "James", "Joshua", "Bruce", "Marcel", "Leonard", "Ronald", "William", "David",
+        "Smitty", "Lee", "Mark", "Glenn", "Thomas", "Alvaro", "Josiah", "William", "Albert",
+    },
+
+    f = {
+        "Barbara", "Mary", "Peggy", "Kerry", "Christina", "Rebecca", "Judy", "Hilary", "Celia", "Roberta",
+        "Pearl", "Cheryl", "Debbie", "Lois", "Maureen", "Shana", "Nidia", "Monica", "Elizabeth", "Paula",
+        "Viola", "Anna", "Isabel", "Kelly", "Amanda", "Chantal", "Tamara", "Anna", "Tania", "Veronica",
+        "Marcelle", "Marian", "Lydia", "Luz", "Samantha", "Michele", "Shirley", "Margaret", "Danielle", "Donna",
+    },
+
+    last = {
+        "Phillips", "Griffith", "Miller", "Stephenson", "Roseberry", "Powell", "Buchanan", "Wallace", "Hamilton", "Plank",
+        "Werbenjagermanjensen", "Rachel", "Mireles", "Makiej", "Slinkard", "Pierre", "Signorelli", "Gunter", "Brendel", "Rock",
+        "Grant", "Conley", "May", "Wysong", "Timmons", "Smith", "Johnson", "Gooch", "Garcia", "Herman",
+        "Munoz", "Black", "Eichelberger", "Shekelberg", "Nelson", "Cook", "Christian", "Mantooth", "Wood", "Lavigne",
+    },
+}
+
 Classes.Classes = {
     alyx = {
         name    = "Alyx",

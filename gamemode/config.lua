@@ -6,6 +6,8 @@ local configuration = {
 
     ServerLanguage = "en",
 
+    DisableAFK = true,
+
     MainMenu = {
         TitleText = "Evil",
         HelpText = "Placeholder\nPlaceholder\nPlaceholder"        
