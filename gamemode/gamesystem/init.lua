@@ -307,6 +307,35 @@ hook.Add("EntityTakeDamage", "InstaDabOnPlyers", function(ent, info)
     ent:Kill()
 end)*/
 
+function GM:PlayerSay(ply, text, isTeam)
+    local tab = {}
+    if not ply:Alive() then
+        table.insert(tab, Color(255, 0, 0))
+        table.insert(tab, "*DEAD* ")
+    end
+    local col = ply:GetPlayerColor()
+    col = Color(col.x * 255, col.y * 255, col.z * 255)
+    table.insert(tab, col)
+    if ply:Alive() and ply:IsHuman() then
+        table.insert(tab, ply:GetNW2String("ClassName"))
+    else
+        table.insert(tab, ply:Nick())
+    end
+    table.insert(tab, color_white)
+    table.insert(tab, ": ")
+    table.insert(tab, text)
+    net.Start(Network.Id)
+        net.WriteInt(N_NOTIFY, Network.CmdBits)
+        net.WriteString("")
+        net.WriteBool(false)
+        net.WriteBool(false)
+        net.WriteBool(true)
+        net.WriteTable(tab)
+    net.Broadcast()
+
+    return ""
+end
+
 function GM:CanPlayerSuicide(ply)
     Network:Notify(ply, "Sorry, you're stuck here")
     return false

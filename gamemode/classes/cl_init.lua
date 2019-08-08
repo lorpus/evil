@@ -66,6 +66,30 @@ local function ShowClassInfoPanel(key, optname, optdesc)
     end
 end
 
+// the method for doing this has been marked for deprecation
+// except it has been for 7 years
+// im sure this wont stop working anytime soon
+local function OverrideVoiceNames()
+    local orig = VoiceNotify.Think
+    VoiceNotify.Think = function(self)
+        if IsValid(self.ply) then
+            if self.ply:Alive() and self.ply:IsHuman() then
+                self.LabelName:SetText(self.ply:GetNW2String("ClassName"))
+            else
+                self.LabelName:SetText(self.ply:Nick())
+            end
+        end
+
+        if self.fadeAnim then
+            self.fadeAnim:Run()
+        end
+    end
+end
+hook.Add("HUDPaint", "EvilOverrideVoiceDerma", function()
+    OverrideVoiceNames()
+    hook.Remove("HUDPaint", "EvilOverrideVoiceDerma")
+end)
+
 hook.Add("EvilSetClass", "ShowClassHUD", function(ply, key)
     if ply == LocalPlayer() then
         timer.Simple(1, function()
