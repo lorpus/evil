@@ -6,6 +6,7 @@ local function StartNotify(str, isLang, langArgs)
     net.WriteString(str)
     net.WriteBool(isLang)
     net.WriteBool(langArgs != nil)
+    net.WriteBool(false)
     if langArgs then
         net.WriteTable(langArgs)
     end
