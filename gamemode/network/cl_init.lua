@@ -13,6 +13,10 @@ local function ReceiveHandler(iLen, ply)
         local str = net.ReadString()
         local isLang = net.ReadBool()
         local hasArgs = net.ReadBool()
+        local isRaw = net.ReadBool()
+        if isRaw then
+            return chat.AddText(unpack(net.ReadTable()))
+        end
         if isLang then
             if hasArgs then
                 local args = net.ReadTable()
