@@ -7,6 +7,8 @@ function Classes:SetPlayerClass(ply, class)
     Network:Notify(ply, "#YouAreClass", true, { name = info.name })
     Network:Notify(ply, info.desc, info.desc:StartWith("#"))
 
+    ply:SetNW2String("ClassName", info.name)
+
     hook.Run("EvilSetClass", ply, class)
     Network:SendHook("EvilSetClass", ply, class)
 end
