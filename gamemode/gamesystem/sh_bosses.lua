@@ -308,6 +308,14 @@ Evil.Bosses = {
             if not SERVER then return end
             for _, ent in pairs(ents.FindInSphere(boss:GetPos(), 192)) do
                 if ent:IsPlayer() and ent:IsHuman() then
+                    local tr = util.TraceLine({
+                        start = ent:EyePos(),
+                        endpos = boss:EyePos(),
+                        filter = { boss, ent }
+                    })
+
+                    if tr.Hit then continue end
+
                     local d = DamageInfo()
 					d:SetDamage(ent:Health())
 					d:SetAttacker(boss)
