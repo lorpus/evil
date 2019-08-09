@@ -86,7 +86,9 @@ function SWEP:PrimaryAttack()
     ent.flLastSpook = CurTime()
 
     Network:SendHookFiltered(ent, "EvilSpook", self.Owner)
+    ent:SetLaggedMovementValue(0)
     timer.Simple(2, function()
+        ent:SetLaggedMovementValue(1)
         local info = DamageInfo()
         info:SetAttacker(self.Owner) // :Kill() doesnt carry the attacker
         info:SetDamage(ent:Health() * 10)
