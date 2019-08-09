@@ -154,4 +154,3 @@ function MapVote:ShowVoteUI(recv)
     end
     addthing("Extend")
 end
-concommand.Add("mapvote", function() MapVote:ShowVoteUI({"slender_forest"}) end)

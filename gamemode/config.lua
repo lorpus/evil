@@ -37,6 +37,7 @@ local configuration = {
 
         MapInfo = {
             ["evil_forest"] = { // filename of the map (no .bsp)
+                img = "evil/mapvote/slender_forest.png", // optional png file to draw
                 lang = "#Slender_Forest", // language entry to display
                 fallback = "The Forest" // fallback text if language entry doesn't exist
             },
