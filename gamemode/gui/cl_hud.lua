@@ -60,7 +60,7 @@ end
 local Old = 0
 
 hook.Add("HUDPaint", "Screen_Attributes", function()
-    if not SR.ActiveRounds["realism"] then
+    if not SR.ActiveRounds["realism"] and not Evil.DrawingTauntMenu then
         if Round:IsPlaying() then
             Timer()
         end
@@ -201,3 +201,5 @@ hook.Add("RoundSet", "EvilStartInstructions", function(round)
 end)
 
 function GM:DrawDeathNotice() end
+function GM:HUDWeaponPickedUp() end
+function GM:HUDAmmoPickedUp() end

@@ -29,9 +29,9 @@ local function tracepoly(poly)
 end
 
 local function centroid(verts)
-    sumcx = 0
-    sumcy = 0
-    sumac = 0
+    local sumcx = 0
+    local sumcy = 0
+    local sumac = 0
 
     for i = 1, #verts - 1 do
         cx = (verts[i].x + verts[i + 1].x) * (verts[i].x * verts[i + 1].y - verts[i + 1].x * verts[i].y)
@@ -72,6 +72,7 @@ local mainframe
 local hovering
 local Taunts
 local function open(bool)
+    Evil.DrawingTauntMenu = bool
     if not bool then
         if mainframe then
             mainframe:Remove() mainframe = nil
