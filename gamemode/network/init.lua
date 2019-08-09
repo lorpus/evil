@@ -22,6 +22,27 @@ function Network:NotifyAll(str, isLang, langArgs)
     net.Broadcast()
 end
 
+function Network:SendHookFiltered(filter, name, ...)
+    local targets = {}
+    if isfunction(filter) then
+        for _, ply in pairs(player.GetAll()) do
+            if filter(ply) then
+                table.insert(targets, ply)
+            end
+        end
+    elseif istable(filter) then
+        targets = filter
+    elseif isentity(filter) and filter:IsPlayer() then
+        targets = { filter }
+    end
+
+    net.Start(Network.Id)
+        net.WriteInt(N_HOOK, Network.CmdBits)
+        net.WriteString(name)
+        net.WriteTable({...})
+    net.Send(targets)
+end
+
 function Network:SendHook(name, ...)
     net.Start(Network.Id)
         net.WriteInt(N_HOOK, Network.CmdBits)
