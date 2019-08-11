@@ -31,7 +31,11 @@ hook.Add("InitPostEntity", "EvilMapLoadOverrides", function()
     local pageoverride = ents.FindByName("OverridePage")
     if #pageoverride > 0 then
         dbg.print("page override found")
-        table.Empty(Map.pages)
+        if istable(Map.pages) then
+            table.Empty(Map.pages)
+        else
+            Map.pages = {}
+        end
     else
         return
     end
