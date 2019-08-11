@@ -357,3 +357,19 @@ function GM:PlayerCanHearPlayersVoice(listener, speaker)
 		return true, false
 	end
 end
+
+function GM:SetupPlayerVisibility(viewer, viewent)
+    for _, ply in pairs(player.GetAll()) do
+        local cansee = Game:CanESP(viewer, ply)
+        if cansee then
+            AddOriginToPVS(ply:GetPos())
+        end
+    end
+
+    local boss = Game:GetBoss()
+    if IsValid(boss) then
+        if SR.ActiveRounds["hax"] then
+            AddOriginToPVS(boss:GetPos())
+        end
+    end
+end
