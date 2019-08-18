@@ -71,7 +71,9 @@ hook.Add("HUDPaint", "DebugAA", function()
         for _, v in pairs(Map.cameras) do
             local start = v.pos:ToScreen()
             local endpos = (v.pos + v.ang:Forward() * 32):ToScreen()
+            surface.SetDrawColor(255, 0, 0)
             surface.DrawLine(start.x, start.y, endpos.x, endpos.y)
+            draw.SimpleText("CAM", "DermaDefault", start.x, start.y)
         end
 
         if istable(Map.collectables) then
