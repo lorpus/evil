@@ -32,6 +32,13 @@ concommand.Add("evil_getspawnpos", function(ply, cmd, args, argStr)
     ]], pos.x, pos.y, pos.z, ang.p, ang.y, ang.r))
 end)
 
+concommand.Add("evil_getcollectablepos", function(ply, cmd, args, argStr)
+    local pos = ply:GetPos() + Vector(0, 0, 1)
+    print(string.format([[
+            Vector(%f, %f, %f),
+    ]], pos.x, pos.y, pos.z))
+end)
+
 hook.Add("Think", "DebugShit", function()
     if GetConVar("evil_showplayers"):GetBool() then
         for _, ply in pairs(player.GetAll()) do
