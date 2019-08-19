@@ -13,7 +13,7 @@ hook.Add("RoundSet", "SpawnCollectables", function(round)
         end
     end
 
-    if table.Count(op) > 0 and istable(Map.collectables.op) then
+    if table.Count(op) > 0 and istable(Map.collectables.op) and #Map.collectables.op > 0 then
         for i = 1, eutil.PRNS(Evil.Cfg.Collectables.Odds.OP) do
             local info, key = table.Random(op)
             local pos  = Map.collectables.op[math.random(#Map.collectables.op)]
@@ -26,7 +26,7 @@ hook.Add("RoundSet", "SpawnCollectables", function(round)
         end
     end
 
-    if table.Count(normal) > 0 and istable(Map.collectables.normal) then
+    if table.Count(normal) > 0 and istable(Map.collectables.normal) and #Map.collectables.normal > 0 then
         local t = math.ceil(eutil.PRNS(Evil.Cfg.Collectables.Odds.Normal) * #Map.collectables.normal)
         dbg.print("normal", t)
         for i = 1, t do
