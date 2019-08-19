@@ -91,6 +91,7 @@ Lang.Translations = {
         ["#ExtendWon"] = "The vote has decided that the current map will be extended!",
         ["#NewMapWon"] = "The vote has decided that we will change to {{map}}! The map will change after the round ends",
         ["#The_Forest"] = "The Forest",
+        ["#The_Ravine"] = "The Ravine",
 
         // round
         ["#Round_EndBossWin"] = "The boss has won!",

@@ -41,6 +41,12 @@ local configuration = {
                 lang = "#The_Forest", // language entry to display
                 fallback = "The Forest" // fallback text if language entry doesn't exist
             },
+
+            ["slender_ravine"] = {
+                img = "evil/mapvote/slender_ravine.png",
+                lang = "#The_Ravine",
+                fallback = "The Ravine",
+            }
         }
     },
 
