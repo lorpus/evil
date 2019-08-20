@@ -280,7 +280,7 @@ function Evil:ShowEndScreen()
                     local total = #avatartable
                     //if total == 0 then flPhase = 2 return end -- to skip this phase
 
-                    if total < (#player.GetAll() / 3) then
+                    if total < (GetGlobal2Int("EvilStartingPlayers") / 3) then
                         Arbitrary = Lang:Format("#End_OnlyNSurvived", { count = total })
                     else
                         Arbitrary = Lang:Format("#End_NSurvived", { count = total })
@@ -397,9 +397,9 @@ function Evil:ShowEndScreen()
                         Arbitrary = Lang:Get("#End_NobodyDied")
                         centerText = true
                         dbg.print("Everyone")
-                    elseif total == #player.GetAll() then
+                    elseif total == GetGlobal2Int("EvilStartingPlayers") then
                         Arbitrary = Lang:Get("#End_EveryoneDied")
-                    elseif total < #player.GetAll() / 3 then
+                    elseif total < GetGlobal2Int("EvilStartingPlayers") / 3 then
                         Arbitrary = Lang:Format("#End_OnlyNDied", { count = total })
                     else
                         Arbitrary = Lang:Format("#End_NDied", { count = total })

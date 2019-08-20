@@ -47,6 +47,7 @@ function Round:StartGame()
         Game:SetupHuman(v)
     end
 
+    SetGlobal2Int("EvilStartingPlayers", #Game:GetHumans())
     SetGlobal2Int("RoundCount", GetGlobal2Int("RoundCount") + 1)
     Round:SetRound(ROUND_PLAYING)
 end
