@@ -108,6 +108,7 @@ hook.Add("Think", "RoundThink", function()
             Round:End("#Round_EndTimeUp")
             for _, ply in pairs(player.GetAll()) do
                 if ply:IsHuman() then
+                    ply:SetNWBool("EvilKilled", true)
                     ply:Kill()
                 end
             end

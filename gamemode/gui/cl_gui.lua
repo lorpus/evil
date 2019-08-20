@@ -200,7 +200,7 @@ function Evil:ShowEndScreen()
     for x, ply in pairs(Players) do
         if ply:Alive() and ply:IsHuman() then
             table.insert(survivors, ply)
-        elseif ply:GetNW2Bool("EvilKilled") then
+        elseif ply:GetNWBool("EvilKilled") then
             table.insert(deaders, ply)
         end
     end
