@@ -31,7 +31,7 @@ local configuration = {
     },
 
     MapVote = {
-        Disable = true,
+        // Disable = true,
         Time = 30, // seconds for the map vote to last
         RoundsPerVote = 5, // how many rounds should occur before asking to vote for map
 
