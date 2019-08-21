@@ -57,9 +57,11 @@ function Round:End(strReason, format)
         return false
     end
 
-    local info = Game:GetGametypeInfo()
+    local key = Game:GetGametype()
+    local info = Game.Gametypes[key]
     if info.finish then
         info.finish()
+        Network:SendHook("RunGTFunc", key, "finish")
     end
 
     Round:SetRound(ROUND_POST)

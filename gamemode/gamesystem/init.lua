@@ -146,6 +146,8 @@ function Game:StartGametype(strGametype)
     if info.start then
         info.start()
     end
+
+    Network:SendHook("RunGTFunc", strGametype, "start")
 end
 
 function Game:PickAndStartGameType()

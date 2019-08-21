@@ -4,6 +4,7 @@ Game.Gametypes = {
         
         start = function()
             dbg.print("deatchmath.start()")
+            if not SERVER then return end
             for _, ply in pairs(player.GetAll()) do
                 if ply:IsBoss() then continue end
                 timer.Simple(1, function()
@@ -15,6 +16,7 @@ Game.Gametypes = {
         end,
 
         finish = function()
+            if not SERVER then return end
             for _, ply in pairs(player.GetAll()) do
                 ply:SetNW2Int("EvilDMKills", 0)
             end
@@ -77,6 +79,7 @@ Game.Gametypes = {
 
         start = function()
             dbg.print("pages.start()")
+            if not SERVER then return end
             SetGlobal2Int("PagesCollected", 0)
             local pagesTotal = math.min(8, #Map.pages)
             SetGlobal2Int("PagesTotal", pagesTotal)
@@ -98,6 +101,7 @@ Game.Gametypes = {
 
         finish = function()
             dbg.print("pages.finish()")
+            if not SERVER then return end
         end,
 
         pagetaken = function(taker, page)

@@ -77,6 +77,13 @@ hook.Add("EvilPlayerKilled", "OnPlayerKilled", function(victim)
     end
 end)
 
+hook.Add("RunGTFunc", "EvilRunGametypeFunc", function(key, func, ...)
+	local info = Game.Gametypes[key]
+	if istable(info) and isfunction(info[func]) then
+		info[func](...)
+	end
+end)
+
 // should this be in a diff file ?
 
 function Game:DrawESP(ent)
