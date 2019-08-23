@@ -56,8 +56,10 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         end
         local hkws = hook.Run("StaminaWalkspeed", ply, walkspeed)
         if hkws != nil then walkspeed = hkws end
+        local hkjp = hook.Run("StaminaJumpPower", ply, false, Stamina.staminajump)
+        if hkjp == nil then hkjp = Stamina.staminajump end
         ply:SetRunSpeed(walkspeed)
-        ply:SetJumpPower(Stamina.staminajump)
+        ply:SetJumpPower(hkjp)
     elseif not ply:GetNW2Bool("NoForceSpeeds") then
         local runspeed = Stamina.runspeed
         if ply:IsBoss() then
@@ -67,8 +69,10 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         end
         local hkrs = hook.Run("StaminaRunspeed", ply, runspeed)
         if hkrs != nil then runspeed = hkrs end
+        local hkjp = hook.Run("StaminaJumpPower", ply, true, Stamina.normaljump)
+        if hkjp == nil then hkjp = Stamina.normaljump end 
         ply:SetRunSpeed(runspeed)
-        ply:SetJumpPower(Stamina.normaljump)
+        ply:SetJumpPower(hkjp)
     end
 
     if flStamina != flOldStamina and SERVER then
