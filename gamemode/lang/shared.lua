@@ -131,6 +131,8 @@ Lang.Translations = {
         ["#SR_EarthquakeDesc"] = "The ground is so scared of the boss it will tremble around it too!",
         ["#SR_DeathSwap"] = "Page Swap",
         ["#SR_DeathSwapDesc"] = "Watch out whenever someone collects a page!",
+        ["#SR_Mario"] = "Mario",
+        ["#SR_MarioDesc"] = "Hop around like Mario!",
 
         // gametype
         ["#Game_PageCollected"] = "{{player}} has collected a page!",

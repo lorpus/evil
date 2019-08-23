@@ -184,5 +184,45 @@ SR.SpecialRounds = {
             if not SERVER then return end
             hook.Remove("EvilPageTaken", "EvilSR_DeathSwap")
         end
-    }
+    },
+
+    mario = {
+        name = "#SR_Mario",
+        description = "#SR_MarioDesc",
+
+        apply = function()
+            for _, ply in pairs(player.GetAll()) do
+                ply:SetJumpPower(ply:GetJumpPower() * 2)
+            end
+            hook.Add("StaminaJumpPower", "EvilSR_Mario", function(ply, hasStamina, power)
+                return power * 2
+            end)
+
+            local lastGrounded = true
+            hook.Add("Move", "EvilSR_Mario", function(ply, mv)
+                if CLIENT then
+                    if lastGrounded and not LocalPlayer():IsOnGround() and mv:KeyDown(IN_JUMP) then
+                        surface.PlaySound("evil/jump.mp3")
+                    end
+                    lastGrounded = LocalPlayer():IsOnGround()
+                else
+                    if ply.bEvilSRMarioLastGrounded and not ply:IsOnGround() and mv:KeyDown(IN_JUMP) then
+                        local filt = RecipientFilter()
+                        filt:AddPAS(ply:GetPos())
+                        filt:RemovePlayer(ply)
+                        PrintTable(filt:GetPlayers())
+                        local snd = CreateSound(ply, "evil/jump.mp3", filt)
+                        snd:SetSoundLevel(75)
+                        snd:Play()
+                    end
+                    ply.bEvilSRMarioLastGrounded = ply:IsOnGround()
+                end
+            end)
+        end,
+
+        remove = function()
+            hook.Remove("StaminaJumpPower", "EvilSR_Mario")
+            hook.Remove("Move", "EvilSR_Mario")
+        end,
+    },
 }
