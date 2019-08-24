@@ -198,25 +198,11 @@ SR.SpecialRounds = {
                 return power * 2
             end)
 
-            local lastGrounded = true
             hook.Add("Move", "EvilSR_Mario", function(ply, mv)
-                if CLIENT then
-                    if lastGrounded and not LocalPlayer():IsOnGround() and mv:KeyDown(IN_JUMP) then
-                        surface.PlaySound("evil/jump.mp3")
-                    end
-                    lastGrounded = LocalPlayer():IsOnGround()
-                else
-                    if ply.bEvilSRMarioLastGrounded and not ply:IsOnGround() and mv:KeyDown(IN_JUMP) then
-                        local filt = RecipientFilter()
-                        filt:AddPAS(ply:GetPos())
-                        filt:RemovePlayer(ply)
-                        PrintTable(filt:GetPlayers())
-                        local snd = CreateSound(ply, "evil/jump.mp3", filt)
-                        snd:SetSoundLevel(75)
-                        snd:Play()
-                    end
-                    ply.bEvilSRMarioLastGrounded = ply:IsOnGround()
-                end
+               if ply.bEvilSRMarioLastGrounded and not ply:IsOnGround() and mv:KeyDown(IN_JUMP) then
+                   eutil.SyncEmitSound("evil/jump.mp3", ply, 75)
+               end
+               ply.bEvilSRMarioLastGrounded = ply:IsOnGround()
             end)
         end,
 

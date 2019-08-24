@@ -38,6 +38,19 @@ function eutil.NewlineText(str, count)
     return table.concat(lines, "\n")
 end
 
+function eutil.SyncEmitSound(snd, ply, lvl)
+    if CLIENT then
+        surface.PlaySound(snd)
+    else
+        local filt = RecipientFilter()
+        filt:AddPAS(ply:GetPos())
+        filt:RemovePlayer(ply)
+        local snd = CreateSound(ply, snd, filt)
+        snd:SetSoundLevel(lvl)
+        snd:Play()
+    end
+end
+
 // outline system adopted from https://github.com/Facepunch/garrysmod/pull/1590
 
 if not CLIENT then return end
