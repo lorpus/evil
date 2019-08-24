@@ -39,17 +39,16 @@ concommand.Add("evil_getcollectablepos", function(ply, cmd, args, argStr)
     ]], pos.x, pos.y, pos.z))
 end)
 
-hook.Add("Think", "DebugShit", function()
+hook.Add("HUDPaint", "DebugAA", function()
     if GetConVar("evil_showplayers"):GetBool() then
         for _, ply in pairs(player.GetAll()) do
             if ply:Alive() and ply != LocalPlayer() then
-                debugoverlay.Text(ply:GetPos(), ply:Nick(), 0.1, true)
+                local scr = ply:GetPos():ToScreen()
+                draw.SimpleText(ply:Nick(), "DermaDefault", scr.x, scr.y)
             end
         end
     end
-end)
 
-hook.Add("HUDPaint", "DebugAA", function()
     if GetConVar("evil_showmappositions"):GetBool() then
         for k, v in pairs(Map.spawns.humans) do
             local scr = v.pos:ToScreen()
