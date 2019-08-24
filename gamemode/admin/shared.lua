@@ -1,7 +1,7 @@
 Admin = Admin or {}
 
-Evil.ShowPlayerDbg = CreateConVar("evil_showplayers", 0, FCVAR_CHEAT + FCVAR_NOTIFY + FCVAR_REPLICATED, "Shows all players (debug)")
-Evil.ShowMapPosDbg = CreateConVar("evil_showmappositions", 0, FCVAR_CHEAT + FCVAR_NOTIFY + FCVAR_REPLICATED, "Show all map positions (debug)")
+Evil.ShowPlayerDbg = CreateConVar("evil_showplayers", 0, FCVAR_NOTIFY + FCVAR_REPLICATED, "Shows all players (debug)")
+Evil.ShowMapPosDbg = CreateConVar("evil_showmappositions", 0, FCVAR_NOTIFY + FCVAR_REPLICATED, "Show all map positions (debug)")
 
 function Admin:IsAdmin(ply)
     if not IsValid(ply) then
