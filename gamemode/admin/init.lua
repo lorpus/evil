@@ -8,6 +8,18 @@ concommand.Add("evil_endgame", function(ply, cmd, args, argStr)
     end
 end)
 
+concommand.Add("evil_setnextsr", function(ply, cmd, args, argStr)
+    if Admin:IsAdmin(ply) then
+        if SR.SpecialRounds[argStr] then
+            Evil.FORCE_SR = true
+            Evil._NEXT_SR = argStr
+            return Admin:AdminMessage(ply, "#Admin_NextSR", { round = argStr })
+        else
+            return Admin:AdminMessage(ply, "#Admin_SRChoices", { roundlist = table.concat(table.GetKeys(SR.SpecialRounds), ", ") })
+        end
+    end
+end)
+
 concommand.Add("evil_setnextboss", function(ply, cmd, args, argStr)
     if not Admin:IsAdmin(ply) then return end
 

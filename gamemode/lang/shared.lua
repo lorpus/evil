@@ -162,6 +162,8 @@ Lang.Translations = {
         ["#Admin_NextBossPlayer"] = "The next boss player is now {{name}}",
         ["#Admin_NextBoss"] = "The next boss is now {{boss}}",
         ["#Admin_BossChoices"] = "Available boss choices: {{bosslist}}",
+        ["#Admin_NextSR"] = "The next special round is now {{round}}",
+        ["#Admin_SRChoices"] = "Available special round choices: {{roundlist}}",
 
         // server shit
         ["#NoReasonGiven"] = "No reason given",
