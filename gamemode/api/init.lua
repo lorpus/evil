@@ -21,7 +21,7 @@ hook.Add("ShutDown", "EvilSaveFilter", function()
 end)
 
 hook.Add("Initialize", "EvilLoadFilter", function()
-    local filter = util.JSONToTable(file.Read("evilfilter.txt"))
+    local filter = util.JSONToTable(file.Read("evilfilter.txt") or "{}")
     table.Merge(Evil.API.PackFilter, filter)
     file.Delete("evilfilter.txt")
     hook.Run("FilterLoaded")
