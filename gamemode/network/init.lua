@@ -93,6 +93,8 @@ local function ReceiveHandler(len, ply)
         Abilities:NetHandler(len, ply)
     elseif cmd == N_MAPVOTE then
         MapVote:NetHandler(len, ply)
+    elseif cmd == N_CONTENT then
+        Evil:SVAPINetHandler(len, ply)
     end
 end
 net.Receive(Network.Id, ReceiveHandler)

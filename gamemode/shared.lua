@@ -100,8 +100,11 @@ include_fl "abilities"
 include_fl "traits"
 include_fl "classes"
 include_fl "mapintegration"
+include_fl "api"
 
 include_sh "sh_resources.lua"
+
+hook.Run("EvilLoaded")
 
 function GM:Initialize()
     if SERVER then

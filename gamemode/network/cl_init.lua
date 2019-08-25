@@ -61,6 +61,8 @@ local function ReceiveHandler(iLen, ply)
         Game:StartBossProximityMusic(net.ReadString())
     elseif cmd == N_MAPVOTE then
         MapVote:ShowVoteUI(net.ReadTable())
+    elseif cmd == N_CONTENT then
+        Evil:CLAPINetHandler()
     end
 end
 net.Receive(Network.Id, ReceiveHandler)

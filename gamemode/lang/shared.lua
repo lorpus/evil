@@ -219,6 +219,11 @@ Lang.Translations = {
         ["#CitizenStat19"] = "Tim Sweeney's Chinese Slave",
         ["#CitizenStat20"] = "Asspizza Fanatic",
         ["#CitizenStat21"] = "Recurring Donator to Twitch Thots",
+
+        // api
+        ["#API_BossRegisterFailKey"] = "Registering boss {{id}} failed because the key {{key}} is invalid",
+        ["#API_BossRegisterFailExists"] = "Registering boss {{id}} failed because an entry already exists with that id",
+        ["#API_ClientMaybeNoContent"] = "It seems you may not have the Evil content pack \"{{name}}\" downloaded from the workshop. This will likely cause errors. We'll stop warning you on this server in case we're wrong",
     }
 }
 
