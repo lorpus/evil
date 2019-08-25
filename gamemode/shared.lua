@@ -24,18 +24,18 @@ local function include_fl(scanDirectory)
     scanDirectory = GM.FolderName .. "/gamemode/" .. scanDirectory
 	local q = { scanDirectory }
 	while #q > 0 do
-		for _, directory in pairs( q ) do
-			local files, directories = file.Find( directory .. "/*", "LUA" )
+		for _, directory in pairs(q) do
+			local files, directories = file.Find(directory .. "/*", "LUA")
 			local toinc = {}
-			for _, fileName in pairs( files ) do
+			for _, fileName in pairs(files) do
                 local relativePath = directory .. "/" .. fileName
-				if string.match( fileName, "^sh" ) then
+				if string.match(fileName, "^sh") then
 					table.insert(toinc, 1, { n = relativePath, o = 0 })
 				end
-				if string.match( fileName, "^sv" ) or fileName == "init.lua" then
+				if string.match(fileName, "^sv") or fileName == "init.lua" then
 					table.insert(toinc, { n = relativePath, o = 1 })
 				end
-				if string.match( fileName, "^cl" ) then
+				if string.match(fileName, "^cl") then
 					table.insert(toinc, { n = relativePath, o = 2 })
 				end
 			end
@@ -44,10 +44,10 @@ local function include_fl(scanDirectory)
                 if v.o == 1 then include_sv(v.n) end
                 if v.o == 2 then include_cl(v.n) end
             end
-			for _, subdirectory in pairs( directories ) do
-				table.insert( q, directory .. "/" .. subdirectory )
+			for _, subdirectory in pairs(directories) do
+				table.insert(q, directory .. "/" .. subdirectory)
 			end
-			table.RemoveByValue( q, directory )
+			table.RemoveByValue(q, directory)
 		end
 	end
 end

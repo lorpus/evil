@@ -164,8 +164,8 @@ local function RenderOutlines()
 		render.SetStencilReferenceValue(0)
 		render.SetStencilCompareFunction(STENCIL_EQUAL)
 
-		OutlineMat:SetTexture( "$basetexture", DrawTexture )
-		render.SetMaterial( OutlineMat )
+		OutlineMat:SetTexture("$basetexture", DrawTexture)
+		render.SetMaterial(OutlineMat)
 
 		render.DrawScreenQuadEx(-1, -1, w ,h)
 		render.DrawScreenQuadEx(-1, 0, w, h)
