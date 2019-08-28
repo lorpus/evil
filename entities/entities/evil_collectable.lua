@@ -31,8 +31,8 @@ function ENT:Use(ply, caller)
     
     self.taken = true
 
-    hook.Run("EvilCollectableTaken", ply, self)
-    Network:SendHook("EvilCollectableTaken", ply, self)
+    hook.Run("EvilCollectableTaken", ply, self:GetNW2String("Collectable"))
+    Network:SendHook("EvilCollectableTaken", ply, self:GetNW2String("Collectable"))
     self:Remove()
 end
 
