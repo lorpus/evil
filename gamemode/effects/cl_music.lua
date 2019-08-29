@@ -31,6 +31,7 @@ function Music:Kill()
     local v = Music.CurrentChannel:GetVolume()
     for i = 1, v * 1000 do
         timer.Simple(i / 100, function()
+            if not IsValid(Music.CurrentChannel) then return end
             Music.CurrentChannel:SetVolume(v - i / 1000)
         end)
     end
