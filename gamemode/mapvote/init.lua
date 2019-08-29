@@ -112,7 +112,9 @@ hook.Add("RoundSet", "EvilCheckMapVote", function(round)
     elseif round == ROUND_PLAYING then
         MapVote.RoundProgress = MapVote.RoundProgress + 1
         if MapVote.RoundProgress >= Evil.Cfg.MapVote.RoundsPerVote then
-            MapVote:StartVote()
+            timer.Simple(6, function()
+                MapVote:StartVote()
+            end)
         end
     end
 end)
