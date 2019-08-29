@@ -128,6 +128,9 @@ local function open(bool)
             else
                 text = Taunts[n]
             end
+            if text:StartWith("#") then
+                text = Lang:Get(text)
+            end
             surface.SetFont("ebilfontsmaller")
             local _, height = surface.GetTextSize(text)
             draw.DrawText(text, "ebilfontsmaller", centX, centY - height / 2, color_white, TEXT_ALIGN_CENTER)
@@ -174,6 +177,9 @@ local function open(bool)
                 text = tauntdisplay[Taunts[hovering]]
             else
                 text = Taunts[hovering]
+            end
+            if text:StartWith("#") then
+                text = Lang:Get(text)
             end
             text = text:Replace("\n", " ")
             draw.SimpleText(text, "evilfont1", w / 2, h / 2, color_white, TEXT_ALIGN_CENTER)
