@@ -374,4 +374,11 @@ function GM:SetupPlayerVisibility(viewer, viewent)
             AddOriginToPVS(boss:GetPos())
         end
     end
+
+    if viewer:GetNW2String("EvilClass") == "kleiner" then
+        local page = ents.FindByClass("evil_page")[1]
+        if IsValid(page) then
+            AddOriginToPVS(page:GetPos())
+        end
+    end
 end
