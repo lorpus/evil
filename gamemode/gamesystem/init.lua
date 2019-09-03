@@ -213,6 +213,8 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
             return
         elseif not IsValid(attacker:GetAttacker()) then
             return
+        elseif not attacker:GetAttacker():IsPlayer() then
+            return
         end
     else
         return
