@@ -199,10 +199,11 @@ SR.SpecialRounds = {
             end)
 
             hook.Add("Move", "EvilSR_Mario", function(ply, mv)
-               if ply.bEvilSRMarioLastGrounded and not ply:IsOnGround() and mv:KeyDown(IN_JUMP) then
-                   eutil.SyncEmitSound("evil/jump.mp3", ply, 75)
-               end
-               ply.bEvilSRMarioLastGrounded = ply:IsOnGround()
+                if not SERVER then return end
+                if ply.bEvilSRMarioLastGrounded and not ply:IsOnGround() and mv:KeyDown(IN_JUMP) then
+                    ply:EmitSound("evil/jump.mp3", ply)
+                end
+                ply.bEvilSRMarioLastGrounded = ply:IsOnGround()
             end)
         end,
 
