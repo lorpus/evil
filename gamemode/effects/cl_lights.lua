@@ -1,23 +1,50 @@
-local mylight
-timer.Create("ScuffedLightFix", 10, 0, function()
-    mylight = nil
-end)
 hook.Add("Think", "EvilLight", function()
     if (LocalPlayer():IsBoss() or LocalPlayer():IsProxy()) and LocalPlayer():Alive() then
-        if not mylight then
-            mylight = DynamicLight(LocalPlayer():EntIndex())
+        if not projlower or not projupper then
+            projlower = ProjectedTexture() // these can only be 180deg so we need two
+            projupper = ProjectedTexture()
+
+            projlower:SetTexture("effects/flashlight/soft")
+            projlower:SetAngles(Angle(-90, 0, 0))
+            projlower:SetFarZ(1024)
+            projlower:SetFOV(179)
+            projlower:SetNearZ(1)
+            projlower:Update()
+
+            projupper:SetTexture("effects/flashlight/soft")
+            projupper:SetAngles(Angle(90, 0, 0))
+            projupper:SetFarZ(1024)
+            projupper:SetFOV(150)
+            projupper:SetNearZ(1)
+            projupper:Update()
+            projupper:SetFarZ(1024)
+            return
         end
 
-        if mylight then
-            mylight.pos = LocalPlayer():GetPos() + Vector(0, 0, 2)
-            mylight.r = 21
-            mylight.g = 48
-            mylight.b = 91
-            mylight.brightness = 4
-            mylight.Decay = 1000
-            mylight.Size = 2222
-            mylight.DieTime = CurTime() + 1
+        projlower:SetFOV(GetConVar("fov_desired"):GetInt() * (1.5))
+        projlower:SetAngles(LocalPlayer():GetAimVector():Angle())
+
+        local tr = util.TraceLine({
+            start = LocalPlayer():GetPos() + Vector(0, 0, 20),
+            endpos = LocalPlayer():GetPos() + Vector(0, 0, 200),
+            filter = {LocalPlayer()}
+        })
+
+        local pos = tr.HitPos
+        if not tr.Hit then
+            pos = LocalPlayer():GetPos() + Vector(0, 0, 512)
+        else
+            pos = tr.HitPos - tr.HitNormal * 5
         end
+
+        projlower:SetPos(LocalPlayer():EyePos())
+        projlower:Update()
+    
+        projupper:SetPos(pos)
+        projupper:Update()
+    else
+        if IsValid(projlower) then projlower = nil end // gc'd
+        if IsValid(projupper) then projupper = nil end
     end
 
     if LocalPlayer():IsSpectating() then
