@@ -79,6 +79,12 @@ Lang.Translations = {
         ["#Player_Left"]                                    = "{{name}} disconnected ({{reason}})",
         ["#Player_Left_NoReason"]                           = "{{name}} disconnected",
 
+        // pointshop stuff
+        ["#PS_BurtonOld"]                                   = "Adam Burton's pointshop was found, but is not version 8. Pointshop integration will not be loaded",
+        ["#PS_CantBuyBeBoss"]                               = "You can't buy this since somebody else already has this round",
+        ["#PS_AlreadyBeBoss"]                               = "You already bought this for next round",
+        ["#PS_RefundedBeBoss"]                              = "An admin forcefully set someone to become the boss, so you have been refunded",
+
         // gui
         ["#YouAreBoss"]                                     = "You are {{name}}!",
         ["#HowToAttack_A"]                                  = "Hold left click to attack!",

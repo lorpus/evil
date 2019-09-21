@@ -13,6 +13,13 @@ local configuration = {
         HelpText = "Placeholder\nPlaceholder\nPlaceholder"        
     },
 
+    Pointshop = {
+        Integration = "burton",
+        Prices = {
+            beboss = 100,
+        },
+    },
+
     Collectables = {
         Odds = {
             OP = { // count

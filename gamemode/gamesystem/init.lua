@@ -108,6 +108,7 @@ function Game:PickAndSetupBoss()
     local ply
     if IsValid(Evil._NEXTBOSSPLAYER) then
         ply = Evil._NEXTBOSSPLAYER
+        Evil._NEXTBOSSPLAYER.evilPurchasedBoss = nil
         Evil._NEXTBOSSPLAYER = nil
     else
         local pool = player.GetAll()
@@ -115,9 +116,9 @@ function Game:PickAndSetupBoss()
             table.RemoveByValue(pool, lastChosenBoss)
         end
         ply = table.Random(pool)
-        lastChosenBoss = ply
     end
 
+    lastChosenBoss = ply
     Game:SetupBoss(ply)
 end
 

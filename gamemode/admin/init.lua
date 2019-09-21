@@ -44,6 +44,14 @@ concommand.Add("evil_setnextbossplayer", function(ply, cmd, args, argStr)
             return Admin:AdminMessage(ply, "#Admin_NoTargets")
         end
 
+        if IsValid(Evil._NEXTBOSSPLAYER) and Evil.HasPointshop then
+            if Evil._NEXTBOSSPLAYER.evilPurchasedBoss then
+                Network:Notify(Evil._NEXTBOSSPLAYER, "#PS_RefundedBeBoss", true)
+                Evil._NEXTBOSSPLAYER.evilPurchasedBoss = nil
+                Evil._NEXTBOSSPLAYER:PS_GivePoints(Evil.Cfg.Pointshop.Prices.beboss)
+            end
+        end
+
         Evil._NEXTBOSSPLAYER = targets[1]
         Admin:AdminMessage(ply, "#Admin_NextBossPlayer", { name = Evil._NEXTBOSSPLAYER:Nick() })
     end
