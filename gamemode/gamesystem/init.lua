@@ -104,7 +104,9 @@ function Game:SetupBoss(ply)
 end
 
 local lastChosenBoss
-function Game:PickAndSetupBoss()
+function Game:PreSetup()
+    // boss
+
     local ply
     if IsValid(Evil._NEXTBOSSPLAYER) then
         ply = Evil._NEXTBOSSPLAYER
@@ -119,7 +121,32 @@ function Game:PickAndSetupBoss()
     end
 
     lastChosenBoss = ply
-    Game:SetupBoss(ply)
+    Game:SetProfile(key)
+    Game:SetBoss(ply)
+
+    // gt
+
+    local keys = {}
+    
+    for k, v in RandomPairs(Game.Gametypes) do
+        if v.playable then
+            if v.playable() then
+                table.insert(keys, k)
+            end
+        else
+            table.insert(keys, k)
+        end
+    end
+
+    if #keys == 0 then
+        return Evil:Lock("playable gametype configuration is broke")
+    end
+
+    local key = table.Random(keys)
+
+    Game:SetGametype(key)
+
+    return ply, key
 end
 
 function Game:SetupHuman(ply, nolock)
@@ -149,29 +176,6 @@ function Game:StartGametype(strGametype)
     end
 
     Network:SendHook("RunGTFunc", strGametype, "start")
-end
-
-function Game:PickAndStartGameType()
-    local keys = {}
-    
-    for k, v in RandomPairs(Game.Gametypes) do
-        if v.playable then
-            if v.playable() then
-                table.insert(keys, k)
-            end
-        else
-            table.insert(keys, k)
-        end
-    end
-
-    if #keys == 0 then
-        return Evil:Lock("playable gametype configuration is broke")
-    end
-
-    local key = table.Random(keys)
-
-    Game:SetGametype(key)
-    Game:StartGametype(key)
 end
 
 hook.Add("PlayerShouldTakeDamage", "EvilNoBossDamage", function(ply, attacker)

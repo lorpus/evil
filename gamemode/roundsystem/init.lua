@@ -38,18 +38,22 @@ function Round:StartGame()
 
     Game:ResetPlayers()
 
-    Game:PickAndSetupBoss()
-    Game:PickAndStartGameType()
+    local ply, gametype = Game:PreSetup()
 
-    for k, v in pairs(player.GetAll()) do
-        if Game:GetBoss() == v then continue end
+    timer.Simple(1, function()
+        Game:SetupBoss(ply)
+        Game:StartGametype(gametype)
 
-        Game:SetupHuman(v)
-    end
+        for k, v in pairs(player.GetAll()) do
+            if Game:GetBoss() == v then continue end
 
-    SetGlobal2Int("EvilStartingPlayers", #Game:GetHumans())
-    SetGlobal2Int("RoundCount", GetGlobal2Int("RoundCount") + 1)
-    Round:SetRound(ROUND_PLAYING)
+            Game:SetupHuman(v)
+        end
+
+        SetGlobal2Int("EvilStartingPlayers", #Game:GetHumans())
+        SetGlobal2Int("RoundCount", GetGlobal2Int("RoundCount") + 1)
+        Round:SetRound(ROUND_PLAYING)
+    end)
 end
 
 function Round:End(strReason, format)

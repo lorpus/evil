@@ -185,19 +185,17 @@ end
 hook.Add("RoundSet", "EvilStartInstructions", function(round)
     if round != ROUND_PLAYING then return end
     local gt = Game:GetGametype()
-    timer.Simple(1, function() // so in the amount of time it takes a hook to get networked to the client other variables like the players team cant... makes sense
-        if gt == "pages" then
-            if LocalPlayer():IsHuman() then
-                centerText = Lang:Format("#CollectPages", { count = GetGlobal2Int("PagesTotal") })
-            elseif LocalPlayer():IsBoss() then
-                centerText = Lang:Format("#StopHumansPages", { count = GetGlobal2Int("PagesTotal") })
-            end
+    if gt == "pages" then
+        if LocalPlayer():IsHuman() then
+            centerText = Lang:Format("#CollectPages", { count = GetGlobal2Int("PagesTotal") })
+        elseif LocalPlayer():IsBoss() then
+            centerText = Lang:Format("#StopHumansPages", { count = GetGlobal2Int("PagesTotal") })
         end
+    end
 
-        if LocalPlayer():IsBoss() then
-            ShowBossInfoPanel()
-        end
-    end)
+    if LocalPlayer():IsBoss() then
+        ShowBossInfoPanel()
+    end
 end)
 
 function GM:DrawDeathNotice() end
