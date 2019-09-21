@@ -82,7 +82,7 @@ function ENT:Think()
     end
 
     if lastvel:Length() - self:GetVelocity():Length() > self.Threshold then
-        print("explode due to low threshold")
+        dbg.print("explode due to low threshold")
         self:Explode()
     end
 
