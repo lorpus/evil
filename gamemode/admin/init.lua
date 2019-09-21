@@ -56,3 +56,11 @@ concommand.Add("evil_setnextbossplayer", function(ply, cmd, args, argStr)
         Admin:AdminMessage(ply, "#Admin_NextBossPlayer", { name = Evil._NEXTBOSSPLAYER:Nick() })
     end
 end)
+
+concommand.Add("evil_bots", function(ply, cmd, args, argStr)
+    if Admin:IsAdmin(ply) then
+        for i = 1, tonumber(argStr) do
+            game.ConsoleCommand("bot\n")
+        end
+    end
+end)
