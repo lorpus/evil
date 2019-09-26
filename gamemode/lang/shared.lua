@@ -78,6 +78,7 @@ Lang.Translations = {
         ["#Player_Joined"]                                  = "{{name}} connected",
         ["#Player_Left"]                                    = "{{name}} disconnected ({{reason}})",
         ["#Player_Left_NoReason"]                           = "{{name}} disconnected",
+        ["#InvalidCommand"]                                 = "That command doesn't exist",
 
         // pointshop stuff
         ["#PS_BurtonOld"]                                   = "Adam Burton's pointshop was found, but is not version 8. Pointshop integration will not be loaded",

@@ -102,6 +102,7 @@ include_fl "classes"
 include_fl "mapintegration"
 include_fl "api"
 include_fl "pointshop"
+include_fl "commands"
 
 include_sh "sh_resources.lua"
 
