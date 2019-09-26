@@ -3,6 +3,6 @@ hook.Add("EvilCommand", "HandleClientCommand", function(command, ...)
     if not tab then
         Evil:AddTextChat(Lang:Get("#InvalidCommand"))
     elseif isfunction(tab.action) then
-        tab.action(LocalPlayer())
+        tab.action(LocalPlayer(), ...)
     end
 end)
