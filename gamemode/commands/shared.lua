@@ -4,9 +4,15 @@ Command = Command or {
     Prefixes = { "!", "/" },
 }
 
-// TODO port existing commands (i.e. admin and lang) to this system
-
 Command.Commands = {
+    lang = {
+        aliases = { "lang", "language" },
+        action = function(ply, ...)
+            if CLIENT then
+                Lang:ChangeLanguage(...)
+            end
+        end,
+    }
 }
 
 for k, v in pairs(Command.Commands) do

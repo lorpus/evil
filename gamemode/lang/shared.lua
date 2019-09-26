@@ -151,7 +151,7 @@ Lang.Translations = {
         // lang
         ["#InvalidLang"]                                    = "Unfortunately this isn't a supported language setting",
         ["#LangChanged"]                                    = "Language successfully changed",
-        ["#NoLangSpecified"]                                = "You need to specify a language. (e.g. /evil lang en)",
+        ["#NoLangSpecified"]                                = "You need to specify a language. (e.g. /lang en)",
         ["#LangGuess"]                                      = "We think you're from {{country}}, so we automatically set you to {{lang}}",
         ["#LangGuessFail"]                                  = "We think you're from {{country}}, but that country's language isn't supported so we set you to the server language {{lang}}. You can change this with \"/evil lang <language>\"",
         ["#LangObtainFail"]                                 = "We couldn't guess where you were from, so you have been set to the server language {{lang}}. Type \"/evil lang <language>\" to change your language.",

@@ -32,7 +32,11 @@ hook.Add("Initialize", "InitLanguage", function()
     end)
 end)
 
-local function changelocale(try)
+function Lang:ChangeLanguage(try)
+    if not try or #try == 0 then
+        return Evil:AddTextChat(Lang:Get("#NoLangSpecified"))
+    end
+
     if not table.HasValue(Lang:GetAvailableLangs(), try) then
         return Evil:AddTextChat(Lang:Get("#InvalidLang"))
     end
@@ -53,20 +57,5 @@ local function changelocale(try)
 end
 
 concommand.Add("evil_setlanguage", function(ply, cmd, args, argStr)
-    changelocale(argStr)
-end)
-
-hook.Add("OnPlayerChat", "ChangeLocaleChat", function(ply, text, bTeam, bDead)
-    if text:StartWith("/evil lang") then
-        if ply == LocalPlayer() then
-            local try = string.sub(text, 12)
-            if #try == 0 then
-                Evil:AddTextChat(Lang:Get("#NoLangSpecified"))
-            else
-                changelocale(try)
-            end
-        end
-
-        return true
-    end
+    Lang:ChangeLanguage(argStr)
 end)
