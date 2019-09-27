@@ -12,6 +12,25 @@ Command.Commands = {
                 Lang:ChangeLanguage(...)
             end
         end,
+    },
+
+    ghost = {
+        aliases = { "ghost" },
+        action = function(ply)
+            if SERVER then
+                if ply:GetNW2Bool("EvilGhost") then
+                    Network:Notify(ply, "#Ghost_Disabled", true)
+                    Game:RemoveGhost(ply)
+                else
+                    if ply:Alive() then
+                        return Network:Notify(ply, "#Ghost_NotDead", true)
+                    end
+
+                    Network:Notify(ply, "#Ghost_Enabled", true)
+                    Game:SetGhost(ply)
+                end
+            end
+        end,
     }
 }
 

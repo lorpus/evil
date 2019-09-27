@@ -66,7 +66,7 @@ hook.Add("HUDPaint", "Screen_Attributes", function()
         end
     end
 
-    if LocalPlayer():Team() == TEAM_SPEC then return end
+    if not LocalPlayer():Alive() then return end
     local ent = LocalPlayer():GetEyeTrace().Entity
     if not ent:IsPlayer() then return end
     if ent == LocalPlayer() then return end
@@ -79,7 +79,7 @@ hook.Add("HUDPaint", "Screen_Attributes", function()
     if not (pos2:Distance(pos1) < 300) then return end
     surface.SetFont("evilfont2")
     local TextW, TextH = surface.GetTextSize(ent:GetName())
-    local name = ent:GetNW2String("ClassName")
+    local name = ent:Nick()
     if name == "" then name = ent:Nick() end
     draw.DrawText(name, "evilfont2", ScrW() / 2 - TextW / 2, ScrH() / 2 - TextH / 2 + ScreenScale(15), Color(255, 150, 150))
 end)

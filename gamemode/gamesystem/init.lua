@@ -25,6 +25,7 @@ function Game:ResetPlayer(ply)
     ply:SetNW2Bool("EvilNightVision", false)
     ply:SetNW2Bool("NoForceSpeeds", false)
     ply:SetNW2String("ClassName", "")
+    Game:RemoveGhost(ply)
     Abilities:StripPlayerAbilities(ply)
     Classes:ClearPlayerClass(ply)
     Traits:ClearTraits(ply)
@@ -178,6 +179,24 @@ function Game:StartGametype(strGametype)
     Network:SendHook("RunGTFunc", strGametype, "start")
 end
 
+function Game:SetGhost(ply)
+    Game:ResetPlayer(ply)
+    ply:SetNW2Bool("EvilGhost", true)
+    ply:SetRenderMode(RENDERMODE_TRANSALPHA)
+    ply:SetColor(Color(255, 255, 255, 120))
+    ply:DrawShadow(false)
+    ply:Spawn()
+end
+
+function Game:RemoveGhost(ply)
+    ply:SetNW2Bool("EvilGhost", false)
+    ply:SetRenderMode(0)
+    ply:SetColor(color_white)
+    ply:DrawShadow(true)
+    ply:KillSilent()
+    ply:StartSpectating()
+end
+
 hook.Add("PlayerShouldTakeDamage", "EvilNoBossDamage", function(ply, attacker)
     if ply:IsBoss() then
         return false
@@ -205,7 +224,7 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
                 victim:SetTeam(TEAM_SPEC)
                 local round = Round:GetRoundCount()
                 timer.Simple(4, function()
-                    if round == Round:GetRoundCount() and IsValid(victim) and not victim:IsProxy() then // perhaps :Alive() instead of :IsProxy()
+                    if round == Round:GetRoundCount() and IsValid(victim) and not victim:Alive() then
                         victim:StartSpectating()
                     end
                 end)

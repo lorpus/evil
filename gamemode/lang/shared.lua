@@ -78,7 +78,12 @@ Lang.Translations = {
         ["#Player_Joined"]                                  = "{{name}} connected",
         ["#Player_Left"]                                    = "{{name}} disconnected ({{reason}})",
         ["#Player_Left_NoReason"]                           = "{{name}} disconnected",
+
+        // commands
         ["#InvalidCommand"]                                 = "That command doesn't exist",
+        ["#Ghost_NotDead"]                                  = "You have to be dead to become a ghost",
+        ["#Ghost_Disabled"]                                 = "You are no longer a ghost.",
+        ["#Ghost_Enabled"]                                  = "You are now a ghost. Use this command again to stop being a ghost",
 
         // pointshop stuff
         ["#PS_BurtonOld"]                                   = "Adam Burton's pointshop was found, but is not version 8. Pointshop integration will not be loaded",
