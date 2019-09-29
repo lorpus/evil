@@ -1,3 +1,4 @@
+local ptColor = Color(255, 50, 50)
 hook.Add("Think", "EvilLight", function()
     if (LocalPlayer():IsBoss() or LocalPlayer():IsProxy()) and LocalPlayer():Alive() then
         if not projlower or not projupper then
@@ -9,6 +10,7 @@ hook.Add("Think", "EvilLight", function()
             projlower:SetFarZ(1024)
             projlower:SetFOV(179)
             projlower:SetNearZ(1)
+            projlower:SetColor(ptColor)
             projlower:Update()
 
             projupper:SetTexture("effects/flashlight/soft")
@@ -17,6 +19,7 @@ hook.Add("Think", "EvilLight", function()
             projupper:SetFOV(150)
             projupper:SetNearZ(1)
             projupper:Update()
+            projupper:SetColor(ptColor)
             projupper:SetFarZ(1024)
             return
         end
@@ -37,9 +40,11 @@ hook.Add("Think", "EvilLight", function()
             pos = tr.HitPos - tr.HitNormal * 5
         end
 
+        projlower:SetColor(ptColor)
         projlower:SetPos(LocalPlayer():EyePos())
         projlower:Update()
     
+        projupper:SetColor(ptColor)
         projupper:SetPos(pos)
         projupper:Update()
     else
