@@ -82,7 +82,7 @@ Traits.Traits = {
     digestion = {
         apply = function(ply)
             if not SERVER then return end
-            hook.Add("EvilPlayerKilled", "EvilTraitDigest", function(victim, killerteam, killer)
+            hook.Add("EvilPlayerKilled", "EvilTraitDigest_" .. tostring(ply), function(victim, killerteam, killer)
                 if killer == ply then
                     killer:EmitSound("npc/stalker/breathing3.wav")
                     ply:SetLaggedMovementValue(0)
@@ -93,6 +93,11 @@ Traits.Traits = {
                     end)
                 end
             end)
+        end,
+
+        remove = function(ply)
+            if not SERVER then return end
+            hook.Remove("EvilPlayerKilled", "EvilTraitDigest_" .. tostring(ply))
         end,
     },
 
