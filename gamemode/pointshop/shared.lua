@@ -23,9 +23,13 @@ if SERVER then
         if itemid == "beboss" then
             if IsValid(Evil._NEXTBOSSPLAYER) then
                 if Evil._NEXTBOSSPLAYER == ply then
-                    ply:PS_Notify("#PS_AlreadyBeBoss")
+                    if Evil.Cfg.Pointshop.Integration == "burton" then
+                        ply:PS_Notify("#PS_AlreadyBeBoss")
+                    end
                 else
-                    ply:PS_Notify("#PS_CantBuyBeBoss")
+                    if Evil.Cfg.Pointshop.Integration == "burton" then
+                        ply:PS_Notify("#PS_CantBuyBeBoss")
+                    end
                 end
                 return false
             end

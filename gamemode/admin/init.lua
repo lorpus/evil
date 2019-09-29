@@ -48,7 +48,9 @@ concommand.Add("evil_setnextbossplayer", function(ply, cmd, args, argStr)
             if Evil._NEXTBOSSPLAYER.evilPurchasedBoss then
                 Network:Notify(Evil._NEXTBOSSPLAYER, "#PS_RefundedBeBoss", true)
                 Evil._NEXTBOSSPLAYER.evilPurchasedBoss = nil
-                Evil._NEXTBOSSPLAYER:PS_GivePoints(Evil.Cfg.Pointshop.Prices.beboss)
+                if Evil.Cfg.Pointshop.Integration == "burton" then
+                    Evil._NEXTBOSSPLAYER:PS_GivePoints(Evil.Cfg.Pointshop.Prices.beboss)
+                end
             end
         end
 
