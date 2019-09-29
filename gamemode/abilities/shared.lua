@@ -31,6 +31,7 @@ Abilities.Abilities = {
             if not SERVER then return end
             ply:SetLaggedMovementValue(2)
             timer.Simple(5, function() // there cant possibly be anything wrong with this ffs
+                if not IsValid(ply) then return end
                 ply:SetLaggedMovementValue(1)
             end)
         end,
