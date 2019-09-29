@@ -40,11 +40,9 @@ hook.Add("Think", "EvilLight", function()
             pos = tr.HitPos - tr.HitNormal * 5
         end
 
-        projlower:SetColor(ptColor)
         projlower:SetPos(LocalPlayer():EyePos())
         projlower:Update()
     
-        projupper:SetColor(ptColor)
         projupper:SetPos(pos)
         projupper:Update()
     else
