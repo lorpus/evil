@@ -33,7 +33,7 @@ function Evil:RegisterBoss(key, data)
         "table,jumpscare",      "table,taunts",
         "table,tauntdisplay",   "table,killsounds",
         "table,proxy",          "bool,no_running_animation",
-        "bool,stamina",
+        "bool,stamina",         "string,intro",
     }) do
         local x = string.Split(v, ",")
         if data[x[2]] != nil and not _G["is" .. x[1]](data[x[2]]) then
