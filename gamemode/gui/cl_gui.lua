@@ -519,4 +519,3 @@ hook.Add("HUDPaint", "OnloadGUIInit", function()
     //FirstTimeGUI()
     //Evil:ShowEndScreen()
 end)
-
