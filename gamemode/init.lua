@@ -21,4 +21,5 @@ end
 
 function GM:PlayerDisconnected(ply)
     Network:NotifyAll("#Player_Left_NoReason", true, { name = ply:Nick() })
+    Game:ResetPlayer(ply)
 end
