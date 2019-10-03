@@ -35,6 +35,8 @@ function Evil:CLAPINetHandler()
                 data.cb()
             end
         end
+
+        hook.Run("EvilLoaded")
         CheckContent()
     end
 end

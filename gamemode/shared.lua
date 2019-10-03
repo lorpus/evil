@@ -106,6 +106,8 @@ include_fl "commands"
 
 include_sh "sh_resources.lua"
 
+hook.Run("EvilPreLoad")
+
 function GM:Initialize()
     if SERVER then
         Round:Initialize()
