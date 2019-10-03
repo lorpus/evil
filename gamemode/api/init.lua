@@ -43,4 +43,6 @@ hook.Add("FilterLoaded", "EvilLoadDeferred", function()
     if table.Count(Evil.Bosses) == 0 then
         Evil:Lock("No bosses have been registered! The server owner must install a content pack")
     end
+
+    hook.Run("EvilLoaded")
 end)

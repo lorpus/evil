@@ -106,8 +106,6 @@ include_fl "commands"
 
 include_sh "sh_resources.lua"
 
-hook.Run("EvilLoaded")
-
 function GM:Initialize()
     if SERVER then
         Round:Initialize()
