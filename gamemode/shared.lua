@@ -4,13 +4,12 @@ GM.Name = "Evil"
 
 Evil = Evil or {
     Cfg = {},
-    Debug = true
 }
 include("config.lua")
 ApplyConfiguration(Evil.Cfg)
 
 dbg = {}
-dbg.print = function(...) if Evil.Debug then print(unpack({...})) end end
+dbg.print = function(...) if Evil.Cfg.Debug then print(unpack({...})) end end
 
 local function include_cl(x) if SERVER then AddCSLuaFile(x) else include(x) end end
 local function include_sh(x) if SERVER then AddCSLuaFile(x) end include(x) end
