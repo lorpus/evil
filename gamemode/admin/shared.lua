@@ -3,6 +3,14 @@ Admin = Admin or {}
 Evil.ShowPlayerDbg = CreateConVar("evil_showplayers", 0, FCVAR_NOTIFY + FCVAR_REPLICATED, "Shows all players (debug)")
 Evil.ShowMapPosDbg = CreateConVar("evil_showmappositions", 0, FCVAR_NOTIFY + FCVAR_REPLICATED, "Show all map positions (debug)")
 
+function Admin:CanExecute(ply, cmd)
+    if Admin.ULX then
+        return ULib.ucl.query(ply, "ulx " .. cmd)
+    else
+        return Admin:IsAdmin(ply)
+    end
+end
+
 function Admin:IsAdmin(ply)
     if not IsValid(ply) then
         return true // server is calling
@@ -84,3 +92,53 @@ cvars.AddChangeCallback("evil_testing", function(convar, old, new)
         end
     end
 end, "blahblahidentifier")
+
+// ULX
+
+local hasULX = istable(ulx) and istable(ULib)
+if not hasULX then return end
+
+hook.Add("EvilLoaded", "UpdateCommands", function()
+    Admin.ULX.SetBoss:addParam({
+        type = ULib.cmds.StringArg,
+        completes = table.GetKeys(Evil.Bosses),
+        hint = "boss",
+        error = "Invalid boss \"%s\"",
+        ULib.cmds.restrictToCompletes,
+    })
+end)
+
+Admin.ULX = Admin.ULX or {}
+Admin.ULX.SetBoss = ulx.command("Evil", "ulx setnextboss", function(caller, bossName)
+    Admin.Cmds.SetNextBoss(caller, bossName)
+end, "!setnextboss")
+Admin.ULX.SetBoss:defaultAccess(ULib.ACCESS_ADMIN)
+Admin.ULX.SetBoss:help("Sets the next boss")
+
+Admin.ULX.SetBossPlayer = ulx.command("Evil", "ulx setnextbossplayer", function(caller, target)
+    Admin.Cmds.SetNextBossPlayer(caller, target)
+end, "!setnextbossplayer")
+Admin.ULX.SetBossPlayer:addParam({ type = ULib.cmds.PlayerArg })
+Admin.ULX.SetBossPlayer:defaultAccess(ULib.ACCESS_ADMIN)
+Admin.ULX.SetBossPlayer:help("Sets the target to be the next boss")
+
+Admin.ULX.SetNextSR = ulx.command("Evil", "ulx setnextsr", function(caller, sr)
+    Admin.Cmds.SetNextSpecialRound(caller, sr)
+end, "!setnextsr")
+timer.Simple(0, function() // slight defer since SR is undefined
+    Admin.ULX.SetNextSR:addParam({
+        type = ULib.cmds.StringArg,
+        completes = table.GetKeys(SR.SpecialRounds),
+        hint = "round",
+        error = "Invalid special round \"%s\"",
+        ULib.cmds.restrictToCompletes,
+    })
+end)
+Admin.ULX.SetNextSR:defaultAccess(ULib.ACCESS_ADMIN)
+Admin.ULX.SetNextSR:help("Makes the next round a special round")
+
+Admin.ULX.EndGame = ulx.command("Evil", "ulx endgame", function(caller)
+    Admin.Cmds.EndGame(caller)
+end)
+Admin.ULX.EndGame:defaultAccess(ULib.ACCESS_ADMIN)
+Admin.ULX.EndGame:help("Immediately end the current round")
