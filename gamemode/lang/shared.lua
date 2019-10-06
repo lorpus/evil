@@ -301,3 +301,7 @@ end
 function Lang:GetAvailableLangs()
     return table.GetKeys(Lang.ISOToLang)
 end
+
+function Lang:GetTable()
+    return Lang.Translations[Lang.Locale]
+end
