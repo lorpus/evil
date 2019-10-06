@@ -59,6 +59,35 @@ end
 
 local Old = 0
 
+Evil.ShowTips = CreateClientConVar("evil_showtips", "1", true, false, "Show tips in the bottom left when dead")
+
+surface.CreateFont("TipFont", {
+    font = "Roboto",
+    size = ScreenScale(9)
+})
+
+hook.Add("HUDPaint", "DrawTips", function()
+    if not Evil.ShowTips:GetBool() then return end
+
+    local tips = {}
+    for k, _ in pairs(Lang:GetTable()) do
+        if k:StartWith("#Tip_") then
+            table.insert(tips, k)
+        end
+    end
+
+    if not LocalPlayer():Alive() then
+        local i = util.SharedRandom(math.floor(SysTime() / 15), 1, #tips, math.floor(SysTime() / 300))
+        i = math.floor(i)
+        local text = Lang:Format("#Tip", { tip = Lang:Get(tips[i]) })
+        surface.SetFont("TipFont")
+        local w, h = surface.GetTextSize(text)
+        surface.SetTextPos(10, ScrH() - h)
+        surface.SetTextColor(255, 255, 255)
+        surface.DrawText(text)
+    end
+end)
+
 hook.Add("HUDPaint", "Screen_Attributes", function()
     if not SR.ActiveRounds["realism"] and not Evil.DrawingTauntMenu then
         if Round:IsPlaying() then

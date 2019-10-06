@@ -275,6 +275,18 @@ Lang.Translations = {
         ["#API_BossRegisterFailKey"]                        = "Registering boss {{id}} failed because the key {{key}} is invalid",
         ["#API_BossRegisterFailExists"]                     = "Registering boss {{id}} failed because an entry already exists with that id",
         ["#API_ClientMaybeNoContent"]                       = "It seems you may not have the Evil content pack \"{{name}}\" downloaded from the workshop. This will likely cause errors. We'll stop warning you on this server in case we're wrong",
+    
+        // tips
+        ["#Tip"]                                            = "Tip: {{tip}}",
+        ["#Tip_1"]                                          = "As a human, you can't hear the bosses footsteps",
+        ["#Tip_2"]                                          = "If you find a lantern as a human, pick it up and place it somewhere to try and trick the boss",
+        ["#Tip_3"]                                          = "Don't want these tips? Type /tips. You can also turn them back on the same way",
+        ["#Tip_4"]                                          = "Keep an eye out for things on the ground when you're a human, they can help you",
+        ["#Tip_5"]                                          = "Pages can be in hard-to-see places, so always look carefully if you want to win as a human",
+        ["#Tip_6"]                                          = "As a boss, you can hear your own footsteps, but humans can't hear them",
+        ["#Tip_7"]                                          = "As a boss, you can't see the pages, so don't think you can camp them",
+        ["#Tip_8"]                                          = "As a boss, pay attention to lights. They may be a human's flashlight",
+        ["#Tip_9"]                                          = "If you're dead, you can't communicate with the living. No cheating!",
     }
 }
 
