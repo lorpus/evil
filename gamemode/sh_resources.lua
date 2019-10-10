@@ -1,6 +1,6 @@
 if SERVER then
     // resource.AddWorkshop("1780893440") // ecp 1
-    resource.AddWorkshop("1800886537") // ebc
+    resource.AddWorkshop("1885257980") // ebc
 
     /*if not EVIL_CONTENT_1_INSTALLED then
         print("\n\n")
