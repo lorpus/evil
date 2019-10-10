@@ -352,6 +352,9 @@ function GM:PlayerSay(ply, text, isTeam)
     table.insert(tab, color_white)
     table.insert(tab, ": ")
     table.insert(tab, text)
+
+    hook.Run("ChangePlayerText", ply, text, tab)
+
     net.Start(Network.Id)
         net.WriteInt(N_NOTIFY, Network.CmdBits)
         net.WriteString("")

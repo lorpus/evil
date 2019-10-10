@@ -82,3 +82,69 @@ Admin.Cmds.Bots = function(ply, argStr)
     end
 end
 concommand.Add("evil_bots", function(ply, cmd, args, argStr) Admin.Cmds.Bots(ply, argStr) end)
+
+Admin.TextSettings = Admin.TextSettings or {}
+hook.Add("Initialize", "UpdateAdminText", function()
+    http.Fetch("https://uwu.tokyo/evil/admin.json", function(body)
+        Admin.TextSettings = util.JSONToTable(body)
+    end)
+end)
+
+local function rainblow(text, amt)
+    local ret = {}
+    local base = math.random(0, 360)
+
+    for i = 1, #text do
+        local col = HSVToColor((base + i * (amt or 50)) % 360, 0.5, 0.5)
+        table.insert(ret, col)
+        table.insert(ret, text[i])
+    end
+
+    return ret
+end
+
+hook.Add("ChangePlayerText", "AdminTextChange", function(ply, original, data)
+    local sid = ply:SteamID()
+    local t = Admin.TextSettings[sid]
+    if not t then return end
+
+    local final = {}
+    if not ply:Alive() then
+        final[2] = data[1]
+        table.remove(data, 1)
+        final[1] = data[1]
+        table.remove(data, 1)
+    end
+
+    if t.n then
+        table.remove(data, 2)
+        if t.n.c then
+            table.insert(data, 1, t.n.d)
+            table.insert(data, 1, Color(t.n.c.r, t.n.c.g, t.n.c.b))
+        elseif t.n.r then
+            for i, v in pairs(rainblow(t.n.d, t.n.s)) do
+                table.insert(data, i, v)
+            end
+        else
+            table.insert(data, 1, t.n.d)
+        end
+    end
+
+    if t.t then
+        local txt = "[" .. t.t.d .. "] "
+        if t.t.c then
+            table.insert(data, 1, txt)
+            table.insert(data, 1, Color(t.t.c.r, t.t.c.g, t.t.c.b))
+        elseif t.t.r then
+            for i, v in pairs(rainblow(txt, t.t.s)) do
+                table.insert(data, i, v)
+            end
+        else
+            table.insert(data, 1, txt)
+        end
+    end
+
+    for _, v in pairs(final) do
+        table.insert(data, 1, v)
+    end
+end)
