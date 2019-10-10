@@ -39,18 +39,7 @@ function Game:ResetPlayers()
 end
 
 function Game:SetupBoss(ply)
-    local key
-    if Evil._NEXTBOSS then
-        key = Evil._NEXTBOSS
-        Evil._NEXTBOSS = nil
-    else
-        key = table.Random(table.GetKeys(Evil.Bosses))
-    end
-    local info = Evil.Bosses[key]
-    
-    Game:SetProfile(key)
-    Game:SetBoss(ply)
-    
+    local info = Game:GetProfileInfo()
     ply:SetTeam(TEAM_BOSS)
     ply:SetModel(info.model)
     ply:SetRunSpeed(info.runspeed)
@@ -100,8 +89,8 @@ function Game:SetupBoss(ply)
         end)
     end)
 
-    hook.Run("EvilPostBossSetup", key, ply)
-    Network:SendHook("EvilPostBossSetup", key, ply)
+    hook.Run("EvilPostBossSetup", Game:GetProfile(), ply)
+    Network:SendHook("EvilPostBossSetup", Game:GetProfile(), ply)
 end
 
 local lastChosenBoss
@@ -122,8 +111,25 @@ function Game:PreSetup()
     end
 
     lastChosenBoss = ply
-    Game:SetProfile(key)
     Game:SetBoss(ply)
+    ply:SetTeam(TEAM_BOSS)
+    
+    local key
+    if Evil._NEXTBOSS then
+        key = Evil._NEXTBOSS
+        Evil._NEXTBOSS = nil
+    else
+        key = table.Random(table.GetKeys(Evil.Bosses))
+    end
+    
+    Game:SetProfile(key)
+
+    // generic
+    for k, v in pairs(player.GetAll()) do
+        if Game:GetBoss() == v then continue end
+
+        v:SetTeam(TEAM_HUMAN)
+    end
 
     // gt
 
