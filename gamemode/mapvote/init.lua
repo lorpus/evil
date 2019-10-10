@@ -85,7 +85,14 @@ function MapVote:StartVote()
             net.WriteInt(N_MAPVOTE, Network.CmdBits)
             net.WriteTable({})
         net.Broadcast()
-        local winner = table.GetWinningKey(MapVote.Voted)
+        local winner = "extend" // extend if there are no votes
+        local c = 0
+        for map, votes in pairs(MapVote.Voted) do
+            if votes > c then
+                c = votes
+                winner = map
+            end
+        end
         dbg.print(winner)
         if winner == "extend" then
             Network:NotifyAll("#ExtendWon", true)
