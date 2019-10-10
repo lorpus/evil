@@ -1,6 +1,34 @@
 AddCSLuaFile("cl_init.lua")
 include("shared.lua")
 
+hook.Add("Initialize", "EvilCheckUpdates", function()
+    http.Fetch("https://uwu.tokyo/evil/version.json", function(body)
+        local js = util.JSONToTable(body)
+        local url = js.url
+        local nt = js.version:Split(".")
+        local ct = (GM and GM or GAMEMODE).Version:Split(".")
+        local nmajor, nminor, npatch = tonumber(nt[1]), tonumber(nt[2]), tonumber(nt[3])
+        local cmajor, cminor, cpatch = tonumber(ct[1]), tonumber(ct[2]), tonumber(ct[3])
+
+        local u = true
+        if nmajor > cmajor then
+            print(Lang:Format("#MajorUpdateAvailable", { url = url }))
+        elseif nminor > cminor then
+            print(Lang:Format("#MinorUpdateAvailable", { url = url }))
+        elseif npatch > cpatch then
+            print(Lang:Format("#PatchUpdateAvailable", { url = url }))
+        else
+            u = false
+        end
+
+        if u then
+            print(Lang:Format("#VersionCompare", { cur = (GM and GM or GAMEMODE).Version, new = js.version }))
+        else
+            print(Lang:Get("#UpToDate"))
+        end
+    end)
+end)
+
 hook.Add("Think", "KickJoinedPlayers", function() // may as well do it here cuz if someone is mid-join they wont get kicked (i dont think)
     if not Evil.bLocked then return end
     

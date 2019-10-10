@@ -78,6 +78,13 @@ Lang.Translations = {
         ["#Player_Joined"]                                  = "{{name}} connected",
         ["#Player_Left"]                                    = "{{name}} disconnected ({{reason}})",
         ["#Player_Left_NoReason"]                           = "{{name}} disconnected",
+        
+        // updates
+        ["#MajorUpdateAvailable"]                           = "A major update for the gamemode is available! Visit {{url}}",
+        ["#MinorUpdateAvailable"]                           = "A minor update for the gamemode is available! Visit {{url}}",
+        ["#PatchUpdateAvailable"]                           = "A patch update for the gamemode is available! Visit {{url}}",
+        ["#VersionCompare"]                                 = "You are on version {{cur}} while the latest is {{new}}",
+        ["#UpToDate"]                                       = "Your version is up to date!",
 
         // commands
         ["#InvalidCommand"]                                 = "That command doesn't exist",
