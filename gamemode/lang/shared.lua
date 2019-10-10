@@ -78,6 +78,7 @@ Lang.Translations = {
         ["#Player_Joined"]                                  = "{{name}} connected",
         ["#Player_Left"]                                    = "{{name}} disconnected ({{reason}})",
         ["#Player_Left_NoReason"]                           = "{{name}} disconnected",
+        ["#Collected"]                                      = "Collected",
         
         // updates
         ["#MajorUpdateAvailable"]                           = "A major update for the gamemode is available! Visit {{url}}",

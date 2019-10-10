@@ -8,37 +8,25 @@ surface.CreateFont("evilfont2", {
     size = ScreenScale(7),
 })
 
-// local centerPng
+local centerPng
 local matcache = {}
 local centerAlpha = 0
 local centerAlphaDir = 1.5
-timer.Create("AlphaTick", 0, 0, function()
-    if centerPng then
-        centerAlpha = math.Approach(centerAlpha, centerAlphaDir * 400, centerAlphaDir)
-    else
-        centerAlpha = 0
-        centerAlphaDir = 1.5
-    end
-end)
-local function Timer()
+
+local function RoundHUD()
     local nScrW, nScrH = ScrW(), ScrH()
-    local TimerW, TimerT = ScreenScale(60), ScreenScale(15)
-    local FontA, FontB = "evilfont2", "evilfont1"
-    local ColorA = Color(25, 25, 25)
-    
-    local nTimerValue = math.floor(Round:GetEndTime() - CurTime())
-    local TimerText = string.ToMinutesSeconds(math.floor(nTimerValue))
+    local tall = ScreenScale(15)
+
+    local text = string.ToMinutesSeconds(math.floor(math.floor(Round:GetEndTime() - CurTime())))
 
     if SR.ActiveRounds["countdown"] then return end
-    surface.SetFont(FontB)
-    local TextW, TextH = surface.GetTextSize(TimerText)
-    draw.DrawText(TimerText, FontB, nScrW / 2 - TextW / 2, TimerT / 2 - TextH / 2, Color(219, 255, 201))
-
-    if Game:GetGametype() == "pages" then
-        SubText = string.format("%s / %s Collected", GetGlobal2Int("PagesCollected"), GetGlobal2Int("PagesTotal"))
-    end
+    surface.SetFont("evilfont1")
+    local w, h = surface.GetTextSize(text)
+    draw.DrawText(text, "evilfont1", ScrW() / 2 - w / 2, tall / 2 - h / 2, Color(219, 255, 201))
 
     if centerPng then
+        centerAlpha = math.Approach(centerAlpha, centerAlphaDir * 26667 * RealFrameTime(), centerAlphaDir)
+
         if centerAlpha >= 400 then
             centerAlphaDir = -2
         elseif centerAlpha < 0 then
@@ -52,18 +40,21 @@ local function Timer()
         surface.SetMaterial(matcache[centerPng])
         surface.SetDrawColor(255, 255, 255, centerAlpha)
         surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
+    else
+        centerAlpha = 0
+        centerAlphaDir = 1.5
     end
 
-    if not SubText then return end
+    local subtext
+    if Game:GetGametype() == "pages" then
+        subtext = string.format("%s / %s " .. Lang:Get("#Collected"), GetGlobal2Int("PagesCollected"), GetGlobal2Int("PagesTotal"))
+    end
+    if not subtext then return end
 
-    local Awide, Atall = TimerW, TimerT / 2
-
-    surface.SetFont(FontA)
-    local TextW, TextH = surface.GetTextSize(SubText)
-    draw.DrawText(SubText, FontA, nScrW / 2 - TextW / 2, TimerT + (Atall / 2 - TextH / 2), Color(219, 255, 201))
+    surface.SetFont("evilfont2")
+    local w, h = surface.GetTextSize(subtext)
+    draw.DrawText(subtext, "evilfont2", ScrW() / 2 - w / 2, tall + (tall / 4 - h / 2), Color(219, 255, 201))
 end
-
-local Old = 0
 
 Evil.ShowTips = CreateClientConVar("evil_showtips", "1", true, false, "Show tips in the bottom left when dead")
 
@@ -94,10 +85,10 @@ hook.Add("HUDPaint", "DrawTips", function()
     end
 end)
 
-hook.Add("HUDPaint", "Screen_Attributes", function()
+hook.Add("HUDPaint", "EvilScreenStuff", function()
     if not SR.ActiveRounds["realism"] and not Evil.DrawingTauntMenu then
         if Round:IsPlaying() then
-            Timer()
+            RoundHUD()
         end
     end
 
