@@ -12,7 +12,7 @@ if SERVER then
     if not EVIL_BASE_CONTENT_INSTALLED then
         print("\n\n")
         for i = 1, 10 do
-            print(Lang:Format("#ServerNoContent", { num = "Base" }))
+            Evil.Log(Lang:Format("#ServerNoContent", { num = "Base" }))
         end
     end
 else // cli

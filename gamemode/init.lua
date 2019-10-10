@@ -12,19 +12,19 @@ hook.Add("Initialize", "EvilCheckUpdates", function()
 
         local u = true
         if nmajor > cmajor then
-            print(Lang:Format("#MajorUpdateAvailable", { url = url }))
+            Evil.Log(Lang:Format("#MajorUpdateAvailable", { url = url }))
         elseif nminor > cminor then
-            print(Lang:Format("#MinorUpdateAvailable", { url = url }))
+            Evil.Log(Lang:Format("#MinorUpdateAvailable", { url = url }))
         elseif npatch > cpatch then
-            print(Lang:Format("#PatchUpdateAvailable", { url = url }))
+            Evil.Log(Lang:Format("#PatchUpdateAvailable", { url = url }))
         else
             u = false
         end
 
         if u then
-            print(Lang:Format("#VersionCompare", { cur = (GM and GM or GAMEMODE).Version, new = js.version }))
+            Evil.Log(Lang:Format("#VersionCompare", { cur = (GM and GM or GAMEMODE).Version, new = js.version }))
         else
-            print(Lang:Get("#UpToDate"))
+            Evil.Log(Lang:Get("#UpToDate"))
         end
     end)
 end)

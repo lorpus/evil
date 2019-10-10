@@ -5,6 +5,10 @@ GM.Version = "0.1.0"
 
 Evil = Evil or {
     Cfg = {},
+    Log = function(...)
+        Msg("[EVIL]: ")
+        print(...)
+    end,
 }
 include("config.lua")
 ApplyConfiguration(Evil.Cfg)

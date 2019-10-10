@@ -33,7 +33,7 @@ end
 
 function MapVote:StartVote()
     if #MapVote.Roster > 0 then
-        return print("There was an attempt to start a map vote while one is already in progress")
+        return Evil.Log("There was an attempt to start a map vote while one is already in progress")
     end
 
     // dont show maps that will break everything if we switch to em

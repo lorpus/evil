@@ -7,12 +7,12 @@ Evil.PointshopItems = {
         SingleUse = true,
         AllowDead = true,
         OnBuy = function(self, ply)
-            print(ply, "buy beboss")
+            dbg.print(ply, "buy beboss")
             Evil._NEXTBOSSPLAYER = ply
             ply.evilPurchasedBoss = true
         end,
         OnSell = function(self, ply)
-            print(ply, "sell beboss")
+            dbg.print(ply, "sell beboss")
             Evil._NEXTBOSSPLAYER = nil
         end,
     }

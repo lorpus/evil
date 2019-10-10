@@ -11,7 +11,7 @@ end
 function Evil:RegisterBoss(key, data)
     if not istable(data) then return end
     if Evil.Bosses[key] then
-        return print(Lang:Format("#API_BossRegisterFailExists", { id = key }))
+        return Evil.Log(Lang:Format("#API_BossRegisterFailExists", { id = key }))
     end
 
     // check to make sure format of everything is right
@@ -21,7 +21,7 @@ function Evil:RegisterBoss(key, data)
     }) do
         local x = string.Split(v, ",")
         if not _G["is" .. x[1]](data[x[2]]) then // this is what we call good code
-            return print(Lang:Format("#API_BossRegisterFailKey", { id = key, key = x[2] }))
+            return Evil.Log(Lang:Format("#API_BossRegisterFailKey", { id = key, key = x[2] }))
         end
     end
 
@@ -37,7 +37,7 @@ function Evil:RegisterBoss(key, data)
     }) do
         local x = string.Split(v, ",")
         if data[x[2]] != nil and not _G["is" .. x[1]](data[x[2]]) then
-            return print(Lang:Format("#API_BossRegisterFailKey", { id = key, key = x[2] }))
+            return Evil.Log(Lang:Format("#API_BossRegisterFailKey", { id = key, key = x[2] }))
         end
     end
 
