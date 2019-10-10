@@ -286,7 +286,7 @@ Lang.Translations = {
     
         // tips
         ["#Tip"]                                            = "Tip: {{tip}}",
-        ["#Tip_1"]                                          = "As a human, you can't hear the bosses footsteps",
+        ["#Tip_1"]                                          = "As a human, you can't hear the boss's footsteps",
         ["#Tip_2"]                                          = "If you find a lantern as a human, pick it up and place it somewhere to try and trick the boss",
         ["#Tip_3"]                                          = "Don't want these tips? Type /tips. You can also turn them back on the same way",
         ["#Tip_4"]                                          = "Keep an eye out for things on the ground when you're a human, they can help you",
