@@ -33,11 +33,10 @@ local function FirstTimeGUI()
     frame:ShowCloseButton(false)
     frame:MakePopup()
     frame.Closing = false
-    
-    local lastCurTime = CurTime()
+
     local delta
     function frame:Paint(w, h)
-        delta = (CurTime() - lastCurTime)
+        delta = RealFrameTime()
         if overlay.ClosingFinished or help.Done then 
             if help.Clicked then
                 draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0))
@@ -162,13 +161,13 @@ end
 
 local globalAlpha = 0
 function Evil:ShowEndScreen()
-    local CurrentTimeShown = CurTime()
+    local CurrentTimeShown = SysTime()
     if frame then frame:Remove() end
 
     local ScrW, ScrH = ScrW(), ScrH()
     local PadX, PadY = ScreenScale(5), ScreenScale(5)
     local Players = player.GetAll()
-    local curTime = CurTime()
+    local curTime = SysTime()
 
     frame = vgui.Create("DFrame")
     frame:SetSize(ScrW, ScrH)
@@ -178,18 +177,16 @@ function Evil:ShowEndScreen()
     frame.fade = false
     frame.opaque = false
 
-    local lastCurTime = CurTime()
     local delta
     function frame:Paint(w, h)
-        delta = (CurTime() - lastCurTime) * 143
-        lastCurTime = CurTime()
+        delta = RealFrameTime() * 143
 
         frame.opaque = (globalAlpha >= 255)
         if not frame.fade then
             globalAlpha = math.Approach(globalAlpha, 255, nFadeSpeed * delta)
         else
             globalAlpha = math.Approach(globalAlpha, 0, nFadeSpeed * delta)
-            if globalAlpha == 0 then self:Remove() dbg.print("Time it took to show: " .. CurTime() - CurrentTimeShown) end
+            if globalAlpha == 0 then self:Remove() dbg.print("Time it took to show: " .. SysTime() - CurrentTimeShown) end
         end
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0, globalAlpha))
     end
@@ -272,7 +269,7 @@ function Evil:ShowEndScreen()
         end
 
         if frame.opaque then
-            if ((flPhase == 0 and (CurTime() - curTime > Delay)) or ((flPhase > 1) and (flPhase < 2))) then 
+            if ((flPhase == 0 and (SysTime() - curTime > Delay)) or ((flPhase > 1) and (flPhase < 2))) then 
                 
                 // das setup por phase 1
                 if flPhase == 0 then 
@@ -295,13 +292,13 @@ function Evil:ShowEndScreen()
 
                     self.fadeintext = true
 
-                    curTime = CurTime()
+                    curTime = SysTime()
                     flPhase = 1.1
                     if total == 0 then flPhase = 1.3 end
                 end
 
                 // time to position tha avatars in the right spot
-                if flPhase == 1.1 and (CurTime() - curTime > 1) then
+                if flPhase == 1.1 and (SysTime() - curTime > 1) then
                     local MainW, MainH = AvatarScale + PadX, AvatarScale + PadY
                     local maxColumns = math.Round((w - PadX * 16) / MainW)
                     local rowsMax = 1
@@ -332,16 +329,16 @@ function Evil:ShowEndScreen()
                         end
                     end
 
-                    curTime = CurTime()
+                    curTime = SysTime()
                     flPhase = 1.2
                 end
 
                 // time to do cool things with the avatars!! - aids
                 local AvatarFadeSpeed = nAvatarFadeSpeed / #Avatars
-                if flPhase == 1.2 and (CurTime() - curTime > AvatarFadeSpeed) then
+                if flPhase == 1.2 and (SysTime() - curTime > AvatarFadeSpeed) then
                     for n, panel in pairs(Avatars) do
                         if TempVar != n then continue end
-                        curTime = CurTime()
+                        curTime = SysTime()
                         panel.myturn = true
                     end
 
@@ -361,32 +358,32 @@ function Evil:ShowEndScreen()
                     end
                 end
 
-                if flPhase == 1.3 and CurTime() - curTime > 5 then
+                if flPhase == 1.3 and SysTime() - curTime > 5 then
                     self.fadeintext = false
                     for n, panel in pairs(Avatars) do
                         panel:SetAlpha(math.Approach(panel:GetAlpha(), 0, 2 * delta))
                         if n == #Avatars and panel:GetAlpha() == 0 then
                             flPhase = 2
-                            curTime = CurTime()
+                            curTime = SysTime()
                         end
                     end
                     
                     if #Avatars == 0 then
                         flPhase = 1.4
-                        curTime = CurTime()
+                        curTime = SysTime()
                     end
                 end
 
-                if flPhase == 1.4 and CurTime() - curTime > 0.1 then
+                if flPhase == 1.4 and SysTime() - curTime > 0.1 then
                     if #Avatars == 0 and self.textfadefinished then 
                         flPhase = 2 
-                        curTime = CurTime() 
+                        curTime = SysTime() 
                         centerText = false 
                     end
                 end
             end
 
-            if ((flPhase == 2 and (CurTime() - curTime > Delay)) or ((flPhase > 2) and (flPhase < 3))) then 
+            if ((flPhase == 2 and (SysTime() - curTime > Delay)) or ((flPhase > 2) and (flPhase < 3))) then 
                 
                 // das setup por phase 1
                 if flPhase == 2 then 
@@ -407,13 +404,13 @@ function Evil:ShowEndScreen()
 
                     self.fadeintext = true
 
-                    curTime = CurTime()
+                    curTime = SysTime()
                     flPhase = 2.1
                     if total == 0 then flPhase = 2.3 end
                 end
 
                 // time to position tha avatars in the right spot
-                if flPhase == 2.1 and (CurTime() - curTime > 1) then
+                if flPhase == 2.1 and (SysTime() - curTime > 1) then
                     local MainW, MainH = AvatarScale + PadX, AvatarScale + PadY
                     local maxColumns = math.Round((w - PadX * 16) / MainW)
                     local rowsMax = 1
@@ -445,16 +442,16 @@ function Evil:ShowEndScreen()
                         end
                     end
 
-                    curTime = CurTime()
+                    curTime = SysTime()
                     flPhase = 2.2
                 end
 
                 // time to do cool things with the avatars!! - aids
                 local AvatarFadeSpeed = nAvatarFadeSpeed / #Avatars
-                if flPhase == 2.2 and (CurTime() - curTime > AvatarFadeSpeed) then
+                if flPhase == 2.2 and (SysTime() - curTime > AvatarFadeSpeed) then
                     for n, panel in pairs(Avatars) do
                         if TempVar != n then continue end
-                        curTime = CurTime()
+                        curTime = SysTime()
                         panel.myturn = true
                     end
         
@@ -473,32 +470,32 @@ function Evil:ShowEndScreen()
                     end
                 end
 
-                if flPhase == 2.3 and CurTime() - curTime > 5 then
+                if flPhase == 2.3 and SysTime() - curTime > 5 then
                     self.fadeintext = false
                     for n, panel in pairs(Avatars) do
                         panel:SetAlpha(math.Approach(panel:GetAlpha(), 0, 2 * delta))
                         if n == #Avatars and panel:GetAlpha() == 0 then
                             flPhase = 3
-                            curTime = CurTime()
+                            curTime = SysTime()
                         end
                     end
 
                     if #Avatars == 0 then
                         flPhase = 2.4
-                        curTime = CurTime()
+                        curTime = SysTime()
                     end
                 end
 
-                if flPhase == 2.4 and CurTime() - curTime > 0.1 then
+                if flPhase == 2.4 and SysTime() - curTime > 0.1 then
                     if #Avatars == 0 and self.textfadefinished then 
                         flPhase = 3 
-                        curTime = CurTime() 
+                        curTime = SysTime() 
                         centerText = false 
                     end
                 end
             end
 
-            if ((flPhase == 3 and (CurTime() - curTime > Delay)) or ((flPhase > 3) and (flPhase < 4))) then
+            if ((flPhase == 3 and (SysTime() - curTime > Delay)) or ((flPhase > 3) and (flPhase < 4))) then
                 frame.fade = true
             end
         end

@@ -23,7 +23,7 @@ local function DisplayCycleReal(rightDisplay)
         end
         local displayThing
         if cycle then
-            displayThing = todisplay[math.floor(CurTime() * 10 % #todisplay) + 1]
+            displayThing = todisplay[math.floor(SysTime() * 10 % #todisplay) + 1]
         else
             local x = SR.SpecialRounds[rightDisplay]
             local name, desc = x.name, x.description
