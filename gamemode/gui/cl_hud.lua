@@ -8,15 +8,16 @@ surface.CreateFont("evilfont2", {
     size = ScreenScale(7),
 })
 
-local centerText
-local centerTextAlpha = 0
-local centerTextAlphaDir = 1.5
+// local centerPng
+local matcache = {}
+local centerAlpha = 0
+local centerAlphaDir = 1.5
 timer.Create("AlphaTick", 0, 0, function()
-    if centerText then
-        centerTextAlpha = math.Approach(centerTextAlpha, centerTextAlphaDir * 400, centerTextAlphaDir)
+    if centerPng then
+        centerAlpha = math.Approach(centerAlpha, centerAlphaDir * 400, centerAlphaDir)
     else
-        centerTextAlpha = 0
-        centerTextAlphaDir = 1.5
+        centerAlpha = 0
+        centerAlphaDir = 1.5
     end
 end)
 local function Timer()
@@ -37,15 +38,20 @@ local function Timer()
         SubText = string.format("%s / %s Collected", GetGlobal2Int("PagesCollected"), GetGlobal2Int("PagesTotal"))
     end
 
-    if centerText then
-        //dbg.print(centerTextAlpha, centerTextAlphaDir)
-        if centerTextAlpha >= 400 then
-            centerTextAlphaDir = -2
-        elseif centerTextAlpha < 0 then
-            centerText = nil
+    if centerPng then
+        if centerAlpha >= 400 then
+            centerAlphaDir = -2
+        elseif centerAlpha < 0 then
+            centerPng = nil
+            return
         end
-
-        draw.SimpleText(centerText, FontB, nScrW / 2, nScrH / 3, Color(255, 255, 255, centerTextAlpha), TEXT_ALIGN_CENTER)
+        
+        if not matcache[centerPng] then
+            matcache[centerPng] = Material(centerPng, "smooth")
+        end
+        surface.SetMaterial(matcache[centerPng])
+        surface.SetDrawColor(255, 255, 255, centerAlpha)
+        surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
     end
 
     if not SubText then return end
@@ -214,11 +220,12 @@ end
 hook.Add("RoundSet", "EvilStartInstructions", function(round)
     if round != ROUND_PLAYING then return end
     local gt = Game:GetGametype()
+    print(LocalPlayer():IsBoss())
     if gt == "pages" then
         if LocalPlayer():IsHuman() then
-            centerText = Lang:Format("#CollectPages", { count = GetGlobal2Int("PagesTotal") })
+            centerPng = "evil/evil.png"
         elseif LocalPlayer():IsBoss() then
-            centerText = Lang:Format("#StopHumansPages", { count = GetGlobal2Int("PagesTotal") })
+            centerPng = "evil/evil_monster.png"
         end
     end
 
