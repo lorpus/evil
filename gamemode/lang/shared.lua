@@ -104,6 +104,12 @@ Lang.Translations = {
         ["#HowToAttack_A"]                                  = "Hold left click to attack!",
         ["#HowToTaunt"]                                     = "Press {{key}} to taunt",
         ["#HowToAbility"]                                   = "Right click to use your ability!",
+        ["#YouAreTheBoss"]                                  = "YOU ARE THE BOSS",
+        ["#FindTheHumans"]                                  = "FIND THE HUMANS",
+        ["#AndKillThem"]                                    = "AND KILL THEM",
+        ["#YouAreAHuman"]                                   = "YOU ARE A HUMAN",
+        ["#CollectAllPages"]                                = "COLLECT ALL {{count}} PAGES",
+        ["#AvoidTheEvil"]                                   = "AVOID THE EVIL",
 
         // map vote/map names
         ["#MapVote"]                                        = "Map Vote! ({{secs}}s)",
