@@ -103,6 +103,53 @@ local function rainblow(text, amt)
     return ret
 end
 
+local hex = { A = 1, B = 1, C = 1, D = 1, E = 1, F = 1, ["0"] = 1, ["1"] = 1, ["2"] = 1, ["3"] = 1, ["4"] = 1, ["5"] = 1, ["6"] = 1, ["7"] = 1, ["8"] = 1, ["9"] = 1 }
+local function ValidHexColor(col)
+	if #col != 7 then return false end
+	if col[1] != "#" then return false end
+	for i, c in ipairs(col:Split("")) do
+		if i == 1 then continue end
+		if not hex[c:upper()] then return false end
+	end
+	return true
+end
+
+local function HexToColor(hex)
+	local r = tonumber(hex[2] .. hex[3], 16)
+	local g = tonumber(hex[4] .. hex[5], 16)
+	local b = tonumber(hex[6] .. hex[7], 16)
+	return Color(r, g, b)
+end
+
+local function ParseColoredText(text, limitstart)
+	local ret = {}
+	local splote = text:Split("")
+
+	local skip = 1
+	for k, v in ipairs(splote) do
+		if k < skip then continue end
+		if v == "#" then
+			if limitstart then
+				if k != 1 then continue end
+			end
+
+			local test = table.concat(splote, "", k, k + 6)
+			if ValidHexColor(test) then
+				if k != 1 then
+					table.insert(ret, table.concat(splote, "", skip, k - 1))
+				end
+				table.insert(ret, HexToColor(test))
+				skip = k + 7
+			end
+		end
+	end
+	if skip <= #splote then
+		table.insert(ret, table.concat(splote, "", skip))
+	end
+
+	return ret
+end
+
 hook.Add("ChangePlayerText", "AdminTextChange", function(ply, original, data)
     local sid = ply:SteamID()
     local t = Admin.TextSettings[sid]
@@ -118,29 +165,60 @@ hook.Add("ChangePlayerText", "AdminTextChange", function(ply, original, data)
 
     if t.n then
         table.remove(data, 2)
-        if t.n.c then
-            table.insert(data, 1, t.n.d)
-            table.insert(data, 1, Color(t.n.c.r, t.n.c.g, t.n.c.b))
-        elseif t.n.r then
-            for i, v in pairs(rainblow(t.n.d, t.n.s)) do
+        if t.n.f then
+            local parsed = ParseColoredText(t.n.f)
+            for i, v in ipairs(parsed) do
                 table.insert(data, i, v)
             end
-        else
-            table.insert(data, 1, t.n.d)
+        elseif t.n.d then
+            if t.n.c then
+                table.insert(data, 1, t.n.d)
+                table.insert(data, 1, Color(t.n.c.r, t.n.c.g, t.n.c.b))
+            elseif t.n.r then
+                for i, v in pairs(rainblow(t.n.d, t.n.s)) do
+                    table.insert(data, i, v)
+                end
+            else
+                table.insert(data, 1, t.n.d)
+            end
         end
     end
 
     if t.t then
-        local txt = "[" .. t.t.d .. "] "
-        if t.t.c then
-            table.insert(data, 1, txt)
-            table.insert(data, 1, Color(t.t.c.r, t.t.c.g, t.t.c.b))
-        elseif t.t.r then
-            for i, v in pairs(rainblow(txt, t.t.s)) do
-                table.insert(data, i, v)
+        if t.t.f then
+            local text = t.t.f
+            local o = 0
+            local b
+            if not text:find("%[") then
+                // o = 1
+                text = "#e8e8e8[" .. text
+                // table.insert(data, 1, Color(200, 200, 200))
             end
-        else
-            table.insert(data, 1, txt)
+            if not text:find("%]") then
+                text = text .. "#e8e8e8]"
+                // b = true
+            end
+            text = text .. " "
+            local parsed = ParseColoredText(text)
+            for i, v in ipairs(parsed) do
+                table.insert(data, o + i, v)
+            end
+            /*table.insert(data, o + 1 + #parsed, " ")
+            if b then
+                table.insert(data, #parsed + 2, Color(200, 200, 200))
+            end*/
+        elseif t.t.d then
+            local txt = "[" .. t.t.d .. "] "
+            if t.t.c then
+                table.insert(data, 1, txt)
+                table.insert(data, 1, Color(t.t.c.r, t.t.c.g, t.t.c.b))
+            elseif t.t.r then
+                for i, v in pairs(rainblow(txt, t.t.s)) do
+                    table.insert(data, i, v)
+                end
+            else
+                table.insert(data, 1, txt)
+            end
         end
     end
 
