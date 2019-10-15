@@ -14,7 +14,7 @@ local configuration = {
     },
 
     Pointshop = {
-        Integration = "burton",
+        Integration = nil,
         Prices = {
             beboss = 100,
         },
