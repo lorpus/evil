@@ -30,6 +30,7 @@ function Game:ResetPlayer(ply)
     Classes:ClearPlayerClass(ply)
     Traits:ClearTraits(ply)
     ply:StopSpectating()
+    ply.bDontAskForProxy = false
 end
 
 function Game:ResetPlayers()

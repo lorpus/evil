@@ -88,7 +88,7 @@ local function ReceiveHandler(len, ply)
     if cmd == N_TAUNT then
         Game:TauntNetHandler(len, ply)
     elseif cmd == N_PROXYASK then
-        Proxy:HandleResponse(ply, net.ReadBool())
+        Proxy:HandleResponse(ply, net.ReadInt(3))
     elseif cmd == N_ABILITY then
         Abilities:NetHandler(len, ply)
     elseif cmd == N_MAPVOTE then

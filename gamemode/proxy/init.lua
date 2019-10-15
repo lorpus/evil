@@ -62,11 +62,14 @@ function Proxy:Cleanup(ply)
     Network:SendHook("ProxyFinish", ply)
 end
 
-function Proxy:HandleResponse(ply, bAccept)
-    dbg.print(ply, bAccept)
-    if bAccept and ply.bProxyBeingAsked then
+function Proxy:HandleResponse(ply, accept)
+    dbg.print(ply, accept)
+    if accept == 1 and ply.bProxyBeingAsked then
         Proxy:Setup(ply)
+    elseif accept == -1 then
+        ply.bDontAskForProxy = true
     end
+    ply.bProxyBeingAsked = nil
 end
 
 timer.Create("ProxyAsk", Evil.Cfg.ProxyAskInterval, 0, function()
@@ -76,7 +79,9 @@ timer.Create("ProxyAsk", Evil.Cfg.ProxyAskInterval, 0, function()
 
     for k, v in RandomPairs(Game:GetDead()) do
         if k > 3 then return end
-        Proxy:AskToBeProxy(v)
+        if not v.bDontAskForProxy then
+            Proxy:AskToBeProxy(v)
+        end
     end
 end)
 

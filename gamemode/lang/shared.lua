@@ -79,7 +79,13 @@ Lang.Translations = {
         ["#Player_Left"]                                    = "{{name}} disconnected ({{reason}})",
         ["#Player_Left_NoReason"]                           = "{{name}} disconnected",
         ["#Collected"]                                      = "Collected",
-        
+
+        // proxy
+        ["#Accept"]                                         = "Accept",
+        ["#Deny"]                                           = "Deny",
+        ["#DontAsk"]                                        = "Don't Ask",
+        ["#CanBeProxy"]                                     = "You may become a proxy",
+
         // updates
         ["#MajorUpdateAvailable"]                           = "A major update for the gamemode is available! Visit {{url}}",
         ["#MinorUpdateAvailable"]                           = "A minor update for the gamemode is available! Visit {{url}}",
