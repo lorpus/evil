@@ -109,6 +109,16 @@ hook.Add("ShouldCollide", "EvilPlayerNoCollide", function(e1, e2)
         return e1:Team() != e2:Team()
     end
 
+    if e1:IsPlayer() and e1:IsBoss() then
+        if e2:GetClass() == "evil_collectable" then
+            return false
+        end
+    elseif e2:IsPlayer() and e2:IsBoss() then
+        if e1:GetClass() == "evil_collectable" then
+            return false
+        end
+    end
+
     return true // fuck you
 end)
 
