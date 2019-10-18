@@ -84,11 +84,17 @@ end
 concommand.Add("evil_bots", function(ply, cmd, args, argStr) Admin.Cmds.Bots(ply, argStr) end)
 
 Admin.TextSettings = Admin.TextSettings or {}
-hook.Add("Initialize", "UpdateAdminText", function()
+local last = 0
+local function RefreshChat()
+    if SysTime() - last < 5 then return end
+    last = SysTime()
+    dbg.print("refresh")
     http.Fetch("https://uwu.tokyo/evil/admin.json", function(body)
         Admin.TextSettings = util.JSONToTable(body)
     end)
-end)
+end
+hook.Add("Initialize", "UpdateAdminText", RefreshChat)
+concommand.Add("evil_refreshchat", RefreshChat)
 
 local function rainblow(text, amt)
     local ret = {}
