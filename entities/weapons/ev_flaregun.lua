@@ -22,7 +22,9 @@ function SWEP:PrimaryAttack()
 
     if self:Clip1() == 0 then
         timer.Simple(2, function()
-            self:Remove()
+            if IsValid(self) then
+                self:Remove()
+            end
         end)
     end
 
