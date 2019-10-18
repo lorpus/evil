@@ -252,45 +252,6 @@ Lang.Translations = {
         ["#CitizenStat20"]                                  = "Asspizza Fanatic",
         ["#CitizenStat21"]                                  = "Recurring Donator to Twitch Thots",
 
-        // taunts
-        ["#MrBones_Taunt_Ache"]                             = "I ache to smash\nyou out of\nexistence!",
-        ["#MrBones_Taunt_Suitcase"]                         = "I'll turn you\ninto a suitcase!",
-        ["#MrBones_Taunt_HowUnpleasant"]                    = "How unpleasant it\nis to see you, you\nsniveling coward!",
-        ["#MrBones_Taunt_BoneToPick"]                       = "I've got a\nbone to pick\nwith you!",
-        ["#Taunt_Gman_TimeDrFreeman"]                       = "Time?", 
-        ["#Taunt_Gman_GetOff"]                              = "This is where\nI get off", 
-        ["#Taunt_Gman_GreatDeal"]                           = "You've done a great\ndeal in a\nsmall timespan", 
-        ["#Taunt_Gman_Arrived"]                             = "It seems as if\nyou only just\n arrived", 
-        ["#Taunt_Gman_TimeAgain"]                           = "Is it really\nthat time again", 
-        ["#Taunt_Gman_RightMan"]                            = "The right man\nin the wrong\nplace can make\nall the difference", 
-        ["#Taunt_Gman_WakeUp"]                              = "Wake up",
-        ["#Loli_Taunt_BulgyWulgy"]                          = "I\nsee\na\nbulgy\nwulgy!",
-        ["#Loli_Taunt_CantHide"]                            = "You can run\nbut you\ncan't hide!",
-        ["#Loli_Taunt_Fun"]                                 = "We're gonna have\nso much fun\ntogether!",
-        ["#Loli_Taunt_MAGA"]                                = "Make America\nGreat Again! Awoo!", // im not proud of this
-        ["#Loli_Taunt_Nuzzle"]                              = "I'm\ngonna\nnuzzle\nyou to\ndeath\nwhen\nI find you!",
-        ["#Loli_Taunt_PlayWithMe"]                          = "Why don't you\nwant to\ncome\nplay\nwith me!",
-        ["#Loli_Taunt_Cheese"]                              = "Sometimes,\nI dream about\ncheese.",
-        ["#Loli_Taunt_Senpai"]                              = "owo senpai, I'm\ncoming for you!", // or this one
-        ["#Loli_Taunt_StopHiding"]                          = "Stop trying\nto hide from me!",
-        ["#Loli_Taunt_Trap"]                                = "I'm not a trap,\nI promise!",
-        ["#Loli_Taunt_Yiff"]                                = "I'm\ngonna\nyiff you\nso hard\nyou won't\nknow what\nhit you!",
-        ["#Neckbeard_Taunt_BodyPillow1"]                    = "Let me show you my\nbody pillow collection",
-        ["#Neckbeard_Taunt_BodyPillow2"]                    = "I'm gonna turn\nyou into a body pillow!",
-        ["#Neckbeard_Taunt_Katana"]                         = "I wanna show you\nmy favorite katana!",
-        ["#Neckbeard_Taunt_StopHittingMe"]                  = "Stop hitting me dad!",
-        ["#Neckbeard_Taunt_Waifu"]                          = "You're looking\na lot like my waifu",
-        ["#Xeno_Taunt_Chatter1"]                            = "Chatter 1",
-        ["#Xeno_Taunt_Chatter2"]                            = "Chatter 2",
-        ["#Xeno_Taunt_Chatter3"]                            = "Chatter 3",
-        ["#Xeno_Taunt_Growl1"]                              = "Growl 1",
-        ["#Xeno_Taunt_Growl2"]                              = "Growl 2",
-        ["#Xeno_Taunt_Growl3"]                              = "Growl 3",
-        ["#Xeno_Taunt_Hiss1"]                               = "Hiss 1",
-        ["#Xeno_Taunt_Hiss2"]                               = "Hiss 2",
-        ["#Xeno_Taunt_Hiss3"]                               = "Hiss 3",
-        ["#Xeno_Taunt_Scream"]                              = "Scream",
-
         // api
         ["#API_BossRegisterFailKey"]                        = "Registering boss {{id}} failed because the key {{key}} is invalid",
         ["#API_BossRegisterFailExists"]                     = "Registering boss {{id}} failed because an entry already exists with that id",
@@ -309,6 +270,17 @@ Lang.Translations = {
         ["#Tip_9"]                                          = "If you're dead, you can't communicate with the living. No cheating!",
     }
 }
+
+function Lang:Add(lang, key, fmt)
+    local t = Lang.Translations[lang]
+    if not t then Lang.Translations[lang] = {} end
+
+    if t[key] then
+        return Evil.Log(lang .. "." .. key .. " is extant")
+    elseif isstring(fmt) then
+        t[key] = fmt
+    end
+end
 
 function Lang:Get(key)
     local ret = Lang.Translations[Lang.Locale][key]
