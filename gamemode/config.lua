@@ -2,11 +2,11 @@
 AddCSLuaFile()
 
 local configuration = {
-    Debug = true,    // set to true to enable debugging and lots of verbosity
+    Debug = false,    // set to true to enable debugging and lots of verbosity
 
     ServerLanguage = "en",
 
-    DisableAFK = true,
+    DisableAFK = false,
 
     MainMenu = {
         TitleText = "Evil",
