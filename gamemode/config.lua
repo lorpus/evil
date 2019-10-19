@@ -16,7 +16,7 @@ local configuration = {
     Pointshop = {
         Integration = nil,
         Prices = {
-            beboss = 100,
+            beboss = 1000,
         },
     },
 
