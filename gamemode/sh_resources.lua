@@ -11,4 +11,9 @@ else
     if not EVIL_BASE_CONTENT_INSTALLED then
         Evil:AddTextChat(Lang:Format("#ClientNoContent", { num = "Base" }))
     end
+
+    if not cookie.GetNumber("EvilHasPlayed") then
+        Evil:AddTextChat(Lang:Get("#FirstTimeResources"))
+        cookie.Set("EvilHasPlayed", "1")
+    end
 end

@@ -79,6 +79,7 @@ Lang.Translations = {
         ["#Player_Left"]                                    = "{{name}} disconnected ({{reason}})",
         ["#Player_Left_NoReason"]                           = "{{name}} disconnected",
         ["#Collected"]                                      = "Collected",
+        ["#FirstTimeResources"]                             = "This seems to be your first time on Evil! You may need to restart Garry's Mod just once to avoid some content errors!",
 
         // proxy
         ["#Accept"]                                         = "Accept",
