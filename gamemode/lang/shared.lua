@@ -66,7 +66,7 @@ Lang = Lang or {
     }
 }
 
-Lang.Translations = {
+Lang.Translations = Lang.Translations or {
     en = {
         // generic things
         ["#Help"]                                           = "Help",
