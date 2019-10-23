@@ -196,7 +196,7 @@ local function RequestPlayTaunt(taunt)
 end
 
 hook.Add("Think", "TauntHUD", function()
-    if gui.IsConsoleVisible() or gui.IsGameUIVisible() or LocalPlayer():IsTyping() then return end
+    if gui.IsConsoleVisible() or gui.IsGameUIVisible() or eutil.IsChatOpen() then return end
 
     if input.IsKeyDown(KEY_R) and not lastDown and (LocalPlayer():IsBoss() or LocalPlayer():IsProxy()) then
         lastDown = true

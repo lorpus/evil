@@ -80,6 +80,7 @@ function MapVote:ShowVoteUI(recv)
     local selectedIndex = 0
     local lastDown = {}
     function frame:Think()
+        if eutil.IsChatOpen() then return end
         for i = 1, #recv + 1 do
             if input.IsKeyDown(KEY_0 + i) and not lastDown[i] then
                 if selectedIndex == i then continue end

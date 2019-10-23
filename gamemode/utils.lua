@@ -38,6 +38,17 @@ function eutil.NewlineText(str, count)
     return table.concat(lines, "\n")
 end
 
+local isChatOpen = false
+hook.Add("StartChat", "eutilTrackChat", function()
+    isChatOpen = true
+end)
+hook.Add("FinishChat", "eutilTrackChat", function()
+    isChatOpen = false
+end)
+function eutil.IsChatOpen()
+    return isChatOpen
+end
+
 // outline system adopted from https://github.com/Facepunch/garrysmod/pull/1590
 
 if not CLIENT then return end
