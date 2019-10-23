@@ -15,7 +15,7 @@ SWEP.Primary.DefaultClip    = -1
 SWEP.Primary.Automatic      = false
 SWEP.Primary.Ammo           = "none"
 
-SWEP.ThrowDelay = 3
+SWEP.ThrowDelay = 1.5
 
 function SWEP:Initialize()
     self:SetHoldType("grenade")
