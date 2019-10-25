@@ -1,5 +1,5 @@
 if SERVER then
-    resource.AddWorkshop("1885257980") // base content
+    resource.AddWorkshop("1897873115") // base content
     
     if not EVIL_BASE_CONTENT_INSTALLED then
         print("\n\n")
