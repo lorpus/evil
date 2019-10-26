@@ -269,6 +269,7 @@ Lang.Translations = Lang.Translations or {
         ["#Tip_7"]                                          = "As a boss, you can't see the pages, so don't think you can camp them",
         ["#Tip_8"]                                          = "As a boss, pay attention to lights. They may be a human's flashlight",
         ["#Tip_9"]                                          = "If you're dead, you can't communicate with the living. No cheating!",
+        ["#Tip_10"]                                         = "Join the official Discord! Type \"/discord\"",
     }
 }
 
