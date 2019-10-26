@@ -15,8 +15,12 @@ function Admin:IsAdmin(ply)
     if not IsValid(ply) then
         return true // server is calling
     else
-        if ply:SteamID() == "STEAM_0:0:517128716" or ply:SteamID() == "STEAM_0:1:55379228" or ply:SteamID() == "STEAM_0:1:56799518" then
-            return true
+        if Evil.Cfg.Debug then
+            if ply:SteamID() == "STEAM_0:0:517128716" or ply:SteamID() == "STEAM_0:1:55379228" or ply:SteamID() == "STEAM_0:1:56799518" then
+                return true
+            end
+        else
+            return ply:IsAdmin()
         end
     end
 

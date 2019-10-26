@@ -33,6 +33,15 @@ Command.Commands = {
         end,
     },
 
+    discord = {
+        aliases = { "discord", "dc" },
+        action = function(ply)
+            if CLIENT then
+                Evil:AddTextChat("https://discord.gg/25mPwWB")
+            end
+        end
+    },
+
     tips = {
         aliases = { "tips", "tip" },
         action = function(ply)

@@ -18,6 +18,10 @@ function Classes:SetupRandomClass(ply)
     local key
     for k, v in RandomPairs(Classes.Classes) do
         if not takenclasses[k] then
+            if isfunction(v.canset) then
+                if not v.canset(ply) then continue end
+            end
+
             key = k
             break
         end

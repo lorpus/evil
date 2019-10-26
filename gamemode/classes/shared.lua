@@ -131,6 +131,10 @@ Classes.Classes = {
             if not SERVER then return end
             ply:SetNW2Bool("EvilForceESP", false)
         end,
+
+        canset  = function(ply)
+            return #player.GetAll() > 5
+        end,
     },
 
     sealteam = {

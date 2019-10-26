@@ -20,6 +20,8 @@ local sHelp = Evil.Cfg.MainMenu.HelpText
 local nFadeSpeed = 6
 local nAvatarFadeSpeed = 2
 
+local frame
+
 local function FirstTimeGUI()
     local sw, sh = ScrW(), ScrH()
     frame = vgui.Create("DFrame")
@@ -174,6 +176,7 @@ function Evil:ShowEndScreen()
     frame:ShowCloseButton(false)
     frame:SetTitle("")
     frame:SetDraggable(false)
+    frame:ParentToHUD()
     frame.fade = false
     frame.opaque = false
 
