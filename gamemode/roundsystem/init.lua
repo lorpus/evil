@@ -41,6 +41,14 @@ function Round:StartGame()
     local ply, gametype = Game:PreSetup()
 
     timer.Simple(1, function()
+        if #player.GetAll() < 2 then
+            return Round:WaitForPlayers()
+        end
+
+        if not IsValid(ply) then
+            return Round:StartGame()
+        end
+
         Game:SetupBoss(ply)
         Game:StartGametype(gametype)
 
