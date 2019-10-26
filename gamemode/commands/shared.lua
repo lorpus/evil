@@ -37,7 +37,7 @@ Command.Commands = {
         aliases = { "discord", "dc" },
         action = function(ply)
             if CLIENT then
-                Evil:AddTextChat("Come join! https://discord.gg/25mPwWB")
+                Evil:AddTextChat("https://discord.gg/25mPwWB")
             end
         end
     },
