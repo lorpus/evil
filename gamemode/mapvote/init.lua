@@ -38,7 +38,6 @@ function MapVote:StartVote()
 
     // dont show maps that will break everything if we switch to em
     local configuredmaps = file.Find(GAMEMODE.FolderName .. "/gamemode/maps/*.lua", "LUA")
-    PrintTable(configuredmaps)
 
     // get maps
     local maps = {}
