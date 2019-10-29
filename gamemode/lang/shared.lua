@@ -109,7 +109,7 @@ Lang.Translations = Lang.Translations or {
         // gui
         ["#YouAreBoss"]                                     = "You are {{name}}!",
         ["#HowToAttack_A"]                                  = "Hold left click to attack!",
-        ["#HowToTaunt"]                                     = "Press {{key}} to taunt",
+        ["#HowToTaunt"]                                     = "Hold {{key}} to taunt",
         ["#HowToAbility"]                                   = "Right click to use your ability!",
         ["#YouAreTheBoss"]                                  = "YOU ARE THE BOSS",
         ["#FindTheHumans"]                                  = "FIND THE HUMANS",
