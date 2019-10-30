@@ -407,6 +407,14 @@ function GM:PlayerCanHearPlayersVoice(listener, speaker)
 	end
 end
 
+function GM:PlayerCanSeePlayersChat(text, isTeam, receiver, sender)
+    if receiver:Alive() and not sender:Alive() then // living cant hear dead
+        return false
+    end
+    
+    return true
+end
+
 function GM:SetupPlayerVisibility(viewer, viewent)
     for _, ply in pairs(player.GetAll()) do
         local cansee = Game:CanESP(viewer, ply)
