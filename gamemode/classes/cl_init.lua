@@ -73,11 +73,7 @@ local function OverrideVoiceNames()
     local orig = VoiceNotify.Think
     VoiceNotify.Think = function(self)
         if IsValid(self.ply) then
-            if self.ply:Alive() and self.ply:IsHuman() then
-                self.LabelName:SetText(self.ply:GetNW2String("ClassName"))
-            else
-                self.LabelName:SetText(self.ply:Nick())
-            end
+            self.LabelName:SetText(self.ply:EvilName())
         end
 
         if self.fadeAnim then

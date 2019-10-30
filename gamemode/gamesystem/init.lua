@@ -351,11 +351,7 @@ function GM:PlayerSay(ply, text, isTeam)
     local col = ply:GetPlayerColor()
     col = Color(col.x * 255, col.y * 255, col.z * 255)
     table.insert(tab, col)
-    if ply:Alive() and ply:IsHuman() then
-        table.insert(tab, ply:GetNW2String("ClassName"))
-    else
-        table.insert(tab, ply:Nick())
-    end
+    table.insert(tab, ply:EvilName())
     table.insert(tab, color_white)
     table.insert(tab, ": ")
     table.insert(tab, text)

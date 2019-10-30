@@ -79,8 +79,7 @@ hook.Add("HUDPaint", "EvilScreenStuff", function()
     if not (pos2:Distance(pos1) < 300) then return end
     surface.SetFont("evilfont2")
     local TextW, TextH = surface.GetTextSize(ent:GetName())
-    local name = ent:GetNW2String("ClassName")
-    if name == "" then name = ent:Nick() end
+    local name = ent:EvilName()
     draw.DrawText(name, "evilfont2", ScrW() / 2 - TextW / 2, ScrH() / 2 - TextH / 2 + ScreenScale(15), Color(255, 150, 150))
 end)
 

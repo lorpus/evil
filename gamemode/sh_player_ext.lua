@@ -39,3 +39,11 @@ end
 function PLAYER:IsSpecTeam() // avoid confusion
 	return self:Team() == TEAM_SPEC
 end
+
+function PLAYER:EvilName()
+	if self:Alive() and self:IsHuman() then
+        return self:GetNW2String("ClassName")
+    else
+        return self:Nick()
+    end
+end
