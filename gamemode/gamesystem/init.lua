@@ -359,6 +359,20 @@ function GM:PlayerSay(ply, text, isTeam)
 
     hook.Run("ChangePlayerText", ply, text, tab)
 
+    local receivers = { ply }
+    for _, v in ipairs(player.GetAll()) do
+        local r = hook.Run("PlayerCanSeePlayersChat", text, isTeam, v, ply)
+        if r == nil then
+            table.insert(receivers, v)
+        elseif r != nil and r == true then
+            table.insert(receivers, v)
+        elseif r != nil and r == false then
+            // no
+        elseif r then
+            table.insert(receivers, v)
+        end
+    end
+
     net.Start(Network.Id)
         net.WriteInt(N_NOTIFY, Network.CmdBits)
         net.WriteString("")
@@ -366,7 +380,7 @@ function GM:PlayerSay(ply, text, isTeam)
         net.WriteBool(false)
         net.WriteBool(true)
         net.WriteTable(tab)
-    net.Broadcast()
+    net.Send(receivers)
 
     return ""
 end
