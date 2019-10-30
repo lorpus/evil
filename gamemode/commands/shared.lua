@@ -50,6 +50,15 @@ Command.Commands = {
             end
         end
     },
+
+    esp = {
+        aliases = { "esp" },
+        action = function(ply)
+            if CLIENT then
+                Evil.DrawSpecESP:SetBool(not Evil.DrawSpecESP:GetBool())
+            end
+        end
+    },
 }
 
 for k, v in pairs(Command.Commands) do

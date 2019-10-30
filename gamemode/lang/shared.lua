@@ -271,6 +271,7 @@ Lang.Translations = Lang.Translations or {
         ["#Tip_9"]                                          = "If you're dead, you can't communicate with the living. No cheating!",
         ["#Tip_10"]                                         = "Join the official Discord! Type \"/discord\"",
         ["#Tip_11"]                                         = "You can type \"/ghost\" if you're dead and explore the map without interfering",
+        ["#Tip_12"]                                         = "As a spectator, you can use the \"/esp\" command to see all players and pages!",
     }
 }
 

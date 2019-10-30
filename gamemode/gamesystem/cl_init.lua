@@ -1,3 +1,5 @@
+Evil.DrawSpecESP = CreateClientConVar("evil_draw_spec_esp", "0", true, false, "Draw ESP on pages and players while spectator")
+
 local bossMusicChannel // map cleanup invalidates this i think!!11
 function Game:StartBossProximityMusic(snd)
 	sound.PlayFile("sound/" .. snd, "3d", function(chan, errId, errName)
@@ -122,16 +124,27 @@ function Game:DrawESP(ent)
 	render.SetStencilEnable(false)
 end
 
-hook.Add("PostDrawOpaqueRenderables", "EvilBossESP", function()
+hook.Add("PostDrawOpaqueRenderables", "EvilESP", function()
     local pos = LocalPlayer():EyePos() + LocalPlayer():EyeAngles():Forward() * 10
     local ang = LocalPlayer():EyeAngles()
     ang = Angle(ang.p + 90, ang.y, 0)
 
-    for _, ply in pairs(player.GetAll()) do
-        if not (ply:GetNW2Bool("EvilForceESP") and LocalPlayer():IsBoss()) and not Game:CanESP(LocalPlayer(), ply) then continue end
-		if not ply:Alive() then continue end
+    for _, ent in ipairs(ents.GetAll()) do // findbyclass enumerates over this, so its faster to just do it once
+        if ent:IsPlayer() then
+			if LocalPlayer():IsSpectating() and Evil.DrawSpecESP:GetBool() then
+				Game:DrawESP(ent)
+				continue
+			end
 
-        Game:DrawESP(ply)
+			if not (ent:GetNW2Bool("EvilForceESP") and LocalPlayer():IsBoss()) and not Game:CanESP(LocalPlayer(), ent) then continue end
+			if not ent:Alive() then continue end
+
+			Game:DrawESP(ent)
+		elseif ent:GetClass() == "evil_page" then
+			if LocalPlayer():IsSpectating() and Evil.DrawSpecESP:GetBool() then
+				Game:DrawESP(ent)
+			end
+		end
     end
 end)
 
