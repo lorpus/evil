@@ -5,7 +5,7 @@ Collectable.Collectables = {
         mdl = "models/props_combine/breenclock.mdl",
         oncollect = function(collector)
             if not SERVER then return end
-            Network:NotifyAll("#Clock_Collect", true, { name = collector:Nick() })
+            Network:NotifyAll("#Clock_Collect", true, { name = collector:EvilName() })
             Round:AddTime(60)
         end,
     },
@@ -75,7 +75,7 @@ Collectable.Collectables = {
             if #dead == 0 then
                 Network:Notify(collector, "#Skull_NoPlayers", true)
             else
-                Network:NotifyAll("#Skull_Revive", true, { name = collector:Nick() })
+                Network:NotifyAll("#Skull_Revive", true, { name = collector:EvilName() })
                 local ply = dead[math.random(#dead)]
                 Game:ResetPlayer(ply)
                 Game:SetupHuman(ply)
