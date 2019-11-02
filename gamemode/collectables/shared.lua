@@ -68,7 +68,7 @@ Collectable.Collectables = {
             if not SERVER then return end
             local dead = {}
             for _, ply in pairs(player.GetAll()) do
-                if not ply:Alive() and ply:GetNW2Bool("HasSpawned") then
+                if (not ply:Alive() or ply:IsGhost()) and ply:GetNW2Bool("HasSpawned") then
                     table.insert(dead, ply)
                 end
             end
