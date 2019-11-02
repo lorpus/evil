@@ -72,6 +72,7 @@ hook.Add("HUDPaint", "EvilScreenStuff", function()
     if ent == LocalPlayer() then return end
     if ent:IsBoss() then return end
     if LocalPlayer():IsBoss() then return end
+    if ent:IsGhost() then return end
 
     local pos1 = ent:GetPos()
     local pos2 = LocalPlayer():GetPos()
