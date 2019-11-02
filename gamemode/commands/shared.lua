@@ -18,7 +18,7 @@ Command.Commands = {
         aliases = { "ghost" },
         action = function(ply)
             if SERVER then
-                if ply:GetNW2Bool("EvilGhost") then
+                if ply:IsGhost() then
                     Network:Notify(ply, "#Ghost_Disabled", true)
                     Game:RemoveGhost(ply)
                 else

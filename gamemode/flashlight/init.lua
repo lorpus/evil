@@ -12,7 +12,7 @@ end
 hook.Add("StartCommand", "EvilFlashlight", function(ply, cmd)
     if cmd:GetImpulse() != 100 then return end
     if not Round:IsPlaying() or not ply:Alive() then return end
-    local isGhost = ply:GetNW2Bool("EvilGhost")
+    local isGhost = ply:IsGhost()
     if not ply:IsHuman() and not isGhost then return end
     if not ply:GetNW2Bool("CanUseEvilFlashlight") then return end
 
@@ -40,7 +40,7 @@ end)
 
 hook.Add("Think", "EvilFlashlightFizzle", function()
     for _, ply in pairs(player.GetAll()) do
-        if not ply:GetNW2Bool("EvilGhost") and ply:GetNW2Bool("flashlight") then
+        if not ply:IsGhost() and ply:GetNW2Bool("flashlight") then
             if eutil.Percent(Evil.Cfg.Flashlight.FizzleChance) then
                 FizzlePlayerFlashlight(ply)
             end
@@ -50,7 +50,7 @@ end)
 
 hook.Add("PlayerSpawn", "EvilFlashlightEnable", function(ply)
     ply:SetNW2Bool("flashlight", false)
-    if ply:IsHuman() or ply:GetNW2Bool("EvilGhost") then
+    if ply:IsHuman() or ply:IsGhost() then
         ply:SetNW2Bool("CanUseEvilFlashlight", true)
     else
         ply:SetNW2Bool("CanUseEvilFlashlight", false)
