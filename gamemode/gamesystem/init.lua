@@ -437,3 +437,7 @@ function GM:SetupPlayerVisibility(viewer, viewent)
         end
     end
 end
+
+function GM:PlayerUse(ply, ent)
+    if ply:IsGhost() then return false end
+end
