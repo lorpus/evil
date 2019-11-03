@@ -441,3 +441,9 @@ end
 function GM:PlayerUse(ply, ent)
     if ply:IsGhost() then return false end
 end
+
+hook.Add("GetFallDamage", "EvilNoFallDamage", function(ply, spd)
+    if ply:IsGhost() or ply:IsBoss() then
+        return 0
+    end
+end)
