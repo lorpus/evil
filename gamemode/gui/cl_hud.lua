@@ -14,10 +14,11 @@ local function RoundHUD()
 
     local text = string.ToMinutesSeconds(math.floor(math.floor(Round:GetEndTime() - CurTime())))
 
-    if SR.ActiveRounds["countdown"] then return end
+    if not SR.ActiveRounds["countdown"] then
     surface.SetFont("evilfont1")
     local w, h = surface.GetTextSize(text)
     draw.DrawText(text, "evilfont1", ScrW() / 2 - w / 2, tall / 2 - h / 2, Color(219, 255, 201))
+    end
 
     local subtext
     if Game:GetGametype() == "pages" then
