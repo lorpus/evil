@@ -15,9 +15,9 @@ local function RoundHUD()
     local text = string.ToMinutesSeconds(math.floor(math.floor(Round:GetEndTime() - CurTime())))
 
     if not SR.ActiveRounds["countdown"] then
-    surface.SetFont("evilfont1")
-    local w, h = surface.GetTextSize(text)
-    draw.DrawText(text, "evilfont1", ScrW() / 2 - w / 2, tall / 2 - h / 2, Color(219, 255, 201))
+        surface.SetFont("evilfont1")
+        local w, h = surface.GetTextSize(text)
+        draw.DrawText(text, "evilfont1", ScrW() / 2 - w / 2, tall / 2 - h / 2, Color(219, 255, 201))
     end
 
     local subtext
@@ -80,9 +80,8 @@ hook.Add("HUDPaint", "EvilScreenStuff", function()
 
     if not (pos2:Distance(pos1) < 300) then return end
     surface.SetFont("evilfont2")
-    local TextW, TextH = surface.GetTextSize(ent:GetName())
     local name = ent:EvilName()
-    draw.DrawText(name, "evilfont2", ScrW() / 2 - TextW / 2, ScrH() / 2 - TextH / 2 + ScreenScale(15), Color(255, 150, 150))
+    draw.DrawText(name, "evilfont2", ScrW() / 2, ScrH() / 2 + 15, Color(255, 150, 150), TEXT_ALIGN_CENTER)
 end)
 
 local hide = {
