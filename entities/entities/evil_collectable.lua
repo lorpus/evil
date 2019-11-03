@@ -27,7 +27,7 @@ function ENT:Use(ply, caller)
     if self.taken then return end
     
     if ply:GetEyeTrace().Entity != self then return end
-    if ply:IsBoss() or ply:IsProxy() then return end
+    if not ply:IsHuman() then return end
     
     self.taken = true
 

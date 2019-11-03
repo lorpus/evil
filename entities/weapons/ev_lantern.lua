@@ -66,16 +66,18 @@ end
 
 hook.Add("Think", "RenderLanternLights", function()
     if not CLIENT then return end
-    for _, self in ipairs(ents.FindByClass("ev_lantern")) do
-        self.light = DynamicLight(self:EntIndex())
-        self.light.r = 200
-        self.light.g = 200
-        self.light.b = 200
-        self.light.brightness = 5
-        self.light.decay = 1e100
-        self.light.size = 400
-        self.light.DieTime = CurTime() + 1
-        self.light.pos = self:GetPos() + Vector(0, 0, 2)
+    for _, ply in ipairs(player.GetAll()) do
+        local w = ply:GetActiveWeapon()
+        if not IsValid(w) or w:GetClass() != "ev_lantern" then continue end
+        w.light = DynamicLight(w:EntIndex())
+        w.light.r = 200
+        w.light.g = 200
+        w.light.b = 200
+        w.light.brightness = 5
+        w.light.decay = 1e100
+        w.light.size = 400
+        w.light.DieTime = CurTime() + 1
+        w.light.pos = w:GetPos() + Vector(0, 0, 2)
     end
 end)
 

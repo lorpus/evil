@@ -149,7 +149,7 @@ hook.Add("PostDrawOpaqueRenderables", "EvilESP", function()
 end)
 
 hook.Add("PrePlayerDraw", "EvilHideGhosts", function(ply)
-	if not LocalPlayer():GetNW2Bool("EvilGhost") and ply:GetNW2Bool("EvilGhost") then
+	if not LocalPlayer():IsGhost() and ply:IsGhost() then
 		return true
 	end
 end)

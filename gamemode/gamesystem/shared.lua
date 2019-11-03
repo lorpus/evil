@@ -103,7 +103,7 @@ hook.Add("ShouldCollide", "EvilPlayerNoCollide", function(e1, e2)
         if IsValid(wep) and CurTime() - wep:LastShootTime() < 0.1 then // retarded way to check if someone shot
             return true
         end
-        if e1:GetNW2Bool("EvilGhost") or e2:GetNW2Bool("EvilGhost") then
+        if e1:IsGhost() or e2:IsGhost() then
             return false
         end
         return e1:Team() != e2:Team()
@@ -117,6 +117,10 @@ hook.Add("ShouldCollide", "EvilPlayerNoCollide", function(e1, e2)
         if e1:GetClass() == "evil_collectable" then
             return false
         end
+    end
+
+    if (e1:IsPlayer() and e1:IsGhost()) or (e2:IsPlayer() and e2:IsGhost()) then
+        return false
     end
 
     return true // fuck you
@@ -165,7 +169,7 @@ hook.Add("EntityEmitSound", "memefootsteps", function(data)
     if CLIENT and LocalPlayer():IsBoss() then
         return
     else
-        if CLIENT and (data.Entity:IsBoss() or data.Entity:GetNW2Bool("EvilGhost")) then
+        if CLIENT and data.Entity:IsPlayer() and (data.Entity:IsBoss() or data.Entity:IsGhost()) then
             return false
         elseif data.Entity:Crouching() then
             data.Volume = data.Volume * 0.5
