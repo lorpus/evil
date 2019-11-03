@@ -67,6 +67,7 @@ hook.Add("HUDPaint", "EvilScreenStuff", function()
         end
     end
 
+    if SR.ActiveRounds["allalone"] then return end
     if not LocalPlayer():Alive() then return end
     local ent = LocalPlayer():GetEyeTrace().Entity
     if not ent:IsPlayer() then return end
