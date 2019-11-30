@@ -11,6 +11,7 @@ function ENT:Initialize()
     end
     self:SetMoveType(MOVETYPE_VPHYSICS)
     self:SetSolid(SOLID_VPHYSICS)
+    self:SetUseType(SIMPLE_USE)
     
     local phys = self:GetPhysicsObject()
     if phys:IsValid() then
@@ -61,11 +62,19 @@ function ENT:Use(ply, caller)
     
     if ply:GetEyeTrace().Entity != self then return end
     if not ply:IsHuman() then return end
-    
+
+    local type = self:GetNW2String("Collectable")
+    local info = Collectable.Collectables[type]
+    if isfunction(info.canuse) then
+        if info.canuse(self, ply) == false then
+            return
+        end
+    end
+
     self.taken = true
 
-    hook.Run("EvilCollectableTaken", ply, self:GetNW2String("Collectable"))
-    Network:SendHook("EvilCollectableTaken", ply, self:GetNW2String("Collectable"))
+    hook.Run("EvilCollectableTaken", ply, type)
+    Network:SendHook("EvilCollectableTaken", ply, type)
     self:Remove()
 end
 
