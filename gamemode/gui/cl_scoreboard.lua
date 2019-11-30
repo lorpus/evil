@@ -221,8 +221,14 @@ function Scoreboard:Toggle()
                 return
             end
             surface.SetFont("ebilfontscoreboard")
-            local TextW, TextH = surface.GetTextSize(ply:GetName())
-            draw.DrawText(ply:GetName(), "ebilfontscoreboard", Avatar:GetWide() + PadX * 2, panel:GetTall() / 2 - TextH / 2)
+            local name
+            if self:IsHovered() and ply:EvilName() != ply:Nick() then
+                name = ply:Nick() .. " (" .. ply:EvilName() .. ")"
+            else
+                name = ply:Nick()
+            end
+            local TextW, TextH = surface.GetTextSize(name)
+            draw.DrawText(name, "ebilfontscoreboard", Avatar:GetWide() + PadX * 2, panel:GetTall() / 2 - TextH / 2)
 
             surface.SetFont("ebilfontsmaller")
             local TextW = surface.GetTextSize("Status")
