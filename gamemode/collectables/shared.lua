@@ -95,6 +95,22 @@ Collectable.Collectables = {
                 Game:SetupHuman(ply)
             end
         end,
+
+        canuse = function(ent, collector)
+            local dead = {}
+            for _, ply in pairs(player.GetAll()) do
+                if (not ply:Alive() or ply:IsGhost()) and ply:GetNW2Bool("HasSpawned") then
+                    table.insert(dead, ply)
+                end
+            end
+            
+            if #dead == 0 then
+                Network:Notify(collector, "#Skull_NoPlayers", true)
+                return false
+            else
+                return true
+            end
+        end,
     }
 }
 
