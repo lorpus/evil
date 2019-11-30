@@ -76,6 +76,10 @@ function SWEP:PrimaryAttack()
         return
     end
 
+    self:KillPlayer(ent)
+end
+
+function SWEP:KillPlayer(ent)
     local info = DamageInfo()
     info:SetAttacker(self.Owner) // :Kill() doesnt carry the attacker
     info:SetDamage(ent:Health() * 10)
