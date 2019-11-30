@@ -18,9 +18,42 @@ function ENT:Initialize()
     end
 end
 
+if CLIENT then
+    surface.CreateFont("CollectablePopup", {
+        font = "Verdana",
+        size = 300,
+    })
+end
+
 function ENT:Draw()
     if LocalPlayer():IsBoss() or LocalPlayer():IsProxy() then return end // you can still see shadows but whatever
     self:DrawModel()
+
+    local x = Collectable.Collectables[self:GetNW2String("Collectable")]
+    local name = x.name
+    local desc = x.desc
+
+    if not name or not desc then return end
+
+    local dist = LocalPlayer():EyePos():Distance(self:GetPos()) * 1.5
+    local opacity = 255 - dist
+    if opacity <= 0 then return end
+    local ang = LocalPlayer():EyeAngles()
+    ang.p = 0
+    ang.y = ang.y + 270
+    ang.r = ang.r + 90
+
+    local pos = self:GetPos()
+    local target = pos + Vector(0, 0, 32)
+    local tr = util.TraceLine({
+        start = pos,
+        endpos = target,
+        filter = { self },
+    })
+    cam.Start3D2D(tr.HitPos, ang, 0.01)
+        draw.DrawText(Lang:Get(name), "CollectablePopup", 0, 0, Color(255, 255, 255, opacity), TEXT_ALIGN_CENTER)
+        draw.DrawText(Lang:Get(desc), "CollectablePopup", 0, 200, Color(255, 255, 255, opacity), TEXT_ALIGN_CENTER)
+    cam.End3D2D()
 end
 
 function ENT:Use(ply, caller)

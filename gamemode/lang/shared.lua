@@ -215,6 +215,20 @@ Lang.Translations = Lang.Translations or {
         ["#Bible_Collect"]                                  = "You put the trusty Holy Bible into your back pocket...",
         ["#Bible_Used"]                                     = "The boss tried to spook you but was banished by the power of Christ. Unfortunately, he stole your bible...",
         ["#Lantern_Destroy"]                                = "Press {{button}} to destroy this lantern!",
+        ["#Collectable_Lantern"]                            = "Lantern",
+        ["#Collectable_Lantern_Desc"]                       = "Emits light. Click to place",
+        ["#Collectable_Clock"]                              = "Clock",
+        ["#Collectable_Clock_Desc"]                         = "Adds 60 seconds to the clock",
+        ["#Collectable_Flare"]                              = "Flare Gun",
+        ["#Collectable_Flare_Desc"]                         = "",
+        ["#Collectable_Bible"]                              = "Holy Bible",
+        ["#Collectable_Bible_Desc"]                         = "Repel the boss when attacked",
+        ["#Collectable_NightVision"]                        = "Night Vision Goggles",
+        ["#Collectable_NightVision_Desc"]                   = "See in the dark",
+        ["#Collectable_Soda"]                               = "Soda",
+        ["#Collectable_Soda_Desc"]                          = "Give yourself a boost and run faster",
+        ["#Collectable_Skull"]                              = "Apollyon's Skull",
+        ["#Collectable_Skull_Desc"]                         = "Bring a human back from the dead",
         
         // abilities
         ["#Teleport"]                                       = "Teleport", // unused

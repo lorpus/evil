@@ -2,6 +2,8 @@ Collectable = Collectable or {}
 
 Collectable.Collectables = {
     clock = {
+        name = "#Collectable_Clock",
+        desc = "#Collectable_Clock_Desc",
         mdl = "models/props_combine/breenclock.mdl",
         oncollect = function(collector)
             if not SERVER then return end
@@ -11,6 +13,8 @@ Collectable.Collectables = {
     },
 
     lantern = {
+        name = "#Collectable_Lantern",
+        desc = "#Collectable_Lantern_Desc",
         mdl = "models/cof/weapons/lantern/w_lantern.mdl",
         oncollect = function(collector)
             if not SERVER then return end
@@ -19,6 +23,8 @@ Collectable.Collectables = {
     },
 
     flaregun = {
+        name = "#Collectable_Flare",
+        desc = "#Collectable_Flare_Desc",
         mdl = "models/weapons/w_dkflaregun.mdl",
         oncollect = function(collector)
             if not SERVER then return end
@@ -27,6 +33,8 @@ Collectable.Collectables = {
     },
 
     bible = {
+        name = "#Collectable_Bible",
+        desc = "#Collectable_Bible_Desc",
         mdl = "models/sharaprops/revolutionary pack/revolutionary_book.mdl",
         op = true,
         oncollect = function(collector)
@@ -37,6 +45,8 @@ Collectable.Collectables = {
     },
 
     nightvison = {
+        name = "#Collectable_NightVision",
+        desc = "#Collectable_NightVision_Desc",
         mdl = "models/vinrax/props/nvg.mdl",
         oncollect = function(collector)
             if SERVER then
@@ -50,6 +60,8 @@ Collectable.Collectables = {
     },
 
     soda = {
+        name = "#Collectable_Soda",
+        desc = "#Collectable_Soda_Desc",
         mdl = "models/props_junk/popcan01a.mdl",
         oncollect = function(collector)
             if not SERVER then return end
@@ -63,6 +75,8 @@ Collectable.Collectables = {
     },
 
     skull = {
+        name = "#Collectable_Skull",
+        desc = "#Collectable_Skull_Desc",
         mdl = "models/Gibs/HGIBS.mdl",
         oncollect = function(collector)
             if not SERVER then return end
