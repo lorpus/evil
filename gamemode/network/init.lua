@@ -1,12 +1,13 @@
 util.AddNetworkString(Network.Id)
 
-local function StartNotify(str, isLang, langArgs)
+local function StartNotify(str, isLang, langArgs, raw)
     net.Start(Network.Id)
     net.WriteInt(N_NOTIFY, Network.CmdBits)
     net.WriteString(str)
     net.WriteBool(isLang)
     net.WriteBool(langArgs != nil)
     net.WriteBool(false)
+    net.WriteBool(raw)
     if langArgs then
         net.WriteTable(langArgs)
     end
@@ -19,6 +20,27 @@ end
 
 function Network:NotifyAll(str, isLang, langArgs)
     StartNotify(str, isLang, langArgs)
+    net.Broadcast()
+end
+
+local function StartPrintChat(args, dontExpandLang)
+    net.Start(Network.Id)
+    net.WriteInt(N_NOTIFY, Network.CmdBits)
+    net.WriteString("")
+    net.WriteBool(false)
+    net.WriteBool(false)
+    net.WriteBool(true)
+    net.WriteBool(not dontExpandLang)
+    net.WriteTable(args)
+end
+
+function Network:PrintChat(ply, args, dontExpandLang)
+    StartPrintChat(args, dontExpandLang)
+    net.Send(ply)
+end
+
+function Network:PrintChatAll(args, dontExpandLang)
+    StartPrintChat(args, dontExpandLang)
     net.Broadcast()
 end
 

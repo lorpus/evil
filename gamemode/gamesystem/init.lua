@@ -379,6 +379,7 @@ function GM:PlayerSay(ply, text, isTeam)
         net.WriteBool(false)
         net.WriteBool(false)
         net.WriteBool(true)
+        net.WriteBool(false)
         net.WriteTable(tab)
     net.Send(receivers)
 

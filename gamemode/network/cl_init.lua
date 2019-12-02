@@ -14,8 +14,17 @@ local function ReceiveHandler(iLen, ply)
         local isLang = net.ReadBool()
         local hasArgs = net.ReadBool()
         local isRaw = net.ReadBool()
+        local butStillDoTheLang = net.ReadBool()
         if isRaw then
-            return chat.AddText(unpack(net.ReadTable()))
+            local tab = net.ReadTable()
+            if butStillDoTheLang then 
+                for k, v in ipairs(tab) do
+                    if isstring(v) and v:StartWith("#") then
+                        tab[k] = Lang:Get(v)
+                    end
+                end
+            end
+            return chat.AddText(unpack(tab))
         end
         if isLang then
             if hasArgs then
