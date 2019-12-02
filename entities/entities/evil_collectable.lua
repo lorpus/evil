@@ -8,10 +8,10 @@ ENT.Base = "base_anim"
 function ENT:Initialize()
     if SERVER then
         self:PhysicsInit(SOLID_VPHYSICS)
+        self:SetUseType(SIMPLE_USE)
     end
     self:SetMoveType(MOVETYPE_VPHYSICS)
     self:SetSolid(SOLID_VPHYSICS)
-    self:SetUseType(SIMPLE_USE)
     
     local phys = self:GetPhysicsObject()
     if phys:IsValid() then
