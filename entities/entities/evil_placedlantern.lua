@@ -38,15 +38,20 @@ function ENT:Use(ply, caller)
     if self.taken then return end
     
     if ply:GetEyeTrace().Entity != self then return end
-    if not ply:IsBoss() then return end
-    
-    self.taken = true
+    if ply:IsBoss() then
+        self.taken = true
 
-    local dat = EffectData()
-    dat:SetOrigin(self:GetPos())
-    util.Effect("ManhackSparks", dat, true, true)
-    self:EmitSound("ambient/energy/zap1.wav")
-    self:Remove()
+        local dat = EffectData()
+        dat:SetOrigin(self:GetPos())
+        util.Effect("ManhackSparks", dat, true, true)
+        self:EmitSound("ambient/energy/zap1.wav")
+        self:Remove()
+    elseif ply:IsHuman() then
+        self.taken = true
+
+        ply:Give("ev_lantern")
+        self:Remove()
+    end
 end
 
 function ENT:Think()
