@@ -146,3 +146,16 @@ Admin.ULX.EndGame = ulx.command("Evil", "ulx endgame", function(caller)
 end)
 Admin.ULX.EndGame:defaultAccess(ULib.ACCESS_ADMIN)
 Admin.ULX.EndGame:help("Immediately end the current round")
+
+Admin.ULX.AddTime = ulx.command("Evil", "ulx addtime", function(caller, time)
+    Admin.Cmds.AddTime(caller, time)
+end, "!addtime")
+Admin.ULX.AddTime:addParam({
+    type = ULib.cmds.NumArg,
+    min = 0,
+    default = 60,
+    hint = "seconds",
+    
+})
+Admin.ULX.AddTime:defaultAccess(ULib.ACCESS_ADMIN)
+Admin.ULX.AddTime:help("Add more time to the clock")

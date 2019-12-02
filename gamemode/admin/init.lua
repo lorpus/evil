@@ -1,6 +1,16 @@
 Evil.TestingCVar = CreateConVar("evil_testing", 0, FCVAR_CHEAT + FCVAR_NOTIFY + FCVAR_REPLICATED, "Enables testing mode")
 Admin.Cmds = {}
 
+Admin.Cmds.AddTime = function(ply, argStr)
+    if Admin:CanExecute(ply, "addtime") and Round:IsPlaying() then
+        local num = tonumber(argStr)
+        if num > 0 then
+            Round:AddTime(num)
+        end
+    end
+end
+concommand.Add("evil_addtime", function(ply, cmd, args, argStr) Admin.Cmds.AddTime(ply, argStr) end)
+
 Admin.Cmds.EndGame = function(ply)
     if Admin:CanExecute(ply, "endgame") then
         if not Round:End("#Round_EndAdmin") then
