@@ -20,7 +20,7 @@ function Game:ResetPlayer(ply)
     ply:SetRunSpeed(Evil.Cfg.PlayerRunspeed)
     ply:SetJumpPower(Stamina.normaljump)
     ply:SetModelScale(1)
-    ply:SetNWBool("EvilKilled", false)
+    ply:SetNW2Bool("EvilKilled", false)
     ply:SetNW2Bool("HasBible", false)
     ply:SetNW2Bool("EvilNightVision", false)
     ply:SetNW2Bool("NoForceSpeeds", false)
@@ -253,7 +253,7 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
         return
     end
 
-    victim:SetNWBool("EvilKilled", true)
+    victim:SetNW2Bool("EvilKilled", true)
     Jumpscare:SendScare(victim)
     if attacker:GetAttacker():IsProxy() then
         hook.Run("EvilPlayerKilled", victim, TEAM_PROXY, attacker:GetAttacker())
