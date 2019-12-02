@@ -18,6 +18,11 @@ Command.Commands = {
         aliases = { "ghost" },
         action = function(ply)
             if SERVER then
+                local r = Round:GetRound()
+                if r == ROUND_POST or r == ROUND_WAITING then
+                    return Network:Notify(ply, "#Ghost_CantUse", true)
+                end
+
                 if ply:IsGhost() then
                     Network:Notify(ply, "#Ghost_Disabled", true)
                     Game:RemoveGhost(ply)

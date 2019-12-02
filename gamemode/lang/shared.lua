@@ -97,6 +97,7 @@ Lang.Translations = Lang.Translations or {
         // commands
         ["#InvalidCommand"]                                 = "That command doesn't exist",
         ["#Ghost_NotDead"]                                  = "You have to be dead to become a ghost",
+        ["#Ghost_CantUse"]                                  = "You can't become a ghost right now",
         ["#Ghost_Disabled"]                                 = "You are no longer a ghost.",
         ["#Ghost_Enabled"]                                  = "You are now a ghost. Use this command again to stop being a ghost",
 
