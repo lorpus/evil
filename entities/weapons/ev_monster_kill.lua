@@ -73,6 +73,7 @@ function SWEP:PrimaryAttack()
 
         Network:Notify(ent, "#Bible_Used", true)
         Network:PlaySound(self.Owner, "evil/items/bible/christ.mp3")
+        Network:PrintChatAll({ team.GetColor(TEAM_HUMAN), "#Jesus", color_white, ": ", "#Bible_JesusBro" })
         return
     end
 
