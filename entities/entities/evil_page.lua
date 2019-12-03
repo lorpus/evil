@@ -60,8 +60,14 @@ function ENT:UpdateTransmitState()
     return TRANSMIT_ALWAYS
 end
 
+local normCol = Color(20, 128, 20, 50)
+local nvCol = Color(255, 20, 20, 255)
 hook.Add("PreDrawHalos", "PageHalos", function()
     if LocalPlayer():IsBoss() then return end
     if SR.ActiveRounds["matrix"] then return end
-    halo.Add(ents.FindByClass("evil_page"), Color(20, 128, 20, 50), 1, 1, 1)
+    local c = normCol
+    if LocalPlayer():GetNW2Bool("EvilNightVision") then
+        c = nvCol
+    end
+    halo.Add(ents.FindByClass("evil_page"), c, 1, 1, 1)
 end)
