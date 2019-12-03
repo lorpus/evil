@@ -185,3 +185,34 @@ hook.Add("PostDrawEffects", "renderoutlines", function()
     OutlineList = {}
     OutlineListSize = 0
 end)
+
+local BlipPos = {}
+local BlipDel = {}
+local BlipID = 1
+
+function eutil.AddBlip(vector)
+    BlipPos[BlipID] = { v = vector, s = RealTime() }
+    BlipID = BlipID + 1
+end
+
+hook.Add("HUDPaint", "EvilRenderBlips", function()
+    local maxrad = ScreenScale(9)
+	for k, v in pairs(BlipPos) do
+		if not BlipDel[k] then BlipDel[k] = {} end
+		if BlipDel[k][1] /*and BlipDel[k][2] and BlipDel[k][3]*/ then
+			BlipDel[k] = {}
+			table.remove(BlipPos, k)
+		end
+
+		local ts = v.v:ToScreen()
+		//for i = 1, 3 do
+			local r = math.pow(5, RealTime() - v.s - 1 /* -i + 1 */)
+			local op = (maxrad - r) / maxrad * 5
+			if op < 0 then
+				BlipDel[k][1 /* i */] = true
+				continue
+			end
+			surface.DrawCircle(ts.x, ts.y, r, 20, 225, 20, op)
+		//end
+	end
+end)
