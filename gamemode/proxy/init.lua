@@ -24,7 +24,9 @@ function Proxy:Setup(ply)
         return Evil:Lock("profile mismatch between query and setup")
     end
 
+    local wasKilled = ply:GetNW2Bool("EvilKilled")
     Game:ResetPlayer(ply)
+    ply:SetNW2Bool("EvilKilled", wasKilled) // reset
     
     ply:SetTeam(TEAM_PROXY)
     ply:SetModel(profile.proxy.model)

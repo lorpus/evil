@@ -189,8 +189,10 @@ function Game:StartGametype(strGametype)
 end
 
 function Game:SetGhost(ply)
+    local wasKilled = ply:GetNW2Bool("EvilKilled")
     Game:ResetPlayer(ply)
     ply:SetNW2Bool("EvilGhost", true)
+    ply:SetNW2Bool("EvilKilled", wasKilled) // reset
     ply:SetRenderMode(RENDERMODE_TRANSALPHA)
     ply:SetColor(Color(255, 255, 255, 120))
     ply:DrawShadow(false)
