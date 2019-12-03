@@ -81,10 +81,6 @@ function Game:CanESP(viewer, viewed)
         d = false
     elseif viewer:IsBoss() and viewed:GetNW2Bool("EvilForceESP") then
         d = true
-    elseif Game:GetGametype() == "pages" then
-        local taken = GetGlobal2Int("PagesCollected")
-        local total = GetGlobal2Int("PagesTotal")
-        if taken / total < 0.7 then d = false end
     else
         d = false
     end 
@@ -95,6 +91,16 @@ function Game:CanESP(viewer, viewed)
     end
 
     return d
+end
+
+function Game:CanBossSeePlayers()
+    if Game:GetGametype() == "pages" then
+        local taken = GetGlobal2Int("PagesCollected")
+        local total = GetGlobal2Int("PagesTotal")
+        if taken / total >= 0.7 then return true end
+    end
+
+    return false
 end
 
 hook.Add("ShouldCollide", "EvilPlayerNoCollide", function(e1, e2)
