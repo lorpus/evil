@@ -273,6 +273,7 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
 end)
 
 hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
+timer.Simple(0, function()
     if ply:IsSpecTeam() then return end
     
     local humans = Map.spawns.humans
@@ -301,6 +302,7 @@ hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
     else
         Evil:Lock("spawns are misconfigured")
     end
+end)
 end)
 
 hook.Add("PlayerDeathSound", "EvilRemoveDeathSound", function()
