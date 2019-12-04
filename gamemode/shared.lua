@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 GM.Name = "Evil"
-GM.Version = "0.3.1"
+GM.Version = "0.3.2"
 
 Evil = Evil or {
     Cfg = {},
