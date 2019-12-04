@@ -3,5 +3,5 @@
     "base"          "base"
     "title"         "Evil"
     "maps"          "^evil_"
-    "menusystem"    "0"
+    "menusystem"    "1"
 }
