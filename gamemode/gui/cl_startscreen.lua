@@ -133,7 +133,6 @@ local showHumanIntro = false
 hook.Add("HUDPaint", "semen", function()
     if showBossIntro or showHumanIntro then
         alphaFrac = alphaFrac + RealFrameTime() / 3 * alphaDir
-        print(alphaFrac)
         if alphaFrac > 1.5 then
             alphaDir = -1.5
         elseif alphaFrac <= 0 then
