@@ -72,20 +72,23 @@ function ENT:Explode(hit)
     self:Remove()
 end
 
-local lastvel
 function ENT:Think()
     if not SERVER then return end
-    if not lastvel then
-        lastvel = self:GetVelocity()
+    if not self.lastvel then
+        self.lastvel = self:GetVelocity()
         return
     end
 
-    if lastvel:Length() - self:GetVelocity():Length() > self.Threshold then
+    if self.lastvel:Length() - self:GetVelocity():Length() > self.Threshold then
         dbg.print("explode due to low threshold")
         self:Explode()
     end
 
-    lastvel = self:GetVelocity()
+    self.lastvel = self:GetVelocity()
+
+    if self:GetVelocity():Length() < 10 then
+        self:Explode()
+    end
 end
 
 function ENT:Touch(ent)
