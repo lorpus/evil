@@ -7,7 +7,6 @@ ENT.Threshold = 200
 
 function ENT:Draw()
     self:DrawModel()
-    debugoverlay.Text(self:GetPos(), "bruh")
 end
 
 function ENT:Initialize()
