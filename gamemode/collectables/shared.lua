@@ -22,7 +22,7 @@ Collectable.Collectables = {
         end
     },
 
-    flaregun = {
+    /*flaregun = {
         name = "#Collectable_Flare",
         desc = "#Collectable_Flare_Desc",
         mdl = "models/weapons/w_dkflaregun.mdl",
@@ -30,7 +30,7 @@ Collectable.Collectables = {
             if not SERVER then return end
             collector:Give("ev_flaregun")
         end,
-    },
+    },*/
 
     bible = {
         name = "#Collectable_Bible",
