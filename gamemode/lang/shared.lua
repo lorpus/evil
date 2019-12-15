@@ -80,6 +80,8 @@ Lang.Translations = Lang.Translations or {
         ["#Player_Left_NoReason"]                           = "{{name}} disconnected",
         ["#Collected"]                                      = "Collected",
         ["#FirstTimeResources"]                             = "This seems to be your first time on Evil! You may need to restart Garry's Mod just once to avoid some content errors!",
+        ["#PageName"]                                       = "Page",
+        ["#PageNamePlural"]                                 = "Pages",
 
         // proxy
         ["#Accept"]                                         = "Accept",
@@ -116,7 +118,7 @@ Lang.Translations = Lang.Translations or {
         ["#FindTheHumans"]                                  = "FIND THE HUMANS",
         ["#AndKillThem"]                                    = "AND KILL THEM",
         ["#YouAreAHuman"]                                   = "YOU ARE A HUMAN",
-        ["#CollectAllPages"]                                = "COLLECT ALL {{count}} PAGES",
+        ["#CollectAllPages"]                                = "COLLECT ALL {{count}} {{{u#PageNamePlural}}}",
         ["#AvoidTheEvil"]                                   = "AVOID THE EVIL",
 
         // map vote/map names
@@ -130,7 +132,7 @@ Lang.Translations = Lang.Translations or {
         // round
         ["#Round_EndBossWin"]                               = "The boss has won!",
         ["#Round_EndBossDie"]                               = "The boss has mysteriously died!",
-        ["#Round_EndPagesCollected"]                        = "The humans have collected all the pages!",
+        ["#Round_EndPagesCollected"]                        = "The humans have collected all the {{{l#PageNamePlural}}}!",
         ["#Round_EndTimeUp"]                                = "Times up! The boss has won!",
         ["#Round_EndAdmin"]                                 = "An admin has forcefully ended the game",
         ["#Round_WaitingForPlayers"]                        = "Waiting for players...",
@@ -156,20 +158,20 @@ Lang.Translations = Lang.Translations or {
         ["#SR_Deadline"]                                    = "Deadline",
         ["#SR_DeadlineDesc"]                                = "No time will ever be added to the clock!",
         ["#SR_Matrix"]                                      = "The Matrix",
-        ["#SR_MatrixDesc"]                                  = "Pages will only materialize when you are within their range",
+        ["#SR_MatrixDesc"]                                  = "{{{#PageNamePlural}}} will only materialize when you are within their range",
         ["#SR_Blindness"]                                   = "Blindness",
         ["#SR_BlindnessDesc"]                               = "You cannot see anything unless your flashlight is on!",
         ["#SR_Wallhacks"]                                   = "Wallhacks",
         ["#SR_WallhacksDesc"]                               = "The boss is now visible through walls!",
         ["#SR_Earthquake"]                                  = "Earthquake",
         ["#SR_EarthquakeDesc"]                              = "The ground is so scared of the boss it will tremble around it too!",
-        ["#SR_DeathSwap"]                                   = "Page Swap",
-        ["#SR_DeathSwapDesc"]                               = "Watch out whenever someone collects a page!",
+        ["#SR_DeathSwap"]                                   = "{{{#PageName}}} Swap",
+        ["#SR_DeathSwapDesc"]                               = "Watch out whenever someone collects a {{{l#PageName}}}!",
         ["#SR_Mario"]                                       = "Mario",
         ["#SR_MarioDesc"]                                   = "Hop around like Mario!",
 
         // gametype
-        ["#Game_PageCollected"]                             = "{{player}} has collected a page!",
+        ["#Game_PageCollected"]                             = "{{player}} has collected a {{{l#PageName}}}!",
         ["#Deathmatch_EndTimeUp"]                           = "Times up! {{winners}} won with {{kills}} kills!",
         ["#Deathmatch_EndTimeUpNone"]                       = "Times up! Somehow everyone was so bad that nobody got a single kill!",
         ["#CollectPages"]                                   = "Collect all {{count}} pages",
@@ -245,7 +247,7 @@ Lang.Translations = Lang.Translations or {
         ["#AlyxDesc"]                                       = "You have +15 speed!",
         ["#MonkDesc"]                                       = "You have -15 speed!",
         ["#BarneyDesc"]                                     = "You have twice the stamina of a normal person!",
-        ["#KleinerDesc"]                                    = "You can see one page at a time!",
+        ["#KleinerDesc"]                                    = "You can see one {{{l#PageName}}} at a time!",
         ["#EliDesc"]                                        = "The boss can always see you, watch out!",
         ["#SealTeamDesc"]                                   = "You have night vision goggles!",
         ["#CitizenStat1"]                                   = "Leader of Harvard Chess Club",
@@ -281,14 +283,14 @@ Lang.Translations = Lang.Translations or {
         ["#Tip_2"]                                          = "If you find a lantern as a human, pick it up and place it somewhere to try and trick the boss",
         ["#Tip_3"]                                          = "Don't want these tips? Type /tips. You can also turn them back on the same way",
         ["#Tip_4"]                                          = "Keep an eye out for things on the ground when you're a human, they can help you",
-        ["#Tip_5"]                                          = "Pages can be in hard-to-see places, so always look carefully if you want to win as a human",
+        ["#Tip_5"]                                          = "{{{#PageNamePlural}}} can be in hard-to-see places, so always look carefully if you want to win as a human",
         ["#Tip_6"]                                          = "As a boss, you can hear your own footsteps, but humans can't hear them",
-        ["#Tip_7"]                                          = "As a boss, you can't see the pages, so don't think you can camp them",
+        ["#Tip_7"]                                          = "As a boss, you can't see the {{{l#PageNamePlural}}}, so don't think you can camp them",
         ["#Tip_8"]                                          = "As a boss, pay attention to lights. They may be a human's flashlight",
         ["#Tip_9"]                                          = "If you're dead, you can't communicate with the living. No cheating!",
         ["#Tip_10"]                                         = "Join the official Discord! Type \"/discord\"",
         ["#Tip_11"]                                         = "You can type \"/ghost\" if you're dead and explore the map without interfering",
-        ["#Tip_12"]                                         = "As a spectator, you can use the \"/esp\" command to see all players and pages!",
+        ["#Tip_12"]                                         = "As a spectator, you can use the \"/esp\" command to see all players and {{{l#PageNamePlural}}}!",
     }
 }
 
