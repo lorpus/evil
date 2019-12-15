@@ -94,7 +94,9 @@ Game.Gametypes = {
                 end
                 ent:SetPos(v.pos)
                 ent:SetAngles(v.ang)
-                ent:SetMaterial(string.format("models/jason278/slender/sheets/sheet_%s.vtf", inc))
+                if not Map.pagemodel then
+                    ent:SetMaterial(string.format("models/jason278/slender/sheets/sheet_%s.vtf", inc))
+                end
                 ent:Spawn()
             end
         end,
