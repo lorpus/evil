@@ -305,6 +305,13 @@ function Lang:Add(lang, key, fmt)
     end
 end
 
+function Lang:Override(lang, key, fmt)
+    local t = Lang.Translations[lang]
+    if not t then Lang.Translations[lang] = {} end
+
+    t[key] = fmt
+end
+
 function Lang:ExpandInline(text)
     if not text then return end
 
