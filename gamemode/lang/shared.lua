@@ -322,6 +322,8 @@ function Lang:ExpandInline(text)
         if lang then
             if mods:find("l") then
                 lang = lang:lower()
+            elseif mods:find("u") then
+                lang = lang:upper()
             end
             text = text:sub(0, start - 1) .. lang .. text:sub(endpos + 1)
         end
