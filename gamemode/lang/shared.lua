@@ -303,6 +303,29 @@ function Lang:Add(lang, key, fmt)
     end
 end
 
+function Lang:ExpandInline(text)
+    if not text then return end
+
+    local max = 0
+    while true do
+        max = max + 1
+        if max > 10 then return text end
+        local start, endpos, group = text:find("{{{(.*)}}}")
+        if not group then return text end
+
+        local split = group:Split("#")
+        local mods, group = split[1], "#" .. split[2]
+
+        local lang = Lang:Get(group)
+        if lang then
+            if mods:find("l") then
+                lang = lang:lower()
+            end
+            text = text:sub(0, start - 1) .. lang .. text:sub(endpos + 1)
+        end
+    end
+end
+
 function Lang:Get(key)
     local ret = Lang.Translations[Lang.Locale][key]
     
@@ -310,12 +333,14 @@ function Lang:Get(key)
         ret = Lang.Translations["en"][key]
     end
 
-    return ret
+    return Lang:ExpandInline(ret)
 end
 
 function Lang:Format(key, tab)
     local ret = Lang:Get(key)
     
+    ret = Lang:ExpandInline(ret)
+
     for key, replacement in pairs(tab) do
         ret = string.Replace(ret, "{{" .. key .. "}}", replacement)
     end
