@@ -1,3 +1,10 @@
+Evil.ShowTips = CreateClientConVar("evil_showtips", "1", true, false, "Show tips in the bottom left when dead")
+
+surface.CreateFont("TipFont", {
+    font = "Roboto",
+    size = ScreenScale(9)
+})
+
 surface.CreateFont("evilfont1", {
     font = "Verdana",
     size = ScreenScale(10),
@@ -8,7 +15,7 @@ surface.CreateFont("evilfont2", {
     size = ScreenScale(7),
 })
 
-local function RoundHUD()
+local function DrawTimer()
     local nScrW, nScrH = ScrW(), ScrH()
     local tall = ScreenScale(15)
 
@@ -31,14 +38,16 @@ local function RoundHUD()
     draw.DrawText(subtext, "evilfont2", ScrW() / 2 - w / 2, tall + (tall / 4 - h / 2), Color(219, 255, 201))
 end
 
-Evil.ShowTips = CreateClientConVar("evil_showtips", "1", true, false, "Show tips in the bottom left when dead")
+local function DrawGhostHUD()
+    if LocalPlayer():IsGhost() then
+        local text = Lang:Get("#Ghost_YouAreGhost")
 
-surface.CreateFont("TipFont", {
-    font = "Roboto",
-    size = ScreenScale(9)
-})
+        draw.SimpleText(text, "Arial30", ScrW() / 2, ScrH() - 50, color_white, TEXT_ALIGN_CENTER)
+        draw.SimpleText(Lang:Get("#Ghost_GhostInfo"), "Arial14", ScrW() / 2, ScrH() - 20, color_white, TEXT_ALIGN_CENTER)
+    end
+end
 
-hook.Add("HUDPaint", "DrawTips", function()
+local function DrawTips()
     if not Evil.ShowTips:GetBool() then return end
 
     local tips = {}
@@ -58,15 +67,9 @@ hook.Add("HUDPaint", "DrawTips", function()
         surface.SetTextColor(255, 255, 255)
         surface.DrawText(text)
     end
-end)
+end
 
-hook.Add("HUDPaint", "EvilScreenStuff", function()
-    if not SR.ActiveRounds["realism"] and not Evil.DrawingTauntMenu then
-        if Round:IsPlaying() then
-            RoundHUD()
-        end
-    end
-
+local function DrawPlayerNames()
     if SR.ActiveRounds["allalone"] then return end
     if not LocalPlayer():Alive() then return end
     local ent = LocalPlayer():GetEyeTrace().Entity
@@ -83,6 +86,18 @@ hook.Add("HUDPaint", "EvilScreenStuff", function()
     surface.SetFont("evilfont2")
     local name = ent:EvilName()
     draw.DrawText(name, "evilfont2", ScrW() / 2, ScrH() / 2 + 15, Color(255, 150, 150), TEXT_ALIGN_CENTER)
+end
+
+hook.Add("HUDPaint", "EvilDrawHUD", function()
+    if not SR.ActiveRounds["realism"] and not Evil.DrawingTauntMenu then
+        if Round:IsPlaying() then
+            DrawTimer()
+        end
+    end
+
+    DrawPlayerNames()
+    DrawTips()
+    DrawGhostHUD()
 end)
 
 local hide = {

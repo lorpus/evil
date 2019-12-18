@@ -189,6 +189,10 @@ Lang.Translations = Lang.Translations or {
         ["#Spec_Spectating"]                                = "Spectating",
         ["#Spec_HUDInfo"]                                   = "Press {{key}} to cycle modes. Click to cycle targets",
 
+        // ghost
+        ["#Ghost_YouAreGhost"]                              = "You are a ghost",
+        ["#Ghost_GhostInfo"]                                = "Type /ghost to exit. Type /esp to toggle ESP",
+
         // admin
         ["#Admin_MoreThanOneTarget"]                        = "Found more than one matching target",
         ["#Admin_NoTargets"]                                = "Found no matching targets",
