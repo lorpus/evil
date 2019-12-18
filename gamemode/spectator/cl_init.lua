@@ -15,7 +15,7 @@ hook.Add("HUDPaint", "SpectatorHUD", function()
             text = LocalPlayer():GetObserverTarget():Nick()
         end
 
-        draw.SimpleText(text, "Arial30", ScrW() / 2, ScrH() - 50, color_white, TEXT_ALIGN_CENTER)
-        draw.SimpleText(Lang:Format("#Spec_HUDInfo", { key = input.LookupBinding("+reload"):upper() }), "Arial14", ScrW() / 2, ScrH() - 20, color_white, TEXT_ALIGN_CENTER)
+        draw.SimpleText(text, "Arial30", ScrW() / 2, ScrH() - 75, color_white, TEXT_ALIGN_CENTER)
+        draw.SimpleText(Lang:Format("#Spec_HUDInfo", { key = input.LookupBinding("+reload"):upper() }), "Arial14", ScrW() / 2, ScrH() - 45, color_white, TEXT_ALIGN_CENTER)
     end
 end)
