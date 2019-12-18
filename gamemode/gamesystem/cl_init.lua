@@ -1,4 +1,4 @@
-Evil.DrawSpecESP = CreateClientConVar("evil_draw_spec_esp", "0", true, false, "Draw ESP on pages and players while spectator")
+Evil.DrawSpecESP = CreateClientConVar("evil_draw_spec_esp", "0", true, false, "Draw ESP on pages and players while spectator or ghost")
 
 local bossMusicChannel // map cleanup invalidates this i think!!11
 function Game:StartBossProximityMusic(snd)
@@ -131,7 +131,7 @@ hook.Add("PostDrawOpaqueRenderables", "EvilESP", function()
 
     for _, ent in ipairs(ents.GetAll()) do // findbyclass enumerates over this, so its faster to just do it once
         if ent:IsPlayer() then
-			if LocalPlayer():IsSpectating() and Evil.DrawSpecESP:GetBool() then
+			if (LocalPlayer():IsGhost() or LocalPlayer():IsSpectating()) and Evil.DrawSpecESP:GetBool() then
 				Game:DrawESP(ent)
 				continue
 			end
@@ -141,7 +141,7 @@ hook.Add("PostDrawOpaqueRenderables", "EvilESP", function()
 
 			Game:DrawESP(ent)
 		elseif ent:GetClass() == "evil_page" then
-			if LocalPlayer():IsSpectating() and Evil.DrawSpecESP:GetBool() then
+			if (LocalPlayer():IsGhost() or LocalPlayer():IsSpectating()) and Evil.DrawSpecESP:GetBool() then
 				Game:DrawESP(ent)
 			end
 		end
