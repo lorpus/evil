@@ -42,7 +42,7 @@ hook.Add("Think", "EvilLight", function()
 
         projlower:SetPos(LocalPlayer():EyePos())
         projlower:Update()
-    
+
         projupper:SetPos(pos)
         projupper:Update()
     else

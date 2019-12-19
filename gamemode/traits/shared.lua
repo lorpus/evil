@@ -3,7 +3,7 @@ Traits = Traits or {}
 Traits.Traits = {
     flashlightfreeze = {
         // name stuff goes here maybe eventually
-    
+
         think = function(ply)
             if not SERVER then return end
             local freeze
@@ -105,7 +105,7 @@ Traits.Traits = {
         apply = function(ply)
             if CLIENT and ply != LocalPlayer() then return end
             hook.Add("StartCommand", "TraitOFM_" .. tostring(ply), function(p2, cmd)
-                if ply != p2 then return end 
+                if ply != p2 then return end
                 cmd:SetButtons(bit.band(cmd:GetButtons(), bit.bnot(bit.bor(IN_MOVELEFT, IN_MOVERIGHT, IN_BACK))))
                 cmd:SetSideMove(0)
                 cmd:SetForwardMove(math.max(0, cmd:GetForwardMove()))

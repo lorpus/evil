@@ -78,7 +78,7 @@ function Round:End(strReason, format)
 
     Round:SetRound(ROUND_POST)
     dbg.print("Round:End()", strReason)
-    
+
     if strReason then
         Network:NotifyAll(strReason, strReason:StartWith("#"), format)
     else
@@ -147,7 +147,7 @@ hook.Add("PlayerSpawn", "InitialSpawnButNotQuite", function(ply)
         ply:KillSilent()
         ply:SetNW2Bool("HasSpawned", true)
         ply:SetCustomCollisionCheck(true)
-        
+
         if Round:IsPlaying() then
             timer.Simple(5, function() // weird
                 if IsValid(ply) then

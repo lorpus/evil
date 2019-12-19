@@ -110,13 +110,13 @@ function MapVote:ShowVoteUI(recv)
         local opt = vgui.Create("DPanel", frame)
         opt:SetSize(frame:GetWide() * 0.9, basePos)
         opt:SetPos(10, posOffset)
-        
+
         local dindex = index
         function opt:Paint(w, h)
             if mat then
                 surface.SetDrawColor(255, 255, 255)
                 surface.SetMaterial(mat)
-                surface.DrawTexturedRect(0, 0, w, h) 
+                surface.DrawTexturedRect(0, 0, w, h)
             else
                 draw.RoundedBox(5, 0, 0, w, h, Color(50, 50, 50)) // rounded outline
                 draw.RoundedBox(5, 1, 1, w - 2, h - 2, Color(20, 20, 20))

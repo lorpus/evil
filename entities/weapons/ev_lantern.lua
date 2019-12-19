@@ -33,11 +33,11 @@ function SWEP:Deploy()
     local seqlen = self.Owner:GetViewModel():SequenceDuration()
     self:SendWeaponAnim(ACT_VM_DRAW)
     self:SetNextPrimaryFire(CurTime() + seqlen)
-    
+
     return true
 end
 
-function SWEP:Holster()    
+function SWEP:Holster()
     return true
 end
 

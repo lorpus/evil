@@ -3,7 +3,7 @@ function Evil:SVAPINetHandler(len, ply)
     net.Start(Network.Id)
         net.WriteInt(N_CONTENT, Network.CmdBits)
     if not Evil.API.FilterLoaded then
-        net.WriteBool(true) 
+        net.WriteBool(true)
     else
         net.WriteBool(false)
         net.WriteTable(Evil.API.PackFilter)

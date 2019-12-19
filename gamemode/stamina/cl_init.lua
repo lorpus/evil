@@ -18,7 +18,7 @@ hook.Add("HUDPaint", "EvilDrawStamina", function()
 
     surface.SetDrawColor(0, 0, 0)
     surface.DrawOutlinedRect(x, y - (PadY * 2), Scaled + (PadX * 2), Scaled + (PadY * 2))
-    
+
     if LocalPlayer():IsBoss() or LocalPlayer():IsProxy() then
         surface.SetDrawColor(100, 50, 50, 255)
     else

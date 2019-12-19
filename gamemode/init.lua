@@ -31,7 +31,7 @@ end)
 
 hook.Add("Think", "KickJoinedPlayers", function() // may as well do it here cuz if someone is mid-join they wont get kicked (i dont think)
     if not Evil.bLocked then return end
-    
+
     for _, ply in pairs(player.GetAll()) do
         ply:Kick("This server has been locked due to an error: " .. Evil.strLockReason)
     end

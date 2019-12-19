@@ -1,7 +1,7 @@
 Game.Gametypes = {
     deathmatch = {
         name = "Deathmatch",
-        
+
         start = function()
             dbg.print("deatchmath.start()")
             if not SERVER then return end
@@ -54,7 +54,7 @@ Game.Gametypes = {
                         max = kills
                     end
                 end
-                
+
                 for _, ply in pairs(player.GetAll()) do
                     if ply:GetNW2Int("EvilDMKills") == max then
                         table.insert(winrars, ply:Nick())

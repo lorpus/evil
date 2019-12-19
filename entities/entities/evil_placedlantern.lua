@@ -12,7 +12,7 @@ function ENT:Initialize()
     end
     self:SetMoveType(MOVETYPE_VPHYSICS)
     self:SetSolid(SOLID_VPHYSICS)
-    
+
     local phys = self:GetPhysicsObject()
     if phys:IsValid() then
         phys:Wake()
@@ -23,7 +23,7 @@ function ENT:Draw()
     self:DrawModel()
 
     if LocalPlayer():IsBoss() then
-        local opacity = 255 - LocalPlayer():EyePos():Distance(self:GetPos()) 
+        local opacity = 255 - LocalPlayer():EyePos():Distance(self:GetPos())
         local ang = (LocalPlayer():EyePos() - self:GetPos()):Angle()
         ang.p = 0
         ang.y = ang.y + 90
@@ -36,7 +36,7 @@ end
 
 function ENT:Use(ply, caller)
     if self.taken then return end
-    
+
     if ply:GetEyeTrace().Entity != self then return end
     if ply:IsBoss() then
         self.taken = true
@@ -66,7 +66,7 @@ function ENT:Think()
     self.light.size = 400
     self.light.DieTime = CurTime() + 1
     self.light.pos = self:GetPos() + Vector(0, 0, 2)
-    
+
     /*if not self.projlower or not self.projupper then
         self.projlower = ProjectedTexture() // these can only be 180deg so we need two
         self.projupper = ProjectedTexture()

@@ -25,7 +25,7 @@ function SWEP:Deploy()
     self:SendWeaponAnim(ACT_VM_DRAW)
 end
 
-function SWEP:Holster()    
+function SWEP:Holster()
     return true
 end
 

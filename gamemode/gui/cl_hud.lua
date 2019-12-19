@@ -16,7 +16,6 @@ surface.CreateFont("evilfont2", {
 })
 
 local function DrawTimer()
-    local nScrW, nScrH = ScrW(), ScrH()
     local tall = ScreenScale(15)
 
     local text = string.ToMinutesSeconds(math.floor(math.floor(Round:GetEndTime() - CurTime())))
@@ -108,7 +107,7 @@ local hide = {
 }
 
 hook.Add("HUDShouldDraw", "HideDasDefaults", function(n)
-	if hide[n] then return false end
+    if hide[n] then return false end
 end)
 
 hook.Add("HUDDrawTargetID", "HidePlayerTarget", function()

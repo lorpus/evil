@@ -29,7 +29,7 @@ Map = {
             Vector(-3476.9604492188, -3494.7036132813, 0.03125),
             Vector(-3520.9152832031, -3458.8818359375, 0.03125),
         },
-        
+
         normal = {
             Vector(4133.41015625, -1887.7376708984, -107.96875),
             Vector(3854.3811035156, -1212.8937988281, -94.510818481445),
@@ -152,7 +152,7 @@ Map = {
                 pos = Vector(3545.188965, 3855.966553, 9.470348),
                 ang = Angle(7.049439, -125.842529, 0.000000)
             },
-            
+
             // Group 3
             {
                 pos = Vector(3683.518311, -1366.172607, -106.968750),
@@ -193,7 +193,7 @@ Map = {
             {
                 pos = Vector(3395.771240, -815.705017, -106.968750),
                 ang = Angle(24.339664, 56.703979, 0.000000)
-            },            
+            },
 
             // Group 4
 
@@ -252,7 +252,7 @@ Map = {
                 pos = Vector(-4049.794189, 4191.415527, -0.968750),
                 ang = Angle(1.570067, -72.834930, 0.000000)
             },
-            
+
             // group 6
             {
                 pos = Vector(-2233.021484, -5616.750977, -0.968750),
@@ -377,21 +377,21 @@ Map = {
             pos = Vector(2766.918945, -2345.031250, -61.669937),
             ang = Angle(-0.000000, 270.000000, 0.000000)
         }
-        
-        
+
+
     },
 
     InitPostEntity = function() // get rid of the models that are in the map
         if not SERVER then return end
         for _, ent in pairs(ents.FindByModel("models/slender/sheet.mdl")) do
-			SafeRemoveEntity(ent)
-		end
+            SafeRemoveEntity(ent)
+        end
     end,
 
     PostCleanUpMap = function()
         if not SERVER then return end
         for _, ent in pairs(ents.FindByModel("models/slender/sheet.mdl")) do
-			SafeRemoveEntity(ent)
-		end
+            SafeRemoveEntity(ent)
+        end
     end
 }

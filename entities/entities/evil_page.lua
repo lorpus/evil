@@ -20,7 +20,7 @@ function ENT:Initialize()
     self:SetMoveType(MOVETYPE_VPHYSICS)
     self:SetSolid(SOLID_VPHYSICS)
     self:SetCollisionGroup(COLLISION_GROUP_PASSABLE_DOOR)
-    
+
     local phys = self:GetPhysicsObject()
     if phys:IsValid() then
         phys:Wake()
@@ -28,7 +28,6 @@ function ENT:Initialize()
     end
 end
 
-local nig = VectorRand()
 function ENT:Draw()
     if LocalPlayer():IsBoss() or LocalPlayer():IsProxy() then return end
     // i genuinely dont understand why i need to do this pls find other way (the pages are black, presumably cuz of engine.LightStyle?)
@@ -45,10 +44,10 @@ end
 
 function ENT:Use(ply, caller)
     if self.taken then return end
-    
+
     if ply:GetEyeTrace().Entity != self then return end
     if not ply:IsHuman() then return end
-    
+
     self.taken = true
 
     ply:EmitSound(Sound(string.format("player/footsteps/gravel%s.wav", math.random(1, 4))), 100, math.random(120, 160))

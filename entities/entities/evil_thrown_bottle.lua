@@ -14,7 +14,7 @@ function ENT:Initialize()
     if SERVER then
         self:PhysicsInit(SOLID_VPHYSICS)
     end
-    
+
     self:SetMoveType(MOVETYPE_VPHYSICS)
     self:SetSolid(SOLID_VPHYSICS)
     self:SetCollisionGroup(COLLISION_GROUP_PROJECTILE)

@@ -103,7 +103,7 @@ Collectable.Collectables = {
                     table.insert(dead, ply)
                 end
             end
-            
+
             if #dead == 0 then
                 Network:Notify(collector, "#Skull_NoPlayers", true)
                 return false

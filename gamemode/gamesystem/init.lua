@@ -116,7 +116,7 @@ function Game:PreSetup()
     lastChosenBoss = ply
     Game:SetBoss(ply)
     ply:SetTeam(TEAM_BOSS)
-    
+
     local key
     if Evil._NEXTBOSS then
         key = Evil._NEXTBOSS
@@ -124,7 +124,7 @@ function Game:PreSetup()
     else
         key = table.Random(table.GetKeys(Evil.Bosses))
     end
-    
+
     Game:SetProfile(key)
 
     // generic
@@ -137,7 +137,7 @@ function Game:PreSetup()
     // gt
 
     local keys = {}
-    
+
     for k, v in RandomPairs(Game.Gametypes) do
         if v.playable then
             if v.playable() then
@@ -268,7 +268,7 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     if info.killhook then
         info.killhook(victim)
     end
-    
+
     if istable(info.killsounds) then
         Network:BroadcastKillsound(info.killsounds[math.random(#info.killsounds)])
     end
@@ -277,7 +277,7 @@ end)
 hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
     timer.Simple(0, function()
         if ply:IsSpecTeam() then return end
-        
+
         local humans = Map.spawns.humans
         local boss = Map.spawns.boss
         local proxy = Map.spawns.proxy
@@ -401,22 +401,22 @@ end
 
 function GM:PlayerCanHearPlayersVoice(listener, speaker)
     local b = listener:EyePos():Distance(speaker:EyePos()) < (Evil.Cfg.VoiceDistance or 768)
-	if (listener:Alive() and not listener:IsHuman()) and (speaker:Alive() and not speaker:IsHuman()) then
-		return true, false
-	elseif listener:Alive() and speaker:Alive() then
-		return b, true
-	elseif listener:Alive() != speaker:Alive() then
-		return false, false
-	elseif not listener:Alive() and not speaker:Alive() then
-		return true, false
-	end
+    if (listener:Alive() and not listener:IsHuman()) and (speaker:Alive() and not speaker:IsHuman()) then
+        return true, false
+    elseif listener:Alive() and speaker:Alive() then
+        return b, true
+    elseif listener:Alive() != speaker:Alive() then
+        return false, false
+    elseif not listener:Alive() and not speaker:Alive() then
+        return true, false
+    end
 end
 
 function GM:PlayerCanSeePlayersChat(text, isTeam, receiver, sender)
     if receiver:Alive() and not sender:Alive() then // living cant hear dead
         return false
     end
-    
+
     return true
 end
 

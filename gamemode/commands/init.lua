@@ -4,7 +4,7 @@ hook.Add("PlayerSay", "EvilCommandHandler", function(ply, text, isTeam)
         if text:StartWith(prefix) then
             good = true
             break
-        end 
+        end
     end
     if not good then return end
 

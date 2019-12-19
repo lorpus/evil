@@ -3,13 +3,13 @@ local function ShowClassInfoPanel(key, optname, optdesc)
     local iscitizen = key == true
     local info = Classes.Classes[key]
     local frame = vgui.Create("DFrame")
-    
+
     frame:SetSize(ScreenScale(100), ScrW() / 5)
     frame:SetPos(0, ScrH() / 2 - frame:GetTall() / 2)
     frame:SetTitle("")
     frame:ShowCloseButton(false)
     frame.drawwidth = 0
-    
+
     local movedir = 1.5
     function frame:Think()
         if self.drawwidth >= frame:GetWide() and movedir > 0 then
@@ -28,7 +28,7 @@ local function ShowClassInfoPanel(key, optname, optdesc)
     local pad = 16
     function frame:Paint(w, h)
         draw.RoundedBoxEx(10, 0, 0, self.drawwidth, h, Color(20, 20, 20), false, true, false, true)
-    
+
         local text
         if iscitizen then
             draw.SimpleText(Lang:Format("#YourName", { name = optname }), "EvilInfoPanelTitle", self.drawwidth - w / 2, 5, color_white, TEXT_ALIGN_CENTER)
@@ -70,7 +70,6 @@ end
 // except it has been for 7 years
 // im sure this wont stop working anytime soon
 local function OverrideVoiceNames()
-    local orig = VoiceNotify.Think
     VoiceNotify.Think = function(self)
         if IsValid(self.ply) then
             self.LabelName:SetText(self.ply:EvilName())

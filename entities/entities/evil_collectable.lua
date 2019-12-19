@@ -12,7 +12,7 @@ function ENT:Initialize()
     end
     self:SetMoveType(MOVETYPE_VPHYSICS)
     self:SetSolid(SOLID_VPHYSICS)
-    
+
     local phys = self:GetPhysicsObject()
     if phys:IsValid() then
         phys:Wake()
@@ -59,7 +59,7 @@ end
 
 function ENT:Use(ply, caller)
     if self.taken then return end
-    
+
     if ply:GetEyeTrace().Entity != self then return end
     if not ply:IsHuman() then return end
 

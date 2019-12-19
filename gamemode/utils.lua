@@ -5,15 +5,15 @@ function eutil.Percent(p)
 end
 
 function eutil.PRNS(kv, fallback)
-	local max = 0
-	for _, prob in pairs(kv) do
-		max = max + (prob or fallback)
-	end
-	local p = math.random() * max
-	for result, prob in pairs(kv) do
-		if p < prob then return result end
-		p = p - prob
-	end
+    local max = 0
+    for _, prob in pairs(kv) do
+        max = max + (prob or fallback)
+    end
+    local p = math.random() * max
+    for result, prob in pairs(kv) do
+        if p < prob then return result end
+        p = p - prob
+    end
 end
 
 function eutil.NewlineText(str, count)
@@ -140,11 +140,11 @@ local function RenderOutlines()
 
         cam.Start2D()
             for i = 1, OutlineListSize do
-				render.SetStencilReferenceValue(i)
+                render.SetStencilReferenceValue(i)
 
-				surface.SetDrawColor(OutlineList[i][COLOR])
-				surface.DrawRect(0, 0, w, h)
-			end
+                surface.SetDrawColor(OutlineList[i][COLOR])
+                surface.DrawRect(0, 0, w, h)
+            end
         cam.End2D()
 
         render.SuppressEngineLighting(false)
@@ -154,34 +154,34 @@ local function RenderOutlines()
     render.CopyRenderTargetToTexture(DrawTexture)
 
     render.SetRenderTarget(scene)
-	CopyMat:SetTexture("$basetexture", StoreTexture)
-	render.SetMaterial(CopyMat)
-	render.DrawScreenQuad()
+    CopyMat:SetTexture("$basetexture", StoreTexture)
+    render.SetMaterial(CopyMat)
+    render.DrawScreenQuad()
 
-	render.SetStencilEnable(true)
-		render.SetStencilReferenceValue(0)
-		render.SetStencilCompareFunction(STENCIL_EQUAL)
+    render.SetStencilEnable(true)
+        render.SetStencilReferenceValue(0)
+        render.SetStencilCompareFunction(STENCIL_EQUAL)
 
-		OutlineMat:SetTexture("$basetexture", DrawTexture)
-		render.SetMaterial(OutlineMat)
+        OutlineMat:SetTexture("$basetexture", DrawTexture)
+        render.SetMaterial(OutlineMat)
 
-		render.DrawScreenQuadEx(-1, -1, w ,h)
-		render.DrawScreenQuadEx(-1, 0, w, h)
-		render.DrawScreenQuadEx(-1, 1, w, h)
-		render.DrawScreenQuadEx(0, -1, w, h)
-		render.DrawScreenQuadEx(0, 1, w, h)
-		render.DrawScreenQuadEx(1, 1, w, h)
-		render.DrawScreenQuadEx(1, 0, w, h)
-		render.DrawScreenQuadEx(1, 1, w, h)
+        render.DrawScreenQuadEx(-1, -1, w ,h)
+        render.DrawScreenQuadEx(-1, 0, w, h)
+        render.DrawScreenQuadEx(-1, 1, w, h)
+        render.DrawScreenQuadEx(0, -1, w, h)
+        render.DrawScreenQuadEx(0, 1, w, h)
+        render.DrawScreenQuadEx(1, 1, w, h)
+        render.DrawScreenQuadEx(1, 0, w, h)
+        render.DrawScreenQuadEx(1, 1, w, h)
 
-	render.SetStencilEnable(false)
+    render.SetStencilEnable(false)
 end
 
 hook.Add("PostDrawEffects", "renderoutlines", function()
     hook.Run("PreDrawOutlines")
     if OutlineListSize == 0 then return end
     RenderOutlines()
-    
+
     OutlineList = {}
     OutlineListSize = 0
 end)
@@ -197,22 +197,22 @@ end
 
 hook.Add("HUDPaint", "EvilRenderBlips", function()
     local maxrad = ScreenScale(9)
-	for k, v in pairs(BlipPos) do
-		if not BlipDel[k] then BlipDel[k] = {} end
-		if BlipDel[k][1] /*and BlipDel[k][2] and BlipDel[k][3]*/ then
-			BlipDel[k] = {}
-			table.remove(BlipPos, k)
-		end
+    for k, v in pairs(BlipPos) do
+        if not BlipDel[k] then BlipDel[k] = {} end
+        if BlipDel[k][1] /*and BlipDel[k][2] and BlipDel[k][3]*/ then
+            BlipDel[k] = {}
+            table.remove(BlipPos, k)
+        end
 
-		local ts = v.v:ToScreen()
-		//for i = 1, 3 do
-			local r = math.pow(5, RealTime() - v.s - 1 /* -i + 1 */)
-			local op = (maxrad - r) / maxrad * 5
-			if op < 0 then
-				BlipDel[k][1 /* i */] = true
-				continue
-			end
-			surface.DrawCircle(ts.x, ts.y, r, 20, 225, 20, op)
-		//end
-	end
+        local ts = v.v:ToScreen()
+        //for i = 1, 3 do
+            local r = math.pow(5, RealTime() - v.s - 1 /* -i + 1 */)
+            local op = (maxrad - r) / maxrad * 5
+            if op < 0 then
+                BlipDel[k][1 /* i */] = true
+                continue
+            end
+            surface.DrawCircle(ts.x, ts.y, r, 20, 225, 20, op)
+        //end
+    end
 end)

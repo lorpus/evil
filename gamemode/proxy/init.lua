@@ -1,8 +1,4 @@
 function Proxy:ProxiesAllowed()
-    local percent = Game:GetPercentHumansAlive()
-    local count = #player.GetAll()
-
-    // return count > 5 and percent < 0.7
     return Round:IsPlaying()
 end
 
@@ -27,7 +23,7 @@ function Proxy:Setup(ply)
     local wasKilled = ply:GetNW2Bool("EvilKilled")
     Game:ResetPlayer(ply)
     ply:SetNW2Bool("EvilKilled", wasKilled) // reset
-    
+
     ply:SetTeam(TEAM_PROXY)
     ply:SetModel(profile.proxy.model)
     ply:SetRunSpeed(profile.proxy.runspeed)

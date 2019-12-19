@@ -176,7 +176,7 @@ Lang.Translations = Lang.Translations or {
         ["#Deathmatch_EndTimeUpNone"]                       = "Times up! Somehow everyone was so bad that nobody got a single kill!",
         ["#CollectPages"]                                   = "Collect all {{count}} pages",
         ["#StopHumansPages"]                                = "Stop the humans from collecting all {{count}} pages",
-        
+
         // lang
         ["#InvalidLang"]                                    = "Unfortunately this isn't a supported language setting",
         ["#LangChanged"]                                    = "Language successfully changed",
@@ -238,7 +238,7 @@ Lang.Translations = Lang.Translations or {
         ["#Collectable_Soda_Desc"]                          = "Give yourself a boost and run faster",
         ["#Collectable_Skull"]                              = "Apollyon's Skull",
         ["#Collectable_Skull_Desc"]                         = "Bring a human back from the dead",
-        
+
         // abilities
         ["#Teleport"]                                       = "Teleport", // unused
         ["#TeleportDesc"]                                   = "Teleport to a random human spawn", // unused
@@ -280,7 +280,7 @@ Lang.Translations = Lang.Translations or {
         ["#API_BossRegisterFailKey"]                        = "Registering boss {{id}} failed because the key {{key}} is invalid",
         ["#API_BossRegisterFailExists"]                     = "Registering boss {{id}} failed because an entry already exists with that id",
         ["#API_ClientMaybeNoContent"]                       = "It seems you may not have the Evil content pack \"{{name}}\" downloaded from the workshop. This will likely cause errors. We'll stop warning you on this server in case we're wrong",
-    
+
         // tips
         ["#Tip"]                                            = "Tip: {{tip}}",
         ["#Tip_1"]                                          = "As a human, you can't hear the boss's footsteps",
@@ -343,7 +343,7 @@ end
 
 function Lang:Get(key)
     local ret = Lang.Translations[Lang.Locale][key]
-    
+
     if not ret then
         ret = Lang.Translations["en"][key]
     end
@@ -353,7 +353,7 @@ end
 
 function Lang:Format(key, tab)
     local ret = Lang:Get(key)
-    
+
     ret = Lang:ExpandInline(ret)
 
     for key, replacement in pairs(tab) do

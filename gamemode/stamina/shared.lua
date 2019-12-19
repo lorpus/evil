@@ -37,7 +37,7 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         if flStamina > 0 then
             flStamina = flStamina - Stamina.loserate * staminaScale
         end
-        
+
         ply.flLastSpeed = CurTime()
     elseif not ply:KeyDown(IN_SPEED) and flStamina <= Stamina.maxstamina then
         if ply.flLastSpeed then
@@ -70,7 +70,7 @@ hook.Add("StartCommand", "nazis", function(ply, cmd)
         local hkrs = hook.Run("StaminaRunspeed", ply, runspeed)
         if hkrs != nil then runspeed = hkrs end
         local hkjp = hook.Run("StaminaJumpPower", ply, true, Stamina.normaljump)
-        if hkjp == nil then hkjp = Stamina.normaljump end 
+        if hkjp == nil then hkjp = Stamina.normaljump end
         ply:SetRunSpeed(runspeed)
         ply:SetJumpPower(hkjp)
     end

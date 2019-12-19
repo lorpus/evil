@@ -32,7 +32,7 @@ function Game:GetGametype()
 end
 
 function Game:GetGametypeInfo()
-    return Game.Gametypes[Game:GetGametype()] 
+    return Game.Gametypes[Game:GetGametype()]
 end
 
 function Game:GetHumans()
@@ -49,7 +49,7 @@ end
 
 function Game:GetDead()
     local ret = {}
-    
+
     for _, ply in pairs(player.GetAll()) do
         if not ply:Alive() then
             table.insert(ret, ply)
@@ -83,7 +83,7 @@ function Game:CanESP(viewer, viewed)
         d = true
     else
         d = false
-    end 
+    end
 
     local hk = hook.Run("CanSeePlayerESP", viewer, viewed)
     if hk != nil then

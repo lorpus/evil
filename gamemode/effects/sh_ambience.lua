@@ -6,7 +6,7 @@ Ambience = Ambience or {
 if SERVER then
     hook.Add("InitPostEntity", "Ambience", function()
         if not Ambience.Enabled then return end
-        
+
         game.ConsoleCommand("sv_skyname painted\n")
 
         local skypaint = ents.FindByClass("env_skypaint")[1]
@@ -44,7 +44,7 @@ else
                 render.FogMaxDensity(0.95)
             end
             render.FogColor(0, 0, 0)
-            
+
             return true
         end
     end

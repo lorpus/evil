@@ -48,7 +48,7 @@ end
 
 local function DrawCircle(centerX, centerY, radius, startDeg, endDeg, segments, color)
     local cir = {}
-    
+
     table.insert(cir, {
         x = centerX,
         y = centerY
@@ -143,7 +143,7 @@ local function open(bool)
             if not polys[i] then continue end
             local tab = polys[i].circle
             local vert = {x = mouseX - frameX, y = mouseY - frameY}
-            if InsideConvexPolygon(vert, tab) then 
+            if InsideConvexPolygon(vert, tab) then
                 polys[i].color = Color(50, 50, 50, 200)
                 if not made then
                     hovering = i
@@ -200,7 +200,7 @@ hook.Add("Think", "TauntHUD", function()
 
     if input.IsKeyDown(KEY_R) and not lastDown and (LocalPlayer():IsBoss() or LocalPlayer():IsProxy()) then
         lastDown = true
-        
+
         local profile = Game:GetProfileInfo()
         local taunts
         if LocalPlayer():IsBoss() then
@@ -219,7 +219,7 @@ hook.Add("Think", "TauntHUD", function()
         lastpos = input.GetCursorPos()
         open(true)
     elseif not input.IsKeyDown(KEY_R) and lastDown then
-        if lastpos == input.GetCursorPos() then 
+        if lastpos == input.GetCursorPos() then
             RequestPlayTaunt("random")
         elseif hovering and istable(Taunts) then
             RequestPlayTaunt(Taunts[hovering])

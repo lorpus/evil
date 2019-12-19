@@ -8,7 +8,7 @@ end)
 
 hook.Add("RemoveTraits", "EvilClientTrait", function(ply)
     if not istable(ply.EvilTraits) then return end
-    
+
     for trait, _ in pairs(ply.EvilTraits) do
         local x = Traits.Traits[trait]
         if isfunction(x.remove) then

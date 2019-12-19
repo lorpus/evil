@@ -10,7 +10,7 @@ local configuration = {
 
     MainMenu = {
         TitleText = "Evil",
-        HelpText = "Placeholder\nPlaceholder\nPlaceholder"        
+        HelpText = "Placeholder\nPlaceholder\nPlaceholder"
     },
 
     Pointshop = {

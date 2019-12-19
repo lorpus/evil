@@ -121,49 +121,49 @@ end
 
 local hex = { A = 1, B = 1, C = 1, D = 1, E = 1, F = 1, ["0"] = 1, ["1"] = 1, ["2"] = 1, ["3"] = 1, ["4"] = 1, ["5"] = 1, ["6"] = 1, ["7"] = 1, ["8"] = 1, ["9"] = 1 }
 local function ValidHexColor(col)
-	if #col != 7 then return false end
-	if col[1] != "#" then return false end
-	for i, c in ipairs(col:Split("")) do
-		if i == 1 then continue end
-		if not hex[c:upper()] then return false end
-	end
-	return true
+    if #col != 7 then return false end
+    if col[1] != "#" then return false end
+    for i, c in ipairs(col:Split("")) do
+        if i == 1 then continue end
+        if not hex[c:upper()] then return false end
+    end
+    return true
 end
 
 local function HexToColor(hex)
-	local r = tonumber(hex[2] .. hex[3], 16)
-	local g = tonumber(hex[4] .. hex[5], 16)
-	local b = tonumber(hex[6] .. hex[7], 16)
-	return Color(r, g, b)
+    local r = tonumber(hex[2] .. hex[3], 16)
+    local g = tonumber(hex[4] .. hex[5], 16)
+    local b = tonumber(hex[6] .. hex[7], 16)
+    return Color(r, g, b)
 end
 
 local function ParseColoredText(text, limitstart)
-	local ret = {}
-	local splote = text:Split("")
+    local ret = {}
+    local splote = text:Split("")
 
-	local skip = 1
-	for k, v in ipairs(splote) do
-		if k < skip then continue end
-		if v == "#" then
-			if limitstart then
-				if k != 1 then continue end
-			end
+    local skip = 1
+    for k, v in ipairs(splote) do
+        if k < skip then continue end
+        if v == "#" then
+            if limitstart then
+                if k != 1 then continue end
+            end
 
-			local test = table.concat(splote, "", k, k + 6)
-			if ValidHexColor(test) then
-				if k != 1 then
-					table.insert(ret, table.concat(splote, "", skip, k - 1))
-				end
-				table.insert(ret, HexToColor(test))
-				skip = k + 7
-			end
-		end
-	end
-	if skip <= #splote then
-		table.insert(ret, table.concat(splote, "", skip))
-	end
+            local test = table.concat(splote, "", k, k + 6)
+            if ValidHexColor(test) then
+                if k != 1 then
+                    table.insert(ret, table.concat(splote, "", skip, k - 1))
+                end
+                table.insert(ret, HexToColor(test))
+                skip = k + 7
+            end
+        end
+    end
+    if skip <= #splote then
+        table.insert(ret, table.concat(splote, "", skip))
+    end
 
-	return ret
+    return ret
 end
 
 hook.Add("ChangePlayerText", "AdminTextChange", function(ply, original, data)
@@ -204,7 +204,7 @@ hook.Add("ChangePlayerText", "AdminTextChange", function(ply, original, data)
         if t.t.f then
             local text = t.t.f
             local o = 0
-            local b
+            // local b
             if not text:find("%[") then
                 // o = 1
                 text = "#e8e8e8[" .. text

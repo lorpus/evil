@@ -23,7 +23,7 @@ function Game:TauntNetHandler(len, ply)
     end
 
     ply.flLastTaunt = CurTime()
-    
+
     local desired = net.ReadString()
     if desired == "random" or not table.HasValue(taunts, desired) then
         snd = taunts[math.random(#taunts)]

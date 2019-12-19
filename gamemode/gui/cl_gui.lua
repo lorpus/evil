@@ -39,14 +39,14 @@ local function FirstTimeGUI()
     local delta
     function frame:Paint(w, h)
         delta = RealFrameTime()
-        if overlay.ClosingFinished or help.Done then 
+        if overlay.ClosingFinished or help.Done then
             if help.Clicked then
                 draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0))
                 surface.SetFont("ebilfontsmaller")
                 local TxtW, TxtH = surface.GetTextSize(sHelp)
                 draw.DrawText("AAAAAAAAA", "ebilfontsmaller", w / 2, h / 2 - TxtH / 2, color_white, TEXT_ALIGN_CENTER)
             end
-            return 
+            return
         end
 
         draw.RoundedBox(0, 0, 0, w, h, Color(0, 0, 0))
@@ -62,7 +62,7 @@ local function FirstTimeGUI()
         local TxtW, TxtH = surface.GetTextSize(sHelp)
         draw.DrawText(sHelp, "ebilfontsmaller", w / 2, h / 2 - TxtH / 2, color_white, TEXT_ALIGN_CENTER)
     end
-    
+
     help:SetSize(ScreenScale(50), ScreenScale(25))
     local centerX, centerY = ((sw / 2) - (help:GetWide() / 2)), ((sh / 2) - (help:GetTall() / 2))
     help:SetPos(centerX - help:GetWide(), centerY + (sh - sh / 1.5))
@@ -83,14 +83,14 @@ local function FirstTimeGUI()
     local CenterX, CenterY = ((sw / 2) - (exit:GetWide() / 2)), ((sh / 2) - (exit:GetTall() / 2))
     exit:SetPos(CenterX + exit:GetWide(), CenterY + (sh - sh / 1.5))
     exit:SetText("")
-    
+
     function exit:Paint(w, h)
         if help.Clicked and not help.Done then self:SetVisible(false) end
 
         local color = ((self:IsHovered() and Color(50, 50, 50)) or Color(0, 0, 0))
         draw.RoundedBox(0, 0, 0, w, h, color)
         surface.SetDrawColor(255, 255, 255)
-        surface.DrawOutlinedRect(0, 0, w, h) 
+        surface.DrawOutlinedRect(0, 0, w, h)
         surface.SetFont("ebilfontsmaller")
         local TxtW, TxtH = surface.GetTextSize(Lang:Get("#Exit"))
         draw.DrawText(Lang:Get("#Exit"), "ebilfontsmaller", w / 2 - TxtW / 2, h / 2 - TxtH / 2, Color(255,255,255,255))
@@ -109,7 +109,7 @@ local function FirstTimeGUI()
         frame.Closing = true
         overlay:SetVisible(true)
         frame:SetMouseInputEnabled(false)
-        frame:SetKeyboardInputEnabled(false)    
+        frame:SetKeyboardInputEnabled(false)
         self:Remove()
     end
 
@@ -124,17 +124,16 @@ local function FirstTimeGUI()
 
     timer.Create("13/50", 0, 0, function()
         if not overlay:IsVisible() then return end
-        local w, h = overlay:GetWide(), overlay:GetTall()
         local alpha = overlay.alpha
 
         if help.Clicked and not help.Done then
             if alpha == 255 and not overlay.ClosingFinished then overlay.ClosingFinished = true end
-            if alpha == 0 and overlay.ClosingFinished then 
-                exit:SetPos(CenterX, CenterY + (sh - sh / 1.5)) 
-                help.Done = true 
+            if alpha == 0 and overlay.ClosingFinished then
+                exit:SetPos(CenterX, CenterY + (sh - sh / 1.5))
+                help.Done = true
                 overlay.ClosingFinished = false
                 exit:SetVisible(true)
-                overlay:SetVisible(false) 
+                overlay:SetVisible(false)
             end
 
             if overlay.ClosingFinished then
@@ -149,7 +148,7 @@ local function FirstTimeGUI()
         if not frame.Closing then return end
 
         if alpha == 255 and not overlay.ClosingFinished then overlay.ClosingFinished = true if help.Clicked then help.Clicked = false end end
-        if alpha == 0 and overlay.ClosingFinished then timer.Destroy("13/50") frame:Remove() end
+        if alpha == 0 and overlay.ClosingFinished then timer.Remove("13/50") frame:Remove() end
 
         if overlay.ClosingFinished then
             overlay.alpha = math.Approach(alpha, 0, nFadeSpeed * delta)
@@ -213,8 +212,8 @@ function Evil:ShowEndScreen()
     local Main = vgui.Create("DPanel", Outline)
     Main:SetSize(Outline:GetWide() - ScreenScale(12.5), Outline:GetTall() - ScreenScale(100))
     Main:SetPos(ScreenScale(12.5) / 2, ScreenScale(100) - PadY)
-    
-    function Main:Paint(w, h) 
+
+    function Main:Paint(w, h)
         //surface.DrawOutlinedRect(0, 0, w, h)
     end
 
@@ -241,9 +240,8 @@ function Evil:ShowEndScreen()
     local flPhase = 0
     local Delay = 2
     local TextFadeDelay = 2
-    local MainW, MainH = Main:GetWide(), Main:GetTall()
     local TempVar = 1
-    /* 
+    /*
         0/1 = Fade in & Survivors
         2 = Deaders
         3 = Fadeout -- highlights coming soon later in a theater near u
@@ -272,11 +270,11 @@ function Evil:ShowEndScreen()
         end
 
         if frame.opaque then
-            if ((flPhase == 0 and (SysTime() - curTime > Delay)) or ((flPhase > 1) and (flPhase < 2))) then 
-                
+            if ((flPhase == 0 and (SysTime() - curTime > Delay)) or ((flPhase > 1) and (flPhase < 2))) then
+
                 // das setup por phase 1
-                if flPhase == 0 then 
-                    local avatartable = SetupAvatars(survivors) 
+                if flPhase == 0 then
+                    local avatartable = SetupAvatars(survivors)
                     local total = #avatartable
                     //if total == 0 then flPhase = 2 return end -- to skip this phase
 
@@ -285,8 +283,8 @@ function Evil:ShowEndScreen()
                     else
                         Arbitrary = Lang:Format("#End_NSurvived", { count = total })
                     end
-                    if total == 0 then 
-                        Arbitrary = Lang:Get("#End_NobodySurvived") 
+                    if total == 0 then
+                        Arbitrary = Lang:Get("#End_NobodySurvived")
                         centerText = true
                     end
                     if total == 1 and #survivors[1]:GetName() <= 12 then
@@ -313,17 +311,17 @@ function Evil:ShowEndScreen()
                     end
 
                     if maxColumns > #Avatars then maxColumns = #Avatars end
-                    
+
                     Main:SetSize((MainW * maxColumns) + PadX, (MainH * rowsMax) + PadY)
                     Main:SetPos(w / 2 - Main:GetWide() / 2, TextH + PadY * 2)
-                    
+
                     local i = 0
                     local x, y = PadX, PadY
                     for _, panel in pairs(Avatars) do
                         panel:SetPos(x, y)
 
                         i = i + 1
-                        
+
                         x = x + PadX + AvatarScale
                         if i == maxColumns then
                             y = y + panel:GetTall() + PadY
@@ -370,7 +368,7 @@ function Evil:ShowEndScreen()
                             curTime = SysTime()
                         end
                     end
-                    
+
                     if #Avatars == 0 then
                         flPhase = 1.4
                         curTime = SysTime()
@@ -378,19 +376,19 @@ function Evil:ShowEndScreen()
                 end
 
                 if flPhase == 1.4 and SysTime() - curTime > 0.1 then
-                    if #Avatars == 0 and self.textfadefinished then 
-                        flPhase = 2 
-                        curTime = SysTime() 
-                        centerText = false 
+                    if #Avatars == 0 and self.textfadefinished then
+                        flPhase = 2
+                        curTime = SysTime()
+                        centerText = false
                     end
                 end
             end
 
-            if ((flPhase == 2 and (SysTime() - curTime > Delay)) or ((flPhase > 2) and (flPhase < 3))) then 
-                
+            if ((flPhase == 2 and (SysTime() - curTime > Delay)) or ((flPhase > 2) and (flPhase < 3))) then
+
                 // das setup por phase 1
-                if flPhase == 2 then 
-                    local total = #SetupAvatars(deaders) 
+                if flPhase == 2 then
+                    local total = #SetupAvatars(deaders)
                     //if total == 0 then flPhase = 3 return end -- to skip this phase
 
                     if total == 0 then
@@ -425,18 +423,18 @@ function Evil:ShowEndScreen()
                     end
 
                     if maxColumns > #Avatars then maxColumns = #Avatars end
-                    
+
                     Main:SetSize((MainW * maxColumns) + PadX, (MainH * rowsMax) + PadY)
                     Main:SetPos(w / 2 - Main:GetWide() / 2, TextH + PadY * 2)
-                    
+
                     local i = 0
                     local x, y = PadX, PadY
                     for _, panel in pairs(Avatars) do
-                        
+
                         panel:SetPos(x, y)
 
                         i = i + 1
-                        
+
                         x = x + PadX + AvatarScale
                         if i == maxColumns then
                             y = y + panel:GetTall() + PadY
@@ -457,7 +455,7 @@ function Evil:ShowEndScreen()
                         curTime = SysTime()
                         panel.myturn = true
                     end
-        
+
                     TempVar = TempVar + 1
                 end
 
@@ -490,10 +488,10 @@ function Evil:ShowEndScreen()
                 end
 
                 if flPhase == 2.4 and SysTime() - curTime > 0.1 then
-                    if #Avatars == 0 and self.textfadefinished then 
-                        flPhase = 3 
-                        curTime = SysTime() 
-                        centerText = false 
+                    if #Avatars == 0 and self.textfadefinished then
+                        flPhase = 3
+                        curTime = SysTime()
+                        centerText = false
                     end
                 end
             end

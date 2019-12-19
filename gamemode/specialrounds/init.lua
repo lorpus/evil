@@ -31,7 +31,7 @@ local function ChooseSpecialRound()
         Evil._NEXT_SR = nil
         return x
     end
-    
+
     local round // key
 
     for k, v in RandomPairs(SR.SpecialRounds) do

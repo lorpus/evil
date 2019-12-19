@@ -17,7 +17,7 @@ local function ReceiveHandler(iLen, ply)
         local butStillDoTheLang = net.ReadBool()
         if isRaw then
             local tab = net.ReadTable()
-            if butStillDoTheLang then 
+            if butStillDoTheLang then
                 for k, v in ipairs(tab) do
                     if isstring(v) and v:StartWith("#") then
                         tab[k] = Lang:Get(v)

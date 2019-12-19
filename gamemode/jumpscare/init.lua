@@ -9,7 +9,7 @@ hook.Add("PlayerDeath", "Jumpscare", function(ply, inflictor, attacker)
         ply:IsBoss() or
         not IsValid(attacker) or
         not attacker:IsPlayer() then return end
-    
+
     if attacker:IsBoss() then
         Jumpscare:SendScare(ply)
 

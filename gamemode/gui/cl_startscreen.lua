@@ -25,13 +25,13 @@ local function ShowBossInfoPanel()
     local info = Game:GetProfileInfo()
     local frame = vgui.Create("DFrame")
     // biframe = frame
-    
+
     frame:SetSize(ScreenScale(100), ScrW() / 5)
     frame:SetPos(0, ScrH() / 2 - frame:GetTall() / 2)
     frame:SetTitle("")
     frame:ShowCloseButton(false)
     frame.drawwidth = 0
-    
+
     local movedir = 1.5
     function frame:Think()
         if self.drawwidth >= frame:GetWide() and movedir > 0 then
@@ -50,7 +50,7 @@ local function ShowBossInfoPanel()
     local pad = 16
     function frame:Paint(w, h)
         draw.RoundedBoxEx(10, 0, 0, self.drawwidth, h, Color(20, 20, 20), false, true, false, true)
-    
+
         draw.SimpleText(Lang:Format("#YouAreBoss", { name = info.name }), "EvilInfoPanelTitle", self.drawwidth - w / 2, 5, color_white, TEXT_ALIGN_CENTER)
         // draw.SimpleText("Always watching, always lurking. Be mindful, he can be anywhere at anytime.", "EvilInfoPanelSub", self.drawwidth - w / 2, self:GetTall() * 0.75, color_white, TEXT_ALIGN_CENTER)
         if istable(info.weapons) and table.HasValue(info.weapons, "ev_monster_kill") then
@@ -103,7 +103,7 @@ local function RenderBossIntro(centerOffset, alpha)
     local _, h2 = draw.SimpleText(Lang:Get("#FindTheHumans"),   "StartFontSmall",   ScrW() / 2,                     hh + h1 * 0.6,                          Color(150, 0, 0, 255 * alpha),  TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
     draw.SimpleText(Lang:Get("#AndKillThem"),                   "StartFontSmall",   ScrW() / 2 + shadowDistance,    hh + h1 * 0.6 + h2 + shadowDistance,    Color(0, 0, 0, 100 * alpha),    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-    local _, h3 = draw.SimpleText(Lang:Get("#AndKillThem"),     "StartFontSmall",   ScrW() / 2 ,                    hh + h1 * 0.6 + h2,                     Color(150, 0, 0, 255 * alpha),  TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)    
+    local _, h3 = draw.SimpleText(Lang:Get("#AndKillThem"),     "StartFontSmall",   ScrW() / 2 ,                    hh + h1 * 0.6 + h2,                     Color(150, 0, 0, 255 * alpha),  TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
     return (h1 + h2 + h3) * 0.6 * 0.5
 end
@@ -120,7 +120,7 @@ local function RenderHumanIntro(centerOffset, alpha)
     local _, h2 = draw.SimpleText(Lang:Format("#CollectAllPages", fmt),    "StartFontSmall",   ScrW() / 2,                     hh + h1 * 0.6,                          Color(150, 0, 0, 255 * alpha),  TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
     draw.SimpleText(Lang:Get("#AvoidTheEvil"),                          "StartFontSmall",   ScrW() / 2 + shadowDistance,    hh + h1 * 0.6 + h2 + shadowDistance,    Color(0, 0, 0, 100 * alpha),    TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-    local _, h3 = draw.SimpleText(Lang:Get("#AvoidTheEvil"),            "StartFontSmall",   ScrW() / 2 ,                    hh + h1 * 0.6 + h2,                     Color(150, 0, 0, 255 * alpha),  TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)    
+    local _, h3 = draw.SimpleText(Lang:Get("#AvoidTheEvil"),            "StartFontSmall",   ScrW() / 2 ,                    hh + h1 * 0.6 + h2,                     Color(150, 0, 0, 255 * alpha),  TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
     return (h1 + h2 + h3) * 0.6 * 0.5
 end

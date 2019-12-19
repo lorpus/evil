@@ -73,7 +73,7 @@ cvars.AddChangeCallback("evil_testing", function(convar, old, new)
         if SERVER then
             print(Lang:Get("#Admin_TestingOn"))
             Network:NotifyAll(Lang:Get("Admin_TestingOn"))
-        
+
             Round:SetRound(ROUND_POST)
 
             for _, ply in pairs(player.GetAll()) do
@@ -87,7 +87,7 @@ cvars.AddChangeCallback("evil_testing", function(convar, old, new)
             print(Lang:Get("#Admin_TestingOff"))
             Network:NotifyAll(Lang:Get("#Admin_TestingOff"))
         end
-        
+
         for _, ply in pairs(player.GetAll()) do
             if SERVER then
                 ply:KillSilent()
@@ -155,7 +155,6 @@ Admin.ULX.AddTime:addParam({
     min = 0,
     default = 60,
     hint = "seconds",
-    
 })
 Admin.ULX.AddTime:defaultAccess(ULib.ACCESS_ADMIN)
 Admin.ULX.AddTime:help("Add more time to the clock")

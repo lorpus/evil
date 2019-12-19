@@ -52,7 +52,7 @@ Classes.Classes = {
         name    = "Alyx",
         desc    = "#AlyxDesc",
         model   = "models/player/alyx.mdl",
-        
+
         speed   = 15,
 
         apply   = function(ply)
