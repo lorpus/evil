@@ -1,6 +1,6 @@
 AddCSLuaFile()
 
-SWEP.PrintName = "Yeeterizer"
+SWEP.PrintName = "Kill"
 
 SWEP.ViewModel = ""
 SWEP.WorldModel = ""
