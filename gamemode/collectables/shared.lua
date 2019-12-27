@@ -111,7 +111,17 @@ Collectable.Collectables = {
                 return true
             end
         end,
-    }
+    },
+
+    pagedetector = {
+        name = "#Collectable_PageDetector",
+        desc = "#Collectable_PageDetector_Desc",
+        mdl = "models/Items/combine_rifle_ammo01.mdl",
+        oncollect = function(collector)
+            if not SERVER then return end
+            collector:Give("ev_radar")
+        end,
+    },
 }
 
 hook.Add("EvilCollectableTaken", "EvilCollectableHandle", function(collector, type)

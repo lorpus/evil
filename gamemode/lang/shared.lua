@@ -238,6 +238,8 @@ Lang.Translations = Lang.Translations or {
         ["#Collectable_Soda_Desc"]                          = "Give yourself a boost and run faster",
         ["#Collectable_Skull"]                              = "Apollyon's Skull",
         ["#Collectable_Skull_Desc"]                         = "Bring a human back from the dead",
+        ["#Collectable_PageDetector"]                       = "Page Detector",
+        ["#Collectable_PageDetector_Desc"]                  = "Helps to locate pages",
 
         // abilities
         ["#Teleport"]                                       = "Teleport", // unused
