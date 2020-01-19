@@ -19,7 +19,11 @@ hook.Add("CalcMainActivity", "EvilRunAnimation", function(ply, vVel)
         end
 
         if ply:IsOnGround() and vVel:Length() > ply:GetRunSpeed() - 10 then
-            return ACT_HL2MP_RUN_FAST, -1
+            if info.anim and info.anim.run_activity then
+                return info.anim.run_activity
+            else
+                return ACT_HL2MP_RUN_FAST, -1
+            end
         end
     end
 end)
