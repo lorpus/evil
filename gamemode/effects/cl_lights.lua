@@ -1,4 +1,5 @@
 local ptColor = Color(255, 50, 50)
+local projlower, projupper
 hook.Add("Think", "EvilLight", function()
     if (LocalPlayer():IsBoss() or LocalPlayer():IsProxy()) and LocalPlayer():Alive() then
         if not projlower or not projupper then
@@ -80,15 +81,56 @@ hook.Add("Think", "EvilLight", function()
     end
 end)
 
+local nvColor = Color(0, 50, 0)
+local nvprojlower, nvprojupper
 hook.Add("Think", "EvilNightVision", function()
-    if not LocalPlayer():GetNW2Bool("EvilNightVision") then return end
-    if not LocalPlayer():Alive() or not LocalPlayer():IsHuman() then return end
-    local light = DynamicLight(129)
-    light.r = 0
-    light.g = 50
-    light.b = 0
-    light.pos = LocalPlayer():GetPos()
-    light.brightness = 5
-    light.size = 1e5
-    light.dietime = CurTime() + 1
+    if LocalPlayer():GetNW2Bool("EvilNightVision") and LocalPlayer():Alive() and LocalPlayer():IsHuman() then
+        if not nvprojlower or not nvprojupper then
+            nvprojlower = ProjectedTexture() // these can only be 180deg so we need two
+            nvprojupper = ProjectedTexture()
+
+            nvprojlower:SetTexture("effects/flashlight/soft")
+            nvprojlower:SetAngles(Angle(-90, 0, 0))
+            nvprojlower:SetFarZ(1024)
+            nvprojlower:SetFOV(179)
+            nvprojlower:SetNearZ(1)
+            nvprojlower:SetColor(nvColor)
+            nvprojlower:Update()
+
+            nvprojupper:SetTexture("effects/flashlight/soft")
+            nvprojupper:SetAngles(Angle(90, 0, 0))
+            nvprojupper:SetFarZ(1024)
+            nvprojupper:SetFOV(150)
+            nvprojupper:SetNearZ(1)
+            nvprojupper:Update()
+            nvprojupper:SetColor(nvColor)
+            nvprojupper:SetFarZ(1024)
+            return
+        end
+
+        nvprojlower:SetFOV(GetConVar("fov_desired"):GetInt() * (1.5))
+        nvprojlower:SetAngles(LocalPlayer():GetAimVector():Angle())
+
+        local tr = util.TraceLine({
+            start = LocalPlayer():GetPos() + Vector(0, 0, 20),
+            endpos = LocalPlayer():GetPos() + Vector(0, 0, 200),
+            filter = {LocalPlayer()}
+        })
+
+        local pos = tr.HitPos
+        if not tr.Hit then
+            pos = LocalPlayer():GetPos() + Vector(0, 0, 512)
+        else
+            pos = tr.HitPos - tr.HitNormal * 5
+        end
+
+        nvprojlower:SetPos(LocalPlayer():EyePos())
+        nvprojlower:Update()
+
+        nvprojupper:SetPos(pos)
+        nvprojupper:Update()
+    else
+        if IsValid(nvprojlower) then nvprojlower = nil end // gc'd
+        if IsValid(nvprojupper) then nvprojupper = nil end
+    end
 end)
