@@ -275,36 +275,34 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
 end)
 
 hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
-    timer.Simple(0, function()
-        if ply:IsSpecTeam() then return end
-
-        local humans = Map.spawns.humans
-        local boss = Map.spawns.boss
-        local proxy = Map.spawns.proxy
-        if ply:IsHuman() and humans then
-            local spawn = humans[math.random(#humans)]
-            ply:SetPos(spawn.pos)
-            if spawn.ang then
-                ply:SetEyeAngles(spawn.ang)
-            end
-        elseif ply:IsBoss() and boss then
-            local spawn = boss[math.random(#boss)]
-            ply:SetPos(spawn.pos)
-            if spawn.ang then
-                ply:SetEyeAngles(spawn.ang)
-            end
-        elseif ply:IsProxy() and boss then
-            local spawns = proxy
-            if not spawns then spawns = boss end
-            local spawn = spawns[math.random(#spawns)]
-            ply:SetPos(spawn.pos)
-            if spawn.ang then
-                ply:SetEyeAngles(spawn.ang)
-            end
-        else
-            Evil:Lock("spawns are misconfigured")
+timer.Simple(0, function()
+    if ply:IsSpecTeam() then return end
+    
+    local humans = Map.spawns.humans
+    local boss = Map.spawns.boss
+    local proxy = Map.spawns.proxy
+    if ply:IsHuman() and humans then
+        local spawn = humans[math.random(#humans)]
+        ply:SetPos(spawn.pos)
+        if spawn.ang then
+            ply:SetEyeAngles(spawn.ang)
+        end
+    elseif ply:IsBoss() and boss then
+        local spawn = boss[math.random(#boss)]
+        ply:SetPos(spawn.pos)
+        if spawn.ang then
+            ply:SetEyeAngles(spawn.ang)
+        end
+    elseif ply:IsProxy() and boss then
+        local spawns = proxy
+        if not spawns then spawns = boss end
+        local spawn = spawns[math.random(#spawns)]
+        ply:SetPos(spawn.pos)
+        if spawn.ang then
+            ply:SetEyeAngles(spawn.ang)
         end
     end)
+end)
 end)
 
 hook.Add("PlayerDeathSound", "EvilRemoveDeathSound", function()
