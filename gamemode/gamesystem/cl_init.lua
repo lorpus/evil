@@ -131,14 +131,13 @@ hook.Add("PostDrawOpaqueRenderables", "EvilESP", function()
     ang = Angle(ang.p + 90, ang.y, 0)
 
     for _, ent in ipairs(ents.GetAll()) do // findbyclass enumerates over this, so its faster to just do it once
-        if ent:IsPlayer() then
+        if ent:IsPlayer() and ent:Alive() then
             if (LocalPlayer():IsGhost() or LocalPlayer():IsSpectating()) and Evil.DrawSpecESP:GetBool() then
                 Game:DrawESP(ent)
                 continue
             end
 
             if not (ent:GetNW2Bool("EvilForceESP") and LocalPlayer():IsBoss()) and not Game:CanESP(LocalPlayer(), ent) then continue end
-            if not ent:Alive() then continue end
 
             Game:DrawESP(ent)
         elseif ent:GetClass() == "evil_page" then
