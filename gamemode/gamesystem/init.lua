@@ -301,7 +301,7 @@ hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
             if spawn.ang then
                 ply:SetEyeAngles(spawn.ang)
             end
-        end)
+        end
     end)
 end)
 
