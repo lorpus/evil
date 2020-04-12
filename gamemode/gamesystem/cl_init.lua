@@ -60,7 +60,9 @@ local function EvilClientBossSetup(key, ply)
     if info.modelscale and LocalPlayer() != ply then // no serverside so no collisions, no localplayer so no glitchy shit
         dbg.print(ply, info.modelscale)
         timer.Simple(1, function()
-            ply:SetModelScale(info.modelscale)
+            if IsValid(ply) then
+                ply:SetModelScale(info.modelscale)
+            end
         end)
     end
 
@@ -80,7 +82,7 @@ end)
 
 hook.Add("EvilPlayerKilled", "OnPlayerKilled", function(victim)
     local info = Game:GetProfileInfo()
-    if info.killhook then
+    if istable(info) and info.killhook then
         info.killhook(victim)
     end
 end)

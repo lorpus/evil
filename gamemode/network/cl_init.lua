@@ -65,7 +65,11 @@ local function ReceiveHandler(iLen, ply)
         local ent = net.ReadEntity()
         local slot = net.ReadUInt(3)
         local seq = net.ReadUInt(11)
-        ent:AddVCDSequenceToGestureSlot(slot, seq, 0, true)
+        if IsValid(ent) then
+            ent:AddVCDSequenceToGestureSlot(slot, seq, 0, true)
+        else
+            dbg.print("N_PLAYANIM sent now-invalid entity")
+        end
     elseif cmd == N_BOSSMUSIC then
         Game:StartBossProximityMusic(net.ReadString())
     elseif cmd == N_MAPVOTE then
