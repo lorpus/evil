@@ -128,6 +128,7 @@ Lang.Translations = Lang.Translations or {
         ["#NewMapWon"]                                      = "The vote has decided that we will change to {{map}}! The map will change after the round ends",
         ["#The_Forest"]                                     = "The Forest",
         ["#The_Ravine"]                                     = "The Ravine",
+        ["#Underground"]                                    = "Underground",
 
         // round
         ["#Round_EndBossWin"]                               = "The boss has won!",
