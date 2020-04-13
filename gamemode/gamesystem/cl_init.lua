@@ -1,4 +1,5 @@
 Evil.DrawSpecESP = CreateClientConVar("evil_draw_spec_esp", "0", true, false, "Draw ESP on pages and players while spectator or ghost")
+Evil.UseAltESP = CreateClientConVar("evil_use_alt_esp", "0", true, false, "Use alternative method of drawing ESP for an FPS boost")
 
 local bossMusicChannel // map cleanup invalidates this i think!!11
 function Game:StartBossProximityMusic(snd)
@@ -96,55 +97,114 @@ end)
 
 // should this be in a diff file ?
 
-function Game:DrawESP(ent)
+local LocalPlayer = LocalPlayer
+local Angle = Angle
+local render_ClearStencil = render.ClearStencil
+local render_SetStencilEnable = render.SetStencilEnable
+local render_SetStencilWriteMask = render.SetStencilWriteMask
+local render_SetStencilTestMask = render.SetStencilTestMask
+local render_SetStencilReferenceValue = render.SetStencilReferenceValue
+local render_SetStencilFailOperation = render.SetStencilFailOperation
+local render_SetStencilZFailOperation = render.SetStencilZFailOperation
+local render_SetStencilPassOperation = render.SetStencilPassOperation
+local render_SetStencilCompareFunction = render.SetStencilCompareFunction
+local render_SetBlend = render.SetBlend
+local ipairs = ipairs
+local cam_Start3D2D = cam.Start3D2D
+local surface_SetDrawColor = surface.SetDrawColor
+local surface_DrawRect = surface.DrawRect
+local cam_End3D2D = cam.End3D2D
+function Game:DrawESP(enttab)
     local pos = LocalPlayer():EyePos() + LocalPlayer():EyeAngles():Forward() * 10
     local ang = LocalPlayer():EyeAngles()
     ang = Angle(ang.p + 90, ang.y, 0)
 
-    render.ClearStencil()
-    render.SetStencilEnable(true)
-        render.SetStencilWriteMask(255)
-        render.SetStencilTestMask(255)
-        render.SetStencilReferenceValue(1)
-        render.SetStencilFailOperation(STENCILOPERATION_KEEP)
-        render.SetStencilZFailOperation(STENCILOPERATION_REPLACE)
-        render.SetStencilPassOperation(STENCILOPERATION_KEEP)
-        render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_ALWAYS)
-        render.SetBlend(0)
-        ent:DrawModel()
-        render.SetBlend(1)
-        render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_EQUAL)
-        cam.Start3D2D(pos, ang, 1)
-            surface.SetDrawColor(0, 255, 0)
-            surface.DrawRect(-ScrW(), -ScrH(), ScrW() * 2, ScrH() * 2)
-        cam.End3D2D()
+    render_ClearStencil()
+    render_SetStencilEnable(true)
+        render_SetStencilWriteMask(255)
+        render_SetStencilTestMask(255)
+        render_SetStencilReferenceValue(1)
+        render_SetStencilFailOperation(STENCILOPERATION_KEEP)
+        render_SetStencilZFailOperation(STENCILOPERATION_REPLACE)
+        render_SetStencilPassOperation(STENCILOPERATION_KEEP)
+        render_SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_ALWAYS)
+        render_SetBlend(0)
+        for _, v in ipairs(enttab) do
+            v:DrawModel()
+        end    
+        render_SetBlend(1)
+        render_SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_EQUAL)
+        cam_Start3D2D(pos, ang, 1)
+            surface_SetDrawColor(0, 255, 0)
+            surface_DrawRect(-ScrW(), -ScrH(), ScrW() * 2, ScrH() * 2)
+        cam_End3D2D()
         //ent:DrawModel()
 
-        render.SetStencilPassOperation(STENCILOPERATION_REPLACE)
-        render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_ALWAYS)
+        render_SetStencilPassOperation(STENCILOPERATION_REPLACE)
+        render_SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_ALWAYS)
         //ent:DrawModel()
-    render.SetStencilEnable(false)
+    render_SetStencilEnable(false)
+end
+
+function Game:CanSeeEntityWithESP(ent)
+    if ent:IsPlayer() and ent:Alive() then
+        if (LocalPlayer():IsGhost() or LocalPlayer():IsSpectating()) and Evil.DrawSpecESP:GetBool() then
+            return true
+        end
+
+        if not (ent:GetNW2Bool("EvilForceESP") and LocalPlayer():IsBoss()) and not Game:CanESP(LocalPlayer(), ent) then return false end
+
+        return true
+    elseif ent:GetClass() == "evil_page" then
+        if (LocalPlayer():IsGhost() or LocalPlayer():IsSpectating()) and Evil.DrawSpecESP:GetBool() then
+            return true
+        end
+    end
+
+    return false
 end
 
 hook.Add("PostDrawOpaqueRenderables", "EvilESP", function()
-    local ang = LocalPlayer():EyeAngles()
-    ang = Angle(ang.p + 90, ang.y, 0)
+    if Evil.UseAltESP:GetBool() then return end
+    local tab = {}
 
-    for _, ent in ipairs(ents.GetAll()) do // findbyclass enumerates over this, so its faster to just do it once
-        if ent:IsPlayer() and ent:Alive() then
-            if (LocalPlayer():IsGhost() or LocalPlayer():IsSpectating()) and Evil.DrawSpecESP:GetBool() then
-                Game:DrawESP(ent)
-                continue
-            end
-
-            if not (ent:GetNW2Bool("EvilForceESP") and LocalPlayer():IsBoss()) and not Game:CanESP(LocalPlayer(), ent) then continue end
-
-            Game:DrawESP(ent)
-        elseif ent:GetClass() == "evil_page" then
-            if (LocalPlayer():IsGhost() or LocalPlayer():IsSpectating()) and Evil.DrawSpecESP:GetBool() then
-                Game:DrawESP(ent)
-            end
+    for _, ent in ipairs(ents.GetAll()) do
+        if Game:CanSeeEntityWithESP(ent) then
+            table.insert(tab, ent)
         end
+    end
+
+    Game:DrawESP(tab)
+end)
+
+local espMaterial = CreateMaterial("somethingwtf", "VertexLitGeneric", {
+ 	["$basetexture"] = "color/white",
+  	["$model"] = 1,
+ 	["$translucent"] = 1,
+ 	["$vertexalpha"] = 1,
+ 	["$vertexcolor"] = 1,
+ 	["$ignorez"] = 1,
+})
+
+hook.Add("PrePlayerDraw", "EvilESPAlt", function(ply)
+    if not Evil.UseAltESP:GetBool() then return end
+    if Game:CanSeeEntityWithESP(ply) then
+        ply.bColorMod = true
+        cam.IgnoreZ(true)
+        render.SuppressEngineLighting(true)
+        render.SetColorModulation(0, 1, 0)
+        render.ModelMaterialOverride(espMaterial)
+    end
+end)
+
+hook.Add("PostPlayerDraw", "EvilESPAlt", function(ply)
+    if not Evil.UseAltESP:GetBool() then return end
+    if ply.bColorMod then
+        render.ModelMaterialOverride()
+        render.SetColorModulation(1, 1, 1)
+        render.SuppressEngineLighting(false)
+        cam.IgnoreZ(false)
+        ply.bColorMod = false
     end
 end)
 

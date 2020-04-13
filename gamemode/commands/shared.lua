@@ -64,6 +64,15 @@ Command.Commands = {
             end
         end
     },
+
+    altesp = {
+        aliases = { "altesp" },
+        action = function(ply)
+            if CLIENT then
+                Evil.UseAltESP:SetBool(not Evil.UseAltESP:GetBool())
+            end
+        end
+    }
 }
 
 for k, v in pairs(Command.Commands) do
