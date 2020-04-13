@@ -118,11 +118,11 @@ function Game:DrawESP(ent)
             surface.SetDrawColor(0, 255, 0)
             surface.DrawRect(-ScrW(), -ScrH(), ScrW() * 2, ScrH() * 2)
         cam.End3D2D()
-        ent:DrawModel()
+        //ent:DrawModel()
 
         render.SetStencilPassOperation(STENCILOPERATION_REPLACE)
         render.SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_ALWAYS)
-        ent:DrawModel()
+        //ent:DrawModel()
     render.SetStencilEnable(false)
 end
 
