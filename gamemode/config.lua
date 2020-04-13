@@ -53,7 +53,11 @@ local configuration = {
                 img = "evil/mapvote/slender_ravine.png",
                 lang = "#The_Ravine",
                 fallback = "The Ravine",
-            }
+            },
+            ["slender_underground_r1_evpack"] = {
+                lang = "#Underground",
+                fallback = "Underground",
+            },
         }
     },
 
