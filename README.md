@@ -14,10 +14,10 @@ https://discord.gg/25mPwWB
 ## Reporting Bugs
 Bugs can be reported either on the Discord or by creating an issue in the issues tab of GitHub.
 Please include:
-- how the bug was found
-- what can trigger the bug
-- effects of the bug
-- and if possible, screenshots/video of the bug or any related errors
+- How the bug was found
+- What can trigger the bug
+- Effects of the bug
+- And if possible, screenshots/video of the bug or any related errors
 
 ## Contributing
 All contributions are welcome. If you want to contribute in the form of an idea or a map/boss config (as opposed to a code contribution), please use the Discord.
@@ -26,18 +26,18 @@ All contributions are welcome. If you want to contribute in the form of an idea 
 - lorp (gamemode codens)
 - dusty (gui stuff)
 - ruter (b1g support)
-- kit o' rifty (sf2)
-- kenzzer (sfw)
-- necrossin (stop it slender)
-- pyroteknik (neckbeard model)
-- jazzmcnade (loli model)
-- iffy (xenomorph port)
+- Kit o' Rifty (sf2)
+- Kenzzer (sfw)
+- Necrossin (stop it slender)
+- Pyroteknik (neckbeard model)
+- JazzMcNade (loli model)
+- Iffy (xenomorph port)
 - buu342 (runescape bob model)
-- ian taylor (runescape music)
-- glubbable (misc content)
-- kevin macleod (music)
+- Ian Taylor (runescape music)
+- Glubbable (misc content)
+- Kevin MacLeod (music)
 - piehavok (slow npc pack)
-- lt. stahl (bible model)
-- jqueary (scp-096 model)
+- Lt. Stahl (bible model)
+- jQueary (scp-096 model)
 - epic testers (victims)
 - and whoever else made stuff that i forgot to keep track of
