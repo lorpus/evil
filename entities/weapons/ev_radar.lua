@@ -113,3 +113,5 @@ function SWEP:Think()
         surface.PlaySound("evil/sonar.mp3")
     end
 end
+
+function SWEP:PrimaryAttack() end
