@@ -59,7 +59,13 @@ if SERVER then
     end
 end
 
-include_sh("maps/" .. game.GetMap() .. ".lua")
+local setconfig = hook.Run("EvilGetMapConfig", game.GetMap())
+
+if setconfig then
+    Map = setconfig
+else
+    include_sh("maps/" .. game.GetMap() .. ".lua")
+end
 
 if SERVER and not Map then
     Evil:Lock("this map is not configured or has a faulty configuration!")
