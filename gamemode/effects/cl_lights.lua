@@ -1,32 +1,31 @@
 local ptColor = Color(255, 50, 50)
-local projlower, projupper
 hook.Add("Think", "EvilLight", function()
     if (LocalPlayer():IsBoss() or LocalPlayer():IsProxy()) and LocalPlayer():Alive() then
-        if not projlower or not projupper then
-            projlower = ProjectedTexture() // these can only be 180deg so we need two
-            projupper = ProjectedTexture()
+        if not Evil._projlower or not Evil._projupper then
+            Evil._projlower = ProjectedTexture() // these can only be 180deg so we need two
+            Evil._projupper = ProjectedTexture()
 
-            projlower:SetTexture("effects/flashlight/soft")
-            projlower:SetAngles(Angle(-90, 0, 0))
-            projlower:SetFarZ(1024)
-            projlower:SetFOV(179)
-            projlower:SetNearZ(1)
-            projlower:SetColor(ptColor)
-            projlower:Update()
+            Evil._projlower:SetTexture("effects/flashlight/soft")
+            Evil._projlower:SetAngles(Angle(-90, 0, 0))
+            Evil._projlower:SetFarZ(1024)
+            Evil._projlower:SetFOV(179)
+            Evil._projlower:SetNearZ(1)
+            Evil._projlower:SetColor(ptColor)
+            Evil._projlower:Update()
 
-            projupper:SetTexture("effects/flashlight/soft")
-            projupper:SetAngles(Angle(90, 0, 0))
-            projupper:SetFarZ(1024)
-            projupper:SetFOV(150)
-            projupper:SetNearZ(1)
-            projupper:Update()
-            projupper:SetColor(ptColor)
-            projupper:SetFarZ(1024)
+            Evil._projupper:SetTexture("effects/flashlight/soft")
+            Evil._projupper:SetAngles(Angle(90, 0, 0))
+            Evil._projupper:SetFarZ(1024)
+            Evil._projupper:SetFOV(150)
+            Evil._projupper:SetNearZ(1)
+            Evil._projupper:Update()
+            Evil._projupper:SetColor(ptColor)
+            Evil._projupper:SetFarZ(1024)
             return
         end
 
-        projlower:SetFOV(GetConVar("fov_desired"):GetInt() * (1.5))
-        projlower:SetAngles(LocalPlayer():GetAimVector():Angle())
+        Evil._projlower:SetFOV(GetConVar("fov_desired"):GetInt() * (1.5))
+        Evil._projlower:SetAngles(LocalPlayer():GetAimVector():Angle())
 
         local tr = util.TraceLine({
             start = LocalPlayer():GetPos() + Vector(0, 0, 20),
@@ -41,14 +40,14 @@ hook.Add("Think", "EvilLight", function()
             pos = tr.HitPos - tr.HitNormal * 5
         end
 
-        projlower:SetPos(LocalPlayer():EyePos())
-        projlower:Update()
+        Evil._projlower:SetPos(LocalPlayer():EyePos())
+        Evil._projlower:Update()
 
-        projupper:SetPos(pos)
-        projupper:Update()
+        Evil._projupper:SetPos(pos)
+        Evil._projupper:Update()
     else
-        if IsValid(projlower) then projlower = nil end // gc'd
-        if IsValid(projupper) then projupper = nil end
+        if IsValid(Evil._projlower) then Evil._projlower = nil end // gc'd
+        if IsValid(Evil._projupper) then Evil._projupper = nil end
     end
 
     if LocalPlayer():IsSpectating() then
@@ -82,34 +81,33 @@ hook.Add("Think", "EvilLight", function()
 end)
 
 local nvColor = Color(0, 50, 0)
-local nvprojlower, nvprojupper
 hook.Add("Think", "EvilNightVision", function()
     if LocalPlayer():GetNW2Bool("EvilNightVision") and LocalPlayer():Alive() and LocalPlayer():IsHuman() then
-        if not nvprojlower or not nvprojupper then
-            nvprojlower = ProjectedTexture() // these can only be 180deg so we need two
-            nvprojupper = ProjectedTexture()
+        if not Evil._nvprojlower or not Evil._nvprojupper then
+            Evil._nvprojlower = ProjectedTexture() // these can only be 180deg so we need two
+            Evil._nvprojupper = ProjectedTexture()
 
-            nvprojlower:SetTexture("effects/flashlight/soft")
-            nvprojlower:SetAngles(Angle(-90, 0, 0))
-            nvprojlower:SetFarZ(1024)
-            nvprojlower:SetFOV(179)
-            nvprojlower:SetNearZ(1)
-            nvprojlower:SetColor(nvColor)
-            nvprojlower:Update()
+            Evil._nvprojlower:SetTexture("effects/flashlight/soft")
+            Evil._nvprojlower:SetAngles(Angle(-90, 0, 0))
+            Evil._nvprojlower:SetFarZ(1024)
+            Evil._nvprojlower:SetFOV(179)
+            Evil._nvprojlower:SetNearZ(1)
+            Evil._nvprojlower:SetColor(nvColor)
+            Evil._nvprojlower:Update()
 
-            nvprojupper:SetTexture("effects/flashlight/soft")
-            nvprojupper:SetAngles(Angle(90, 0, 0))
-            nvprojupper:SetFarZ(1024)
-            nvprojupper:SetFOV(150)
-            nvprojupper:SetNearZ(1)
-            nvprojupper:Update()
-            nvprojupper:SetColor(nvColor)
-            nvprojupper:SetFarZ(1024)
+            Evil._nvprojupper:SetTexture("effects/flashlight/soft")
+            Evil._nvprojupper:SetAngles(Angle(90, 0, 0))
+            Evil._nvprojupper:SetFarZ(1024)
+            Evil._nvprojupper:SetFOV(150)
+            Evil._nvprojupper:SetNearZ(1)
+            Evil._nvprojupper:Update()
+            Evil._nvprojupper:SetColor(nvColor)
+            Evil._nvprojupper:SetFarZ(1024)
             return
         end
 
-        nvprojlower:SetFOV(GetConVar("fov_desired"):GetInt() * (1.5))
-        nvprojlower:SetAngles(LocalPlayer():GetAimVector():Angle())
+        Evil._nvprojlower:SetFOV(GetConVar("fov_desired"):GetInt() * (1.5))
+        Evil._nvprojlower:SetAngles(LocalPlayer():GetAimVector():Angle())
 
         local tr = util.TraceLine({
             start = LocalPlayer():GetPos() + Vector(0, 0, 20),
@@ -124,13 +122,13 @@ hook.Add("Think", "EvilNightVision", function()
             pos = tr.HitPos - tr.HitNormal * 5
         end
 
-        nvprojlower:SetPos(LocalPlayer():EyePos())
-        nvprojlower:Update()
+        Evil._nvprojlower:SetPos(LocalPlayer():EyePos())
+        Evil._nvprojlower:Update()
 
-        nvprojupper:SetPos(pos)
-        nvprojupper:Update()
+        Evil._nvprojupper:SetPos(pos)
+        Evil._nvprojupper:Update()
     else
-        if IsValid(nvprojlower) then nvprojlower = nil end // gc'd
-        if IsValid(nvprojupper) then nvprojupper = nil end
+        if IsValid(Evil._nvprojlower) then Evil._nvprojlower = nil end // gc'd
+        if IsValid(Evil._nvprojupper) then Evil._nvprojupper = nil end
     end
 end)
