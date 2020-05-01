@@ -106,7 +106,7 @@ Classes.Classes = {
             hook.Add("PostDrawOpaqueRenderables", ply, function()
                 local page = ents.FindByClass("evil_page")[1]
                 if IsValid(page) then
-                    Game:DrawESP(page)
+                    Game:DrawESP({page})
                 end
             end)
         end,
