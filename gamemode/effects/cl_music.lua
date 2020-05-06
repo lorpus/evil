@@ -6,8 +6,41 @@ Music = Music or {
         "sound/evil/music/paratropic_the_diner.mp3",
         "sound/evil/music/unknownplanet.mp3",
         "sound/evil/music/smogcemetery.mp3",
-    }
+    },
+
+    StartLibrary = {
+        "sound/evil/music/feedmebilly.mp3",
+    },
 }
+
+function Music:PlayStartMusic()
+    if Music.DontPlayStartMusic then return end
+
+    local pick = Music.StartLibrary[math.random(#Music.StartLibrary)]
+    local hkval = hook.Run("EvilChooseStartMusic")
+    if hkval != nil then pick = hkval end
+    sound.PlayFile(pick, "", function(chan, errId, errName)
+        if not IsValid(chan) then
+            dbg.print("start " .. pick .. " failed")
+        end
+        
+        chan:SetVolume(0.3)
+        chan:Play()
+        Music.StartChannel = chan
+    end)
+end
+
+hook.Add("StartSRCycle", "EvilKillStartMusic", function()
+    Music.DontPlayStartMusic = true
+    if IsValid(Music.StartChannel) then
+        Music.StartChannel:Stop()
+        Music.StartChannel = nil
+    end
+end)
+
+hook.Add("RemoveSR", "EvilKillStartMusic", function()
+    Music.DontPlayStartMusic = false
+end)
 
 function Music:StartRandom()
     local pick = Music.Library[math.random(#Music.Library)]
@@ -50,7 +83,10 @@ end)
 hook.Add("RoundSet", "EvilHandleMusic", function(round)
     if round == ROUND_PLAYING then
         timer.Simple(3, function() // cuz global shit doesnt broadcast fast enough i dont get it :DD
-            Music:StartRandom()
+            Music:PlayStartMusic()
+            timer.Simple(11, function()
+                Music:StartRandom()
+            end)
         end)
     else
         Music:Kill()
