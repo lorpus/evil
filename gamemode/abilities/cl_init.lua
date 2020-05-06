@@ -19,3 +19,7 @@ hook.Add("Think", "EvilAbilityMousePress", function()
         lastDown = false
     end
 end)
+
+hook.Add("HUDPaint", "EvilDrawAbilityBar", function()
+    draw.RoundedBox(0, ScrW() - 210, ScrH() - 30, 200 * (LocalPlayer():GetNW2Float("AbilityCharge")), 20, Color(255, 0, 0))
+end)
