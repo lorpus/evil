@@ -169,13 +169,17 @@ SR.SpecialRounds = {
                         end
                     end
 
-                    ply.tmpNewPos = target:GetPos()
-                    table.RemoveByValue(plys, target)
+                    if IsValid(target) then
+                        ply.tmpNewPos = target:GetPos()
+                        table.RemoveByValue(plys, target)
+                    end
                 end
 
                 for _, ply in pairs(Game:GetHumans()) do
-                    ply:SetPos(ply.tmpNewPos)
-                    ply.tmpNewPos = nil
+                    if ply.tmpNewPos then
+                        ply:SetPos(ply.tmpNewPos)
+                        ply.tmpNewPos = nil
+                    end
                 end
             end)
         end,
