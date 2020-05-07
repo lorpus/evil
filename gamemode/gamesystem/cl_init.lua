@@ -165,11 +165,11 @@ function Game:CanSeeEntityWithESP(ent)
 end
 
 hook.Add("PostDrawOpaqueRenderables", "EvilESP", function()
-    if Evil.UseAltESP:GetBool() then return end
     local tab = {}
 
     for _, ent in ipairs(ents.GetAll()) do
         if Game:CanSeeEntityWithESP(ent) then
+            if Evil.UseAltESP:GetBool() and ent:IsPlayer() then continue end
             table.insert(tab, ent)
         end
     end
