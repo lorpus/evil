@@ -411,6 +411,7 @@ function GM:PlayerCanHearPlayersVoice(listener, speaker)
 end
 
 function GM:PlayerCanSeePlayersChat(text, isTeam, receiver, sender)
+    if not Round:IsPlaying() then return true end
     if receiver:Alive() and not sender:Alive() then // living cant hear dead
         return false
     end
