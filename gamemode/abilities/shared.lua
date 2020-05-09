@@ -145,6 +145,10 @@ Abilities.Abilities = {
     },
 }
 
+function Abilities:HasAbility(ply)
+    return Abilities.Abilities[ply:GetNW2String("EvilAbility")] != nil
+end
+
 hook.Add("CanSeePlayerESP", "EvilAbilityLinkESP", function(viewer, viewed)
     local a
     if SERVER then

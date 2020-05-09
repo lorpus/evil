@@ -73,6 +73,11 @@ local configuration = {
         gainwait = 2.5, // how long before stamina starts recharging
     },
 
+    Abilities = {
+        ChargeRate = 0.001, // base charge rate
+        ChargePerPlayer = 0.0005, // increase in charge rate per player killed
+    },
+
     Flashlight = {
         UseProjectedTexture = true, // uses the ProjectedTexture flashlight instead of the DynamicLight flashlight
         FlashlightDistance = 1024, // ProjectedTexture only: where the ProjectedTexture ends

@@ -47,6 +47,7 @@ function Game:SetupBoss(ply)
     ply:SetModel(info.model)
     ply:SetRunSpeed(info.runspeed)
     ply:SetWalkSpeed(info.walkspeed)
+    ply:SetNW2Float("AbilityCharge", 0)
 
     local hands = ply:GetHands()
     if info.hands_model and IsValid(hands) then
