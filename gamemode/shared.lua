@@ -80,6 +80,8 @@ if istable(Map[1]) then
     end)
 end
 
+Game = Game or {}
+
 include_sh "utils.lua"
 include_sh "sh_player_ext.lua"
 include_fl "effects"
