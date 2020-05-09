@@ -148,6 +148,7 @@ end
 
 function Game:CanSeeEntityWithESP(ent)
     if ent:IsPlayer() and ent:Alive() then
+        if true then return true end
         if (LocalPlayer():IsGhost() or LocalPlayer():IsSpectating()) and Evil.DrawSpecESP:GetBool() then
             return true
         end
@@ -164,7 +165,9 @@ function Game:CanSeeEntityWithESP(ent)
     return false
 end
 
-hook.Add("PostDrawOpaqueRenderables", "EvilESP", function()
+hook.Add("PostDrawOpaqueRenderables", "EvilESP", function(bDepth, bSkybox)
+    if bSkybox then return end
+
     local tab = {}
 
     for _, ent in ipairs(ents.GetAll()) do
