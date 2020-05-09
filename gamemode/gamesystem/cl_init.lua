@@ -148,7 +148,6 @@ end
 
 function Game:CanSeeEntityWithESP(ent)
     if ent:IsPlayer() and ent:Alive() then
-        if true then return true end
         if (LocalPlayer():IsGhost() or LocalPlayer():IsSpectating()) and Evil.DrawSpecESP:GetBool() then
             return true
         end
