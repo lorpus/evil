@@ -1,5 +1,5 @@
 Evil.DrawSpecESP = CreateClientConVar("evil_draw_spec_esp", "0", true, false, "Draw ESP on pages and players while spectator or ghost")
-Evil.UseAltESP = CreateClientConVar("evil_use_alt_esp", "0", true, false, "Use alternative method of drawing ESP for an FPS boost")
+Evil.UseAltESP = CreateClientConVar("evil_use_alt_esp", "1", true, false, "Use alternative method of drawing ESP for an FPS boost")
 
 local bossMusicChannel // map cleanup invalidates this i think!!11
 function Game:StartBossProximityMusic(snd)
