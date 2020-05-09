@@ -327,26 +327,6 @@ end
 hook.Add("InitPostEntity", "SpawnBlockers", SpawnBlockers)
 hook.Add("PostCleanupMap", "SpawnBlockers", SpawnBlockers)
 
-function GM:EntityTakeDamage(ply, dmginfo)
-    if not ply:IsPlayer() then return end
-
-    if IsValid(dmginfo:GetAttacker()) then
-        dmginfo:SetDamage(ply:Health() * 10)
-    end
-end
-
-/*
-hook.Add("EntityTakeDamage", "InstaDabOnPlyers", function(ent, info)
-    if not ent:IsPlayer() then return end
-    local attacker = info:GetAttacker()
-    if not IsValid(attacker) or not attacker:IsPlayer() or not attacker:IsBoss() then return end
-
-    // todo: make it so the info isnt overwritten with :Kill()'s info'
-
-    // something to make this optional
-    ent:Kill()
-end)*/
-
 function GM:PlayerSay(ply, text, isTeam)
     local tab = {}
     if not ply:Alive() then
