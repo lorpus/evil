@@ -216,3 +216,41 @@ hook.Add("HUDPaint", "EvilRenderBlips", function()
         //end
     end
 end)
+
+local function tracepoly(poly, color)
+    local lastVertex
+    for i, vertex in pairs(poly) do
+        if not lastVertex then
+            lastVertex = vertex
+            continue
+        end
+
+        surface.SetDrawColor(color.r, color.g, color.b, color.a)
+        surface.DrawLine(lastVertex.x, lastVertex.y, vertex.x, vertex.y)
+        lastVertex = vertex
+    end
+end
+
+function eutil.DrawCircle(centerX, centerY, radius, startDeg, endDeg, segments, color, trace, traceColor)
+    local cir = {}
+
+    table.insert(cir, {
+        x = centerX,
+        y = centerY
+    })
+
+    for i = 0, segments do
+        local a = math.rad((i / segments) * (endDeg - startDeg) + startDeg)
+        table.insert(cir, {
+            x = math.sin(a) * radius + centerX,
+            y = math.cos(a) * radius + centerY
+        })
+    end
+
+    surface.SetDrawColor(color.r, color.b, color.g, color.a)
+    surface.DrawPoly(cir)
+    if trace then
+        tracepoly(cir, traceColor)
+    end
+    return cir
+end

@@ -3,14 +3,10 @@ function Abilities:NetHandler(len, ply)
         local info = Abilities.Abilities[ply.strEvilAbility]
         //if not ply.flEvilAbilityLastUse then ply.flEvilAbilityLastUse = 0 end
         if ply:GetNW2Float("AbilityCharge") < 1 then return end
-        if CurTime() - ply.flEvilAbilityLastUse > info.cooldown then
-            info.use(ply)
-            Network:SendHook("EvilAbilityUsed", ply, ply.strEvilAbility)
-            //ply.flEvilAbilityLastUse = CurTime()
-            ply:SetNW2Float("AbilityCharge", 0)
-        else
-            Network:Notify(ply, "#AbilityCooldown", true, { time = tostring(math.Round((ply.flEvilAbilityLastUse + info.cooldown) - CurTime(), 1)) })
-        end
+        info.use(ply)
+        Network:SendHook("EvilAbilityUsed", ply, ply.strEvilAbility)
+        //ply.flEvilAbilityLastUse = CurTime()
+        ply:SetNW2Float("AbilityCharge", 0)
     end
 end
 

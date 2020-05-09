@@ -14,20 +14,6 @@ local function InsideConvexPolygon(point, vertices)
     return odd
 end
 
-local function tracepoly(poly)
-    local lastVertex
-    for i, vertex in pairs(poly) do
-        if not lastVertex then
-            lastVertex = vertex
-            continue
-        end
-
-        surface.SetDrawColor(255, 0, 0, 150)
-        surface.DrawLine(lastVertex.x, lastVertex.y, vertex.x, vertex.y)
-        lastVertex = vertex
-    end
-end
-
 local function centroid(verts)
     local sumcx = 0
     local sumcy = 0
@@ -44,28 +30,6 @@ local function centroid(verts)
 
     local ar = sumac / 2
     return (1 / (6 * ar)) * sumcx, (1 / (6 * ar)) * sumcy
-end
-
-local function DrawCircle(centerX, centerY, radius, startDeg, endDeg, segments, color)
-    local cir = {}
-
-    table.insert(cir, {
-        x = centerX,
-        y = centerY
-    })
-
-    for i = 0, segments do
-        local a = math.rad((i / segments) * (endDeg - startDeg) + startDeg)
-        table.insert(cir, {
-            x = math.sin(a) * radius + centerX,
-            y = math.cos(a) * radius + centerY
-        })
-    end
-
-    surface.SetDrawColor(color.r, color.b, color.g, color.a)
-    surface.DrawPoly(cir)
-    tracepoly(cir)
-    return cir
 end
 
 local mainframe
@@ -117,7 +81,7 @@ local function open(bool)
         for i = 0, 361 - inc, inc do
             if not polys[n] then polys[n] = {color = Color(0, 0, 0, 200)} end
             local startDeg, endDeg = i, i + inc
-            local cir = DrawCircle(originX, originY, radius, startDeg, endDeg, 25, polys[n].color)
+            local cir = eutil.DrawCircle(originX, originY, radius, startDeg, endDeg, 25, polys[n].color, true, Color(255, 0, 0, 150))
             table.insert(cir, cir[1])
             polys[n].circle = cir
 
