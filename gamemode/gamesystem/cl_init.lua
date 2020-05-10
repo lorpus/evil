@@ -165,8 +165,6 @@ function Game:CanSeeEntityWithESP(ent)
 end
 
 hook.Add("PostDrawOpaqueRenderables", "EvilESP", function(bDepth, bSkybox)
-    if bSkybox then return end
-
     local tab = {}
 
     for _, ent in ipairs(ents.GetAll()) do
