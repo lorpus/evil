@@ -217,7 +217,7 @@ hook.Add("PrePlayerDraw", "EvilHideGhosts", function(ply)
 end)
 
 timer.Create("EvilDrawBossBlips", 10, 0, function()
-    if LocalPlayer():IsBoss() and Game:CanBossSeePlayers() then
+    if IsValid(LocalPlayer()) and LocalPlayer():IsBoss() and Game:CanBossSeePlayers() then
         for _, ply in ipairs(Game:GetHumans()) do
             eutil.AddBlip(ply:GetPos() + Vector(0, 0, 36))
         end
