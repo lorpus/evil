@@ -305,10 +305,10 @@ function Lang:Add(lang, key, fmt)
     local t = Lang.Translations[lang]
     if not t then Lang.Translations[lang] = {} end
 
-    if t[key] then
+    if Lang.Translations[lang][key] then
         return Evil.Log(lang .. "." .. key .. " is extant")
     elseif isstring(fmt) then
-        t[key] = fmt
+        Lang.Translations[lang][key] = fmt
     end
 end
 
@@ -316,7 +316,7 @@ function Lang:Override(lang, key, fmt)
     local t = Lang.Translations[lang]
     if not t then Lang.Translations[lang] = {} end
 
-    t[key] = fmt
+    Lang.Translations[lang][key] = fmt
 end
 
 function Lang:ExpandInline(text)
