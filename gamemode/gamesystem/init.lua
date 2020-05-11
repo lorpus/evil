@@ -277,12 +277,12 @@ end)
 
 hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
     timer.Simple(0, function()
-        if ply:IsSpecTeam() then return end
+        if ply:IsSpecTeam() and not ply:IsGhost() then return end
         
         local humans = Map.spawns.humans
         local boss = Map.spawns.boss
         local proxy = Map.spawns.proxy
-        if ply:IsHuman() and humans then
+        if (ply:IsHuman() or ply:IsGhost()) and humans then
             local spawn = humans[math.random(#humans)]
             ply:SetPos(spawn.pos)
             if spawn.ang then
