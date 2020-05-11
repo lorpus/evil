@@ -25,7 +25,7 @@ function Game:GetVHSRate()
 	local clamped = math.Clamp(distance, minDistance, maxDistance)
 	local scale = (1 - ((clamped - minDistance) / (maxDistance - minDistance))) * maxScale
 
-	return smallDistortInterval / scale, smallDistort * scale, math.Round(largeDistort / maxScale / 2, 0)
+	return math.Clamp(smallDistortInterval / scale, 1.1, math.huge), smallDistort * scale, math.Clamp(math.Round(largeDistort / maxScale / 5, 0), 1, math.huge)
 end
 
 local noisemats = {}
