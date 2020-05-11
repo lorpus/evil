@@ -46,20 +46,23 @@ SR.SpecialRounds = {
 
         apply = function()
             if SERVER then
-                for _, ply in pairs(player.GetAll()) do
-                    ply:SetNW2Bool("CanUseEvilFlashlight", false)
-                    ply:SetNW2Bool("EvilNightVision", true)
-                end
+                hook.Add("Think", "Evil_SRNightVision", function()
+                    for _, ply in ipairs(Game:GetHumans()) do
+                        ply:SetNW2Bool("CanUseEvilFlashlight", false)
+                        ply:SetNW2Bool("EvilNightVision", true)
+                    end
+                end)
             end
         end,
 
         remove = function()
             if SERVER then
-                for _, ply in pairs(player.GetAll()) do
+                for _, ply in ipairs(player.GetAll()) do
                     ply:SetNW2Bool("CanUseEvilFlashlight", true)
                     ply:SetNW2Bool("EvilNightVision", false)
                 end
             end
+            hook.Remove("Think", "Evil_SRNightvision")
         end
     },
 
