@@ -10,6 +10,9 @@ function Game:StartBossProximityMusic(snd)
 
         if IsValid(chan) then
             bossMusicChannel = chan
+            if LocalPlayer():IsBoss() then
+                bossMusicChannel:SetVolume(0.2)
+            end
             bossMusicChannel:Set3DFadeDistance(640, 3500)
             bossMusicChannel:EnableLooping(true)
             bossMusicChannel:Play()
