@@ -78,7 +78,7 @@ timer.Create("ProxyAsk", Evil.Cfg.ProxyAskInterval, 0, function()
     local i = 0
     for _, v in RandomPairs(Game:GetDead()) do
         i = i + 1
-        if i > 3 then return end
+        if i > 2 then return end
         if not v.bDontAskForProxy then
             Proxy:AskToBeProxy(v)
         end
