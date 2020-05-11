@@ -125,4 +125,9 @@ Map = {
 	blockers = {
 		{ mins = Vector(4860.104492, 3031.947754, -159.968750), maxs = Vector(4883.856934, 2972.031006, -44.031250) }
 	},
+
+	init = function()
+		Lang:Override("en", "#PageName", "Gas Can")
+		Lang:Override("en", "#PageNamePlural", "Gas Cans")
+	end,
 }
