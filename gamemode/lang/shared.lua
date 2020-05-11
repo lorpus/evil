@@ -175,8 +175,8 @@ Lang.Translations = Lang.Translations or {
         ["#Game_PageCollected"]                             = "{{player}} has collected a {{{l#PageName}}}!",
         ["#Deathmatch_EndTimeUp"]                           = "Times up! {{winners}} won with {{kills}} kills!",
         ["#Deathmatch_EndTimeUpNone"]                       = "Times up! Somehow everyone was so bad that nobody got a single kill!",
-        ["#CollectPages"]                                   = "Collect all {{count}} pages",
-        ["#StopHumansPages"]                                = "Stop the humans from collecting all {{count}} pages",
+        ["#CollectPages"]                                   = "Collect all {{count}} {{{l#PageNamePlural}}}",
+        ["#StopHumansPages"]                                = "Stop the humans from collecting all {{count}} {{{l#PageNamePlural}}}",
 
         // lang
         ["#InvalidLang"]                                    = "Unfortunately this isn't a supported language setting",
@@ -239,8 +239,8 @@ Lang.Translations = Lang.Translations or {
         ["#Collectable_Soda_Desc"]                          = "Give yourself a boost and run faster",
         ["#Collectable_Skull"]                              = "Apollyon's Skull",
         ["#Collectable_Skull_Desc"]                         = "Bring a human back from the dead",
-        ["#Collectable_PageDetector"]                       = "Page Detector",
-        ["#Collectable_PageDetector_Desc"]                  = "Helps to locate pages",
+        ["#Collectable_PageDetector"]                       = "{{{#PageName}}} Detector",
+        ["#Collectable_PageDetector_Desc"]                  = "Helps to locate {{{l#PageNamePlural}}}",
 
         // abilities
         ["#Teleport"]                                       = "Teleport", // unused
