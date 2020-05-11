@@ -10,6 +10,24 @@ function Game:ShouldDrawVHS()
     return true
 end
 
+function Game:GetVHSRate()
+	local smallDistortInterval = 5
+	local smallDistort = 10
+	local largeDistort = 50
+
+	if not IsValid(LocalPlayer()) or not Round:IsPlaying() or not IsValid(Game:GetBoss()) then
+		return smallDistortInterval, smallDistort, largeDistort
+	end
+	local distance = LocalPlayer():GetPos():Distance(Game:GetBoss():GetPos())
+	local maxDistance = 2500
+	local minDistance = 100
+	local maxScale = 4
+	local clamped = math.Clamp(distance, minDistance, maxDistance)
+	local scale = (1 - ((clamped - minDistance) / (maxDistance - minDistance))) * maxScale
+
+	return smallDistortInterval / scale, smallDistort * scale, math.Round(largeDistort / maxScale / 2, 0)
+end
+
 local noisemats = {}
 for i = 1, 60 do
 	local mat = ("evil/noise/%03d.png"):format(i)
@@ -23,12 +41,13 @@ local NormalMats = { // explicit needed cuz mat has 2 return values
 
 local curmat
 local function GetDistortParams()
-	if SysTime() % 5 > 1 then
+	local interval, small = Game:GetVHSRate()
+	if SysTime() % interval > 1 then
 		curmat = NormalMats[math.random(#NormalMats)]
 		return
 	end
 	local var = util.SharedRandom("mat", 0, 100, SysTime() * 10)
-	if var < 10 then
+	if var < small then
 		return curmat, 0
 	end
 end
@@ -44,7 +63,8 @@ local function GetFullShift()
 end
 
 timer.Create("CheckFullShift", 0.5, 0, function()
-	local n = math.random(0, 50)
+	local _, _, var = Game:GetVHSRate()
+	local n = math.random(0, var)
 	doFullShift = false
 	if n == 0 then
 		shiftHeight = math.random(0.2, 0.3)
