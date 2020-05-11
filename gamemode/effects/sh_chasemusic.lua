@@ -9,8 +9,8 @@ hook.Add("Think", "EvilDoChaseMusic", function()
                 Evil._ChaseMusic:Stop()
                 Evil._ChaseMusic = nil
                 Evil._ChaseMusicPlaying = false
-                return
             end
+            return
         end
     elseif SERVER then
         if not Round:IsPlaying() then return end
