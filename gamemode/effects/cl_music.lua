@@ -21,7 +21,7 @@ function Music:PlayStartMusic()
     if hkval != nil then pick = hkval end
     sound.PlayFile(pick, "", function(chan, errId, errName)
         if not IsValid(chan) then
-            dbg.print("start " .. pick .. " failed")
+            return dbg.print("start " .. pick .. " failed")
         end
         
         chan:SetVolume(0.3)
