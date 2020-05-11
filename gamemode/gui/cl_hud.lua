@@ -28,7 +28,7 @@ local function DrawTimer()
 
     local subtext
     if Game:GetGametype() == "pages" then
-        subtext = string.format("%s / %s " .. Lang:Get("#Collected"), GetGlobal2Int("PagesCollected"), GetGlobal2Int("PagesTotal"))
+        subtext = Lang:Format("#Collected", { collected = GetGlobal2Int("PagesCollected"), total = GetGlobal2Int("PagesTotal") })
     end
     if not subtext then return end
 
