@@ -143,6 +143,37 @@ Abilities.Abilities = {
             Network:Notify(ply, "#NextBottleExplosive", true)
         end,
     },
+
+    pound = {
+        name = "#Pound",
+        description = "#PoundDesc",
+
+        use = function(ply)
+            if CLIENT then
+                util.ScreenShake(LocalPlayer():GetPos(), 10, 10, 2, 0)
+                surface.PlaySound(("physics/concrete/boulder_impact_hard%s.wav"):format(math.random(1, 4)))
+                return
+            end
+
+            for _, ply in ipairs(Game:GetHumans()) do
+                ply:SetVelocity(Vector(0, 0, 500))
+
+                if ply:GetPos():Distance(Game:GetBoss():GetPos()) < 1000 then
+                    ply:SetNW2Bool("NoForceSpeeds", true)
+                    local oldr = ply:GetRunSpeed()
+                    local oldw = ply:GetWalkSpeed()
+                    ply:SetRunSpeed(50)
+                    ply:SetWalkSpeed(50)
+                    timer.Simple(10, function()
+                        if not IsValid(ply) then return end
+                        ply:SetNW2Bool("NoForceSpeeds", false)
+                        ply:SetRunSpeed(oldr)
+                        ply:SetWalkSpeed(oldw)
+                    end)
+                end
+            end
+        end,
+    },
 }
 
 function Abilities:HasAbility(ply)
