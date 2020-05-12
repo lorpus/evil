@@ -14,7 +14,9 @@ hook.Add("PlayerDeath", "Jumpscare", function(ply, inflictor, attacker)
         Jumpscare:SendScare(ply)
 
         for _, v in pairs(ply:GetSpectators()) do
-            Jumpscare:SendScare(v)
+            if v:GetObserverMode() == OBS_MODE_IN_EYE then
+                Jumpscare:SendScare(v)
+            end
         end
     end
 end)
