@@ -6,6 +6,9 @@ Music = Music or {
         "sound/evil/music/paratropic_the_diner.mp3",
         "sound/evil/music/unknownplanet.mp3",
         "sound/evil/music/smogcemetery.mp3",
+        "sound/evil/music/background-music-iii.mp3",
+        "sound/evil/music/background-music-ix.mp3",
+        "sound/evil/music/slendermansshadow.mp3",
     },
 
     StartLibrary = {
