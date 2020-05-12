@@ -43,6 +43,12 @@ function Proxy:Setup(ply)
         Abilities:SetPlayerAbility(ply, profile.proxy.ability)
     end
 
+    if istable(profile.proxy.traits) then
+        for _, v in pairs(profile.proxy.traits) do
+            Traits:AddTrait(ply, v)
+        end
+    end
+
     Network:SendHook("ProxyStart", ply)
 
     ply:Spawn()
