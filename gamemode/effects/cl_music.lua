@@ -9,6 +9,7 @@ Music = Music or {
         "sound/evil/music/background-music-iii.mp3",
         "sound/evil/music/background-music-ix.mp3",
         "sound/evil/music/slendermansshadow.mp3",
+        "sound/evil/music/chessmaster-hestia.mp3",
     },
 
     StartLibrary = {
