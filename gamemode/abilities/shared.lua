@@ -96,6 +96,21 @@ Abilities.Abilities = {
         end,
     },
 
+    flashlightkiller = {
+        name = "#FlashlightKiller",
+        description = "#FlashlightKillerDesc",
+
+        use = function(ply)
+            if SERVER then
+                for _, ply in pairs(Game:GetHumans()) do
+                    FizzlePlayerFlashlight(ply)
+                end
+            else
+                surface.PlaySound("beams/beamstart5.wav")
+            end
+        end,
+    },
+
     scp096burst = {
         name = "#SCP096Burst",
         description = "#SCP096BurstDesc",
