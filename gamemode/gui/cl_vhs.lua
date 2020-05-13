@@ -110,9 +110,8 @@ end)
 
 timer.Create("EvilPlayStatic", 0.1, 0, function()
 	local lp = LocalPlayer()
-	if not Round:IsPlaying() or not IsValid(Game:GetBoss()) or not IsValid(lp) then return end
 
-	local shouldPlay = lp:GetPos():Distance(Game:GetBoss():GetPos()) < 600
+	local shouldPlay = Round:IsPlaying() and IsValid(lp) and IsValid(Game:GetBoss()) and not lp:IsBoss() and lp:GetPos():Distance(Game:GetBoss():GetPos()) < 600
 
 	if not Evil._StaticPlaying and shouldPlay then
 		Evil._StaticPlaying = true
