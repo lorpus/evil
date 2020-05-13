@@ -107,3 +107,31 @@ hook.Add("DrawOverlay", "EvilRenderVHSNoise", function()
 	surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
 	i = i + 1
 end)
+
+timer.Create("EvilPlayStatic", 0.1, 0, function()
+	local lp = LocalPlayer()
+	if not Round:IsPlaying() or not IsValid(Game:GetBoss()) or not IsValid(lp) then return end
+
+	local shouldPlay = lp:GetPos():Distance(Game:GetBoss():GetPos()) < 600
+
+	if not Evil._StaticPlaying and shouldPlay then
+		Evil._StaticPlaying = true
+		sound.PlayFile("sound/evil/static.mp3", "", function(chan, errnum, errid)
+			if not IsValid(chan) then
+				Evil._StaticPlaying = false
+				return dbg.print("error playing static", errnum, errid)
+			end
+
+			Evil._StaticAudioChannel = chan
+			chan:SetVolume(0)
+		end)
+	elseif IsValid(Evil._StaticAudioChannel) then
+		if not shouldPlay then
+			Evil._StaticAudioChannel:Stop()
+			Evil._StaticAudioChannel = nil
+			Evil._StaticPlaying = false
+		else
+			Evil._StaticAudioChannel:SetVolume(math.Approach(Evil._StaticAudioChannel:GetVolume(), 1, 0.01))
+		end
+	end
+end)
