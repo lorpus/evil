@@ -93,6 +93,10 @@ function Game:SetupBoss(ply)
         end)
     end)
 
+    if isfunction(info.start) then
+        info.start(ply)
+    end
+
     hook.Run("EvilPostBossSetup", Game:GetProfile(), ply)
     Network:SendHook("EvilPostBossSetup", Game:GetProfile(), ply)
 end

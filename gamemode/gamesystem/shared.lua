@@ -183,3 +183,12 @@ hook.Add("EntityEmitSound", "memefootsteps", function(data)
         end
     end
 end)
+
+hook.Add("RoundSet", "EvilBossFinish", function(round)
+    if round == ROUND_POST then
+        local profile = Game:GetProfileInfo()
+        if profile and isfunction(profile.finish) then
+            profile.finish(Game:GetBoss())
+        end
+    end
+end)

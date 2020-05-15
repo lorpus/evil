@@ -70,6 +70,10 @@ local function EvilClientBossSetup(key, ply)
         end)
     end
 
+    if isfunction(info.start) then
+        info.start(ply)
+    end
+
     if info.intro then
         surface.PlaySound(info.intro)
     end
