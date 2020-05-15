@@ -33,7 +33,6 @@ if CLIENT then
         local nextBlink = LocalPlayer():GetNW2Int("EvilNextBlink")
 
         local frac = (nextBlink - CurTime()) / blinkInterval
-        print(blinkInterval)
         if frac < 0 then
             DoBlink()
         end
