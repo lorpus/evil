@@ -48,6 +48,7 @@ Traits.Traits = {
             for _, v in pairs(Game:GetHumans()) do
                 if v:GetNW2Bool("AbilityBlinded") then continue end
                 if v:EyePos():Distance(ply:GetPos()) > 1500 then continue end
+                if v:GetNW2Bool("EvilIsBlinking") then continue end
                 local tr = util.TraceLine({
                     start = v:EyePos(),
                     endpos = ply:EyePos(),

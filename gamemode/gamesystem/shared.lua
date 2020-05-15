@@ -192,3 +192,10 @@ hook.Add("RoundSet", "EvilBossFinish", function(round)
         end
     end
 end)
+
+hook.Add("EvilDoBlinking", "EvilShouldBlink", function()
+    local boss = Game:GetBoss()
+    if IsValid(boss) then
+        return Traits:HasTrait(boss, "lookfreeze")
+    end
+end)
