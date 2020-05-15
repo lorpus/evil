@@ -119,6 +119,12 @@ Traits.Traits = {
     },
 }
 
+function Traits:HasTrait(ply, trait)
+    local tab = ply.EvilTraits
+    if not istable(ply.EvilTraits) then return false end
+    return ply.EvilTraits[trait] != nil
+end
+
 hook.Add("Think", "TraitThink", function()
     for _, ply in pairs(player.GetAll()) do
         if not istable(ply.EvilTraits) then continue end
