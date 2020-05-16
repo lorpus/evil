@@ -32,7 +32,7 @@ hook.Add("HUDPaint", "EvilDrawAbilityBar", function()
     local y = ScrH() * 0.9
     eutil.DrawCircle(x, y, ScreenScale(outerWidth + (outerWidth - innerWidth)), 0, 360, 18, color_black)
     eutil.DrawCircle(x, y, ScreenScale(outerWidth), 0, 360 * LocalPlayer():GetNW2Float("AbilityCharge"), 18, abilityRed)
-    eutil.DrawCircle(x, y, ScreenScale(innerWidth), 0, 360, 18, color_black)
+    eutil.DrawCircle(x, y, ScreenScale(innerWidth), 0, 365, 18, color_black)
 
     surface.SetMaterial(mouse2)
     local mw = 40
