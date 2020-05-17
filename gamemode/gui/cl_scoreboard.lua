@@ -218,9 +218,9 @@ function Scoreboard:Toggle()
             surface.SetFont("ebilfontscoreboard")
             local name
             if self:IsHovered() and ply:EvilName() != ply:Nick() then
-                name = ply:Nick() .. " (" .. ply:EvilName() .. ")"
+                name = ply:EvilName() .. " (" .. ply:Nick() .. ")"
             else
-                name = ply:Nick()
+                name = ply:EvilName()
             end
             local TextW, TextH = surface.GetTextSize(name)
             draw.DrawText(name, "ebilfontscoreboard", Avatar:GetWide() + PadX * 2, panel:GetTall() / 2 - TextH / 2)
