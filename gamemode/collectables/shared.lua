@@ -63,6 +63,7 @@ Collectable.Collectables = {
         name = "#Collectable_Soda",
         desc = "#Collectable_Soda_Desc",
         mdl = "models/props_junk/popcan01a.mdl",
+        op = true,
         oncollect = function(collector)
             if not SERVER then return end
             collector:SetLaggedMovementValue(1.25)
