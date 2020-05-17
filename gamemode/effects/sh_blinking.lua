@@ -39,7 +39,7 @@ if CLIENT then
 
         draw.RoundedBox(0, x, y + width * (1 - frac), width, width * frac, Color(150, 25, 25, 100))
         draw.RoundedBox(0, x, y, width, width, colorGray)
-        surface.SetDrawColor(25, 25, 100, 255)
+        surface.SetDrawColor(0, 0, 0, 255)
         surface.DrawOutlinedRect(x, y, width, width)
         surface.SetDrawColor(0, 0, 0)
         surface.SetMaterial(eyeMat)
