@@ -1,6 +1,10 @@
-function Jumpscare:SendScare(ply)
+function Jumpscare:SendScare(ply, custom)
     net.Start(Network.Id)
         net.WriteInt(N_JUMPSCARE, Network.CmdBits)
+        net.WriteBool(custom != nil)
+        if custom then
+            net.WriteTable(custom)
+        end
     net.Send(ply)
 end
 

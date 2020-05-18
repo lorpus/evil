@@ -21,7 +21,14 @@ function Jumpscare:Scare(data)
 end
 
 function Jumpscare:NetReceive()
-    local data = Jumpscare:GetJumpscare()
+    local data
+    local usingCustom = net.ReadBool()
+    if usingCustom then
+        data = net.ReadTable()
+    else
+        data = Jumpscare:GetJumpscare()
+    end
+
     if istable(data) then
         Jumpscare:Scare(data)
     end
