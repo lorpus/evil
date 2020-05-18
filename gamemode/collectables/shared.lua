@@ -40,6 +40,7 @@ Collectable.Collectables = {
         oncollect = function(collector)
             if not SERVER then return end
             Network:Notify(collector, "#Bible_Collect", true)
+            Network:PlaySound(collector, "evil/items/bible/hallelujah.mp3")
             collector:SetNW2Bool("HasBible", true)
         end,
     },

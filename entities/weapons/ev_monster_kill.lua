@@ -61,7 +61,7 @@ function SWEP:PrimaryAttack()
     if ent:Team() != TEAM_HUMAN or not ent:Alive() then return end
 
     if ent:GetNW2Bool("HasBible") then
-        ent:SetNW2Bool("HasBible")
+        ent:SetNW2Bool("HasBible", false)
         self:SetNextPrimaryFire(CurTime() + 1) // avoid automatic firing too fast
 
         local boss = Map.spawns.boss
@@ -72,8 +72,13 @@ function SWEP:PrimaryAttack()
         end
 
         Network:Notify(ent, "#Bible_Used", true)
-        Network:PlaySound(self.Owner, "evil/items/bible/christ.mp3")
+        Network:PlaySoundFiltered(function(v) return not v:IsBoss() end, "evil/items/bible/christ.mp3")
         Network:PrintChatAll({ team.GetColor(TEAM_HUMAN), "#Jesus", color_white, ": ", "#Bible_JesusBro" })
+        Jumpscare:SendScare(self.Owner, {
+            mat = "evil/yeshua",
+            len = 1,
+            sound = "evil/items/bible/hallelujah.mp3"
+        })
         return
     end
 
