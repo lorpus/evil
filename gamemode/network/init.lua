@@ -1,5 +1,21 @@
 util.AddNetworkString(Network.Id)
 
+local function FilterToTable(filter)
+    local targets = {}
+    if isfunction(filter) then
+        for _, ply in pairs(player.GetAll()) do
+            if filter(ply) then
+                table.insert(targets, ply)
+            end
+        end
+    elseif istable(filter) then
+        targets = filter
+    elseif isentity(filter) and filter:IsPlayer() then
+        targets = { filter }
+    end
+    return targets
+end
+
 local function StartNotify(str, isLang, langArgs, raw)
     net.Start(Network.Id)
     net.WriteInt(N_NOTIFY, Network.CmdBits)
@@ -45,18 +61,7 @@ function Network:PrintChatAll(args, dontExpandLang)
 end
 
 function Network:SendHookFiltered(filter, name, ...)
-    local targets = {}
-    if isfunction(filter) then
-        for _, ply in pairs(player.GetAll()) do
-            if filter(ply) then
-                table.insert(targets, ply)
-            end
-        end
-    elseif istable(filter) then
-        targets = filter
-    elseif isentity(filter) and filter:IsPlayer() then
-        targets = { filter }
-    end
+    local targets = FilterToTable(filter)
 
     net.Start(Network.Id)
         net.WriteInt(N_HOOK, Network.CmdBits)
@@ -71,6 +76,15 @@ function Network:SendHook(name, ...)
         net.WriteString(name)
         net.WriteTable({...})
     net.Broadcast()
+end
+
+function Network:PlaySoundFiltered(filter, snd)
+    local targets = FilterToTable(filter)
+
+    net.Start(Network.Id)
+        net.WriteInt(N_SOUND, Network.CmdBits)
+        net.WriteString(snd)
+    net.Send(targets)
 end
 
 function Network:PlaySound(ply, snd)
