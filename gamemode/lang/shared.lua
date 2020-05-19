@@ -72,7 +72,7 @@ Lang.Translations = Lang.Translations or {
         ["#Help"]                                           = "Help",
         ["#Exit"]                                           = "Exit",
         ["#Boss"]                                           = "Boss",
-        ["#Proxy"]                                          = "Proxies",
+        ["#Proxy"]                                          = "Mini-Monsters",
         ["#Humans"]                                         = "Humans",
         ["#Dead"]                                           = "Dead",
         ["#Player_Joined"]                                  = "{{name}} connected",
@@ -87,7 +87,7 @@ Lang.Translations = Lang.Translations or {
         ["#Accept"]                                         = "Accept",
         ["#Deny"]                                           = "Deny",
         ["#DontAsk"]                                        = "Don't Ask",
-        ["#CanBeProxy"]                                     = "You may become a proxy",
+        ["#CanBeProxy"]                                     = "You may become a mini-monster",
 
         // updates
         ["#MajorUpdateAvailable"]                           = "A major update for the gamemode is available! Visit {{url}}",
