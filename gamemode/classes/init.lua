@@ -26,9 +26,11 @@ function Classes:SetupRandomClass(ply)
             break
         end
     end
-    if not key then return end
+    if not key then return false end
     takenclasses[key] = true
     Classes:SetPlayerClass(ply, key)
+
+    return true
 end
 
 function Classes:MakeCitizen(ply)
@@ -45,7 +47,9 @@ end
 
 function Classes:HandlePlayer(ply)
     if eutil.Percent(0.33) then
-        Classes:SetupRandomClass(ply)
+        if not Classes:SetupRandomClass(ply) then
+            Classes:MakeCitizen(ply)
+        end
     else
         Classes:MakeCitizen(ply)
     end
