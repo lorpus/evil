@@ -26,24 +26,28 @@ Classes.CitizenStats = {
 
 Classes.CitizenNames = {
     m = {
-        "John", "Edward", "Charles", "Frank", "Orlando", "Dale", "Fernando", "Shawn", "Lloyd", "Ulysses",
-        "Fred", "Richard", "George", "Peter", "James", "Jason", "Demetrius", "Rudolph", "Keith",
-        "Jose", "James", "Joshua", "Bruce", "Marcel", "Leonard", "Ronald", "William", "David",
-        "Smitty", "Lee", "Mark", "Glenn", "Thomas", "Alvaro", "Josiah", "William", "Albert",
+        "John", "Edward", "Karl", "Frank", "Muhammad", "Austin", "Jacob", "Lloyd", "Clint",
+        "Fred", "Richard", "George", "Peter", "James", "Jason", "Timmy", "Kyle", "Keith",
+        "Jose", "Walter", "Chad", "Bruce", "Marcel", "Leonard", "Ronald", "Louis", "David",
+        "Trapper", "Garry", "Mark", "Glenn", "Thomas", "Alvaro", "Josiah", "Ben", "Albert",
+        "Tyrone", "Ming", "Jamal", "Ryan", "Logan", "Kerf", "Gabriel", "Gonzo", "Jack", "Pedro",
+        "Sheen", "Parker", "Thor", "Ken", "Alex", "DJ", "Tony"
     },
 
     f = {
-        "Barbara", "Mary", "Peggy", "Kerry", "Christina", "Rebecca", "Judy", "Hilary", "Celia", "Roberta",
-        "Pearl", "Cheryl", "Debbie", "Lois", "Maureen", "Shana", "Nidia", "Monica", "Elizabeth", "Paula",
-        "Viola", "Anna", "Isabel", "Kelly", "Amanda", "Chantal", "Tamara", "Anna", "Tania", "Veronica",
-        "Marcelle", "Marian", "Lydia", "Luz", "Samantha", "Michele", "Shirley", "Margaret", "Danielle", "Donna",
+        "Barbara", "Mary", "Peggy", "Kerry", "Christina", "Rebecca", "Judy", "Hilary", "Precious", "Asia",
+        "Pearl", "Cheryl", "Debbie", "Heather", "Jasmine", "Sarah", "Nidia", "Monica", "Elizabeth", "Lucy",
+        "Alycia", "Anna", "Nancy", "Morgan", "Amanda", "Rose", "Tamara", "Anna", "Gretchen", "Veronica",
+        "Layal", "Emma", "Lydia", "Candy", "Samantha", "Kelsi", "Ruth", "Margaret", "Juliana", "Donna", "Robin",
     },
 
     last = {
-        "Phillips", "Griffith", "Miller", "Stephenson", "Roseberry", "Powell", "Buchanan", "Wallace", "Hamilton", "Plank",
-        "Werbenjagermanjensen", "Rachel", "Mireles", "Makiej", "Slinkard", "Pierre", "Signorelli", "Gunter", "Brendel", "Rock",
-        "Grant", "Conley", "May", "Wysong", "Timmons", "Smith", "Johnson", "Gooch", "Garcia", "Herman",
-        "Munoz", "Black", "Eichelberger", "Shekelberg", "Nelson", "Cook", "Christian", "Mantooth", "Wood", "Lavigne",
+        "Miller", "Trump", "Kelloway", "Kermuffin", "Roseberry", "Powell", "Fielder", "Wallace", "Hamilton", "Bootski",
+        "Werbenjagermanjensen", "Sanders", "Elijah", "Makiej", "Slinkard", "Pierce", "Goodman", "Hunter", "Jenner", "Rock",
+        "Grant", "Conley", "Kardashian", "Wysong", "Timmons", "Smith", "Johnson", "Gooch", "Garcia", "Biddle",
+        "Weinstein", "Black", "Eichelberger", "Shekelberg", "Nelson", "Cook", "Christian", "Mantooth", "Wood", "Epstein",
+        "Coffee", "Martin", "Worthington", "Aldrin", "Davis", "Zhou", "Nguyen", "Wong", "Chan", "Tang", "Powers", "Shitsworth",
+        "Schumer", "Salameh",
     },
 }
 
