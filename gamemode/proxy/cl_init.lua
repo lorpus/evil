@@ -12,7 +12,17 @@ end
 
 function Proxy:ShowPrompt()
     local frame = vgui.Create("DFrame")
-    frame:SetSize(ScreenScale(80), ScreenScale(35))
+
+    local width = 0
+    for _, text in ipairs({"#CanBeProxy", "#Accept", "#Deny", "#DontAsk"}) do
+        surface.SetFont("proxyfont")
+        local w = surface.GetTextSize("0. " .. Lang:Get(text))
+        if w > width then
+            width = w
+        end
+    end
+
+    frame:SetSize(width, ScreenScale(35))
     frame:SetPos(0, (ScrH() / 2) - (frame:GetTall() / 2))
     frame:ShowCloseButton(false)
     frame:SetTitle("")
