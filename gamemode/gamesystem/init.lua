@@ -384,20 +384,20 @@ end
 
 function GM:PlayerCanHearPlayersVoice(listener, speaker)
     local b = listener:EyePos():Distance(speaker:EyePos()) < (Evil.Cfg.VoiceDistance or 768)
-    if (listener:Alive() and not listener:IsHuman()) and (speaker:Alive() and not speaker:IsHuman()) then
+    if (listener:IsBoss() or listener:IsProxy()) and (speaker:IsBoss() or speaker:IsProxy()) then // baddy <-> baddy
         return true, false
-    elseif listener:Alive() and speaker:Alive() then
+    elseif (listener:Alive() and not listener:IsGhost()) and (speaker:Alive() and not speaker:IsGhost()) then // human <-> human
         return b, true
-    elseif listener:Alive() != speaker:Alive() then
+    elseif (listener:Alive() and not listener:IsGhost()) and (not speaker:Alive() or speaker:IsGhost()) then // living cant hear dead
         return false, false
-    elseif not listener:Alive() and not speaker:Alive() then
+    elseif (not listener:Alive() or listener:IsGhost()) then // dead people hear all
         return true, false
     end
 end
 
 function GM:PlayerCanSeePlayersChat(text, isTeam, receiver, sender)
     if not Round:IsPlaying() then return true end
-    if receiver:Alive() and not sender:Alive() then // living cant hear dead
+    if receiver:Alive() and (not sender:Alive() or sender:IsGhost()) then // living cant hear dead
         return false
     end
 
