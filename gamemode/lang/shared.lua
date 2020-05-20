@@ -82,6 +82,7 @@ Lang.Translations = Lang.Translations or {
         ["#FirstTimeResources"]                             = "This seems to be your first time on Evil! You may need to restart Garry's Mod just once to avoid some content errors!",
         ["#PageName"]                                       = "Page",
         ["#PageNamePlural"]                                 = "Pages",
+        ["#Unbound"]                                        = "Unbound",
 
         // proxy
         ["#Accept"]                                         = "Accept",

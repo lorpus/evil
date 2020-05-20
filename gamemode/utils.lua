@@ -254,3 +254,8 @@ function eutil.DrawCircle(centerX, centerY, radius, startDeg, endDeg, segments, 
     end
     return cir
 end
+
+function eutil.GetBindText(bind)
+    local r = input.LookupBinding(bind)
+    return r or "[" .. Lang:Get("#Unbound") .. "]"
+end
