@@ -16,6 +16,10 @@ Lang = Lang or {
         ["en-za"]   = "en",
         ["en-zw"]   = "en",
         ["english"] = "en",
+        ["ru"]      = "ru",
+        ["ru-ru"]   = "ru",
+        ["russian"] = "ru",
+        ["россия"]  = "ru",
         /*["fr"]      = "fr",
         ["fr-BE"]   = "fr",
         ["fr-CA"]   = "fr",
@@ -35,6 +39,8 @@ Lang = Lang or {
         GB = "en-GB",
         UK = "en-GB",
         IE = "en-IE",
+        RU = "ru-RU",
+        BY = "ru-RU",
     },
 
     CCToName = {
@@ -299,7 +305,240 @@ Lang.Translations = Lang.Translations or {
         ["#Tip_10"]                                         = "Join the official Discord! Type \"/discord\"",
         ["#Tip_11"]                                         = "You can type \"/ghost\" if you're dead and explore the map without interfering",
         ["#Tip_12"]                                         = "As a spectator, you can use the \"/esp\" command to see all players and {{{l#PageNamePlural}}}!",
-    }
+    },
+
+    ru = {
+        // generic things
+        ["#Help"]                                           = "Помощь",
+        ["#Exit"]                                           = "Выход",
+        ["#Boss"]                                           = "Монстр",
+        ["#Proxy"]                                          = "Мини-монстр",
+        ["#Humans"]                                         = "Выживший",
+        ["#Dead"]                                           = "Умер",
+        ["#Player_Joined"]                                  = "{{name}} подключился",
+        ["#Player_Left"]                                    = "{{name}} вышел ({{reason}})",
+        ["#Player_Left_NoReason"]                           = "{{name}} отключился",
+        ["#Collected"]                                      = "{{collected}} / {{total}} {{{#PageNamePlural}}} Собрал",
+        ["#FirstTimeResources"]                             = "Похоже вы впервые играете на этом режиме! Советуем вам перезапустить Garry's mod,чтобы избежать ошибок!",
+        ["#PageName"]                                       = "записку",
+        ["#PageNamePlural"]                                 = "записки",
+
+        // proxy
+        ["#Accept"]                                         = "Принять",
+        ["#Deny"]                                           = "Отклонить",
+        ["#DontAsk"]                                        = "Проигнорировать",
+        ["#CanBeProxy"]                                     = "Вы можете стать мини боссом",
+
+        // updates
+        ["#MajorUpdateAvailable"]                           = "Большое обновление теперь доступно! Ссылка: {{url}}",
+        ["#MinorUpdateAvailable"]                           = "Небольшое обновление теперь доступно! Ссылка: {{url}}",
+        ["#PatchUpdateAvailable"]                           = "A patch update for the gamemode is available! Visit {{url}}",
+        ["#VersionCompare"]                                 = "Версия режима {{cur}} Последняя версия {{new}}",
+        ["#UpToDate"]                                       = "У вас актуальная версия!",
+
+        // commands
+        ["#InvalidCommand"]                                 = "Эта команда не существует!",
+        ["#Ghost_NotDead"]                                  = "Вы должны быть мертвым, чтобы стать призраком.",
+        ["#Ghost_CantUse"]                                  = "Вы не можете стать призраком сейчас.",
+        ["#Ghost_Disabled"]                                 = "Вы больше не призрак.",
+        ["#Ghost_Enabled"]                                  = "Вы теперь призрак. Напишите повторно команду,чтобы выйти из данного режима.",
+
+        // pointshop stuff
+        ["#PS_BurtonOld"]                                   = "Adam Burton's pointshop was found, but is not version 8. Pointshop integration will not be loaded",
+        ["#PS_CantBuyBeBoss"]                               = "You can't buy this since somebody else already has this round",
+        ["#PS_AlreadyBeBoss"]                               = "You already bought this for next round",
+        ["#PS_RefundedBeBoss"]                              = "An admin forcefully set someone to become the boss, so you have been refunded",
+
+        // gui
+        ["#YouAreBoss"]                                     = "Вас зовут: {{name}}!",
+        ["#HowToAttack_A"]                                  = "Удерживайте ЛКМ,чтобы атаковать!",
+        ["#HowToTaunt"]                                     = "Удерживайте {{key}} для фраз",
+        ["#HowToAbility"]                                   = "ПКМ чтобы использовать способность!",
+        ["#YouAreTheBoss"]                                  = "ВЫ МОНСТР",
+        ["#FindTheHumans"]                                  = "НАЙДИТЕ ВЫЖИВШИХ",
+        ["#AndKillThem"]                                    = "И УБЕЙТЕ ИХ ВСЕХ",
+        ["#YouAreAHuman"]                                   = "ВЫ ВЫЖИВШИЙ",
+        ["#CollectAllPages"]                                = "СОБЕРИТЕ ВСЕ {{count}} {{{u#PageNamePlural}}}",
+        ["#AvoidTheEvil"]                                   = "ПЫТАЙТЕСБ ИЗБЕГАТЬ МОНСТРА",
+
+        // map vote/map names
+        ["#MapVote"]                                        = "Голосование! ({{secs}}s)",
+        ["#MapVoteCanceled"]                                = "Смена карты отклонена админом",
+        ["#ExtendWon"]                                      = "Карта будет продлена по результатам голосования!",
+        ["#NewMapWon"]                                      = "Карта будет сменена на: {{map}}! Карта смениться после окончания раунда",
+        ["#The_Forest"]                                     = "The Forest",
+        ["#The_Ravine"]                                     = "The Ravine",
+        ["#Underground"]                                    = "Underground",
+
+        // round
+        ["#Round_EndBossWin"]                               = "Монстр победил!",
+        ["#Round_EndBossDie"]                               = "Монстр мистически умер!",
+        ["#Round_EndPagesCollected"]                        = "Выжившие собрали все {{{l#PageNamePlural}}}!",
+        ["#Round_EndTimeUp"]                                = "Время вышло! Монстр победил!",
+        ["#Round_EndAdmin"]                                 = "Админ немедленно закончил раунд",
+        ["#Round_WaitingForPlayers"]                        = "Ожидание игроков...",
+        ["#Round_EndUnknown"]                               = "Игра окончена,по неизвестной причине... (likely manually)",
+        ["#End_OnlyNSurvived"]                              = "Только {{count}} Выжили",
+        ["#End_NSurvived"]                                  = "{{count}} Выжили",
+        ["#End_NobodySurvived"]                             = "Все погибли...",
+        ["#End_OnlySurvivor"]                               = "{{nick}} кто выжил!",
+        ["#End_OnlyNDied"]                                  = "Только {{count}} Погибли",
+        ["#End_NDied"]                                      = "{{count}} Умершие",
+        ["#End_NobodyDied"]                                 = "Никто не погиб",
+        ["#End_EveryoneDied"]                               = "Все были убиты",
+
+        // special rounds
+        ["#SR_AllAlone"]                                    = "Полное одиночество",
+        ["#SR_AllAloneDesc"]                                = "Где все выжившие?",
+        ["#SR_NightVision"]                                 = "Ночное зрение",
+        ["#SR_NightVisionDesc"]                             = "Нет больше фонарика, только ночное зрение!",
+        ["#SR_Countdown"]                                   = "А где время?",
+        ["#SR_CountdownDesc"]                               = "Ваш счётчик времени пропал!",
+        ["#SR_Realism"]                                     = "Реализм",
+        ["#SR_RealismDesc"]                                 = "Ваш экран становиться полностью чистым",
+        ["#SR_Deadline"]                                    = "Время смерти",
+        ["#SR_DeadlineDesc"]                                = "Время не будет добавляться",
+        ["#SR_Matrix"]                                      = "Матрица",
+        ["#SR_MatrixDesc"]                                  = "{{{#PageNamePlural}}} Материализуется только тогда, когда вы находитесь в их диапазоне",
+        ["#SR_Blindness"]                                   = "Слепота",
+        ["#SR_BlindnessDesc"]                               = "Вы ничего не видите, если ваш фонарик не включен!",
+        ["#SR_Wallhacks"]                                   = "Ренген зрение",
+        ["#SR_WallhacksDesc"]                               = "Моснтра видно теперь через стены!",
+        ["#SR_Earthquake"]                                  = "Землятрясение",
+        ["#SR_EarthquakeDesc"]                              = "Земля начинается трястись,когда рядом с вами монстр!",
+        ["#SR_DeathSwap"]                                   = "{{{#PageName}}} Замена",
+        ["#SR_DeathSwapDesc"]                               = "Вас рандомно телепортирует,когда вы взяли {{{l#PageName}}}!",
+        ["#SR_Mario"]                                       = "Марио",
+        ["#SR_MarioDesc"]                                   = "Прыжок,Марио одобряет!",
+
+        // gametype
+        ["#Game_PageCollected"]                             = "{{player}} нашёл {{{l#PageName}}}!",
+        ["#Deathmatch_EndTimeUp"]                           = "Время вышло! {{winners}} победа с  {{kills}} убийства!",
+        ["#Deathmatch_EndTimeUpNone"]                       = "Время вышло! Почему-то никто не погиб!",
+        ["#CollectPages"]                                   = "Собрать все {{count}} {{{l#PageNamePlural}}}",
+        ["#StopHumansPages"]                                = "Остановить,когда выжившие нашли всё {{count}} {{{l#PageNamePlural}}}",
+
+        // lang
+        ["#InvalidLang"]                                    = "К сожаление ваш язык не поддерживается",
+        ["#LangChanged"]                                    = "Язык успешно изменён",
+        ["#NoLangSpecified"]                                = "Вам нужен специальный язык. (e.g. /lang en)",
+        ["#LangGuess"]                                      = "Мы думаем вы из {{country}}, поэтому автоматически поменяли язык на {{lang}}",
+        ["#LangGuessFail"]                                  = "Мы думаем вы из {{country}}, но мы не можем вам поменять язык {{lang}}. Но вы можете поменять язык так: \"/lang <language>\"",
+        ["#LangObtainFail"]                                 = "Мы не могли угадать, откуда вы, поэтому вы установили язык сервера {{lang}}. Тип \"/lang <language>\" смените на ваш язык.",
+
+        // spectator
+        ["#Spec_Spectating"]                                = "Наблюдение",
+        ["#Spec_HUDInfo"]                                   = "Нажмите {{key}} чтобы поменять с 1ого на 3ье лицо или наоборот",
+
+        // ghost
+        ["#Ghost_YouAreGhost"]                              = "Вы призрак",
+        ["#Ghost_GhostInfo"]                                = "Команда /ghost чтобы выйти. Команда /esp чтобы наблюдать",
+
+        // admin
+        ["#Admin_MoreThanOneTarget"]                        = "Найдено более одной подходящей цели",
+        ["#Admin_NoTargets"]                                = "Не найдено подходящих целей",
+        ["#Admin_CantEnd"]                                  = "Раунд не может быть закончен",
+        ["#Admin_TestingOn"]                                = "Тестовый режим включен",
+        ["#Admin_TestingOff"]                               = "Тестовый режим выключен",
+        ["#Admin_NextBossPlayer"]                           = "Следущий монстр кого выберет рандом {{name}}",
+        ["#Admin_NextBoss"]                                 = "Следующий монстр {{boss}}",
+        ["#Admin_BossChoices"]                              = "Монстр выбран: {{bosslist}}",
+        ["#Admin_NextSR"]                                   = "Следуюший специальный раунд: {{round}}",
+        ["#Admin_SRChoices"]                                = "Доступные специальные раунды: {{roundlist}}",
+
+        // server shit
+        ["#NoReasonGiven"]                                  = "Причина не дана",
+        ["#ServerLocked"]                                   = "Этот сервер был заблокирован из-за большой ошибки: {{error}}",
+        ["#ServerNoContent"]                                = "Evil Content Pack {{num}} не установлен. Это вызовет большие проблемы!",
+        ["#ClientNoContent"]                                = "Вы потеряли Evil Content Pack {{num}}. Пожалуйста установите контент,для устранения ошибок!",
+
+        // afk
+        ["#AFK_Marked"]                                     = "Вы AFK: {{sec}}секунд до вашего исключения из сервера!",
+        ["#AFK_Clear"]                                      = "Вы вышли из AFK режима",
+
+        // collectables
+        ["#Clock_Collect"]                                  = "{{name}} собрал часы! 60 секунд добавлено как дополнительное время!",
+        ["#Skull_NoPlayers"]                                = "Нет возможности воскресить выжившего...",
+        ["#Skull_Revive"]                                   = "{{name}} собран Ритуальный Череп! Случайный игрок воскрешён",
+        ["#Bible_Collect"]                                  = "Вы подобрали Библию,она вас спасёт от одного удара Монстра!",
+        ["#Bible_Used"]                                     = "Монстр напал на вас,но к счастью господь бог спас вас",
+        ["#Jesus"]                                          = "Иисус",
+        ["#Bible_JesusBro"]                                 = "Не беспокойся мой друг,я займусь этим грешником!",
+        ["#Lantern_Destroy"]                                = "Нажмите {{button}} чтобы взять этот фонарь!",
+        ["#Collectable_Lantern"]                            = "Киросиновая лампа",
+        ["#Collectable_Lantern_Desc"]                       = "Излучает свет.Нажмите повторно,чтобы выбросить",
+        ["#Collectable_Clock"]                              = "Часы",
+        ["#Collectable_Clock_Desc"]                         = "Добавить 60 секунд к общему времени.",
+        ["#Collectable_Flare"]                              = "Сигнальная ракетница",
+        ["#Collectable_Flare_Desc"]                         = "С помощью ее вы можете отвлечь монстра или его замедлить",
+        ["#Collectable_Bible"]                              = "Библия",
+        ["#Collectable_Bible_Desc"]                         = "Спасёт вас от одной атаки монстра",
+        ["#Collectable_NightVision"]                        = "Очки ночного виденья",
+        ["#Collectable_NightVision_Desc"]                   = "Вы можете видеть в темноте",
+        ["#Collectable_Soda"]                               = "Энергетик",
+        ["#Collectable_Soda_Desc"]                          = "Даёт вам дополнительную скорость бега на время",
+        ["#Collectable_Skull"]                              = "Ритуальный Череп",
+        ["#Collectable_Skull_Desc"]                         = "Воскрешает рандомного игрока",
+        ["#Collectable_PageDetector"]                       = "{{{#PageName}}} Детектор записок",
+        ["#Collectable_PageDetector_Desc"]                  = "Помогает вам найти записки {{{l#PageNamePlural}}}",
+
+        // abilities
+        ["#Teleport"]                                       = "Телепорт", // unused
+        ["#TeleportDesc"]                                   = "Телепортирует вас в случайное место", // unused
+        ["#AbilityCooldown"]                                = "Вам надо подождать {{time}} секунд чтобы снова это использовать",
+        ["#NextBottleExplosive"]                            = "Следущая бутылка - ВЗРЫВНАЯ!",
+
+        // classes
+        ["#YouAreClass"]                                    = "Ваш роль: {{name}}!",
+        ["#YourName"]                                       = "Вас зовут: {{name}}!",
+        ["#AlyxDesc"]                                       = "У вас +15% к скорости перемещения!",
+        ["#MonkDesc"]                                       = "У вас -15% к скорости перемещения!",
+        ["#BarneyDesc"]                                     = "У вас в два раза больше выносливости!",
+        ["#KleinerDesc"]                                    = "Вы можете видеть одну записку {{{l#PageName}}} !",
+        ["#EliDesc"]                                        = "Монстр всегда видит вас!",
+        ["#SealTeamDesc"]                                   = "У вас есть очки ночного виденья!",
+        ["#CitizenStat1"]                                   = "Директор Флоридской школы",
+        ["#CitizenStat2"]                                   = "Любитель порисовать разные арты",
+        ["#CitizenStat3"]                                   = "Чемпион по поеданию бургеров",
+        ["#CitizenStat4"]                                   = "Котолюб",
+        ["#CitizenStat5"]                                   = "Профессиональный баксетболист",
+        ["#CitizenStat6"]                                   = "Любитель Аниме",
+        ["#CitizenStat7"]                                   = "Посмтрел 2 сезона аниме за сутки,настоящий чемпион!",
+        ["#CitizenStat8"]                                   = "Пользователь Линукс",
+        ["#CitizenStat9"]                                   = "Просто рыбак",
+        ["#CitizenStat10"]                                  = "Любитель обчистить твой холодильник",
+        ["#CitizenStat11"]                                  = "Профессиональный охотник на школьниц",
+        ["#CitizenStat12"]                                  = "Препод университета",
+        ["#CitizenStat13"]                                  = "Независимый критик",
+        ["#CitizenStat14"]                                  = "Машинист вагонетки",
+        ["#CitizenStat15"]                                  = "Чемпион по спидрану Garry's mod",
+        ["#CitizenStat16"]                                  = "Человек,который умрёт первым",
+        ["#CitizenStat17"]                                  = "Профессиональный критик фастфуда",
+        ["#CitizenStat18"]                                  = "Политик школы",
+        ["#CitizenStat19"]                                  = "Работник Казахстана",
+        ["#CitizenStat20"]                                  = "Любитель вкусно поесть",
+        ["#CitizenStat21"]                                  = "Копатель могил",
+
+        // api
+        ["#API_BossRegisterFailKey"]                        = "Проверка монстра {{id}} неудачно зафиксирован {{key}} это не дейстивтелен",
+        ["#API_BossRegisterFailExists"]                     = "Проверка монстра {{id}} не удалось, поскольку запись с таким идентификатором уже существует",
+        ["#API_ClientMaybeNoContent"]                       = "У вас нет контента Evil Gamemode \"{{name}}\"Скачайте его с мастерской Стима,чтобы избежать различные баги или ошибки режима",
+
+        // tips
+        ["#Tip"]                                            = "Подсказка: {{tip}}",
+        ["#Tip_1"]                                          = "Выжившие не слышат шаги монстра,но монстр их прекрасно слышит!",
+        ["#Tip_2"]                                          = "Если вы найдёте киросиновую лампу,то используйте ее как приманку для монстра,выбросив её где-то!",
+        ["#Tip_3"]                                          = "Вы не хотите видить эти подсказки? Команда: /tips. Вы можете их также включить через эту же команду!",
+        ["#Tip_4"]                                          = "Смотрите чаще под ногами,вы можете найти полезные вещи для себя и других выживших!",
+        ["#Tip_5"]                                          = "{{{#PageNamePlural}}} могут быть в труднодоступных местах,поэтому советуем вам быть более внимательным!",
+        ["#Tip_6"]                                          = "Выжившие должны собрать 8 записек или 8 газовых балнов",
+        ["#Tip_7"]                                          = "Монстр не может видеть {{{l#PageNamePlural}}}, так что не думайте что можете так их остановить!",
+        ["#Tip_8"]                                          = "Монстрам следует обращать внимание на любой свет,там может быть выживший! ",
+        ["#Tip_9"]                                          = "Когда вы мертвы,вы не можете общаться с живыми!",
+        ["#Tip_10"]                                         = "Присоединяйтесь на наш канал в Дискорде! Команда: \"/discord\"",
+        ["#Tip_11"]                                         = "Вы можете прописать команду: \"/ghost\" если вам не интересно наблюдать за игроками",
+        ["#Tip_12"]                                         = "Наблюдатели могут использовать команду: \"/esp\" команда чтобы видеть всех игроков и записки/газовые балоны {{{l#PageNamePlural}}}!",
+    },
 }
 
 function Lang:Add(lang, key, fmt)

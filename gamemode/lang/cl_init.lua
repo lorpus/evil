@@ -43,6 +43,8 @@ function Lang:ChangeLanguage(try)
 
     try = Lang.ISOToLang[try:lower()]
 
+    Lang.Locale = try
+
     local settings = file.Read("evilsettings.txt", "DATA")
     if settings then
         local t = util.JSONToTable(settings)
