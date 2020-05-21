@@ -225,6 +225,7 @@ Lang.Translations = Lang.Translations or {
 
         // collectables
         ["#Clock_Collect"]                                  = "{{name}} collected a clock! 60 seconds has been added to the timer!",
+        ["#Clock_Deadline"]                                 = "The Deadline special round is active! You can't collect this!",
         ["#Skull_NoPlayers"]                                = "There are no players to revive...",
         ["#Skull_Revive"]                                   = "{{name}} collected Apollyon's Skull! A random player has been revived",
         ["#Bible_Collect"]                                  = "You put the trusty Holy Bible into your back pocket...",

@@ -10,6 +10,15 @@ Collectable.Collectables = {
             Network:NotifyAll("#Clock_Collect", true, { name = collector:EvilName() })
             Round:AddTime(60)
         end,
+
+        canuse = function(ent, collector)
+            if SR.ActiveRounds["deadline"] then
+                Network:Notify(collector, "#Clock_Deadline", true)
+                return false
+            end
+
+            return true
+        end,
     },
 
     lantern = {
