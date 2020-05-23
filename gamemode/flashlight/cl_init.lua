@@ -1,4 +1,23 @@
+local useStockFlashlight = false
+
 local function RenderUserFlashlight(ply)
+    if ply != LocalPlayer() and useStockFlashlight then
+        if ply.EvilFlashlight then
+            ply.EvilFlashlight:Remove()
+            ply.EvilFlashlight = nil
+        end
+
+        if not ply:IsEffectActive(EF_DIMLIGHT) then
+            ply:AddEffects(EF_DIMLIGHT)
+        end
+
+        return
+    elseif not useStockFlashlight then
+        if ply:IsEffectActive(EF_DIMLIGHT) then
+            ply:RemoveEffects(EF_DIMLIGHT)
+        end
+    end
+
     if Evil.Cfg.Flashlight.UseProjectedTexture then
         if not ply.EvilFlashlight or not ply.EvilFlashlight:IsValid() then
             local light = ProjectedTexture()
@@ -39,9 +58,44 @@ local function RemoveLight(ply)
         ply.EvilFlashlight:Remove()
         ply.EvilFlashlight = nil
     end
+
+    if ply:IsEffectActive(EF_DIMLIGHT) then
+        ply:RemoveEffects(EF_DIMLIGHT)
+    end
 end
 
+local switchToShitLights = SysTime() + 60
+local switchToGoodLights = SysTime() + 60
+local fpshist = {}
+local fpslen = 10
 hook.Add("Think", "EvilFlashlight", function()
+    local tmpfps = 1 / RealFrameTime()
+    table.insert(fpshist, 1, tmpfps)
+    if #fpshist > fpslen then fpshist[fpslen] = nil end
+    local fps = 0
+    for _, n in ipairs(fpshist) do fps = fps + n end
+    fps = fps / #fpshist
+
+    local st = SysTime()
+
+    if fps > 35 then
+        switchToShitLights = st + 5
+    end
+
+    if fps < 65 then
+        switchToGoodLights = st + 5
+    end
+
+    if st > switchToShitLights and not useStockFlashlight then
+        useStockFlashlight = true
+        switchToGoodLights = math.huge
+    end
+
+    if st > switchToGoodLights and useStockFlashlight then
+        useStockFlashlight = false
+        switchToShitLights = math.huge
+    end
+
     if Round:IsPlaying() or Round:IsPost() then
         for _, ply in pairs(player.GetAll()) do
             if SR.ActiveRounds["allalone"] and ply != LocalPlayer() then RemoveLight(ply) continue end
