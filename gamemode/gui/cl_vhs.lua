@@ -32,6 +32,9 @@ local noisemats = {}
 for i = 1, 60 do
 	local mat = ("evil/noise/%03d.png"):format(i)
 	noisemats[i] = Material(mat)
+	if noisemats[i]:IsError() then
+		noisemats[i] = nil
+	end
 end
 
 local NormalMats = { // explicit needed cuz mat has 2 return values
@@ -102,6 +105,7 @@ hook.Add("DrawOverlay", "EvilRenderVHSNoise", function()
 	if not Game:ShouldDrawVHS() then return end
 
 	if i > 60 then i = 1 end
+	if not noisemats[i] then return end
 	surface.SetMaterial(noisemats[i])
 	surface.SetDrawColor(255, 255, 255, Evil.NoiseOpacity:GetInt())
 	surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
