@@ -125,6 +125,8 @@ Abilities.Abilities = {
             local ws = ply:GetWalkSpeed()
             ply:SetRunSpeed(rs * 2)
             ply:SetWalkSpeed(ws * 2)
+            ply:SetLaggedMovementValue(1) // cancels the digestion trait
+            timer.Remove(ply:SteamID64() .. "_EvilTraitDigest")
             timer.Simple(3, function()
                 if IsValid(ply) then
                     ply:SetRunSpeed(rs)

@@ -87,7 +87,7 @@ Traits.Traits = {
                 if killer == ply then
                     killer:EmitSound("npc/stalker/breathing3.wav")
                     ply:SetLaggedMovementValue(0)
-                    timer.Simple(5, function()
+                    timer.Create(ply:SteamID64() .. "_EvilTraitDigest", 5, 1, function()
                         if IsValid(ply) then
                             ply:SetLaggedMovementValue(1)
                         end
