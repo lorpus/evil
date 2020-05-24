@@ -54,9 +54,16 @@ local configuration = {
                 lang = "#The_Ravine",
                 fallback = "The Ravine",
             },
+
             ["slender_underground_r1_evpack"] = {
                 lang = "#Underground",
                 fallback = "Underground",
+            },
+
+            ["evil_lostsnow_v3fixed"] = {
+                img = "evil/mapvote/evil_lostsnow.png",
+                lang = "#LostSnow",
+                fallback = "Lost Snow",
             },
         }
     },
