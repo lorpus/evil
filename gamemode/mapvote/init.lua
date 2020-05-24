@@ -24,6 +24,7 @@ function MapVote:Cancel()
     MapVote.Roster = {}
     MapVote.Voters = {}
     MapVote.Voted  = {}
+    timer.Remove("EvilMapVoteTimer")
     net.Start(Network.Id)
         net.WriteInt(N_MAPVOTE, Network.CmdBits)
         net.WriteTable({})
@@ -78,8 +79,7 @@ function MapVote:StartVote()
         net.WriteTable(chosenmaps)
     net.Broadcast()
 
-    timer.Simple(Evil.Cfg.MapVote.Time, function()
-        if canceled then canceled = false return end
+    timer.Create("EvilMapVoteTimer", Evil.Cfg.MapVote.Time, 1, function()
         net.Start(Network.Id)
             net.WriteInt(N_MAPVOTE, Network.CmdBits)
             net.WriteTable({})
