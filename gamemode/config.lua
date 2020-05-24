@@ -77,6 +77,12 @@ local configuration = {
                 lang = "#CalebsBasement",
                 fallback = "Caleb's Basement",
             },
+
+            ["evil_void"] = {
+                img = "evil/mapvote/evil_void.png",
+                lang = "#TheVoid",
+                fallback = "Void",
+            },
         }
     },
 
