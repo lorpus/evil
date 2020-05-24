@@ -65,6 +65,12 @@ local configuration = {
                 lang = "#LostSnow",
                 fallback = "Lost Snow",
             },
+
+            ["evil_waredhouz_v3"] = {
+                img = "evil/mapvote/evil_waredhouz.png",
+                lang = "#Waredhouz",
+                fallback = "Waredhouz",
+            },
         }
     },
 
