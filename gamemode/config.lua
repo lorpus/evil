@@ -71,6 +71,12 @@ local configuration = {
                 lang = "#Waredhouz",
                 fallback = "Waredhouz",
             },
+
+            ["evil_calebsbasement"] = {
+                img = "evil/mapvote/evil_calebsbasement.png",
+                lang = "#CalebsBasement",
+                fallback = "Caleb's Basement",
+            },
         }
     },
 
