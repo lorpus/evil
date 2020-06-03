@@ -1,6 +1,6 @@
 AddCSLuaFile()
 
-local DrawBlockMove = CreateConVar("evil_drawblockmove", 1, FCVAR_REPLICATED, "Draws wireframes for evil_blockmove entities")
+local DrawBlockMove = CreateConVar("evil_drawblockmove", 1, FCVAR_REPLICATED + FCVAR_ARCHIVE, "Draws wireframes for evil_blockmove entities")
 
 DEFINE_BASECLASS("base_anim")
 
