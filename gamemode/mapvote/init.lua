@@ -115,7 +115,7 @@ hook.Add("RoundSet", "EvilCheckMapVote", function(round)
                 game.ConsoleCommand("changelevel " .. MapVote.NextMap .. "\n")
             end)
         end
-    elseif round == ROUND_PLAYING then
+    elseif round == ROUND_PLAYING and not MapVote.NextMap then
         MapVote.RoundProgress = MapVote.RoundProgress + 1
         if MapVote.RoundProgress >= Evil.Cfg.MapVote.RoundsPerVote then
             timer.Simple(6, function()
