@@ -67,3 +67,9 @@ function Classes:ClearPlayerClass(ply)
     hook.Run("EvilClearClass", ply, class)
     Network:SendHook("EvilClearClass", ply, class)
 end
+
+hook.Add("RoundSet", "EvilClassesClearTaken", function(round)
+    if round == ROUND_POST then
+        takenclasses = {}
+    end
+end)
