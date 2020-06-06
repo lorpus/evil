@@ -21,6 +21,25 @@ Collectable.Collectables = {
         end,
     },
 
+    healthkit = {
+        name = "#Collectable_HealthKit",
+        desc = "#Collectable_HealthKit_Desc",
+        mdl = "models/weapons/w_medkit.mdl",
+        oncollect = function(collector)
+            if not SERVER then return end
+            collector:SetHealth(collector:GetMaxHealth())
+        end,
+
+        canuse = function(ent, collector)
+            if collector:Health() == collector:GetMaxHealth() then
+                Network:Notify(collector, "#Collectable_HealthKit_AlreadyMax", true)
+                return false
+            end
+
+            return true
+        end,
+    },
+
     lantern = {
         name = "#Collectable_Lantern",
         desc = "#Collectable_Lantern_Desc",

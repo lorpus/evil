@@ -253,6 +253,9 @@ Lang.Translations = Lang.Translations or {
         ["#Collectable_Skull_Desc"]                         = "Bring a human back from the dead",
         ["#Collectable_PageDetector"]                       = "{{{#PageName}}} Detector",
         ["#Collectable_PageDetector_Desc"]                  = "Helps to locate {{{l#PageNamePlural}}}",
+        ["#Collectable_HealthKit"]                          = "Health Kit",
+        ["#Collectable_HealthKit_Desc"]                     = "Hurt? Heal up with this",
+        ["#Collectable_HealthKit_AlreadyMax"]               = "You're already at max health!",
 
         // abilities
         ["#Teleport"]                                       = "Teleport", // unused
