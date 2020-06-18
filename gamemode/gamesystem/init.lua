@@ -311,7 +311,7 @@ hook.Add("PlayerSpawn", "MoveToSpawn", function(ply)
 end)
 
 hook.Add("PlayerDeathSound", "EvilRemoveDeathSound", function()
-    return false
+    return true
 end)
 
 local function SpawnBlockers()
