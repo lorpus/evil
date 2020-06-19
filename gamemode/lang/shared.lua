@@ -554,7 +554,7 @@ function Lang:Add(lang, key, fmt)
     if not t then Lang.Translations[lang] = {} end
 
     if Lang.Translations[lang][key] then
-        return Evil.Log(lang .. "." .. key .. " is extant")
+        return dbg.print(lang .. "." .. key .. " is extant")
     elseif isstring(fmt) then
         Lang.Translations[lang][key] = fmt
     end
