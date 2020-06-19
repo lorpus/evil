@@ -51,7 +51,7 @@ local function ShowBossInfoPanel()
     function frame:Paint(w, h)
         draw.RoundedBoxEx(10, 0, 0, self.drawwidth, h, Color(20, 20, 20), false, true, false, true)
 
-        draw.SimpleText(Lang:Format("#YouAreBoss", { name = info.name }), "EvilInfoPanelTitle", self.drawwidth - w / 2, 5, color_white, TEXT_ALIGN_CENTER)
+        draw.SimpleText(Lang:Format("#YouAreBoss", { name = info.name }, true), "EvilInfoPanelTitle", self.drawwidth - w / 2, 5, color_white, TEXT_ALIGN_CENTER)
         // draw.SimpleText("Always watching, always lurking. Be mindful, he can be anywhere at anytime.", "EvilInfoPanelSub", self.drawwidth - w / 2, self:GetTall() * 0.75, color_white, TEXT_ALIGN_CENTER)
         if istable(info.weapons) and table.HasValue(info.weapons, "ev_monster_kill") then
             draw.SimpleText(Lang:Get("#HowToAttack_A"), "EvilInfoPanelSub", self.drawwidth - w / 2, self:GetTall() * 0.7 + pad, color_white, TEXT_ALIGN_CENTER)

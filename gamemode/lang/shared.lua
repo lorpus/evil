@@ -602,12 +602,13 @@ function Lang:Get(key)
     return Lang:ExpandInline(ret)
 end
 
-function Lang:Format(key, tab)
+function Lang:Format(key, tab, langArgs)
     local ret = Lang:Get(key)
 
     ret = Lang:ExpandInline(ret)
 
     for key, replacement in pairs(tab) do
+        if langArgs and replacement:StartWith("#") then replacement = Lang:Get(replacement) end
         ret = string.Replace(ret, "{{" .. key .. "}}", replacement)
     end
 
