@@ -20,6 +20,7 @@ if CLIENT then
     local eyeMat = Material("evil/eye.png")
     local colorGray = Color(65, 65, 65, 50)
     hook.Add("HUDPaint", "EvilBlinkHUD", function()
+        if SR.ActiveRounds["realism"] then return end
         if not Round:IsPlaying() or not LocalPlayer():IsHuman() or not LocalPlayer():Alive() then return end
         local shouldBlink = hook.Run("EvilDoBlinking")
         if not shouldBlink then return end
