@@ -161,9 +161,10 @@ end)
 
 hook.Add("Think", "EvilBossThink", function()
     if Round:IsPlaying() then
+        local boss = Game:GetBoss()
         local info = Game:GetProfileInfo()
-        if info and isfunction(info.think) then
-            info.think()
+        if info and info.Think and IsValid(boss) then
+            info.Think(boss)
         end
     end
 end)

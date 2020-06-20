@@ -8,10 +8,11 @@ local configuration = {
 
     DisableAFK = false,
 
-    MainMenu = {
-        TitleText = "Evil",
-        HelpText = "Placeholder\nPlaceholder\nPlaceholder"
+    Bosses = {
+        FallbackCount = 15, // how many bosses (max) to load if there are no defined packs to choose from
     },
+
+    DownloadMethod = "workshop",
 
     Pointshop = {
         Integration = nil,
