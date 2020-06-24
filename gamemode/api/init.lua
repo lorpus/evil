@@ -34,6 +34,16 @@ function API:ChoosePack()
     return nil
 end
 
+function API:IsBossRestricted(profile)
+    local hk = hook.Run("EvilBossRestricted", profile)
+    if hk != nil then return hk end
+    local r = Map.disabled_bosses
+    if r and r[profile] then
+        return true
+    end
+    return false
+end
+
 local function DoLoad()
     API.RegisteredBosses = {}
     API.Bosses = {}
@@ -50,6 +60,10 @@ local function DoLoad()
             if i > Evil.Cfg.Bosses.FallbackCount then
                 break
             end
+            if API:IsBossRestricted(k) then
+                dbg.print("Profile " .. k .. " restricted")
+                continue
+            end
             API.RegisteredBosses[k] = v
             i = i + 1
         end
@@ -58,6 +72,10 @@ local function DoLoad()
     dbg.print("Using: " .. table.concat(table.GetKeys(API.RegisteredBosses), ", "))
 
     for k, v in pairs(API.RegisteredBosses) do
+        if API:IsBossRestricted(k) then -- checking twice because of packs
+            dbg.print("Profile " .. k .. " restricted")
+            continue
+        end
         API:RegisterBoss(k, v)
         if Evil.Cfg.DownloadMethod == "workshop" or not Evil.Cfg.DownloadMethod then
             if v._WSID then
