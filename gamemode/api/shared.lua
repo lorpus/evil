@@ -76,6 +76,8 @@ function API:ProcessProxyProfile(info)
     f.traits = info.Traits
     f.weapons = info.Weapons
     f.tauntdisplay = info.TauntDisplay
+    f.start = info.OnStart
+    f.finish = info.OnFinish
     f._Lang = info.Lang
     f._Precache = info.Precache
     return f
