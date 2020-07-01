@@ -27,16 +27,3 @@ hook.Add("CalcMainActivity", "EvilRunAnimation", function(ply, vVel)
         end
     end
 end)
-
-local function RenderHook(e)
-    if not e:IsPlayer() then return end
-    if not e.RenderOverride then
-        e.RenderOverride = function(self)
-            if hook.Call("PlayerRender", nil, self) == nil then
-                self:DrawModel()
-            end
-        end
-    end
-end
-
-hook.Add("NetworkEntityCreated", "HookOntoPlayerRender", RenderHook)
