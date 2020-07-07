@@ -2,16 +2,6 @@ API = API or {
     Bosses = {},
 }
 
-local function FileReadString(fp)
-    local str = ""
-    while not fp:EndOfFile() do
-        local b = fp:ReadByte()
-        if b == 0 then return str end
-        str = str .. string.char(b)
-    end
-    return str
-end
-
 function API:ProcessBossProfile(info)
     local f = {}
     f.name = info.Name
@@ -36,6 +26,11 @@ function API:ProcessBossProfile(info)
     f._WSID = info.WorkshopID
 
     f.Think = info.Think
+
+    player_manager.AddValidModel(info.Name, info.Model)
+    if info.HandsModel then
+        player_manager.AddValidHands(info.Name, info.HandsModel, 0, "0000000")
+    end
 
     f._Resources = {}
     local function res(lst, pre)
