@@ -10,7 +10,7 @@ function API:ProcessBossProfile(info)
     f.walkspeed = info.WalkSpeed
     f.proximity_music = info.ProximityMusic
     f.weapons = info.Weapons
-    f.killhook = info.OnKill and function(victim) info:OnKill(victim) end or nil
+    f.killhook = info.OnKill and function(victim, boss) info.OnKill(boss, victim) end or nil
     f.jumpscare = info.Jumpscare and { mat = info.Jumpscare.Material, sound = info.Jumpscare.Sound, len = info.Jumpscare.Length } or nil
     f.taunts = info.Taunts
     f.tauntdisplay = info.TauntDisplay

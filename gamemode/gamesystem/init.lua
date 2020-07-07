@@ -266,7 +266,10 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     end
     local info = Game:GetProfileInfo()
     if info.killhook then
-        info.killhook(victim)
+        local boss = Game:GetBoss()
+        if IsValid(boss) then
+            info.killhook(victim, boss)
+        end
     end
 
     if istable(info.killsounds) then
