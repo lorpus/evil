@@ -127,6 +127,7 @@ function API:LoadBoss(filename)
     local info
     if success and func then
         BOSS = {}
+        BOSS.ID = profile
         xpcall(func, function(err)
             Evil.Log("ERROR loading boss " .. profile .. ": " .. err)
             BOSS = nil
@@ -154,6 +155,7 @@ function API:LoadProxy(filename)
     local info
     if success and func then
         PROXY = {}
+        PROXY.ID = profile
         xpcall(func, function(err)
             Evil.Log("ERROR loading proxy " .. profile .. ": " .. err)
             PROXY = nil
@@ -201,6 +203,7 @@ function API:SharedLoad() -- for shit like abilities where size isnt a concern
         local info
         if success and func then
             ABILITY = {}
+            ABILITY.ID = name
             xpcall(func, function(err)
                 Evil.Log("ERROR loading ability " .. name .. ": " .. err)
                 ABILITY = nil
@@ -233,6 +236,7 @@ function API:SharedLoad() -- for shit like abilities where size isnt a concern
         local info
         if success and func then
             TRAIT = {}
+            TRAIT.ID = name
             xpcall(func, function(err)
                 Evil.Log("ERROR loading trait " .. name .. ": " .. err)
                 TRAIT = nil
