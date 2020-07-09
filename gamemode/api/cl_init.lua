@@ -1,48 +1,32 @@
-local function CheckContent()
-    local cid = "eiws" .. game.GetIPAddress()
-
-    local filter = GetConVar("cl_downloadfilter"):GetString()
-    if filter == "mapsonly" or filter == "none" then
-        if cookie.GetNumber(cid) then return end
-        for key, ws in pairs(Evil.API.Packs) do
-            if not steamworks.IsSubscribed(ws) then
-                Evil:AddTextChat(Lang:Format("#API_ClientMaybeNoContent", { name = key }))
-            end
-        end
-    else
-        cookie.Delete(cid)
-    end
-    cookie.Set(cid, "1")
-end
-
 function Evil:CLAPINetHandler()
-    local askAgain = net.ReadBool()
-    if askAgain then
-        dbg.print("askAgain")
-        return timer.Simple(1, function()
-            net.Start(Network.Id)
-                net.WriteInt(N_CONTENT, Network.CmdBits)
-            net.SendToServer()
-        end)
-    else
-        Evil.API.PackFilter = net.ReadTable()
-        local hasfilter = table.Count(Evil.API.PackFilter) != 0
-        dbg.print("hasfilter", hasfilter)
-        for id, data in pairs(Evil.API.DeferredPacks) do
-            if hasfilter and not Evil.API.PackFilter[id] then continue end
-            Evil.API.Packs[id] = data.ws
-            if isfunction(data.cb) then
-                data.cb()
-            end
-        end
-
-        hook.Run("EvilLoaded")
-        CheckContent()
+    local bossFiles = net.ReadTable()
+    local proxyFiles = net.ReadTable()
+    for _, filename in ipairs(bossFiles) do
+        API:LoadBoss(filename)
     end
+
+    for _, filename in ipairs(proxyFiles) do
+        API:LoadProxy(filename)
+    end
+
+    // client only gets registered bosses so register them all
+    for profile, info in pairs(API.Bosses) do
+        API:RegisterBoss(profile, info)
+    end
+
+    API:SharedLoad()
 end
 
-hook.Add("InitPostEntity", "EvilGetContent", function()
+local initpostentity = false // hack for lua refresh
+hook.Add("InitPostEntity", "EvilGetProfiles", function()
     net.Start(Network.Id)
         net.WriteInt(N_CONTENT, Network.CmdBits)
     net.SendToServer()
+    initpostentity = true
 end)
+
+if initpostentity then
+    net.Start(Network.Id)
+        net.WriteInt(N_CONTENT, Network.CmdBits)
+    net.SendToServer()
+end

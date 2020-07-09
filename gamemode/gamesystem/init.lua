@@ -49,11 +49,6 @@ function Game:SetupBoss(ply)
     ply:SetWalkSpeed(info.walkspeed)
     ply:SetNW2Float("AbilityCharge", 0.5)
 
-    local hands = ply:GetHands()
-    if info.hands_model and IsValid(hands) then
-        hands:SetModel(info.hands_model)
-    end
-
     if info.proximity_music then
         timer.Simple(1, function()
             net.Start(Network.Id)
@@ -271,7 +266,10 @@ hook.Add("DoPlayerDeath", "EvilHandlePlayerDeath", function(victim, inflictor, a
     end
     local info = Game:GetProfileInfo()
     if info.killhook then
-        info.killhook(victim)
+        local boss = Game:GetBoss()
+        if IsValid(boss) then
+            info.killhook(victim, boss)
+        end
     end
 
     if istable(info.killsounds) then

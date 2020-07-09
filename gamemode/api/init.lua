@@ -1,48 +1,104 @@
-Evil.API.FilterLoaded = Evil.API.FilterLoaded or false
+API.RegisteredBosses = API.RegisteredBosses or {}
+
 function Evil:SVAPINetHandler(len, ply)
+    local bfiles = {}
+    local pfiles = {}
+    for k, v in pairs(API.RegisteredBosses) do
+        table.insert(bfiles, k .. ".lua")
+        if v._Proxy then
+            table.insert(pfiles, v._Proxy .. ".lua")
+        end
+    end
     net.Start(Network.Id)
         net.WriteInt(N_CONTENT, Network.CmdBits)
-    if not Evil.API.FilterLoaded then
-        net.WriteBool(true)
-    else
-        net.WriteBool(false)
-        net.WriteTable(Evil.API.PackFilter)
-    end
+        net.WriteTable(bfiles)
+        net.WriteTable(pfiles)
     net.Send(ply)
 end
 
-Evil.API.FilterToSave = Evil.API.FilterToSave or {}
-function Evil:AddToFilterNextMap(id)
-    Evil.API.FilterToSave[id] = 1
+function API:LoadAllBosses()
+    local f, _ = file.Find("evil/bosses/*.lua", "LUA")
+    for _, filename in ipairs(f) do
+        API:LoadBoss(filename)
+        AddCSLuaFile("evil/bosses/" .. filename)
+    end
+
+    f, _ = file.Find("evil/proxies/*.lua", "LUA")
+    for _, filename in ipairs(f) do
+        API:LoadProxy(filename)
+        AddCSLuaFile("evil/proxies/" .. filename)
+    end
 end
 
-hook.Add("ShutDown", "EvilSaveFilter", function()
-    file.Write("evilfilter.txt", util.TableToJSON(Evil.API.FilterToSave))
-end)
+function API:ChoosePack()
+    return nil
+end
 
-hook.Add("Initialize", "EvilLoadFilter", function()
-    local filter = util.JSONToTable(file.Read("evilfilter.txt") or "{}")
-    table.Merge(Evil.API.PackFilter, filter)
-    file.Delete("evilfilter.txt")
-    hook.Run("FilterLoaded")
-    Evil.API.FilterLoaded = true
-end)
+function API:IsBossRestricted(profile)
+    local hk = hook.Run("EvilBossRestricted", profile)
+    if hk != nil then return hk end
+    local r = Map.disabled_bosses
+    if r and r[profile] then
+        return true
+    end
+    return false
+end
 
-hook.Add("FilterLoaded", "EvilLoadDeferred", function()
-    local hasfilter = table.Count(Evil.API.PackFilter) != 0
-    dbg.print("hasfilter", hasfilter)
-    for id, data in pairs(Evil.API.DeferredPacks) do
-        if hasfilter and not Evil.API.PackFilter[id] then continue end
-        Evil.API.Packs[id] = data.ws
-        resource.AddWorkshop(data.ws)
-        if isfunction(data.cb) then
-            data.cb()
+local function DoLoad()
+    API.RegisteredBosses = {}
+    API.Bosses = {}
+    Evil.Bosses = {}
+    API:LoadAllBosses()
+    dbg.print(table.Count(API.Bosses) .. " total bosses found")
+    local pack = API:ChoosePack()
+    if pack then
+        
+    else
+        dbg.print("No pack chosen, falling back to " .. Evil.Cfg.Bosses.FallbackCount .. " max random bosses")
+        local i = 1
+        for k, v in RandomPairs(API.Bosses) do
+            if i > Evil.Cfg.Bosses.FallbackCount then
+                break
+            end
+            if API:IsBossRestricted(k) then
+                dbg.print("Profile " .. k .. " restricted")
+                continue
+            end
+            API.RegisteredBosses[k] = v
+            i = i + 1
         end
     end
 
-    if table.Count(Evil.Bosses) == 0 then
-        Evil:Lock("No bosses have been registered! The server owner must install a content pack")
-    end
+    dbg.print("Using: " .. table.concat(table.GetKeys(API.RegisteredBosses), ", "))
 
-    hook.Run("EvilLoaded")
+    for k, v in pairs(API.RegisteredBosses) do
+        if API:IsBossRestricted(k) then -- checking twice because of packs
+            dbg.print("Profile " .. k .. " restricted")
+            continue
+        end
+        API:RegisterBoss(k, v)
+        if Evil.Cfg.DownloadMethod == "workshop" or not Evil.Cfg.DownloadMethod then
+            if v._WSID then
+                resource.AddWorkshop(v._WSID)
+            else
+                Evil.Log("Warning: Boss profile " .. k .. " doesn't have an assigned Workshop ID!")
+            end
+        elseif Evil.Cfg.DownloadMethod == "fastdl" then
+            for _, res in ipairs(v._Resources) do
+                resource.AddFile(res)
+            end
+        end
+    end
+    API:SharedLoad()
+end
+
+hook.Add("EvilPreLoad", "EvilLoadBosses", function()
+    DoLoad()
+end)
+
+concommand.Add("evil_force_reload", function(ply)
+    if not IsValid(ply) then
+        DoLoad()
+        Evil.Log("Warning: This command will only reload server-side")
+    end
 end)
