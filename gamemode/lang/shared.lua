@@ -31,6 +31,7 @@ Lang = Lang or {
 
     LangToName = {
         ["en"] = "English",
+        ["ru"] = "Россия",
     },
 
     CCToISO = {
