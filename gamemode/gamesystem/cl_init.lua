@@ -107,6 +107,7 @@ local surface_SetDrawColor = surface.SetDrawColor
 local surface_DrawRect = surface.DrawRect
 local cam_End3D2D = cam.End3D2D
 function Game:DrawESP(enttab)
+    if #enttab == 0 then return end
     local pos = LocalPlayer():EyePos() + LocalPlayer():EyeAngles():Forward() * 10
     local ang = LocalPlayer():EyeAngles()
     ang = Angle(ang.p + 90, ang.y, 0)
@@ -156,17 +157,25 @@ function Game:CanSeeEntityWithESP(ent)
     return false
 end
 
-hook.Add("PostDrawOpaqueRenderables", "EvilESP", function(bDepth, bSkybox)
-    local tab = {}
+local drawESPEntities = {}
 
-    for _, ent in ipairs(ents.GetAll()) do
-        if Game:CanSeeEntityWithESP(ent) then
-            if Evil.UseAltESP:GetBool() and ent:IsPlayer() then continue end
-            table.insert(tab, ent)
+timer.Create("EvilUpdateESPEntities", 1, 0, function()
+    drawESPEntities = {}
+    local allents = ents.GetAll()
+    local alt = Evil.UseAltESP:GetBool()
+    for i = 1, #allents do
+        local ent = allents[i]
+        if ent:IsPlayer() or ent:GetClass() == "evil_page" then
+            if Game:CanSeeEntityWithESP(ent) then
+                if alt and ent:IsPlayer() then continue end
+                table.insert(drawESPEntities, ent)
+            end
         end
     end
+end)
 
-    Game:DrawESP(tab)
+hook.Add("PostDrawOpaqueRenderables", "EvilESP", function(bDepth, bSkybox)
+    Game:DrawESP(drawESPEntities)
 end)
 
 local espMaterial = CreateMaterial("somethingwtf", "VertexLitGeneric", {
