@@ -434,3 +434,13 @@ hook.Add("GetFallDamage", "EvilNoFallDamage", function(ply, spd)
         return 0
     end
 end)
+
+hook.Add("Think", "EvilUpdatePositions", function()
+    for _, ply in ipairs(player.GetAll()) do
+        local ot = ply:GetObserverTarget()
+        local om = ply:GetObserverMode()
+        if not ply:Alive() and om != OBS_MODE_NONE and om != OBS_MODE_ROAMING and IsValid(ot) then
+            ply:SetPos(ot:GetPos())
+        end
+    end
+end)
