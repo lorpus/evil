@@ -101,15 +101,17 @@ hook.Add("RenderScreenspaceEffects", "EvilRenderVHSGlitch", function()
 end)
 
 local i = 1
+timer.Create("noisetest", 0.01, 0, function()
+	i = i + 1
+	if i > 60 then i = 3 end
+end)
 hook.Add("DrawOverlay", "EvilRenderVHSNoise", function()
 	if not Game:ShouldDrawVHS() then return end
 
-	if i > 60 then i = 1 end
 	if not noisemats[i] then return end
 	surface.SetMaterial(noisemats[i])
 	surface.SetDrawColor(255, 255, 255, Evil.NoiseOpacity:GetInt())
 	surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
-	i = i + 1
 end)
 
 timer.Create("EvilPlayStatic", 0.1, 0, function()
