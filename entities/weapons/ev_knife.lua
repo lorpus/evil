@@ -108,7 +108,12 @@ function SWEP:DoAttack(alt)
     local info = DamageInfo()
     info:SetAttacker(self.Owner)
     info:SetInflictor(self)
-    info:SetDamage((hitBackstab and alt) and hitEnt:Health() * 10 or 34)
+    if self.Owner:GetNW2Bool("EvilKnifeKill") then
+        info:SetDamage(hitEnt:Health() * 10)
+        self.Owner:SetNW2Bool("EvilKnifeKill", false)
+    else
+        info:SetDamage((hitBackstab and alt) and hitEnt:Health() * 10 or 34)
+    end
     info:SetDamageType(bit.bor(DMG_BULLET + DMG_NEVERGIB))
     info:SetDamageForce(aimVec:GetNormalized() * 300)
     info:SetDamagePosition(shootDest)
