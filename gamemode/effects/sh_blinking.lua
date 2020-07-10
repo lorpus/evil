@@ -20,7 +20,6 @@ if CLIENT then
     local eyeMat = Material("evil/eye.png")
     local colorGray = Color(65, 65, 65, 50)
     hook.Add("HUDPaint", "EvilBlinkHUD", function()
-        if SR.ActiveRounds["realism"] then return end
         if not Round:IsPlaying() or not LocalPlayer():IsHuman() or not LocalPlayer():Alive() then return end
         local shouldBlink = hook.Run("EvilDoBlinking")
         if not shouldBlink then return end
@@ -37,6 +36,8 @@ if CLIENT then
         if frac < 0 then
             DoBlink()
         end
+
+        if SR.ActiveRounds["realism"] then return end
 
         draw.RoundedBox(0, x, y + width * (1 - frac), width, width * frac, Color(150, 25, 25, 100))
         draw.RoundedBox(0, x, y, width, width, colorGray)
