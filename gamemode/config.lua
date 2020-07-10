@@ -14,13 +14,6 @@ local configuration = {
 
     DownloadMethod = "workshop",
 
-    Pointshop = {
-        Integration = nil,
-        Prices = {
-            beboss = 1000,
-        },
-    },
-
     Collectables = {
         Odds = {
             OP = { // count
