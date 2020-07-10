@@ -1,27 +1,32 @@
 AddCSLuaFile("cl_init.lua")
 include("shared.lua")
 
-hook.Add("Initialize", "EvilCheckUpdates", function()
+hook.Add("Think", "EvilCheckUpdates", function()
+    hook.Remove("Think", "EvilCheckUpdates")
     http.Fetch("https://uwu.tokyo/evil/version.json", function(body)
         local js = util.JSONToTable(body)
-        local url = js.url
+        local note = js.note or ""
         local nt = js.version:Split(".")
         local ct = (GM and GM or GAMEMODE).Version:Split(".")
         local nmajor, nminor, npatch = tonumber(nt[1]), tonumber(nt[2]), tonumber(nt[3])
         local cmajor, cminor, cpatch = tonumber(ct[1]), tonumber(ct[2]), tonumber(ct[3])
 
-        local u = true
+        local u
+        local f
         if nmajor > cmajor then
-            Evil.Log(Lang:Format("#MajorUpdateAvailable", { url = url }))
+            f = "#MajorUpdateAvailable"
         elseif nminor > cminor then
-            Evil.Log(Lang:Format("#MinorUpdateAvailable", { url = url }))
+            f = "#MinorUpdateAvailable"
         elseif npatch > cpatch then
-            Evil.Log(Lang:Format("#PatchUpdateAvailable", { url = url }))
-        else
-            u = false
+            f = "#PatchUpdateAvailable"
         end
+        if f then u = Lang:Format(f, { note = note }) end
 
         if u then
+            timer.Create("EvilUpdateNotification", 600, 0, function()
+                Network:NotifyAll(f, true, { note = "" })
+            end)
+            Evil.Log(u)
             Evil.Log(Lang:Format("#VersionCompare", { cur = (GM and GM or GAMEMODE).Version, new = js.version }))
         else
             Evil.Log(Lang:Get("#UpToDate"))

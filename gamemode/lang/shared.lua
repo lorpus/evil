@@ -97,11 +97,12 @@ Lang.Translations = Lang.Translations or {
         ["#CanBeProxy"]                                     = "You may become a mini-monster",
 
         // updates
-        ["#MajorUpdateAvailable"]                           = "A major update for the gamemode is available! Visit {{url}}",
-        ["#MinorUpdateAvailable"]                           = "A minor update for the gamemode is available! Visit {{url}}",
-        ["#PatchUpdateAvailable"]                           = "A patch update for the gamemode is available! Visit {{url}}",
+        ["#MajorUpdateAvailable"]                           = "A major update for the gamemode is available! {{note}} {{{#UpdateHow}}}",
+        ["#MinorUpdateAvailable"]                           = "A minor update for the gamemode is available! {{note}} {{{#UpdateHow}}}",
+        ["#PatchUpdateAvailable"]                           = "A patch update for the gamemode is available! {{note}} {{{#UpdateHow}}}",
         ["#VersionCompare"]                                 = "You are on version {{cur}} while the latest is {{new}}",
         ["#UpToDate"]                                       = "Your version is up to date!",
+        ["#UpdateHow"]                                      = "Restart your server or download the new version from https://github.com/lorpus/evil/releases/latest",
 
         // commands
         ["#InvalidCommand"]                                 = "That command doesn't exist",
@@ -338,9 +339,9 @@ Lang.Translations = Lang.Translations or {
         ["#CanBeProxy"]                                     = "Вы можете стать мини боссом",
 
         // updates
-        ["#MajorUpdateAvailable"]                           = "Большое обновление теперь доступно! Ссылка: {{url}}",
-        ["#MinorUpdateAvailable"]                           = "Небольшое обновление теперь доступно! Ссылка: {{url}}",
-        ["#PatchUpdateAvailable"]                           = "A patch update for the gamemode is available! Visit {{url}}",
+        ["#MajorUpdateAvailable"]                           = "Большое обновление теперь доступно! {{note}}",
+        ["#MinorUpdateAvailable"]                           = "Небольшое обновление теперь доступно! {{note}}",
+        ["#PatchUpdateAvailable"]                           = "A patch update for the gamemode is available! {{note}}",
         ["#VersionCompare"]                                 = "Версия режима {{cur}} Последняя версия {{new}}",
         ["#UpToDate"]                                       = "У вас актуальная версия!",
 
