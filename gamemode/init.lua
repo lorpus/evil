@@ -56,3 +56,9 @@ function GM:PlayerDisconnected(ply)
     Network:NotifyAll("#Player_Left_NoReason", true, { name = ply:Nick() })
     Game:ResetPlayer(ply)
 end
+
+hook.Add("EntityEmitSound", "EvilNoBubbles", function(data)
+    if data.OriginalSoundName == "Player.DrownStart" then
+        return false
+    end
+end)
