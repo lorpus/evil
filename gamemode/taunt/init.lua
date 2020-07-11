@@ -12,6 +12,9 @@ function Game:TauntNetHandler(len, ply)
 
     if ply.flLastTaunt then
         local rel = profile.taunt_cooldown or Evil.Cfg.TauntCooldown
+        if ply:IsProxy() and profile.proxy.taunt_cooldown then
+            rel = profile.proxy.taunt_cooldown
+        end
         if CurTime() - ply.flLastTaunt < rel then
             return
         end
