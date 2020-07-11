@@ -395,6 +395,7 @@ end
 
 function GM:PlayerCanSeePlayersChat(text, isTeam, receiver, sender)
     if not Round:IsPlaying() then return true end
+    if not IsValid(sender) then return true end -- server console
     if receiver:Alive() and (not sender:Alive() or sender:IsGhost()) then // living cant hear dead
         return false
     end
