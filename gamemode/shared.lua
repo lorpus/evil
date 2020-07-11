@@ -112,8 +112,11 @@ include_fl "commands"
 
 include_sh "sh_resources.lua"
 
-hook.Run("EvilPreLoad")
-if isfunction(Map.init) then Map.init() end
+Evil.Loaded = Evil.Loaded != nil and Evil.Loaded or false
+if not Evil.Loaded then
+    hook.Run("EvilPreLoad")
+    if isfunction(Map.init) then Map.init() end
+end
 
 function GM:Initialize()
     if SERVER then

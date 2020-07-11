@@ -257,4 +257,7 @@ function API:SharedLoad() -- for shit like abilities where size isnt a concern
 
         dbg.print("Successfully registered trait " .. name)
     end
+
+    Evil.Loaded = true
+    hook.Run("EvilLoaded")
 end
