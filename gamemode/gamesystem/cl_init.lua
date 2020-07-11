@@ -123,7 +123,9 @@ function Game:DrawESP(enttab)
         render_SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_ALWAYS)
         render_SetBlend(0)
         for _, v in ipairs(enttab) do
-            v:DrawModel()
+            if IsValid(v) then
+                v:DrawModel()
+            end
         end    
         render_SetBlend(1)
         render_SetStencilCompareFunction(STENCILCOMPARISONFUNCTION_EQUAL)
