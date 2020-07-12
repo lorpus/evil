@@ -142,6 +142,7 @@ Lang.Translations = Lang.Translations or {
         ["#Waredhouz"]                                      = "Waredhouz",
         ["#CalebsBasement"]                                 = "Caleb's Basement",
         ["#TheVoid"]                                        = "Void",
+        ["#EndlessWater"]                                   = "Endless Water",
 
         // round
         ["#Round_EndBossWin"]                               = "The boss has won!",

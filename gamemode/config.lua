@@ -77,6 +77,12 @@ local configuration = {
                 lang = "#TheVoid",
                 fallback = "Void",
             },
+
+            ["evil_endlesswater_v1"] = {
+                img = "evil/mapvote/evil_endlesswater.png",
+                lang = "#EndlessWater",
+                fallback = "Endless Water",
+            },
         }
     },
 
